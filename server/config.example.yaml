@@ -1,0 +1,11 @@
+---
+server:
+  host: 127.0.0.1
+  port: 8080
+
+tvheadend:
+  scheme: http
+  host: <tvheadend_host>
+  port: 9981
+  username: <tvheadend_username>
+  password: <tvheadend_password>
