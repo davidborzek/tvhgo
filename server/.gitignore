@@ -1,0 +1,5 @@
+.vscode/
+out/
+
+config.yaml
+*.db
