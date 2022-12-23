@@ -56,6 +56,15 @@ func NewWithClient(opts ClientOpts, httpc *http.Client) Client {
 	}
 }
 
+// NewStreamingClient creates a new tvheadend client for streaming
+// without http client timeout.
+func NewStreamingClient(opts ClientOpts) Client {
+	httpc := &http.Client{
+		Timeout: 0,
+	}
+	return NewWithClient(opts, httpc)
+}
+
 // New creates a new tvheadend client with a default http client.
 func New(opts ClientOpts) Client {
 	httpc := &http.Client{
@@ -123,6 +132,11 @@ func (p *Query) SortKey(key string) {
 // SortDir sets the sort direction parameter.
 func (p *Query) SortDir(dir string) {
 	p.m["dir"] = dir
+}
+
+// Set sets a parameter with a specific key.
+func (p *Query) SetInt(key string, value int64) {
+	p.m[key] = strconv.FormatInt(value, 10)
 }
 
 // Set sets a parameter with a specific key.

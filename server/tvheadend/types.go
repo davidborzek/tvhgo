@@ -35,15 +35,15 @@ type (
 	DvrGridEntry struct {
 		UUID        string `json:"uuid"`
 		Enabled     bool   `json:"enabled"`
-		Create      int    `json:"create"`
+		Create      int64  `json:"create"`
 		Watched     int    `json:"watched"`
-		Start       int    `json:"start"`
+		Start       int64  `json:"start"`
 		StartExtra  int    `json:"start_extra"`
-		StartReal   int    `json:"start_real"`
-		Stop        int    `json:"stop"`
+		StartReal   int64  `json:"start_real"`
+		Stop        int64  `json:"stop"`
 		StopExtra   int    `json:"stop_extra"`
-		StopReal    int    `json:"stop_real"`
-		Duration    int    `json:"duration"`
+		StopReal    int64  `json:"stop_real"`
+		Duration    int64  `json:"duration"`
 		Channel     string `json:"channel"`
 		ChannelIcon string `json:"channel_icon"`
 		Channelname string `json:"channelname"`
@@ -117,8 +117,8 @@ type (
 		DispTitle     string `json:"disp_title"`
 		DispExtratext string `json:"disp_extratext"`
 		Channel       string `json:"channel"`
-		Start         int    `json:"start"`
-		Stop          int    `json:"stop"`
+		Start         int64  `json:"start"`
+		Stop          int64  `json:"stop"`
 		Comment       string `json:"comment"`
 		EpisodeDisp   string `json:"episode_disp"`
 		StartExtra    int    `json:"start_extra"`
@@ -186,13 +186,13 @@ type (
 	DvrConfigGrid GridResponse[DvrConfig]
 
 	EpgEventGridEntry struct {
-		EventID       int    `json:"eventId"`
+		EventID       int64  `json:"eventId"`
 		ChannelName   string `json:"channelName"`
 		ChannelUUID   string `json:"channelUuid"`
 		ChannelNumber string `json:"channelNumber"`
 		ChannelIcon   string `json:"channelIcon"`
-		Start         int    `json:"start"`
-		Stop          int    `json:"stop"`
+		Start         int64  `json:"start"`
+		Stop          int64  `json:"stop"`
 		Title         string `json:"title"`
 		Subtitle      string `json:"subtitle,omitempty"`
 		Description   string `json:"description,omitempty"`
@@ -212,4 +212,24 @@ type (
 	}
 
 	EpgContentTypeResponse ListResponse[EpgContentType]
+
+	InodeParams struct {
+		ID          string      `json:"id"`
+		Type        string      `json:"type"`
+		Caption     string      `json:"caption"`
+		Description string      `json:"description"`
+		Value       interface{} `json:"value"`
+	}
+
+	Idnode struct {
+		UUID    string        `json:"uuid"`
+		ID      string        `json:"id"`
+		Text    string        `json:"text"`
+		Caption string        `json:"caption"`
+		Class   string        `json:"class"`
+		Event   string        `json:"event"`
+		Params  []InodeParams `json:"params"`
+	}
+
+	IdnodeLoadResponse ListResponse[Idnode]
 )
