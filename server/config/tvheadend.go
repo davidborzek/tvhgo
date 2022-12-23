@@ -7,6 +7,11 @@ import (
 	"strconv"
 )
 
+const (
+	defaultTvheadendScheme = "http"
+	defaultTvheadendPort   = 9981
+)
+
 type (
 	TvheadendConfig struct {
 		Scheme   string `yaml:"scheme"`
@@ -27,10 +32,10 @@ func (c *TvheadendConfig) Validate() error {
 
 func (c *TvheadendConfig) SetDefaults() {
 	if c.Scheme == "" {
-		c.Scheme = "http"
+		c.Scheme = defaultTvheadendScheme
 	}
 	if c.Port == 0 {
-		c.Port = 9981
+		c.Port = defaultTvheadendPort
 	}
 }
 

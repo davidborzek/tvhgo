@@ -10,6 +10,7 @@ type (
 	Config struct {
 		Server    ServerConfig    `yaml:"server"`
 		Tvheadend TvheadendConfig `yaml:"tvheadend"`
+		Auth      AuthConfig      `yaml:"auth"`
 	}
 )
 
@@ -45,4 +46,5 @@ func (c *Config) validate() error {
 func (c *Config) loadDefaults() {
 	c.Server.SetDefaults()
 	c.Tvheadend.SetDefaults()
+	c.Auth.Session.SetDefaults()
 }

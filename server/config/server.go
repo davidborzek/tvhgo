@@ -5,6 +5,10 @@ import (
 	"strconv"
 )
 
+const (
+	defaultServerPort = 8080
+)
+
 type (
 	ServerConfig struct {
 		Host string `yaml:"host"`
@@ -14,7 +18,7 @@ type (
 
 func (c *ServerConfig) SetDefaults() {
 	if c.Port == 0 {
-		c.Port = 8080
+		c.Port = defaultServerPort
 	}
 }
 
