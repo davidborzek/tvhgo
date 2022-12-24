@@ -11,6 +11,7 @@ import { logout } from "./clients/api/api";
 import { useAuth } from "./contexts/AuthContext";
 import useLogout from "./hooks/logout";
 import AuthProvider from "./providers/AuthProvider";
+import { ThemeProvider } from "./providers/ThemeProvider";
 import Login from "./views/Login/Login";
 
 type AuthenticationCheckerProps = {
@@ -45,7 +46,7 @@ function Test() {
 }
 
 function Logout() {
-  const {logout, loading} = useLogout();
+  const { logout, loading } = useLogout();
 
   useEffect(() => {
     logout();
@@ -60,20 +61,22 @@ function Logout() {
 
 function App() {
   return (
-    <AuthProvider>
-      <BrowserRouter>
-        <Routes>
-          <Route element={<Unauthenticated />}>
-            <Route path="/login" element={<Login />} />
-          </Route>
+    <ThemeProvider>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            <Route element={<Unauthenticated />}>
+              <Route path="/login" element={<Login />} />
+            </Route>
 
-          <Route element={<Authenticated />}>
-            <Route path="/" element={<Test />} />
-            <Route path="/logout" element={<Logout />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </AuthProvider>
+            <Route element={<Authenticated />}>
+              <Route path="/" element={<Test />} />
+              <Route path="/logout" element={<Logout />} />
+            </Route>
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
+    </ThemeProvider>
   );
 }
 
