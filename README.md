@@ -1,3 +1,7 @@
+<p align="center">
+<img src="docs/images/tvhgo.png" alt="tvhgo" title="tvhgo" />
+</p>
+
 <h2 align="center">tvhgo - a modern web ui for Tvheadend</h2>
 
 tvhgo provides a modern and secure alternative for the Tvheadend web interface and the api.
