@@ -1,5 +1,9 @@
 {
-    "titles": {
-        "main": "Hallo Welt!"
-    }
+  "errors": {
+    "unexpected": "Unerwarteter Fehler. Bitte erneut versuchen.",
+    "invalid_login": "Ungültiger Benutzername oder Passwort"
+  },
+  "titles": {
+    "main": "Hallo Welt!"
+  }
 }
