@@ -6,7 +6,7 @@ import { getUser, login, ApiError } from "../clients/api/api";
 type LoginFunc = (username: string, password: string) => void;
 
 const useLogin = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("errors");
   const { setUser } = useAuth();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -18,7 +18,7 @@ const useLogin = () => {
         setUser(username);
       })
       .catch(() => {
-        setError(t("errors.unexpected"));
+        setError(t("unexpected"));
       })
       .finally(() => setLoading(false));
   };
@@ -28,9 +28,9 @@ const useLogin = () => {
     login(username, password)
       .catch((error) => {
         if (error instanceof ApiError && error.code == 401) {
-          setError(t("errors.invalid_login"));
+          setError(t("invalid_login"));
         } else {
-          setError(t("errors.unexpected"));
+          setError(t("unexpected"));
         }
       })
       .then(fetchUser)

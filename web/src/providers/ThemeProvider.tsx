@@ -13,7 +13,7 @@ const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
 export function ThemeProvider({
   children,
 }: PropsWithChildren<unknown>): ReactElement {
-  const [theme, setTheme] = useState<Theme>(Theme.LIGHT);
+  const [theme, setTheme] = useState<Theme>(Theme.DARK);
 
   useEffect(() => {
     if (saved === null) {

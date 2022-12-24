@@ -4,7 +4,7 @@ import { logout } from "../clients/api/api";
 import { useAuth } from "../contexts/AuthContext";
 
 const useLogout = () => {
-  const { t } = useTranslation();
+  const { t } = useTranslation("errors");
   const authContext = useAuth();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -13,7 +13,7 @@ const useLogout = () => {
     setLoading(true);
     logout()
       .catch(() => {
-        setError(t("errors.unexpected"));
+        setError(t("unexpected"));
       })
       .then(() => authContext.setUser(null))
       .finally(() => setLoading(false));

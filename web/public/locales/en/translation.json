@@ -1,9 +1,0 @@
-{
-  "errors": {
-    "unexpected": "Unexpected error. Please try again later.",
-    "invalid_login": "Invalid username or password."
-  },
-  "titles": {
-    "main": "Hello World!"
-  }
-}

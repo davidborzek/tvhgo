@@ -11,7 +11,7 @@ type ThemeContextProps = {
 };
 
 export const ThemeContext = createContext<ThemeContextProps>({
-  theme: Theme.LIGHT,
+  theme: Theme.DARK,
   setTheme: () => {
     throw new Error("not implemented");
   },
