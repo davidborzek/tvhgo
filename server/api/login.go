@@ -72,6 +72,6 @@ func (s *router) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	setSessionCookie(w, token, s.cfg.Auth.Session.CookieName)
+	setSessionCookie(w, s.cfg.Auth.Session.CookieName, token)
 	response.JSON(w, loginResponse{Token: token}, 200)
 }
