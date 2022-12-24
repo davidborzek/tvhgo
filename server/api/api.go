@@ -54,6 +54,8 @@ func (s *router) Handler() http.Handler {
 	r.Post("/login", s.Login)
 	r.With(s.HandleAuthentication).Post("/logout", s.Logout)
 
+	r.With(s.HandleAuthentication).Get("/user", s.GetUser)
+
 	r.With(s.HandleAuthentication).Get("/epg/events", s.GetEpg)
 	r.Get("/epg/events/{id}", s.GetEpgEvent)
 	r.Get("/epg/content-types", s.GetEpgContentTypes)

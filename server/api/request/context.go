@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/davidborzek/tvhgo/core"
+	log "github.com/sirupsen/logrus"
 )
 
 type key int
@@ -20,5 +21,9 @@ func WithAuthContext(parent context.Context, auth *core.AuthContext) context.Con
 // SessionFrom returns the auth context for the given context.
 func GetAuthContext(ctx context.Context) (*core.AuthContext, bool) {
 	auth, ok := ctx.Value(sessionKey).(*core.AuthContext)
+	if !ok {
+		log.Error("auth context could not be obtained from request context")
+	}
+
 	return auth, ok
 }

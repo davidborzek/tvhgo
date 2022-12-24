@@ -5,7 +5,6 @@ import (
 
 	"github.com/davidborzek/tvhgo/api/request"
 	"github.com/davidborzek/tvhgo/api/response"
-	log "github.com/sirupsen/logrus"
 )
 
 // Internal implementation to delete the session cookie.
@@ -24,7 +23,6 @@ func deleteSessionCookie(w http.ResponseWriter, cookieName string) {
 func (s *router) Logout(w http.ResponseWriter, r *http.Request) {
 	ctx, ok := request.GetAuthContext(r.Context())
 	if !ok {
-		log.Error("auth context could not be obtained from request context")
 		response.InternalErrorCommon(w)
 		return
 	}
