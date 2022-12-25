@@ -1,4 +1,4 @@
-import { createContext } from "react";
+import { createContext, useContext } from "react";
 
 export enum Theme {
   LIGHT = "light",
@@ -16,3 +16,7 @@ export const ThemeContext = createContext<ThemeContextProps>({
     throw new Error("not implemented");
   },
 });
+
+export const useTheme = () => {
+  return useContext(ThemeContext);
+};

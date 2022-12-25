@@ -1,0 +1,19 @@
+.footer {
+  position: absolute;
+  bottom: 1rem;
+  padding: 1rem 0;
+  font-size: 12px;
+}
+
+.sep {
+  margin: 0 0.5rem;
+}
+
+.link {
+  color: var(--color-text-primary);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

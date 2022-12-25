@@ -1,4 +1,6 @@
 {
+  "error": "Fehler",
+  "success": "Erfolgreich",
   "titles": {
     "main": "Hallo Welt!"
   }

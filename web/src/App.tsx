@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import {
   BrowserRouter,
@@ -7,12 +7,15 @@ import {
   Navigate,
   Outlet,
 } from "react-router-dom";
-import { logout } from "./clients/api/api";
+import { ToastContainer } from "react-toastify";
 import { useAuth } from "./contexts/AuthContext";
 import useLogout from "./hooks/logout";
 import AuthProvider from "./providers/AuthProvider";
 import { ThemeProvider } from "./providers/ThemeProvider";
 import Login from "./views/Login/Login";
+import { useTheme } from "./contexts/ThemeContext";
+
+import "react-toastify/dist/ReactToastify.css";
 
 type AuthenticationCheckerProps = {
   redirect?: string;
@@ -59,6 +62,19 @@ function Logout() {
   return <Navigate to="/login" />;
 }
 
+function Notification() {
+  const { theme } = useTheme();
+  return (
+    <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      limit={5}
+      theme={theme}
+      newestOnTop
+    />
+  );
+}
+
 function App() {
   return (
     <ThemeProvider>
@@ -76,6 +92,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </AuthProvider>
+      <Notification />
     </ThemeProvider>
   );
 }

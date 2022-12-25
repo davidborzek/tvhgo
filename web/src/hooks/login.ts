@@ -2,14 +2,23 @@ import { useState } from "react";
 import { useAuth } from "../contexts/AuthContext";
 import { useTranslation } from "react-i18next";
 import { getUser, login, ApiError } from "../clients/api/api";
+import { toast } from "react-toastify";
 
 type LoginFunc = (username: string, password: string) => void;
+
+const NOTIFICATION_ID = "loginError";
 
 const useLogin = () => {
   const { t } = useTranslation("errors");
   const { setUser } = useAuth();
-  const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
+
+  const notify = (message?: string | null) => {
+    toast.error(message, {
+      toastId: NOTIFICATION_ID,
+      updateId: NOTIFICATION_ID,
+    });
+  };
 
   const fetchUser = () => {
     setLoading(true);
@@ -18,26 +27,28 @@ const useLogin = () => {
         setUser(username);
       })
       .catch(() => {
-        setError(t("unexpected"));
+        notify(t("unexpected"));
       })
       .finally(() => setLoading(false));
   };
 
-  const _login: LoginFunc = (username, password) => {
+  const handleLogin: LoginFunc = (username, password) => {
+    toast.dismiss(NOTIFICATION_ID);
     setLoading(true);
+
     login(username, password)
+      .then(fetchUser)
       .catch((error) => {
         if (error instanceof ApiError && error.code == 401) {
-          setError(t("invalid_login"));
+          notify(t("invalid_login"));
         } else {
-          setError(t("unexpected"));
+          notify(t("unexpected"));
         }
       })
-      .then(fetchUser)
       .finally(() => setLoading(false));
   };
 
-  return { login: _login, loading, error };
+  return { login: handleLogin, loading };
 };
 
 export default useLogin;

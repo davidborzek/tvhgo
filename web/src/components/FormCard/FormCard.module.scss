@@ -1,0 +1,28 @@
+.card {
+  border-radius: 2px;
+  background-color: var(--color-card-bg);
+  padding: 3rem;
+  max-width: 22rem;
+  flex: 1;
+  margin: 2rem;
+  gap: 2rem;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.imageHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .image {
+    max-height: 12rem;
+  }
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

@@ -1,21 +1,29 @@
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 import useLogin from "../../hooks/login";
 import * as Yup from "yup";
 
 import styles from "./Login.module.scss";
 import { useTranslation } from "react-i18next";
+import Input from "../../components/Input/Input";
+import Button from "../../components/Button/Button/Button";
+import FormCard from "../../components/FormCard/FormCard";
+import { useRef } from "react";
+import useFormikErrorFocus from "../../hooks/formik";
+import LoginFooter from "../../components/LoginFooter/LoginFooter";
 
-const loginSchema = Yup.object().shape({
-  username: Yup.string().required("Required"),
-  password: Yup.string().required("Required"),
-});
+const GITHUB_URL = "https://github.com/davidborzek/tvhgo";
 
 export default function Login() {
   const { t } = useTranslation("login");
-  const { login, error, loading } = useLogin();
+  const { login, loading } = useLogin();
 
-  console.log(error);
-  
+  const usernameRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
+
+  const loginSchema = Yup.object().shape({
+    username: Yup.string().required(t("username_required") || ""),
+    password: Yup.string().required(t("password_required") || ""),
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -23,38 +31,46 @@ export default function Login() {
       password: "",
     },
     validationSchema: loginSchema,
-    onSubmit: async (values) => {
-      login(values.username, values.password);
-    },
+    onSubmit: ({ username, password }) => login(username, password),
   });
+
+  useFormikErrorFocus(formik, usernameRef, passwordRef);
 
   return (
     <div className={styles.Login}>
-      <p>Login</p>
-      <form title="Login" onSubmit={formik.handleSubmit}>
-        <p>
-          <input
-            type="text"
-            name="username"
-            value={formik.values.username}
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-          />
-        </p>
-        <p>
-          <input
-            type="password"
-            name="password"
-            value={formik.values.password}
-            onBlur={formik.handleBlur}
-            onChange={formik.handleChange}
-            className={styles.input}
-          />
-        </p>
-        <p>
-          <button disabled={formik.isSubmitting}>{t("login")}</button>
-        </p>
-      </form>
+      <FormCard onSubmit={formik.handleSubmit}>
+        <Input
+          type="text"
+          name="username"
+          label={t("username")}
+          value={formik.values.username}
+          onBlur={formik.handleBlur}
+          onChange={formik.handleChange}
+          error={formik.touched.username ? formik.errors.username : undefined}
+          ref={usernameRef}
+        />
+        <Input
+          type="password"
+          name="password"
+          label={t("password")}
+          value={formik.values.password}
+          onBlur={formik.handleBlur}
+          onChange={formik.handleChange}
+          error={formik.touched.password ? formik.errors.password : undefined}
+          ref={passwordRef}
+        />
+        <Button
+          label={t("login")}
+          type="submit"
+          loading={loading}
+          loadingLabel={t("login_pending")}
+        />
+      </FormCard>
+      <LoginFooter
+        commitHash={__COMMIT_HASH__}
+        githubUrl={GITHUB_URL}
+        version={__VERSION__}
+      />
     </div>
   );
 }

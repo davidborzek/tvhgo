@@ -1,5 +1,9 @@
 {
   "login": "Login",
+  "login_pending": "Logging in...",
   "password": "Password",
-  "username": "Username"
+  "username": "Username",
+  "username_required": "Username is required.",
+  "password_required": "Password is required.",
+  "made_with": "Made with ❤️ in Germany"
 }
