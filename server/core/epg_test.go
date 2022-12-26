@@ -71,7 +71,7 @@ func TestMapTvheadendEpgEventToEpgEvent(t *testing.T) {
 
 	assert.Equal(t, tvhEvent.ChannelUUID, event.ChannelID)
 	assert.Equal(t, tvhEvent.ChannelName, event.ChannelName)
-	assert.Equal(t, tvhEvent.ChannelNumber, event.ChannelNumber)
+	assert.Equal(t, int64(1), event.ChannelNumber)
 	assert.Equal(t, tvhEvent.Description, event.Description)
 	assert.Equal(t, tvhEvent.Stop, event.EndsAt)
 	assert.Equal(t, tvhEvent.Start, event.StartsAt)
@@ -90,4 +90,12 @@ func TestMapTvheadendEpgEventToEpgEventFalsyBoolean(t *testing.T) {
 	assert.False(t, event.AudioDesc)
 	assert.False(t, event.Widescreen)
 	assert.False(t, event.HD)
+}
+
+func TestMapTvheadendEpgEventToEpgEventSetChannelNumberToZeroWhenFailure(t *testing.T) {
+	tvhEvent := tvheadend.EpgEventGridEntry{
+		ChannelNumber: "noNumber",
+	}
+	event := core.MapTvheadendEpgEventToEpgEvent(tvhEvent)
+	assert.Equal(t, int64(0), event.ChannelNumber)
 }

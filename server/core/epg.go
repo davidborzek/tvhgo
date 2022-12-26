@@ -19,7 +19,7 @@ type (
 		AudioDesc     bool   `json:"audioDesc"`
 		ChannelID     string `json:"channelId"`
 		ChannelName   string `json:"channelName"`
-		ChannelNumber string `json:"channelNumber"`
+		ChannelNumber int64  `json:"channelNumber"`
 		Description   string `json:"description"`
 		EndsAt        int64  `json:"endsAt"`
 		HD            bool   `json:"hd"`
@@ -49,6 +49,12 @@ type (
 		ContentType string `schema:"contentType"`
 		DurationMin int64  `schema:"durationMin"`
 		DurationMax int64  `schema:"durationMax"`
+	}
+
+	// GetEpgTimelineQueryParams defines query params
+	// to paginate, sort and filter the epg timline.
+	GetEpgTimelineQueryParams struct {
+		PaginationSortQueryParams
 	}
 
 	// EpgService provides access to epg
@@ -112,11 +118,13 @@ func (p *GetEpgQueryParams) MapToTvheadendQuery(sortKeyMapping map[string]string
 // MapTvheadendEpgEventToEpgEvent maps a epg grid event entry
 // from Tvheadend to a EpgEvent model.
 func MapTvheadendEpgEventToEpgEvent(src tvheadend.EpgEventGridEntry) EpgEvent {
+	channelNumber, _ := strconv.ParseInt(src.ChannelNumber, 10, 0)
+
 	return EpgEvent{
 		AudioDesc:     src.AudioDesc == 1,
 		ChannelID:     src.ChannelUUID,
 		ChannelName:   src.ChannelName,
-		ChannelNumber: src.ChannelNumber,
+		ChannelNumber: channelNumber,
 		Description:   src.Description,
 		EndsAt:        src.Stop,
 		HD:            src.HD == 1,
