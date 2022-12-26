@@ -2,8 +2,8 @@ package tvheadend
 
 type (
 	GridResponse[T any] struct {
-		Entries []T `json:"entries"`
-		Total   int `json:"totalCount"`
+		Entries []T   `json:"entries"`
+		Total   int64 `json:"totalCount"`
 	}
 
 	ListResponse[T any] struct {

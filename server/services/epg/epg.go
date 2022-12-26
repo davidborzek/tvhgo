@@ -34,7 +34,7 @@ func New(tvh tvheadend.Client) core.EpgService {
 	}
 }
 
-func (s *service) GetEvents(ctx context.Context, params core.GetEpgQueryParams) ([]*core.EpgEvent, error) {
+func (s *service) GetEvents(ctx context.Context, params core.GetEpgQueryParams) (*core.EpgEventsResult, error) {
 	q := params.MapToTvheadendQuery(sortKeyMapping)
 
 	var grid tvheadend.EpgEventGrid
@@ -47,13 +47,8 @@ func (s *service) GetEvents(ctx context.Context, params core.GetEpgQueryParams) 
 		return nil, ErrRequestFailed
 	}
 
-	events := make([]*core.EpgEvent, 0)
-	for _, entry := range grid.Entries {
-		e := core.MapTvheadendEpgEventToEpgEvent(entry)
-		events = append(events, &e)
-	}
-
-	return events, nil
+	result := core.BuildEpgEventsResult(grid, params.Offset)
+	return &result, nil
 }
 
 func (s *service) GetEvent(ctx context.Context, id int64) (*core.EpgEvent, error) {

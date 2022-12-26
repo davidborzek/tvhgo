@@ -8,6 +8,25 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+var (
+	tvhEvent = tvheadend.EpgEventGridEntry{
+		AudioDesc:     1,
+		ChannelUUID:   "someChannelID",
+		ChannelName:   "someChannel",
+		ChannelNumber: "1",
+		Description:   "someDescription",
+		Stop:          1234,
+		HD:            1,
+		EventID:       1,
+		NextEventID:   2,
+		Start:         123,
+		Subtitle:      "someSubtitle",
+		Subtitled:     1,
+		Title:         "someTitle",
+		Widescreen:    1,
+	}
+)
+
 func TestGetEpgQueryParamsMapToTvheadendQuery(t *testing.T) {
 	q := core.GetEpgQueryParams{
 		Title:       "someTitle",
@@ -45,23 +64,6 @@ func TestGetEpgQueryParamsMapToTvheadendQueryFalsyBoolean(t *testing.T) {
 }
 
 func TestMapTvheadendEpgEventToEpgEvent(t *testing.T) {
-	tvhEvent := tvheadend.EpgEventGridEntry{
-		AudioDesc:     1,
-		ChannelUUID:   "someChannelID",
-		ChannelName:   "someChannel",
-		ChannelNumber: "1",
-		Description:   "someDescription",
-		Stop:          1234,
-		HD:            1,
-		EventID:       1,
-		NextEventID:   2,
-		Start:         123,
-		Subtitle:      "someSubtitle",
-		Subtitled:     1,
-		Title:         "someTitle",
-		Widescreen:    1,
-	}
-
 	event := core.MapTvheadendEpgEventToEpgEvent(tvhEvent)
 
 	assert.True(t, event.Subtitled)
@@ -98,4 +100,24 @@ func TestMapTvheadendEpgEventToEpgEventSetChannelNumberToZeroWhenFailure(t *test
 	}
 	event := core.MapTvheadendEpgEventToEpgEvent(tvhEvent)
 	assert.Equal(t, int64(0), event.ChannelNumber)
+}
+
+func TestBuildEpgEventsResult(t *testing.T) {
+	total := int64(20)
+	offset := int64(10)
+
+	tvhGrid := tvheadend.EpgEventGrid{
+		Entries: []tvheadend.EpgEventGridEntry{
+			tvhEvent,
+		},
+		Total: total,
+	}
+
+	result := core.BuildEpgEventsResult(
+		tvhGrid, offset,
+	)
+
+	assert.Len(t, result.Entries, 1)
+	assert.Equal(t, offset, result.Offset)
+	assert.Equal(t, total, result.Total)
 }

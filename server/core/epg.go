@@ -20,6 +20,7 @@ type (
 		ChannelID     string `json:"channelId"`
 		ChannelName   string `json:"channelName"`
 		ChannelNumber int64  `json:"channelNumber"`
+		PiconID       int    `json:"piconId"`
 		Description   string `json:"description"`
 		EndsAt        int64  `json:"endsAt"`
 		HD            bool   `json:"hd"`
@@ -31,6 +32,10 @@ type (
 		Widescreen    bool   `json:"widescreen"`
 	}
 
+	// EpgEventsResult defines a ListResult of epg events.
+	EpgEventsResult = ListResult[*EpgEvent]
+
+	// EpgContentType defines a epg content type from tvheadend.
 	EpgContentType struct {
 		ID   int    `json:"id"`
 		Name string `json:"string"`
@@ -61,7 +66,7 @@ type (
 	// resources from the tvheadend server.
 	EpgService interface {
 		// GetEvents returns a list of epg events.
-		GetEvents(ctx context.Context, params GetEpgQueryParams) ([]*EpgEvent, error)
+		GetEvents(ctx context.Context, params GetEpgQueryParams) (*EpgEventsResult, error)
 
 		// GetEvent returns a epg event.
 		GetEvent(ctx context.Context, id int64) (*EpgEvent, error)
@@ -125,6 +130,7 @@ func MapTvheadendEpgEventToEpgEvent(src tvheadend.EpgEventGridEntry) EpgEvent {
 		ChannelID:     src.ChannelUUID,
 		ChannelName:   src.ChannelName,
 		ChannelNumber: channelNumber,
+		PiconID:       MapTvheadendIconUrlToPiconID(src.ChannelIcon),
 		Description:   src.Description,
 		EndsAt:        src.Stop,
 		HD:            src.HD == 1,
@@ -136,4 +142,20 @@ func MapTvheadendEpgEventToEpgEvent(src tvheadend.EpgEventGridEntry) EpgEvent {
 		Title:         src.Title,
 		Widescreen:    src.Widescreen == 1,
 	}
+}
+
+func BuildEpgEventsResult(src tvheadend.EpgEventGrid, offset int64) EpgEventsResult {
+	events := make([]*EpgEvent, 0)
+	for _, entry := range src.Entries {
+		e := MapTvheadendEpgEventToEpgEvent(entry)
+		events = append(events, &e)
+	}
+
+	result := EpgEventsResult{
+		Entries: events,
+		Total:   src.Total,
+		Offset:  offset,
+	}
+
+	return result
 }

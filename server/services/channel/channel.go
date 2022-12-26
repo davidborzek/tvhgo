@@ -3,8 +3,6 @@ package channel
 import (
 	"context"
 	"errors"
-	"strconv"
-	"strings"
 
 	"github.com/davidborzek/tvhgo/core"
 	"github.com/davidborzek/tvhgo/tvheadend"
@@ -51,22 +49,11 @@ func (s *service) GetAll(ctx context.Context, params core.PaginationSortQueryPar
 			Name:    entry.Name,
 			Enabled: entry.Enabled,
 			Number:  entry.Number,
-			PiconID: mapTvheadendIconUrlToPiconID(entry.IconPublicURL),
+			PiconID: core.MapTvheadendIconUrlToPiconID(entry.IconPublicURL),
 		}
 
 		channels = append(channels, c)
 	}
 
 	return channels, nil
-}
-
-func mapTvheadendIconUrlToPiconID(iconUrl string) int {
-	split := strings.Split(iconUrl, "/")
-
-	var piconID int
-	if len(split) == 2 {
-		piconID, _ = strconv.Atoi(split[1])
-	}
-
-	return piconID
 }

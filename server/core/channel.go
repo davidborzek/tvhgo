@@ -2,6 +2,8 @@ package core
 
 import (
 	"context"
+	"strconv"
+	"strings"
 )
 
 type (
@@ -21,3 +23,14 @@ type (
 		GetAll(ctx context.Context, params PaginationSortQueryParams) ([]*Channel, error)
 	}
 )
+
+func MapTvheadendIconUrlToPiconID(iconUrl string) int {
+	split := strings.Split(iconUrl, "/")
+
+	var piconID int
+	if len(split) == 2 {
+		piconID, _ = strconv.Atoi(split[1])
+	}
+
+	return piconID
+}
