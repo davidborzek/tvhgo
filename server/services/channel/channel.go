@@ -57,3 +57,29 @@ func (s *service) GetAll(ctx context.Context, params core.PaginationSortQueryPar
 
 	return channels, nil
 }
+
+func (s *service) Get(ctx context.Context, id string) (*core.Channel, error) {
+	q := tvheadend.NewQuery()
+	q.Set("uuid", id)
+
+	var idnodeLoad tvheadend.IdnodeLoadResponse
+	res, err := s.tvh.Exec(ctx, "/api/idnode/load", &idnodeLoad, q)
+	if err != nil {
+		return nil, err
+	}
+
+	if res.StatusCode >= 400 {
+		return nil, ErrRequestFailed
+	}
+
+	if len(idnodeLoad.Entries) == 0 {
+		return nil, core.ErrChannelNotFound
+	}
+
+	channel, err := core.MapTvheadendIdnodeToChannel(idnodeLoad.Entries[0])
+	if err != nil {
+		return nil, err
+	}
+
+	return channel, nil
+}

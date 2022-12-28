@@ -61,7 +61,9 @@ func (s *router) Handler() http.Handler {
 	r.Get("/epg/content-types", s.GetEpgContentTypes)
 
 	r.Get("/channels", s.GetChannels)
+	r.Get("/channels/{id}", s.GetChannel)
 	r.Get("/channels/{number}/stream", s.StreamChannel)
+
 	r.Get("/picon/{id}", s.GetPicon)
 
 	r.Get("/recordings", s.GetRecordings)
