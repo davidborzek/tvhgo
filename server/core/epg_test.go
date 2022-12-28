@@ -8,6 +8,10 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+const (
+	expectedFilter = "[{\"field\":\"start\",\"type\":\"numeric\",\"value\":20,\"comparison\":\"gt\"},{\"field\":\"stop\",\"type\":\"numeric\",\"value\":40,\"comparison\":\"lt\"}]"
+)
+
 var (
 	tvhEvent = tvheadend.EpgEventGridEntry{
 		AudioDesc:     1,
@@ -37,9 +41,13 @@ func TestGetEpgQueryParamsMapToTvheadendQuery(t *testing.T) {
 		ContentType: "someContentType",
 		DurationMin: 123,
 		DurationMax: 1234,
+		StartsAt:    20,
+		EndsAt:      40,
 	}
 
-	m := q.MapToTvheadendQuery(map[string]string{})
+	m, err := q.MapToTvheadendQuery(map[string]string{})
+
+	assert.Nil(t, err)
 
 	assert.Equal(t, q.Title, m.Get("title"))
 	assert.Equal(t, "1", m.Get("fulltext"))
@@ -49,6 +57,8 @@ func TestGetEpgQueryParamsMapToTvheadendQuery(t *testing.T) {
 	assert.Equal(t, q.ContentType, m.Get("contentType"))
 	assert.Equal(t, "123", m.Get("durationMin"))
 	assert.Equal(t, "1234", m.Get("durationMax"))
+
+	assert.Equal(t, expectedFilter, m.Get("filter"))
 }
 
 func TestGetEpgQueryParamsMapToTvheadendQueryFalsyBoolean(t *testing.T) {
@@ -57,8 +67,9 @@ func TestGetEpgQueryParamsMapToTvheadendQueryFalsyBoolean(t *testing.T) {
 		NowPlaying: false,
 	}
 
-	m := q.MapToTvheadendQuery(map[string]string{})
+	m, err := q.MapToTvheadendQuery(map[string]string{})
 
+	assert.Nil(t, err)
 	assert.Equal(t, "0", m.Get("fulltext"))
 	assert.Equal(t, "all", m.Get("mode"))
 }

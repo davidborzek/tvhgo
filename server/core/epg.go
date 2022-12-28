@@ -54,6 +54,8 @@ type (
 		ContentType string `schema:"contentType"`
 		DurationMin int64  `schema:"durationMin"`
 		DurationMax int64  `schema:"durationMax"`
+		StartsAt    int64  `schema:"startsAt"`
+		EndsAt      int64  `schema:"endsAt"`
 	}
 
 	// GetEpgTimelineQueryParams defines query params
@@ -78,7 +80,7 @@ type (
 
 // MapToTvheadendQuery maps a GetEpgQueryParams model to a tvheadend
 // query model.
-func (p *GetEpgQueryParams) MapToTvheadendQuery(sortKeyMapping map[string]string) tvheadend.Query {
+func (p *GetEpgQueryParams) MapToTvheadendQuery(sortKeyMapping map[string]string) (*tvheadend.Query, error) {
 	q := p.PaginationSortQueryParams.MapToTvheadendQuery(sortKeyMapping)
 
 	if p.Title != "" {
@@ -117,7 +119,32 @@ func (p *GetEpgQueryParams) MapToTvheadendQuery(sortKeyMapping map[string]string
 		q.Set("durationMax", strconv.FormatInt(p.DurationMax, 10))
 	}
 
-	return q
+	var filter []tvheadend.FilterQuery
+	if p.StartsAt > 0 {
+		filter = append(filter, tvheadend.FilterQuery{
+			Field:      "start",
+			Type:       "numeric",
+			Value:      p.StartsAt,
+			Comparison: "gt",
+		})
+	}
+
+	if p.EndsAt > 0 {
+		filter = append(filter, tvheadend.FilterQuery{
+			Field:      "stop",
+			Type:       "numeric",
+			Value:      p.EndsAt,
+			Comparison: "lt",
+		})
+	}
+
+	if len(filter) > 0 {
+		if err := q.Filter(filter); err != nil {
+			return nil, err
+		}
+	}
+
+	return &q, nil
 }
 
 // MapTvheadendEpgEventToEpgEvent maps a epg grid event entry

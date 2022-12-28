@@ -35,10 +35,14 @@ func New(tvh tvheadend.Client) core.EpgService {
 }
 
 func (s *service) GetEvents(ctx context.Context, params core.GetEpgQueryParams) (*core.EpgEventsResult, error) {
-	q := params.MapToTvheadendQuery(sortKeyMapping)
+	q, err := params.MapToTvheadendQuery(sortKeyMapping)
+
+	if err != nil {
+		return nil, err
+	}
 
 	var grid tvheadend.EpgEventGrid
-	res, err := s.tvh.Exec(ctx, "/api/epg/events/grid", &grid, q)
+	res, err := s.tvh.Exec(ctx, "/api/epg/events/grid", &grid, *q)
 	if err != nil {
 		return nil, err
 	}

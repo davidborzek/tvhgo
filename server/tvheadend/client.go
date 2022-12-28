@@ -170,3 +170,7 @@ func (p *Query) Node(v interface{}) error {
 func (p *Query) Get(key string) string {
 	return p.m[key]
 }
+
+func (p *Query) Filter(v []FilterQuery) error {
+	return p.SetJSON("filter", v)
+}

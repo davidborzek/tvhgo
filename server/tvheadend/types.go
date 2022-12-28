@@ -232,4 +232,12 @@ type (
 	}
 
 	IdnodeLoadResponse ListResponse[Idnode]
+
+	FilterQuery struct {
+		Field      string      `json:"field"`
+		Type       string      `json:"type"`
+		Value      interface{} `json:"value"`
+		Comparison string      `json:"comparison,omitempty"`
+		Intsplit   string      `json:"intsplit,omitempty"`
+	}
 )
