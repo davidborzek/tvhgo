@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import svgr from "vite-plugin-svgr";
 import { execSync } from "child_process";
 import { env } from "process";
 
@@ -17,5 +18,8 @@ export default defineConfig({
       "/api": "http://localhost:8080",
     },
   },
-  plugins: [react()],
+  plugins: [
+    react(),
+    svgr(),
+  ],
 });

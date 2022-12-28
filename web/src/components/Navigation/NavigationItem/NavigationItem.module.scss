@@ -1,0 +1,22 @@
+.root {
+  padding: 1rem;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+
+  svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    stroke: var(--color-text-primary);
+    fill: var(--color-text-primary);
+    margin-right: 1rem;
+  }
+
+  &.active {
+    border-right: 2px solid var(--color-text-primary);
+    font-weight: 600;
+    background-color: var(--color-border-subtle);
+  }
+}

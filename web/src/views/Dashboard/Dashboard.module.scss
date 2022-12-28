@@ -1,0 +1,41 @@
+.root {
+  display: grid;
+  grid-template-rows: 3rem 1fr;
+  grid-template-areas:
+    "mobilenav"
+    "main";
+  height: 100vh;
+}
+
+.mobileNavBar {
+  grid-area: mobilenav;
+}
+
+.desktopNavBar {
+  display: none;
+}
+
+.main {
+  position: relative;
+  grid-area: main;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 700px) {
+  .root.desktop {
+    grid-template-columns: 10rem 1fr;
+    grid-template-rows: 1fr;
+    grid-template-areas: "sidebar main";
+  }
+
+  .desktopNavBar {
+    display: block;
+    grid-area: sidebar;
+  }
+
+  .mobileNavBar {
+    display: none;
+  }
+}

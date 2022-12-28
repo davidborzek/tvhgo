@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
 import {
   BrowserRouter,
   Routes,
@@ -16,6 +15,8 @@ import Login from "./views/Login/Login";
 import { useTheme } from "./contexts/ThemeContext";
 
 import "react-toastify/dist/ReactToastify.css";
+import ChannelList from "./views/ChannelList/ChannelList";
+import Dashboard from "./views/Dashboard/Dashboard";
 
 type AuthenticationCheckerProps = {
   redirect?: string;
@@ -36,15 +37,6 @@ function Authenticated(props: AuthenticationCheckerProps) {
     <Outlet />
   ) : (
     <Navigate to={props.redirect || "/login"} />
-  );
-}
-
-function Test() {
-  const { t } = useTranslation();
-  return (
-    <div className="App">
-      <p>{t("titles.main")}</p>
-    </div>
   );
 }
 
@@ -86,7 +78,12 @@ function App() {
             </Route>
 
             <Route element={<Authenticated />}>
-              <Route path="/" element={<Test />} />
+              <Route element={<Dashboard />}>
+                <Route path="/" element={<ChannelList />} />
+                <Route path="/recordings" element={<></>} />
+                <Route path="/settings" element={<></>} />
+              </Route>
+
               <Route path="/logout" element={<Logout />} />
             </Route>
           </Routes>

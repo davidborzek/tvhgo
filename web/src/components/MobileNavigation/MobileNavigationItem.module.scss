@@ -1,0 +1,27 @@
+.root {
+  padding: 1rem;
+  border-bottom: 1px solid var(--color-border-subtle);
+  color: var(--color-text-primary);
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+
+  svg {
+    width: 1.2rem;
+    height: 1.2rem;
+    stroke: var(--color-text-primary);
+    fill: var(--color-text-primary);
+    margin-right: 0.5rem;
+  }
+
+  svg.arrow {
+    margin-left: auto;
+    width: 0.8rem;
+    height: 0.8rem;
+  }
+
+  &.active {
+    font-weight: 600;
+    background-color: var(--color-border-subtle);
+  }
+}

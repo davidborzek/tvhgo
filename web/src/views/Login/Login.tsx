@@ -5,7 +5,7 @@ import * as Yup from "yup";
 import styles from "./Login.module.scss";
 import { useTranslation } from "react-i18next";
 import Input from "../../components/Input/Input";
-import Button from "../../components/Button/Button/Button";
+import Button from "../../components/Button/Button";
 import FormCard from "../../components/FormCard/FormCard";
 import { useRef } from "react";
 import useFormikErrorFocus from "../../hooks/formik";

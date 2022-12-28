@@ -1,5 +1,33 @@
 import axios from "axios";
-import { ErrorResponse, UserResponse } from "./api.types";
+import {
+  EpgEvent,
+  ErrorResponse,
+  ListResponse,
+  UserResponse,
+} from "./api.types";
+
+type PaginationQuery = {
+  limit?: number;
+  offset?: number;
+};
+
+type SortQuery = {
+  sort_key?: string;
+  sort_direction?: string;
+};
+
+type PaginationSortQuery = PaginationQuery & SortQuery;
+
+export type GetEpgEventsQuery = PaginationSortQuery & {
+  title?: string;
+  lang?: string;
+  channel?: string;
+  contentType?: string;
+  fullText?: boolean;
+  nowPlaying?: boolean;
+  durationMin?: number;
+  durationMax?: number;
+};
 
 export class ApiError extends Error {
   constructor(public readonly code: number, message: string) {
@@ -35,6 +63,13 @@ export async function logout(): Promise<void> {
 
 export async function getUser(): Promise<UserResponse> {
   const response = await client.get<UserResponse>("/user");
+  return response.data;
+}
+
+export async function getEpgEvents(q?: GetEpgEventsQuery): Promise<ListResponse<EpgEvent>> {
+  const response = await client.get<ListResponse<EpgEvent>>("/epg/events", {
+    params: q,
+  });
   return response.data;
 }
 
