@@ -1,6 +1,6 @@
-import moment from "moment";
-import { c } from "../../../utils/classNames";
-import styles from "./GuideEvent.module.scss";
+import moment from 'moment';
+import { c } from '../../../utils/classNames';
+import styles from './GuideEvent.module.scss';
 
 type Props = {
   title: string;
@@ -13,9 +13,9 @@ type Props = {
 
 function parseTime(ts: number): string {
   return new Date(ts * 1000).toLocaleTimeString(undefined, {
-    hour: "2-digit",
-    minute: "2-digit",
-    hourCycle: "h23",
+    hour: '2-digit',
+    minute: '2-digit',
+    hourCycle: 'h23',
   });
 }
 

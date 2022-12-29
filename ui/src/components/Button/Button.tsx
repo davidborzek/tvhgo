@@ -1,11 +1,11 @@
-import React from "react";
-import { c } from "../../utils/classNames";
+import React from 'react';
+import { c } from '../../utils/classNames';
 
-import styles from "./Button.module.scss";
+import styles from './Button.module.scss';
 
 type Props = {
   label: string;
-  type?: "submit" | "reset" | "button";
+  type?: 'submit' | 'reset' | 'button';
   disabled?: boolean;
   loading?: boolean;
   loadingLabel?: string | null;
@@ -22,12 +22,12 @@ function Button(props: Props) {
       disabled={disabled}
       className={c(
         styles.button,
-        disabled ? styles.disabled : "",
-        props.className ? props.className : ""
+        disabled ? styles.disabled : '',
+        props.className ? props.className : ''
       )}
       onClick={props.onClick}
     >
-      {props.loading ? props.loadingLabel || "..." : props.label}
+      {props.loading ? props.loadingLabel || '...' : props.label}
     </button>
   );
 }

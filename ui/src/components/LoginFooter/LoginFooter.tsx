@@ -1,7 +1,7 @@
-import React from "react";
-import { useTranslation } from "react-i18next";
+import React from 'react';
+import { useTranslation } from 'react-i18next';
 
-import styles from "./LoginFooter.module.scss";
+import styles from './LoginFooter.module.scss';
 
 type Props = {
   commitHash: string;
@@ -10,11 +10,11 @@ type Props = {
 };
 
 function LoginFooter(props: Props) {
-  const { t } = useTranslation("login");
+  const { t } = useTranslation('login');
 
   return (
     <footer className={styles.footer}>
-      <span>{t("made_with")}</span>
+      <span>{t('made_with')}</span>
       <span className={styles.sep}> | </span>
       <span>
         <a

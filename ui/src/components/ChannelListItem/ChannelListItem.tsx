@@ -1,8 +1,8 @@
-import styles from "./ChannelListItem.module.scss";
+import styles from './ChannelListItem.module.scss';
 
-import Image from "../Image/Image";
+import Image from '../Image/Image';
 
-import { EpgEvent } from "../../clients/api/api.types";
+import { EpgEvent } from '../../clients/api/api.types';
 
 type Props = {
   event: EpgEvent;
@@ -10,10 +10,10 @@ type Props = {
 
 function parseTime(ts: number): string {
   return new Date(ts * 1000).toLocaleTimeString(undefined, {
-    hour: "2-digit",
-    minute: "2-digit",
-    hour12: false
-  })
+    hour: '2-digit',
+    minute: '2-digit',
+    hour12: false,
+  });
 }
 
 function ChannelListItem({ event }: Props) {

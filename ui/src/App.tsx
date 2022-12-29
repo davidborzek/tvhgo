@@ -1,23 +1,23 @@
-import { useEffect } from "react";
+import { useEffect } from 'react';
 import {
   BrowserRouter,
   Routes,
   Route,
   Navigate,
   Outlet,
-} from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import { useAuth } from "./contexts/AuthContext";
-import useLogout from "./hooks/logout";
-import AuthProvider from "./providers/AuthProvider";
-import { ThemeProvider } from "./providers/ThemeProvider";
-import Login from "./views/Login/Login";
-import { useTheme } from "./contexts/ThemeContext";
+} from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import { useAuth } from './contexts/AuthContext';
+import useLogout from './hooks/logout';
+import AuthProvider from './providers/AuthProvider';
+import { ThemeProvider } from './providers/ThemeProvider';
+import Login from './views/Login/Login';
+import { useTheme } from './contexts/ThemeContext';
 
-import "react-toastify/dist/ReactToastify.css";
-import ChannelList from "./views/ChannelList/ChannelList";
-import Dashboard from "./views/Dashboard/Dashboard";
-import Guide from "./views/Guide/Guide";
+import 'react-toastify/dist/ReactToastify.css';
+import ChannelList from './views/ChannelList/ChannelList';
+import Dashboard from './views/Dashboard/Dashboard';
+import Guide from './views/Guide/Guide';
 
 type AuthenticationCheckerProps = {
   redirect?: string;
@@ -27,7 +27,7 @@ function Unauthenticated(props: AuthenticationCheckerProps) {
   const authContext = useAuth();
   const isAuthenticated = !!authContext.username;
 
-  return isAuthenticated ? <Navigate to={props.redirect || "/"} /> : <Outlet />;
+  return isAuthenticated ? <Navigate to={props.redirect || '/'} /> : <Outlet />;
 }
 
 function Authenticated(props: AuthenticationCheckerProps) {
@@ -37,7 +37,7 @@ function Authenticated(props: AuthenticationCheckerProps) {
   return isAuthenticated ? (
     <Outlet />
   ) : (
-    <Navigate to={props.redirect || "/login"} />
+    <Navigate to={props.redirect || '/login'} />
   );
 }
 

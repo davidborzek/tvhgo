@@ -1,8 +1,8 @@
-import React from "react";
-import NavigationItem from "../NavigationItem/NavigationItem";
-import { INavigationItem } from "../types";
+import React from 'react';
+import NavigationItem from '../NavigationItem/NavigationItem';
+import { INavigationItem } from '../types';
 
-import styles from "./NavigationBar.module.scss";
+import styles from './NavigationBar.module.scss';
 
 type Props = {
   items: INavigationItem[];

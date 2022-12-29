@@ -2,8 +2,8 @@
   display: grid;
   grid-template-rows: 3rem 1fr;
   grid-template-areas:
-    "mobilenav"
-    "main";
+    'mobilenav'
+    'main';
   height: 100vh;
 }
 
@@ -27,7 +27,7 @@
   .root.desktop {
     grid-template-columns: 10rem 1fr;
     grid-template-rows: 1fr;
-    grid-template-areas: "sidebar main";
+    grid-template-areas: 'sidebar main';
   }
 
   .desktopNavBar {

@@ -1,46 +1,45 @@
-
 .event {
-    display: flex;
-    flex-direction: column;
-    padding: 1rem;
-    background-color: var(--color-card-bg);
-    cursor: pointer;
-    position: relative;
-  
-    &:hover {
-      background-color: var(--color-text-subtle);
-    }
+  display: flex;
+  flex-direction: column;
+  padding: 1rem;
+  background-color: var(--color-card-bg);
+  cursor: pointer;
+  position: relative;
+
+  &:hover {
+    background-color: var(--color-text-subtle);
   }
-  
-  .progress {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    height: 0.1rem;
-    background-color: aqua;
-  }
-  
-  .attribute {
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-  }
-  
-  .name {
-    font-size: 1rem;
-    font-weight: 600;
-    margin-bottom: 1rem;
-  }
-  
-  .subtitle {
-    height: 1.5rem;
-    font-size: 0.8rem;
-    font-weight: 400;
-    opacity: 0.8;
-  }
-  
-  .time {
-    font-size: 0.8rem;
-    font-weight: 400;
-    opacity: 0.8;
-  }
+}
+
+.progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 0.1rem;
+  background-color: aqua;
+}
+
+.attribute {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.name {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.subtitle {
+  height: 1.5rem;
+  font-size: 0.8rem;
+  font-weight: 400;
+  opacity: 0.8;
+}
+
+.time {
+  font-size: 0.8rem;
+  font-weight: 400;
+  opacity: 0.8;
+}

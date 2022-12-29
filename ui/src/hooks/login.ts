@@ -1,15 +1,15 @@
-import { useState } from "react";
-import { useAuth } from "../contexts/AuthContext";
-import { useTranslation } from "react-i18next";
-import { getUser, login, ApiError } from "../clients/api/api";
-import { toast } from "react-toastify";
+import { useState } from 'react';
+import { useAuth } from '../contexts/AuthContext';
+import { useTranslation } from 'react-i18next';
+import { getUser, login, ApiError } from '../clients/api/api';
+import { toast } from 'react-toastify';
 
 type LoginFunc = (username: string, password: string) => void;
 
-const NOTIFICATION_ID = "loginError";
+const NOTIFICATION_ID = 'loginError';
 
 const useLogin = () => {
-  const { t } = useTranslation("errors");
+  const { t } = useTranslation('errors');
   const { setUser } = useAuth();
   const [loading, setLoading] = useState(false);
 
@@ -27,7 +27,7 @@ const useLogin = () => {
         setUser(username);
       })
       .catch(() => {
-        notify(t("unexpected"));
+        notify(t('unexpected'));
       })
       .finally(() => setLoading(false));
   };
@@ -40,9 +40,9 @@ const useLogin = () => {
       .then(fetchUser)
       .catch((error) => {
         if (error instanceof ApiError && error.code == 401) {
-          notify(t("invalid_login"));
+          notify(t('invalid_login'));
         } else {
-          notify(t("unexpected"));
+          notify(t('unexpected'));
         }
       })
       .finally(() => setLoading(false));

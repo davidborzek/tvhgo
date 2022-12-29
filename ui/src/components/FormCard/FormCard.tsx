@@ -1,6 +1,6 @@
-import React, { PropsWithChildren } from "react";
+import React, { PropsWithChildren } from 'react';
 
-import styles from "./FormCard.module.scss";
+import styles from './FormCard.module.scss';
 
 type Props = {
   title?: string;

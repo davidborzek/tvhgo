@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios from 'axios';
 import {
   Channel,
   EpgChannel,
@@ -6,7 +6,7 @@ import {
   ErrorResponse,
   ListResponse,
   UserResponse,
-} from "./api.types";
+} from './api.types';
 
 type PaginationQuery = {
   limit?: number;
@@ -45,7 +45,7 @@ export class ApiError extends Error {
 }
 
 const client = axios.create({
-  baseURL: "/api",
+  baseURL: '/api',
 });
 
 client.interceptors.response.use(
@@ -60,32 +60,39 @@ client.interceptors.response.use(
 );
 
 export async function login(username: string, password: string) {
-  await client.post("/login", {
+  await client.post('/login', {
     username,
     password,
   });
 }
 
 export async function logout(): Promise<void> {
-  await client.post("/logout");
+  await client.post('/logout');
 }
 
 export async function getUser(): Promise<UserResponse> {
-  const response = await client.get<UserResponse>("/user");
+  const response = await client.get<UserResponse>('/user');
   return response.data;
 }
 
-export async function getEpgEvents(q?: GetEpgEventsQuery): Promise<ListResponse<EpgEvent>> {
-  const response = await client.get<ListResponse<EpgEvent>>("/epg/events", {
+export async function getEpgEvents(
+  q?: GetEpgEventsQuery
+): Promise<ListResponse<EpgEvent>> {
+  const response = await client.get<ListResponse<EpgEvent>>('/epg/events', {
     params: q,
   });
   return response.data;
 }
 
-export async function getEpgChannelEvents(q?: GetEpgChannelEventsQuery): Promise<ListResponse<EpgChannel>> {
-  const response = await client.get<ListResponse<EpgChannel>>("/epg/channel/events", {
-    params: q,
-  });
+export async function getEpgChannelEvents(
+  q?: GetEpgChannelEventsQuery
+): Promise<ListResponse<EpgChannel>> {
+  const response = await client.get<ListResponse<EpgChannel>>(
+    '/epg/channel/events',
+    {
+      params: q,
+    }
+  );
   return response.data;
 }
 

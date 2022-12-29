@@ -1,5 +1,5 @@
-import Image from "../../Image/Image";
-import styles from "./GuideChannel.module.scss";
+import Image from '../../Image/Image';
+import styles from './GuideChannel.module.scss';
 
 type Props = {
   name: string;

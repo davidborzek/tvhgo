@@ -3,10 +3,10 @@ import React, {
   ReactElement,
   useEffect,
   useState,
-} from "react";
-import { Theme, ThemeContext } from "../contexts/ThemeContext";
+} from 'react';
+import { Theme, ThemeContext } from '../contexts/ThemeContext';
 
-const LOCAL_STORAGE_KEY = "tvhgo_theme";
+const LOCAL_STORAGE_KEY = 'tvhgo_theme';
 
 const saved = localStorage.getItem(LOCAL_STORAGE_KEY);
 
@@ -29,7 +29,7 @@ export function ThemeProvider({
   }, []);
 
   useEffect(() => {
-    document.body.setAttribute("data-theme", theme);
+    document.body.setAttribute('data-theme', theme);
   }, [theme]);
 
   function setThemePersistent(theme: Theme) {

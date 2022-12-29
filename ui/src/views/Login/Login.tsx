@@ -1,34 +1,34 @@
-import { useFormik } from "formik";
-import useLogin from "../../hooks/login";
-import * as Yup from "yup";
+import { useFormik } from 'formik';
+import useLogin from '../../hooks/login';
+import * as Yup from 'yup';
 
-import styles from "./Login.module.scss";
-import { useTranslation } from "react-i18next";
-import Input from "../../components/Input/Input";
-import Button from "../../components/Button/Button";
-import FormCard from "../../components/FormCard/FormCard";
-import { useRef } from "react";
-import useFormikErrorFocus from "../../hooks/formik";
-import LoginFooter from "../../components/LoginFooter/LoginFooter";
+import styles from './Login.module.scss';
+import { useTranslation } from 'react-i18next';
+import Input from '../../components/Input/Input';
+import Button from '../../components/Button/Button';
+import FormCard from '../../components/FormCard/FormCard';
+import { useRef } from 'react';
+import useFormikErrorFocus from '../../hooks/formik';
+import LoginFooter from '../../components/LoginFooter/LoginFooter';
 
-const GITHUB_URL = "https://github.com/davidborzek/tvhgo";
+const GITHUB_URL = 'https://github.com/davidborzek/tvhgo';
 
 export default function Login() {
-  const { t } = useTranslation("login");
+  const { t } = useTranslation('login');
   const { login, loading } = useLogin();
 
   const usernameRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
 
   const loginSchema = Yup.object().shape({
-    username: Yup.string().required(t("username_required") || ""),
-    password: Yup.string().required(t("password_required") || ""),
+    username: Yup.string().required(t('username_required') || ''),
+    password: Yup.string().required(t('password_required') || ''),
   });
 
   const formik = useFormik({
     initialValues: {
-      username: "",
-      password: "",
+      username: '',
+      password: '',
     },
     validationSchema: loginSchema,
     onSubmit: ({ username, password }) => login(username, password),
@@ -42,7 +42,7 @@ export default function Login() {
         <Input
           type="text"
           name="username"
-          label={t("username")}
+          label={t('username')}
           value={formik.values.username}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
@@ -52,7 +52,7 @@ export default function Login() {
         <Input
           type="password"
           name="password"
-          label={t("password")}
+          label={t('password')}
           value={formik.values.password}
           onBlur={formik.handleBlur}
           onChange={formik.handleChange}
@@ -60,10 +60,10 @@ export default function Login() {
           ref={passwordRef}
         />
         <Button
-          label={t("login")}
+          label={t('login')}
           type="submit"
           loading={loading}
-          loadingLabel={t("login_pending")}
+          loadingLabel={t('login_pending')}
         />
       </FormCard>
       <LoginFooter

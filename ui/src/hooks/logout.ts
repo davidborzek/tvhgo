@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { useTranslation } from "react-i18next";
-import { logout } from "../clients/api/api";
-import { useAuth } from "../contexts/AuthContext";
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { logout } from '../clients/api/api';
+import { useAuth } from '../contexts/AuthContext';
 
 const useLogout = () => {
-  const { t } = useTranslation("errors");
+  const { t } = useTranslation('errors');
   const authContext = useAuth();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -13,7 +13,7 @@ const useLogout = () => {
     setLoading(true);
     logout()
       .catch(() => {
-        setError(t("unexpected"));
+        setError(t('unexpected'));
       })
       .then(() => authContext.setUser(null))
       .finally(() => setLoading(false));

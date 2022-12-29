@@ -1,8 +1,8 @@
-import moment from "moment";
-import { useTranslation } from "react-i18next";
-import Dropdown, { Option } from "../../Dropdown/Dropdown";
-import Input from "../../Input/Input";
-import styles from "./GuideControls.module.scss";
+import moment from 'moment';
+import { useTranslation } from 'react-i18next';
+import Dropdown, { Option } from '../../Dropdown/Dropdown';
+import Input from '../../Input/Input';
+import styles from './GuideControls.module.scss';
 
 type Props = {
   onSearch: (q: string) => void;
@@ -11,25 +11,25 @@ type Props = {
 };
 
 function GuideControls({ search, onSearch, onDayChange }: Props) {
-  const { t } = useTranslation(["common"]);
+  const { t } = useTranslation(['common']);
 
   const getDays = () => {
     const days: Option[] = [
       {
-        title: t("today"),
-        value: "today",
+        title: t('today'),
+        value: 'today',
       },
     ];
 
     for (let i = 1; i < 7; i++) {
-      const date = moment().add(i, "day").startOf("day");
+      const date = moment().add(i, 'day').startOf('day');
 
       // TODO: date localization
       const title = `${t(`weekday_${date.day()}`)} (${date
         .toDate()
         .toLocaleDateString(undefined, {
-          day: "2-digit",
-          month: "short",
+          day: '2-digit',
+          month: 'short',
         })})`;
 
       days.push({
@@ -45,7 +45,7 @@ function GuideControls({ search, onSearch, onDayChange }: Props) {
       <Dropdown options={getDays()} onChange={onDayChange} />
       <Input
         value={search}
-        placeholder={t("search") || ""}
+        placeholder={t('search') || ''}
         onChange={(e) => {
           onSearch(e.target.value);
         }}

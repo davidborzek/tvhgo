@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext } from 'react';
 
 export type AuthContextProps = {
   username: string | null;
@@ -8,11 +8,10 @@ export type AuthContextProps = {
 export const AuthContext = createContext<AuthContextProps>({
   username: null,
   setUser: () => {
-    throw new Error("not implemented");
+    throw new Error('not implemented');
   },
 });
 
 export const useAuth = () => {
   return useContext(AuthContext);
 };
-

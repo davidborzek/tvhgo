@@ -1,3 +1,3 @@
 export function c(...classes: string[]) {
-    return classes.join(" ");
+  return classes.join(' ');
 }

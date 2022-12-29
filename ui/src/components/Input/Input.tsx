@@ -1,8 +1,8 @@
-import React from "react";
-import { forwardRef } from "react";
-import { c } from "../../utils/classNames";
+import React from 'react';
+import { forwardRef } from 'react';
+import { c } from '../../utils/classNames';
 
-import styles from "./Input.module.scss";
+import styles from './Input.module.scss';
 
 type Props = {
   name?: string;
@@ -22,7 +22,7 @@ function Input(props: Props, ref: React.LegacyRef<HTMLInputElement>) {
     <div
       className={c(
         styles.inputContainer,
-        props.className ? props.className : ""
+        props.className ? props.className : ''
       )}
     >
       {props.label ? (
@@ -34,7 +34,7 @@ function Input(props: Props, ref: React.LegacyRef<HTMLInputElement>) {
       )}
       <input
         type={props.type}
-        className={c(styles.input, props.error ? styles.error : "")}
+        className={c(styles.input, props.error ? styles.error : '')}
         name={props.name}
         placeholder={props.placeholder}
         value={props.value}

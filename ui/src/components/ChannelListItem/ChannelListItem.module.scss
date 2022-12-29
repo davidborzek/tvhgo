@@ -1,48 +1,46 @@
-
 .channel {
-    display: flex;
-    align-items: center;
-    background-color: var(--color-card-bg);
-    border-radius: 2px;
-    margin: 1rem 0;
-  }
-  
-  .piconContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 2rem;
-    width: 4rem;
-    margin: 1rem;
-    padding: 0.3rem;
-    background-color: var(--color-border-subtle);
-    border-radius: 2px;
-    flex-shrink: 0;
-  }
-  
-  .picon {
-    height: 2rem;
-  }
-  
-  .event {
-    display: flex;
-    flex-direction: column;
-    margin: 0.5rem 0;
-    overflow: hidden;
-  }
-  
-  .channelName {
-    font-weight: 500;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  
-  .eventTitle {
-    font-weight: 300;
-    opacity: 0.8;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-  
+  display: flex;
+  align-items: center;
+  background-color: var(--color-card-bg);
+  border-radius: 2px;
+  margin: 1rem 0;
+}
+
+.piconContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 2rem;
+  width: 4rem;
+  margin: 1rem;
+  padding: 0.3rem;
+  background-color: var(--color-border-subtle);
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+.picon {
+  height: 2rem;
+}
+
+.event {
+  display: flex;
+  flex-direction: column;
+  margin: 0.5rem 0;
+  overflow: hidden;
+}
+
+.channelName {
+  font-weight: 500;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.eventTitle {
+  font-weight: 300;
+  opacity: 0.8;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

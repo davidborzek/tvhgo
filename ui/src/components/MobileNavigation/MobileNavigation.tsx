@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { useLocation, useNavigation } from "react-router-dom";
-import { BurgerMenuIcon } from "../../assets";
-import { INavigationItem } from "../Navigation/types";
+import React, { useState } from 'react';
+import { useLocation, useNavigation } from 'react-router-dom';
+import { BurgerMenuIcon } from '../../assets';
+import { INavigationItem } from '../Navigation/types';
 
-import styles from "./MobileNavigation.module.scss";
-import MobileNavigationItem from "./MobileNavigationItem";
+import styles from './MobileNavigation.module.scss';
+import MobileNavigationItem from './MobileNavigationItem';
 
 type Props = {
   items: INavigationItem[];
@@ -12,12 +12,13 @@ type Props = {
 
 function MobileNavigation({ items }: Props) {
   const [open, setOpen] = useState(false);
-  const location =  useLocation();
+  const location = useLocation();
 
   const getPageTitle = () => {
-    return items.find(item => item.to === location.pathname)?.title || "tvhgo"
-  }
-
+    return (
+      items.find((item) => item.to === location.pathname)?.title || 'tvhgo'
+    );
+  };
 
   return (
     <div className={styles.root}>

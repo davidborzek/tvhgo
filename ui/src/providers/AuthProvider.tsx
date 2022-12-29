@@ -1,10 +1,10 @@
-import { PropsWithChildren, ReactElement, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
-import { getUser, ApiError } from "../clients/api/api";
-import { AuthContext } from "../contexts/AuthContext";
+import { PropsWithChildren, ReactElement, useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { toast } from 'react-toastify';
+import { getUser, ApiError } from '../clients/api/api';
+import { AuthContext } from '../contexts/AuthContext';
 
-const NOTIFICATION_ID = "authError";
+const NOTIFICATION_ID = 'authError';
 
 const notify = (message?: string | null) => {
   toast.error(message, {
@@ -16,7 +16,7 @@ const notify = (message?: string | null) => {
 export default function AuthProvider({
   children,
 }: PropsWithChildren<unknown>): ReactElement {
-  const { t } = useTranslation("errors");
+  const { t } = useTranslation('errors');
 
   const [username, setUsername] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -30,7 +30,7 @@ export default function AuthProvider({
         if (error instanceof ApiError && error.code === 401) {
           setUsername(null);
         } else {
-          notify(t("unexpected"));
+          notify(t('unexpected'));
         }
       })
       .finally(() => setIsLoading(false));

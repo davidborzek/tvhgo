@@ -1,12 +1,12 @@
-import { useFetchChannelEvents } from "../../hooks/epg";
-import styles from "./Guide.module.scss";
-import moment from "moment";
-import { useEffect, useRef, useState } from "react";
-import GuideChannel from "../../components/Guide/GuideChannel/GuideChannel";
-import GuideEventColumn from "../../components/Guide/GuideEventColumn/GuideEventColumn";
-import GuideNavigation from "../../components/Guide/GuideNavigation/GuideNavigation";
-import { EpgChannel } from "../../clients/api/api.types";
-import GuideControls from "../../components/Guide/GuideControls/GuideControls";
+import { useFetchChannelEvents } from '../../hooks/epg';
+import styles from './Guide.module.scss';
+import moment from 'moment';
+import { useEffect, useRef, useState } from 'react';
+import GuideChannel from '../../components/Guide/GuideChannel/GuideChannel';
+import GuideEventColumn from '../../components/Guide/GuideEventColumn/GuideEventColumn';
+import GuideNavigation from '../../components/Guide/GuideNavigation/GuideNavigation';
+import { EpgChannel } from '../../clients/api/api.types';
+import GuideControls from '../../components/Guide/GuideControls/GuideControls';
 
 function previousPage(oldOffset: number, limit: number, total: number): number {
   if (oldOffset >= limit) {
@@ -46,8 +46,8 @@ function Guide() {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { events, setStartsAt, setEndsAt } = useFetchChannelEvents({
-    endsAt: moment().add(24, "hour").unix(),
-    sort_key: "channelNumber",
+    endsAt: moment().add(24, 'hour').unix(),
+    sort_key: 'channelNumber',
     limit: 100,
   });
 
@@ -57,7 +57,7 @@ function Guide() {
     containerRef.current?.scrollTo(0, 0);
   };
 
-  const [search, setSearch] = useState("");
+  const [search, setSearch] = useState('');
 
   const [offset, setOffset] = useState(0);
   const [limit, _setLimit] = useState(5);
@@ -94,23 +94,23 @@ function Guide() {
     };
 
     limitResults();
-    window.addEventListener("resize", limitResults);
+    window.addEventListener('resize', limitResults);
 
     return () => {
-      window.removeEventListener("resize", limitResults);
+      window.removeEventListener('resize', limitResults);
     };
   }, []);
 
   const preparedEpg = prepareEpg(events, search, offset, limit);
 
   const handleDayChange = (dateString: string) => {
-    if (dateString === "today") {
-      setDate(undefined, moment().endOf("day").unix());
+    if (dateString === 'today') {
+      setDate(undefined, moment().endOf('day').unix());
       return;
     }
 
     const date = moment.unix(parseInt(dateString, 10));
-    setDate(date.unix(), date.endOf("day").unix());
+    setDate(date.unix(), date.endOf('day').unix());
   };
 
   const renderChannels = () => {

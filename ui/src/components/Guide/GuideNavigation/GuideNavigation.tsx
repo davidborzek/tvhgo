@@ -1,14 +1,14 @@
-import { LargeArrowLeftIcon, LargeArrowRightIcon } from "../../../assets";
-import { c } from "../../../utils/classNames";
-import styles from "./GuideNavigation.module.scss";
+import { LargeArrowLeftIcon, LargeArrowRightIcon } from '../../../assets';
+import { c } from '../../../utils/classNames';
+import styles from './GuideNavigation.module.scss';
 
 type Props = {
-  type?: "left" | "right";
+  type?: 'left' | 'right';
   onClick: () => void;
 };
 
 function GuideNavigation({ type, onClick }: Props) {
-  if (type === "left") {
+  if (type === 'left') {
     return (
       <LargeArrowLeftIcon
         tabIndex={0}

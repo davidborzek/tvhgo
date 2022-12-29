@@ -1,4 +1,4 @@
-import styles from "./Dropdown.module.scss";
+import styles from './Dropdown.module.scss';
 
 export type Option = {
   title: string;
