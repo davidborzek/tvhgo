@@ -17,6 +17,7 @@ import (
 	"github.com/davidborzek/tvhgo/services/recording"
 	"github.com/davidborzek/tvhgo/services/streaming"
 	"github.com/davidborzek/tvhgo/tvheadend"
+	"github.com/davidborzek/tvhgo/ui"
 	"github.com/go-chi/chi"
 	log "github.com/sirupsen/logrus"
 )
@@ -82,9 +83,15 @@ func main() {
 
 	healthRouter := health.New(tvhClient)
 
+	uiRouter, err := ui.NewRouter()
+	if err != nil {
+		log.WithError(err).Fatal("failed to create embedded ui router")
+	}
+
 	r := chi.NewRouter()
 	r.Mount("/api", apiRouter.Handler())
 	r.Mount("/health", healthRouter.Handler())
+	r.Mount("/", uiRouter)
 
 	addr := cfg.Server.Addr()
 	log.WithField("addr", addr).
