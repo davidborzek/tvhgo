@@ -1,6 +1,7 @@
 import React, { ReactElement } from "react";
 import { NavLink } from "react-router-dom";
 import { ArrowRightIcon } from "../../assets";
+import { c } from "../../utils/classNames";
 
 import styles from "./MobileNavigationItem.module.scss";
 
@@ -17,7 +18,7 @@ function MobileNavigationItem({ title, icon, to, onClick }: Props) {
       onClick={onClick}
       to={to}
       className={({ isActive }) =>
-        `${styles.root} ${isActive ? styles.active : ""}`
+        c(styles.root, isActive ? styles.active : "")
       }
     >
       {icon}

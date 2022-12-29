@@ -1,5 +1,6 @@
 import React from "react";
 import { forwardRef } from "react";
+import { c } from "../../utils/classNames";
 
 import styles from "./Input.module.scss";
 
@@ -18,9 +19,10 @@ type Props = {
 function Input(props: Props, ref: React.LegacyRef<HTMLInputElement>) {
   return (
     <div
-      className={`${styles.inputContainer} ${
+      className={c(
+        styles.inputContainer,
         props.className ? props.className : ""
-      }`}
+      )}
     >
       {props.label ? (
         <label className={styles.inputLabel} htmlFor={props.name}>
@@ -31,7 +33,7 @@ function Input(props: Props, ref: React.LegacyRef<HTMLInputElement>) {
       )}
       <input
         type={props.type}
-        className={`${styles.input} ${props.error ? styles.error : ""}`}
+        className={c(styles.input, props.error ? styles.error : "")}
         name={props.name}
         value={props.value}
         onChange={props.onChange}
@@ -40,9 +42,7 @@ function Input(props: Props, ref: React.LegacyRef<HTMLInputElement>) {
         ref={ref}
       />
       {props.error ? (
-        <div className={styles.errorMessage}>
-          {props.error}
-        </div>
+        <div className={styles.errorMessage}>{props.error}</div>
       ) : (
         <></>
       )}

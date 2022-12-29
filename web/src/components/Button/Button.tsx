@@ -1,4 +1,5 @@
 import React from "react";
+import { c } from "../../utils/classNames";
 
 import styles from "./Button.module.scss";
 
@@ -19,9 +20,11 @@ function Button(props: Props) {
     <button
       type={props.type}
       disabled={disabled}
-      className={`${styles.button} ${disabled ? styles.disabled : ""} ${
+      className={c(
+        styles.button,
+        disabled ? styles.disabled : "",
         props.className ? props.className : ""
-      }`}
+      )}
       onClick={props.onClick}
     >
       {props.loading ? props.loadingLabel || "..." : props.label}

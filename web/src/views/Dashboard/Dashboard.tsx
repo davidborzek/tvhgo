@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import MobileNavigation from "../../components/MobileNavigation/MobileNavigation";
 import NavigationBar from "../../components/Navigation/NavigationBar/NavigationBar";
 import { INavigationItem } from "../../components/Navigation/types";
+import { c } from "../../utils/classNames";
 import styles from "./Dashboard.module.scss";
 
 function Dashboard() {
@@ -16,7 +17,7 @@ function Dashboard() {
   ];
 
   return (
-    <div className={`${styles.root} ${styles.desktop}`}>
+    <div className={c(styles.root, styles.desktop)}>
       <div className={styles.mobileNavBar}>
         <MobileNavigation items={navigationItems} />
       </div>
