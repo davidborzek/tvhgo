@@ -17,7 +17,6 @@ import { useTheme } from "./contexts/ThemeContext";
 import "react-toastify/dist/ReactToastify.css";
 import ChannelList from "./views/ChannelList/ChannelList";
 import Dashboard from "./views/Dashboard/Dashboard";
-import Channel from "./views/Channel/Channel";
 import Guide from "./views/Guide/Guide";
 
 type AuthenticationCheckerProps = {
