@@ -89,6 +89,11 @@ export async function getEpgChannelEvents(q?: GetEpgChannelEventsQuery): Promise
   return response.data;
 }
 
+export async function getChannel(id: string): Promise<Channel> {
+  const response = await client.get<Channel>(`/channels/${id}`);
+  return response.data;
+}
+
 export async function fetch<T>(path: string): Promise<T> {
   const response = await client.get<T>(path);
   return response.data;

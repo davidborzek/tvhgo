@@ -42,3 +42,11 @@ export type EpgChannel = {
   piconId: number;
   events: EpgEvent[];
 };
+
+export type Channel = {
+  id: string;
+  enabled: boolean;
+  name: string;
+  number: number;
+  piconId: number;
+};
