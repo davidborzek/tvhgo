@@ -11,6 +11,7 @@ function Dashboard() {
 
   const navigationItems: INavigationItem[] = [
     { icon: <></>, title: t("channels"), to: "/" },
+    { icon: <></>, title: t("guide"), to: "/guide" },
     { icon: <></>, title: t("recordings"), to: "/recordings" },
     { icon: <></>, title: t("settings"), to: "/settings" },
     { icon: <></>, title: t("logout"), to: "/logout" },

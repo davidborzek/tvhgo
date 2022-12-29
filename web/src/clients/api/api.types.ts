@@ -34,3 +34,11 @@ export type EpgEvent = {
   title: string;
   widescreen: boolean;
 };
+
+export type EpgChannel = {
+  channelId: string;
+  channelName: string;
+  channelNumber: number;
+  piconId: number;
+  events: EpgEvent[];
+};

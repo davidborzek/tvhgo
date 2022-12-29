@@ -8,6 +8,7 @@ type Props = {
   name?: string;
   type?: React.HTMLInputTypeAttribute;
   label?: string | null;
+  placeholder?: string;
   value?: string | number;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
@@ -35,6 +36,7 @@ function Input(props: Props, ref: React.LegacyRef<HTMLInputElement>) {
         type={props.type}
         className={c(styles.input, props.error ? styles.error : "")}
         name={props.name}
+        placeholder={props.placeholder}
         value={props.value}
         onChange={props.onChange}
         onBlur={props.onBlur}

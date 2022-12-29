@@ -12,7 +12,7 @@ function NavigationBar({ items }: Props) {
   return (
     <div className={styles.root}>
       <div className={styles.head}>
-        <img className={styles.image} src="/tvhgo.png" />
+        <img className={styles.image} src="/img/tvhgo.png" />
       </div>
       <div className={styles.items}>
         {items.map(({ icon, title, to }) => (

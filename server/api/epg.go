@@ -32,6 +32,29 @@ func (s *router) GetEpg(w http.ResponseWriter, r *http.Request) {
 	response.JSON(w, events, 200)
 }
 
+func (s *router) GetEpgChannelEvents(w http.ResponseWriter, r *http.Request) {
+	var q core.GetEpgChannelEventsQueryParams
+	if err := request.BindQuery(r, &q); err != nil {
+		response.BadRequest(w, err)
+		return
+	}
+
+	if err := q.Validate(); err != nil {
+		response.BadRequest(w, err)
+		return
+	}
+
+	events, err := s.epg.GetChannelEvents(r.Context(), q)
+	if err != nil {
+		log.WithError(err).
+			Error("failed to get epg events")
+		response.InternalErrorCommon(w)
+		return
+	}
+
+	response.JSON(w, events, 200)
+}
+
 func (s *router) GetEpgEvent(w http.ResponseWriter, r *http.Request) {
 	id, err := request.NumericURLParam(r, "id")
 	if err != nil {

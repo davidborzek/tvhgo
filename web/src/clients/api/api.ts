@@ -1,5 +1,7 @@
 import axios from "axios";
 import {
+  Channel,
+  EpgChannel,
   EpgEvent,
   ErrorResponse,
   ListResponse,
@@ -27,6 +29,13 @@ export type GetEpgEventsQuery = PaginationSortQuery & {
   nowPlaying?: boolean;
   durationMin?: number;
   durationMax?: number;
+  startsAt?: number;
+  endsAt?: number;
+};
+
+export type GetEpgChannelEventsQuery = PaginationSortQuery & {
+  startsAt?: number;
+  endsAt?: number;
 };
 
 export class ApiError extends Error {
@@ -68,6 +77,13 @@ export async function getUser(): Promise<UserResponse> {
 
 export async function getEpgEvents(q?: GetEpgEventsQuery): Promise<ListResponse<EpgEvent>> {
   const response = await client.get<ListResponse<EpgEvent>>("/epg/events", {
+    params: q,
+  });
+  return response.data;
+}
+
+export async function getEpgChannelEvents(q?: GetEpgChannelEventsQuery): Promise<ListResponse<EpgChannel>> {
+  const response = await client.get<ListResponse<EpgChannel>>("/epg/channel/events", {
     params: q,
   });
   return response.data;

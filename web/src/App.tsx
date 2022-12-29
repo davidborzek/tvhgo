@@ -17,6 +17,8 @@ import { useTheme } from "./contexts/ThemeContext";
 import "react-toastify/dist/ReactToastify.css";
 import ChannelList from "./views/ChannelList/ChannelList";
 import Dashboard from "./views/Dashboard/Dashboard";
+import Channel from "./views/Channel/Channel";
+import Guide from "./views/Guide/Guide";
 
 type AuthenticationCheckerProps = {
   redirect?: string;
@@ -80,6 +82,7 @@ function App() {
             <Route element={<Authenticated />}>
               <Route element={<Dashboard />}>
                 <Route path="/" element={<ChannelList />} />
+                <Route path="/guide" element={<Guide />} />
                 <Route path="/recordings" element={<></>} />
                 <Route path="/settings" element={<></>} />
               </Route>

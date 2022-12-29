@@ -65,7 +65,7 @@ func (p *PaginationSortQueryParams) Validate() error {
 	return nil
 }
 
-func (p *PaginationSortQueryParams) MapToTvheadendQuery(sortKeyMapping map[string]string) tvheadend.Query {
+func (p *PaginationQueryParams) MapToTvheadendQuery() tvheadend.Query {
 	t := tvheadend.NewQuery()
 
 	if p.Limit > 0 {
@@ -75,6 +75,12 @@ func (p *PaginationSortQueryParams) MapToTvheadendQuery(sortKeyMapping map[strin
 	if p.Offset > 0 {
 		t.Start(p.Offset)
 	}
+
+	return t
+}
+
+func (p *PaginationSortQueryParams) MapToTvheadendQuery(sortKeyMapping map[string]string) tvheadend.Query {
+	t := p.PaginationQueryParams.MapToTvheadendQuery()
 
 	mappedKey, ok := sortKeyMapping[p.SortKey]
 	if ok {

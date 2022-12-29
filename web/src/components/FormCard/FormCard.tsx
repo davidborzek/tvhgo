@@ -11,7 +11,7 @@ function FormCard(props: PropsWithChildren<Props>) {
   return (
     <div className={styles.card}>
       <div className={styles.imageHeader}>
-        <img className={styles.image} src="/tvhgo.png" />
+        <img className={styles.image} src="/img/tvhgo.png" />
       </div>
       <form
         title={props.title}

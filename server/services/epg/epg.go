@@ -3,6 +3,7 @@ package epg
 import (
 	"context"
 	"errors"
+	"sort"
 
 	"github.com/davidborzek/tvhgo/core"
 	"github.com/davidborzek/tvhgo/tvheadend"
@@ -99,4 +100,81 @@ func (s *service) GetContentTypes(ctx context.Context) ([]*core.EpgContentType, 
 	}
 
 	return contentTypes, nil
+}
+
+func (s *service) GetChannelEvents(ctx context.Context, params core.GetEpgChannelEventsQueryParams) (*core.EpgChannelEventsResult, error) {
+	q, err := params.MapToTvheadendQuery(sortKeyMapping)
+	if err != nil {
+		return nil, err
+	}
+
+	var grid tvheadend.EpgEventGrid
+	res, err := s.tvh.Exec(ctx, "/api/epg/events/grid", &grid, *q)
+	if err != nil {
+		return nil, err
+	}
+
+	if res.StatusCode >= 400 {
+		return nil, ErrRequestFailed
+	}
+
+	result := buildEpgChannelEventsResult(grid, params.Offset, params.SortQueryParams)
+	return &result, nil
+}
+
+func getChannelIndex(channels []*core.EpgChannel, channelId string) (int, bool) {
+	for i, c := range channels {
+		if c.ChannelID == channelId {
+			return i, true
+		}
+	}
+	return 0, false
+}
+
+func buildEpgChannelEventsResult(grid tvheadend.EpgEventGrid, offset int64, params core.SortQueryParams) core.EpgChannelEventsResult {
+	channels := make([]*core.EpgChannel, 0)
+
+	for _, entry := range grid.Entries {
+		event := core.MapTvheadendEpgEventToEpgEvent(entry)
+
+		index, ok := getChannelIndex(channels, event.ChannelID)
+		if ok {
+			channels[index].Events = append(channels[index].Events, &event)
+		} else {
+			channels = append(channels, &core.EpgChannel{
+				ChannelID:     event.ChannelID,
+				ChannelName:   event.ChannelName,
+				ChannelNumber: event.ChannelNumber,
+				PiconID:       event.PiconID,
+				Events: []*core.EpgEvent{
+					&event,
+				},
+			})
+		}
+	}
+
+	sort.SliceStable(channels, func(i, j int) bool {
+		switch params.SortKey {
+		case "channelName":
+			{
+				if params.SortDirection == "desc" {
+					return channels[i].ChannelName > channels[j].ChannelName
+				}
+
+				return channels[i].ChannelName < channels[j].ChannelName
+			}
+		}
+
+		if params.SortDirection == "desc" {
+			return channels[i].ChannelNumber > channels[j].ChannelNumber
+		}
+
+		return channels[i].ChannelNumber < channels[j].ChannelNumber
+	})
+
+	return core.EpgChannelEventsResult{
+		Entries: channels,
+		Total:   grid.Total,
+		Offset:  offset,
+	}
 }

@@ -35,6 +35,16 @@ type (
 	// EpgEventsResult defines a ListResult of epg events.
 	EpgEventsResult = ListResult[*EpgEvent]
 
+	EpgChannel struct {
+		ChannelID     string      `json:"channelId"`
+		ChannelName   string      `json:"channelName"`
+		ChannelNumber int64       `json:"channelNumber"`
+		PiconID       int         `json:"piconId"`
+		Events        []*EpgEvent `json:"events"`
+	}
+
+	EpgChannelEventsResult = ListResult[*EpgChannel]
+
 	// EpgContentType defines a epg content type from tvheadend.
 	EpgContentType struct {
 		ID   int    `json:"id"`
@@ -58,10 +68,10 @@ type (
 		EndsAt      int64  `schema:"endsAt"`
 	}
 
-	// GetEpgTimelineQueryParams defines query params
-	// to paginate, sort and filter the epg timline.
-	GetEpgTimelineQueryParams struct {
+	GetEpgChannelEventsQueryParams struct {
 		PaginationSortQueryParams
+		StartsAt int64 `schema:"startsAt"`
+		EndsAt   int64 `schema:"endsAt"`
 	}
 
 	// EpgService provides access to epg
@@ -69,6 +79,9 @@ type (
 	EpgService interface {
 		// GetEvents returns a list of epg events.
 		GetEvents(ctx context.Context, params GetEpgQueryParams) (*EpgEventsResult, error)
+
+		// GetChannelEvents returns a the epg events grouped by the channel.
+		GetChannelEvents(ctx context.Context, params GetEpgChannelEventsQueryParams) (*EpgChannelEventsResult, error)
 
 		// GetEvent returns a epg event.
 		GetEvent(ctx context.Context, id int64) (*EpgEvent, error)
@@ -119,24 +132,22 @@ func (p *GetEpgQueryParams) MapToTvheadendQuery(sortKeyMapping map[string]string
 		q.Set("durationMax", strconv.FormatInt(p.DurationMax, 10))
 	}
 
-	var filter []tvheadend.FilterQuery
-	if p.StartsAt > 0 {
-		filter = append(filter, tvheadend.FilterQuery{
-			Field:      "start",
-			Type:       "numeric",
-			Value:      p.StartsAt,
-			Comparison: "gt",
-		})
+	filter := mapToTvheadendFilter(p.StartsAt, p.EndsAt)
+	if len(filter) > 0 {
+		if err := q.Filter(filter); err != nil {
+			return nil, err
+		}
 	}
 
-	if p.EndsAt > 0 {
-		filter = append(filter, tvheadend.FilterQuery{
-			Field:      "stop",
-			Type:       "numeric",
-			Value:      p.EndsAt,
-			Comparison: "lt",
-		})
-	}
+	return &q, nil
+}
+
+// MapToTvheadendQuery maps a GetEpgChannelEventsQueryParams model to a tvheadend
+// query model.
+func (p *GetEpgChannelEventsQueryParams) MapToTvheadendQuery(sortKeyMapping map[string]string) (*tvheadend.Query, error) {
+	q := p.PaginationQueryParams.MapToTvheadendQuery()
+
+	filter := mapToTvheadendFilter(p.StartsAt, p.EndsAt)
 
 	if len(filter) > 0 {
 		if err := q.Filter(filter); err != nil {
@@ -145,6 +156,29 @@ func (p *GetEpgQueryParams) MapToTvheadendQuery(sortKeyMapping map[string]string
 	}
 
 	return &q, nil
+}
+
+func mapToTvheadendFilter(startsAt int64, endsAt int64) []tvheadend.FilterQuery {
+	var filter []tvheadend.FilterQuery
+	if startsAt > 0 {
+		filter = append(filter, tvheadend.FilterQuery{
+			Field:      "start",
+			Type:       "numeric",
+			Value:      startsAt,
+			Comparison: "gt",
+		})
+	}
+
+	if endsAt > 0 {
+		filter = append(filter, tvheadend.FilterQuery{
+			Field:      "start",
+			Type:       "numeric",
+			Value:      endsAt,
+			Comparison: "lt",
+		})
+	}
+
+	return filter
 }
 
 // MapTvheadendEpgEventToEpgEvent maps a epg grid event entry

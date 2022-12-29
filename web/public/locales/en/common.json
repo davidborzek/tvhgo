@@ -1,6 +1,15 @@
 {
   "error": "Error",
   "success": "Success",
+  "search": "Search",
+  "today": "Today",
+  "weekday_0": "Sunday",
+  "weekday_1": "Monday",
+  "weekday_2": "Tuesday",
+  "weekday_3": "Wednesday",
+  "weekday_4": "Thursday",
+  "weekday_5": "Friday",
+  "weekday_6": "Saturday",
   "titles": {
     "main": "Hello World!"
   }
