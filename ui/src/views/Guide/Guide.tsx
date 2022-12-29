@@ -134,7 +134,6 @@ function Guide() {
     <div className={styles.container} ref={containerRef}>
       <div className={styles.header}>
         <div className={styles.bar}>
-          <h1>Guide</h1>
           <GuideControls
             search={search}
             onDayChange={handleDayChange}
