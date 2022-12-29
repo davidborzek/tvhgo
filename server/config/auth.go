@@ -12,6 +12,7 @@ const (
 type (
 	SessionConfig struct {
 		CookieName              string        `yaml:"cookie_name"`
+		CookieSecure            bool          `yaml:"cookie_secure"`
 		MaximumInactiveLifetime time.Duration `yaml:"maximum_inactive_lifetime"`
 		MaximumLifetime         time.Duration `yaml:"maximum_lifetime"`
 		TokenRotationInterval   time.Duration `yaml:"token_rotation_interval"`

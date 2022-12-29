@@ -24,13 +24,13 @@ type loginResponse struct {
 }
 
 // Internal implementation to set the session cookie.
-func setSessionCookie(w http.ResponseWriter, cookieName string, token string) {
+func setSessionCookie(w http.ResponseWriter, cookieName string, token string, secure bool) {
 	c := &http.Cookie{
 		Name:     cookieName,
 		Value:    token,
 		Path:     "/api",
 		MaxAge:   maxAge,
-		Secure:   true,
+		Secure:   secure,
 		HttpOnly: true,
 	}
 
@@ -72,6 +72,11 @@ func (s *router) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	setSessionCookie(w, s.cfg.Auth.Session.CookieName, token)
+	setSessionCookie(
+		w,
+		s.cfg.Auth.Session.CookieName,
+		token,
+		s.cfg.Auth.Session.CookieSecure,
+	)
 	response.JSON(w, loginResponse{Token: token}, 200)
 }
