@@ -12,7 +12,7 @@ func deleteSessionCookie(w http.ResponseWriter, cookieName string) {
 	c := &http.Cookie{
 		Name:     cookieName,
 		Value:    "",
-		Path:     "/",
+		Path:     "/api",
 		MaxAge:   0,
 		HttpOnly: true,
 	}
