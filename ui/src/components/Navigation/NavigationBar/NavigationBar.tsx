@@ -1,4 +1,5 @@
 import React from 'react';
+import { TvhgoHorizontalLogo } from '../../../assets';
 import NavigationItem from '../NavigationItem/NavigationItem';
 import { INavigationItem } from '../types';
 
@@ -12,7 +13,7 @@ function NavigationBar({ items }: Props) {
   return (
     <div className={styles.root}>
       <div className={styles.head}>
-        <img className={styles.image} src="/img/tvhgo.png" />
+        <TvhgoHorizontalLogo className={styles.logo}  />
       </div>
       <div className={styles.items}>
         {items.map(({ icon, title, to }) => (
