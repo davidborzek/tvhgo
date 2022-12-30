@@ -1,0 +1,7 @@
+ui/dist/
+ui/node_modules/
+
+config.yaml
+tvhgo.db
+
+Dockerfile
