@@ -5,6 +5,7 @@ import styles from './ChannelList.module.scss';
 import { useTranslation } from 'react-i18next';
 import ChannelListItem from '../../components/ChannelListItem/ChannelListItem';
 import { GetEpgEventsQuery } from '../../clients/api/api';
+import Error from '../../components/Error/Error';
 
 const limit = 50;
 
@@ -17,7 +18,8 @@ const opts: GetEpgEventsQuery = {
 
 function ChannelList() {
   const { t } = useTranslation('menu');
-  const { events, offset, total, loading, increaseOffset } = useFetchEpg(opts);
+  const { events, offset, total, loading, error, increaseOffset } =
+    useFetchEpg(opts);
 
   const handleScroll = useCallback<React.UIEventHandler<HTMLDivElement>>(
     (evt) => {
@@ -39,6 +41,10 @@ function ChannelList() {
       return <ChannelListItem event={event} />;
     });
   };
+
+  if (error) {
+    return <Error message={error} />;
+  }
 
   return (
     <div className={styles.container} onScroll={handleScroll}>
