@@ -7,6 +7,7 @@ import (
 	"github.com/davidborzek/tvhgo/api/request"
 	"github.com/davidborzek/tvhgo/api/response"
 	"github.com/davidborzek/tvhgo/core"
+	log "github.com/sirupsen/logrus"
 )
 
 var (
@@ -50,8 +51,14 @@ func (s *router) Login(w http.ResponseWriter, r *http.Request) {
 		in.Password,
 	)
 
+	addr := request.RemoteAddr(r)
+
 	if err != nil {
 		if err == core.ErrInvalidUsernameOrPassword {
+			log.WithField("ip", addr).
+				WithField("username", in.Username).
+				Error("login failed: invalid username or password")
+
 			response.Unauthorized(w, err)
 			return
 		}
@@ -63,7 +70,7 @@ func (s *router) Login(w http.ResponseWriter, r *http.Request) {
 	token, err := s.sessions.Create(
 		r.Context(),
 		user.ID,
-		request.RemoteAddr(r),
+		addr,
 		r.UserAgent(),
 	)
 
