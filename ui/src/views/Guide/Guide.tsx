@@ -9,6 +9,9 @@ import { EpgChannel } from '../../clients/api/api.types';
 import GuideControls from '../../components/Guide/GuideControls/GuideControls';
 import Loading from '../../components/Loading/Loading';
 import Error from '../../components/Error/Error';
+import { useNavigate } from 'react-router-dom';
+
+const SCROLL_PERSIST_KEY = 'tvhgo_guide_scroll_position';
 
 function previousPage(oldOffset: number, limit: number, total: number): number {
   if (oldOffset >= limit) {
@@ -31,20 +34,14 @@ function nextPage(oldOffset: number, limit: number, total: number): number {
   return 0;
 }
 
-function prepareEpg(
-  epg: EpgChannel[],
-  search: string,
-  offset: number,
-  limit: number
-) {
-  return epg
-    .filter((e) =>
-      e.channelName.toLowerCase().includes(search.toLocaleLowerCase())
-    )
-    .slice(offset, limit + offset);
+function filterEpg(epg: EpgChannel[], search: string) {
+  return epg.filter((e) =>
+    e.channelName.toLowerCase().includes(search.toLocaleLowerCase())
+  );
 }
 
 function Guide() {
+  const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
 
   const { events, setStartsAt, setEndsAt, loading, error } =
@@ -104,7 +101,15 @@ function Guide() {
     };
   }, []);
 
-  const preparedEpg = prepareEpg(events, search, offset, limit);
+  useEffect(() => {
+    const scrollPos = localStorage.getItem(SCROLL_PERSIST_KEY);
+    if (scrollPos && events.length > 0) {
+      containerRef.current?.scrollTo(0, parseInt(scrollPos));
+      localStorage.removeItem(SCROLL_PERSIST_KEY);
+    }
+  }, [events]);
+
+  const filteredEpg = filterEpg(events, search);
 
   const handleDayChange = (dateString: string) => {
     if (dateString === 'today') {
@@ -117,19 +122,33 @@ function Guide() {
   };
 
   const renderChannels = () => {
-    return preparedEpg.map((event) => (
-      <GuideChannel
-        key={event.channelId}
-        name={event.channelName}
-        picon={`/api/picon/${event.piconId}`}
-        number={event.channelNumber}
-      />
-    ));
+    return filteredEpg
+      .slice(offset, limit + offset)
+      .map((event) => (
+        <GuideChannel
+          key={event.channelId}
+          name={event.channelName}
+          picon={`/api/picon/${event.piconId}`}
+          number={event.channelNumber}
+        />
+      ));
   };
 
   const renderEventColumns = () => {
-    return preparedEpg.map((channel) => (
-      <GuideEventColumn key={channel.channelId} events={channel.events} />
+    return filteredEpg.slice(offset, limit + offset).map((channel) => (
+      <GuideEventColumn
+        key={channel.channelId}
+        events={channel.events}
+        onClick={(id) => {
+          localStorage.setItem(
+            SCROLL_PERSIST_KEY,
+            `${containerRef.current?.scrollTop || ''}`
+          );
+          navigate(`/guide/events/${id}`, {
+            preventScrollReset: true,
+          });
+        }}
+      />
     ));
   };
 
@@ -150,6 +169,7 @@ function Guide() {
             onDayChange={handleDayChange}
             onSearch={(q) => {
               setSearch(q);
+              setOffset(0);
               containerRef.current?.scrollTo(0, 0);
             }}
           />
@@ -162,12 +182,12 @@ function Guide() {
       <GuideNavigation
         type="left"
         onClick={() =>
-          setOffset((old) => previousPage(old, limit, events.length))
+          setOffset((old) => previousPage(old, limit, filteredEpg.length))
         }
       />
       <GuideNavigation
         type="right"
-        onClick={() => setOffset((old) => nextPage(old, limit, events.length))}
+        onClick={() => setOffset((old) => nextPage(old, limit, filteredEpg.length))}
       />
     </div>
   );

@@ -5,11 +5,10 @@ import styles from './GuideEventColumn.module.scss';
 
 type Props = {
   events: EpgEvent[];
+  onClick: (eventId: number) => void;
 };
 
-function GuideEventColumn({ events }: Props) {
-  const navigate = useNavigate();
-
+function GuideEventColumn({ events, onClick }: Props) {
   const renderEvents = () => {
     return events.map((event, index) => (
       <GuideEvent
@@ -21,9 +20,7 @@ function GuideEventColumn({ events }: Props) {
         startsAt={event.startsAt}
         endsAt={event.endsAt}
         showProgress={!index}
-        onClick={(id) => {
-          navigate(`/guide/events/${id}`);
-        }}
+        onClick={onClick}
       />
     ));
   };
