@@ -22,6 +22,7 @@ func NewRouter() (http.Handler, error) {
 	srv := http.FileServer(http.FS(uiFS))
 	r.Get("/", srv.ServeHTTP)
 	r.Get("/manifest.webmanifest", srv.ServeHTTP)
+	r.Get("/favicon.ico", srv.ServeHTTP)
 	r.Get("/assets/*", srv.ServeHTTP)
 	r.Get("/locales/*", srv.ServeHTTP)
 	r.Get("/img/*", srv.ServeHTTP)
