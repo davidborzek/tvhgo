@@ -37,7 +37,7 @@ export default function AuthProvider({
   }, []);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return <></>;
   }
 
   return (
