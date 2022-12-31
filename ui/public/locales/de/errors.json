@@ -1,4 +1,5 @@
 {
   "invalid_login": "Ungültiger Benutzername oder Passwort",
-  "unexpected": "Unerwarteter Fehler. Bitte erneut versuchen."
+  "unexpected": "Unerwarteter Fehler. Bitte erneut versuchen.",
+  "not_found": "Nicht gefunden."
 }

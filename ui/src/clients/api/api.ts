@@ -84,6 +84,11 @@ export async function getEpgEvents(
   return response.data;
 }
 
+export async function getEpgEvent(id: number): Promise<EpgEvent> {
+  const response = await client.get<EpgEvent>(`/epg/events/${id}`);
+  return response.data;
+}
+
 export async function getEpgChannelEvents(
   q?: GetEpgChannelEventsQuery
 ): Promise<ListResponse<EpgChannel>> {

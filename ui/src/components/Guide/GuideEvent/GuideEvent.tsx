@@ -1,23 +1,18 @@
 import moment from 'moment';
 import { c } from '../../../utils/classNames';
+import { parseTime } from '../../../utils/time';
 import styles from './GuideEvent.module.scss';
 
 type Props = {
+  eventId: number;
   title: string;
   subtitle: string;
   description: string;
   startsAt: number;
   endsAt: number;
   showProgress?: boolean;
+  onClick: (eventId: number) => void;
 };
-
-function parseTime(ts: number): string {
-  return new Date(ts * 1000).toLocaleTimeString(undefined, {
-    hour: '2-digit',
-    minute: '2-digit',
-    hourCycle: 'h23',
-  });
-}
 
 function renderTime(startsAt: number, endsAt: number): string {
   const minutesLeft = Math.floor((endsAt - startsAt) / 60);
@@ -28,12 +23,14 @@ function renderTime(startsAt: number, endsAt: number): string {
 }
 
 function GuideEvent({
+  eventId,
   title,
   subtitle,
   description,
   startsAt,
   endsAt,
   showProgress,
+  onClick,
 }: Props) {
   const time = renderTime(startsAt, endsAt);
   const extra = subtitle || description;
@@ -54,7 +51,7 @@ function GuideEvent({
   };
 
   return (
-    <div className={styles.event} tabIndex={0}>
+    <div className={styles.event} onClick={() => onClick(eventId)} tabIndex={0}>
       <span title={title} className={c(styles.name, styles.attribute)}>
         {title}
       </span>

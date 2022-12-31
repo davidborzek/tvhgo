@@ -13,7 +13,7 @@ function NavigationBar({ items }: Props) {
   return (
     <div className={styles.root}>
       <div className={styles.head}>
-        <TvhgoHorizontalLogo className={styles.logo}  />
+        <TvhgoHorizontalLogo className={styles.logo} />
       </div>
       <div className={styles.items}>
         {items.map(({ icon, title, to }) => (

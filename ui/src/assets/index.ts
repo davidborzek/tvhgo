@@ -9,5 +9,5 @@ export {
   BurgerMenuIcon,
   LargeArrowLeftIcon,
   LargeArrowRightIcon,
-  TvhgoHorizontalLogo
+  TvhgoHorizontalLogo,
 };

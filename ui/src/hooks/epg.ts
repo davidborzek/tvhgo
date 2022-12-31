@@ -1,8 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
+  ApiError,
   getEpgChannelEvents,
   GetEpgChannelEventsQuery,
+  getEpgEvent,
   getEpgEvents,
   GetEpgEventsQuery,
 } from '../clients/api/api';
@@ -93,4 +95,31 @@ export const useFetchChannelEvents = (q?: GetEpgChannelEventsQuery) => {
     setStartsAt,
     startsAt,
   };
+};
+
+export const useFetchEvent = () => {
+  const { t } = useTranslation('errors');
+
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [event, setEvent] = useState<EpgEvent>();
+
+  const fetch = (id: number) => {
+    setLoading(true);
+    getEpgEvent(id)
+      .then(setEvent)
+      .catch((error) => {
+        if (error instanceof ApiError && error.code === 404) {
+          setError(t('not_found'));
+          return;
+        }
+
+        setError(t('unexpected'));
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+  };
+
+  return { error, loading, event, fetch };
 };
