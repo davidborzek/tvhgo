@@ -7,6 +7,8 @@ import GuideEventColumn from '../../components/Guide/GuideEventColumn/GuideEvent
 import GuideNavigation from '../../components/Guide/GuideNavigation/GuideNavigation';
 import { EpgChannel } from '../../clients/api/api.types';
 import GuideControls from '../../components/Guide/GuideControls/GuideControls';
+import Loading from '../../components/Loading/Loading';
+import Error from '../../components/Error/Error';
 
 function previousPage(oldOffset: number, limit: number, total: number): number {
   if (oldOffset >= limit) {
@@ -45,11 +47,12 @@ function prepareEpg(
 function Guide() {
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const { events, setStartsAt, setEndsAt } = useFetchChannelEvents({
-    endsAt: moment().add(24, 'hour').unix(),
-    sort_key: 'channelNumber',
-    limit: 100,
-  });
+  const { events, setStartsAt, setEndsAt, loading, error } =
+    useFetchChannelEvents({
+      endsAt: moment().add(24, 'hour').unix(),
+      sort_key: 'channelNumber',
+      limit: 100,
+    });
 
   const setDate = (start?: number, end?: number) => {
     setStartsAt(start);
@@ -129,6 +132,14 @@ function Guide() {
       <GuideEventColumn key={channel.channelId} events={channel.events} />
     ));
   };
+
+  if (loading) {
+    return <Loading />;
+  }
+
+  if (error) {
+    return <Error message={error} />;
+  }
 
   return (
     <div className={styles.container} ref={containerRef}>
