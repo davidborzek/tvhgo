@@ -7,6 +7,7 @@ import (
 	"github.com/davidborzek/tvhgo/core"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
+	"github.com/go-chi/cors"
 )
 
 type router struct {
@@ -19,6 +20,14 @@ type router struct {
 	sessions              core.SessionManager
 	users                 core.UserRepository
 	passwordAuthenticator core.PasswordAuthenticator
+}
+
+var corsOpts = cors.Options{
+	AllowedOrigins:   []string{"*"},
+	AllowedMethods:   []string{"GET", "POST", "PUT", "DELETE", "OPTIONS"},
+	AllowedHeaders:   []string{"Accept", "Authorization", "Content-Type"},
+	AllowCredentials: true,
+	MaxAge:           300,
 }
 
 func New(
@@ -49,7 +58,9 @@ func (s *router) Handler() http.Handler {
 	r := chi.NewRouter()
 	r.Use(middleware.Recoverer)
 	r.Use(middleware.NoCache)
-	// TODO: cors
+	r.Use(cors.Handler(corsOpts))
+
+	r.Use()
 
 	r.Post("/login", s.Login)
 
