@@ -5,7 +5,7 @@
 
 .segment {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-auto-flow: column;  
   gap: 2rem;
 }
 
@@ -22,24 +22,6 @@
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-}
-
-@media screen and (max-width: 1200px) {
-  .segment {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-@media screen and (max-width: 800px) {
-  .segment {
-    grid-template-columns: repeat(3, 1fr);
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .segment {
-    grid-template-columns: repeat(2, 1fr);
-  }
 }
 
 .dropdown {

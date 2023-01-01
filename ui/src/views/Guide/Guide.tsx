@@ -73,22 +73,28 @@ function Guide() {
       const { current } = limitRef;
       const { innerWidth } = window;
 
-      if (innerWidth > 1200 && current !== 5) {
+      if (innerWidth > 1500 && current !== 5) {
         setLimit(5);
         return;
       }
 
-      if (innerWidth > 800 && innerWidth <= 1200 && current !== 4) {
+
+      if (innerWidth > 1200 && innerWidth <= 1500 && current !== 4) {
         setLimit(4);
         return;
       }
-      if (innerWidth > 500 && innerWidth <= 800 && current !== 3) {
+
+      if (innerWidth > 800 && innerWidth <= 1200 && current !== 3) {
         setLimit(3);
         return;
       }
-
-      if (innerWidth <= 500 && current !== 2) {
+      if (innerWidth > 600 && innerWidth <= 800 && current !== 2) {
         setLimit(2);
+        return;
+      }
+
+      if (innerWidth <= 600 && current !== 1) {
+        setLimit(1);
         return;
       }
     };
