@@ -12,8 +12,8 @@ i18n
   .use(initReactI18next)
   .init({
     fallbackLng,
-    debug: true,
     defaultNS: 'common',
+    debug: !import.meta.env.PROD,
     supportedLngs: ['de', 'en'],
 
     interpolation: {
