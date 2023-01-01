@@ -11,6 +11,7 @@ type Props = {
   startsAt: number;
   endsAt: number;
   showProgress?: boolean;
+  dvrState?: string;
   onClick: (eventId: number) => void;
 };
 
@@ -30,6 +31,7 @@ function GuideEvent({
   startsAt,
   endsAt,
   showProgress,
+  dvrState,
   onClick,
 }: Props) {
   const time = renderTime(startsAt, endsAt);
@@ -50,6 +52,12 @@ function GuideEvent({
     );
   };
 
+  const renderRecBadge = () => {
+    if (dvrState === 'scheduled' || dvrState === 'recording') {
+      return <span className={styles.recBadge} />;
+    }
+  };
+
   return (
     <div className={styles.event} onClick={() => onClick(eventId)} tabIndex={0}>
       <span title={title} className={c(styles.name, styles.attribute)}>
@@ -62,6 +70,7 @@ function GuideEvent({
         {time}
       </span>
       {showProgress && renderProgress()}
+      {renderRecBadge()}
     </div>
   );
 }

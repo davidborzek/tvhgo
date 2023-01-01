@@ -202,6 +202,8 @@ type (
 		Subtitled     int    `json:"subtitled,omitempty"`
 		AudioDesc     int    `json:"audiodesc,omitempty"`
 		HD            int    `json:"hd,omitempty"`
+		DvrUUID       string `json:"dvrUuid,omitempty"`
+		DvrState      string `json:"dvrState,omitempty"`
 	}
 
 	EpgEventGrid GridResponse[EpgEventGridEntry]

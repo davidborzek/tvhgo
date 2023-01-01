@@ -33,6 +33,8 @@ export type EpgEvent = {
   subtitled: boolean;
   title: string;
   widescreen: boolean;
+  dvrUuid?: string;
+  dvrState?: string;
 };
 
 export type EpgChannel = {

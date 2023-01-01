@@ -30,6 +30,8 @@ type (
 		Subtitled     bool   `json:"subtitled"`
 		Title         string `json:"title"`
 		Widescreen    bool   `json:"widescreen"`
+		DvrUUID       string `json:"dvrUuid,omitempty"`
+		DvrState      string `json:"dvrState,omitempty"`
 	}
 
 	// EpgEventsResult defines a ListResult of epg events.
@@ -205,6 +207,8 @@ func MapTvheadendEpgEventToEpgEvent(src tvheadend.EpgEventGridEntry) EpgEvent {
 		Subtitled:     src.Subtitled == 1,
 		Title:         src.Title,
 		Widescreen:    src.Widescreen == 1,
+		DvrUUID:       src.DvrUUID,
+		DvrState:      src.DvrState,
 	}
 }
 

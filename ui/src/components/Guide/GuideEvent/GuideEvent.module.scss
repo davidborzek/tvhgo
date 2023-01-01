@@ -43,3 +43,16 @@
   font-weight: 400;
   opacity: 0.8;
 }
+
+.recBadge {
+  position: absolute;
+  background-color: var(--color-danger-bg);
+  bottom: 0.5rem;
+  right: 0.5rem;
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 90px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

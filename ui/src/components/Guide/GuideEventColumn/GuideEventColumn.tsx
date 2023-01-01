@@ -20,6 +20,7 @@ function GuideEventColumn({ events, onClick }: Props) {
         startsAt={event.startsAt}
         endsAt={event.endsAt}
         showProgress={!index}
+        dvrState={event.dvrState}
         onClick={onClick}
       />
     ));
