@@ -14,7 +14,7 @@ import LoginFooter from '../../components/LoginFooter/LoginFooter';
 const GITHUB_URL = 'https://github.com/davidborzek/tvhgo';
 
 export default function Login() {
-  const { t } = useTranslation('login');
+  const { t } = useTranslation();
   const { login, loading } = useLogin();
 
   const usernameRef = useRef<HTMLInputElement>(null);

@@ -14,7 +14,7 @@ import { EpgChannel, EpgEvent } from '../clients/api/api.types';
 export const useFetchEpg = (q?: GetEpgEventsQuery) => {
   const initialOffset = q?.offset || 0;
 
-  const { t } = useTranslation('errors');
+  const { t } = useTranslation();
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -50,7 +50,7 @@ export const useFetchEpg = (q?: GetEpgEventsQuery) => {
 };
 
 export const useFetchChannelEvents = (q?: GetEpgChannelEventsQuery) => {
-  const { t } = useTranslation('errors');
+  const { t } = useTranslation();
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
@@ -99,7 +99,7 @@ export const useFetchChannelEvents = (q?: GetEpgChannelEventsQuery) => {
 };
 
 export const useFetchEvent = () => {
-  const { t } = useTranslation('errors');
+  const { t } = useTranslation();
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);

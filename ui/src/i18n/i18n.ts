@@ -1,20 +1,28 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 
-import Backend from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
 
-const fallbackLng = 'de';
+import en from './locales/en/translations.json';
+import de from './locales/de/translations.json';
+
+const fallbackLng = 'en';
 
 i18n
-  .use(Backend)
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
     fallbackLng,
-    defaultNS: 'common',
     debug: !import.meta.env.PROD,
     supportedLngs: ['de', 'en'],
+    resources: {
+      de: {
+        translation: de,
+      },
+      en: {
+        translation: en,
+      },
+    },
 
     interpolation: {
       escapeValue: false,

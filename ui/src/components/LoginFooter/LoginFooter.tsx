@@ -10,7 +10,7 @@ type Props = {
 };
 
 function LoginFooter(props: Props) {
-  const { t } = useTranslation('login');
+  const { t } = useTranslation();
 
   return (
     <footer className={styles.footer}>

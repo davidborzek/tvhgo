@@ -11,7 +11,7 @@ type Props = {
 };
 
 function GuideControls({ search, onSearch, onDayChange }: Props) {
-  const { t } = useTranslation(['common']);
+  const { t } = useTranslation();
 
   const getDays = () => {
     const days: Option[] = [

@@ -4,7 +4,7 @@ import { logout } from '../clients/api/api';
 import { useAuth } from '../contexts/AuthContext';
 
 const useLogout = () => {
-  const { t } = useTranslation('errors');
+  const { t } = useTranslation();
   const authContext = useAuth();
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);

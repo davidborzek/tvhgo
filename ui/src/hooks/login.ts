@@ -9,7 +9,7 @@ type LoginFunc = (username: string, password: string) => void;
 const NOTIFICATION_ID = 'loginError';
 
 const useLogin = () => {
-  const { t } = useTranslation('errors');
+  const { t } = useTranslation();
   const { setUser } = useAuth();
   const [loading, setLoading] = useState(false);
 

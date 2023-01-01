@@ -4,7 +4,7 @@ import { ApiError, getChannel } from '../clients/api/api';
 import { Channel } from '../clients/api/api.types';
 
 export const useFetchChannel = (id?: string) => {
-  const { t } = useTranslation('errors');
+  const { t } = useTranslation();
 
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);

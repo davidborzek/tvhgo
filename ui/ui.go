@@ -24,7 +24,6 @@ func NewRouter() (http.Handler, error) {
 	r.Get("/manifest.webmanifest", srv.ServeHTTP)
 	r.Get("/favicon.ico", srv.ServeHTTP)
 	r.Get("/assets/*", srv.ServeHTTP)
-	r.Get("/locales/*", srv.ServeHTTP)
 	r.Get("/img/*", srv.ServeHTTP)
 	r.Get("/*", func(w http.ResponseWriter, r *http.Request) {
 		r.URL.Path = "/"

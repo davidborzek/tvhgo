@@ -16,7 +16,7 @@ const notify = (message?: string | null) => {
 export default function AuthProvider({
   children,
 }: PropsWithChildren<unknown>): ReactElement {
-  const { t } = useTranslation('errors');
+  const { t } = useTranslation();
 
   const [username, setUsername] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(true);

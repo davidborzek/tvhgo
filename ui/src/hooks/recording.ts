@@ -1,37 +1,40 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import {
   cancelRecording,
+  getRecordings,
+  GetRecordingsQuery,
   recordByEvent,
   stopRecording,
 } from '../clients/api/api';
-
-const NOTIFICATION_ID = 'createRecordingByEvent';
-
-const notifyError = (message?: string | null) => {
-  toast.error(message, {
-    toastId: NOTIFICATION_ID,
-    updateId: NOTIFICATION_ID,
-  });
-};
-
-const notifySuccess = (message?: string | null) => {
-  toast.success(message, {
-    toastId: NOTIFICATION_ID,
-    updateId: NOTIFICATION_ID,
-  });
-};
+import { Recording } from '../clients/api/api.types';
 
 export const useManageRecordingByEvent = () => {
-  const { t } = useTranslation(['errors', 'recording']);
+  const NOTIFICATION_ID = 'manageRecordingByEvent';
+
+  const notifyError = (message?: string | null) => {
+    toast.error(message, {
+      toastId: NOTIFICATION_ID,
+      updateId: NOTIFICATION_ID,
+    });
+  };
+
+  const notifySuccess = (message?: string | null) => {
+    toast.success(message, {
+      toastId: NOTIFICATION_ID,
+      updateId: NOTIFICATION_ID,
+    });
+  };
+
+  const { t } = useTranslation();
   const [pending, setPending] = useState(false);
 
   const createRecording = async (eventId: number) => {
     setPending(true);
     return await recordByEvent(eventId)
       .then(() => {
-        notifySuccess(t('recording_created', { ns: "recording" }));
+        notifySuccess(t('recording_created'));
       })
       .catch(() => {
         notifyError(t('unexpected'));
@@ -45,7 +48,7 @@ export const useManageRecordingByEvent = () => {
     setPending(true);
     return await cancelRecording(dvrId)
       .then(() => {
-        notifySuccess(t('recording_canceled', { ns: "recording" }));
+        notifySuccess(t('recording_canceled'));
       })
       .catch(() => {
         notifyError(t('unexpected'));
@@ -59,7 +62,7 @@ export const useManageRecordingByEvent = () => {
     setPending(true);
     return await stopRecording(dvrId)
       .then(() => {
-        notifySuccess(t('recording_stopped', { ns: "recording" }));
+        notifySuccess(t('recording_stopped'));
       })
       .catch(() => {
         notifyError(t('unexpected'));

@@ -17,7 +17,7 @@ const opts: GetEpgEventsQuery = {
 };
 
 function ChannelList() {
-  const { t } = useTranslation('menu');
+  const { t } = useTranslation();
   const { events, offset, total, loading, error, increaseOffset } =
     useFetchEpg(opts);
 

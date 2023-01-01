@@ -10,7 +10,7 @@ type Props = {
 };
 
 function EventRecordButton({ dvrState, pending, onClick}: Props) {
-  const { t } = useTranslation('event');
+  const { t } = useTranslation();
 
   const getText = () => {
     switch (dvrState) {

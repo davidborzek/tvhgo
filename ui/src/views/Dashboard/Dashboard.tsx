@@ -8,7 +8,7 @@ import { c } from '../../utils/classNames';
 import styles from './Dashboard.module.scss';
 
 function Dashboard() {
-  const { t } = useTranslation('menu');
+  const { t } = useTranslation();
 
   const navigationItems: INavigationItem[] = [
     { icon: <TvIcon />, title: t('channels'), to: '/' },
