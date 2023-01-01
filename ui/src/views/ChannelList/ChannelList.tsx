@@ -38,7 +38,7 @@ function ChannelList() {
 
   const renderChannels = () => {
     return events.map((event) => {
-      return <ChannelListItem event={event} />;
+      return <ChannelListItem key={event.id} event={event} />;
     });
   };
 
