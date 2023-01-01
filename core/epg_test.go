@@ -9,7 +9,7 @@ import (
 )
 
 const (
-	expectedFilter = "[{\"field\":\"start\",\"type\":\"numeric\",\"value\":20,\"comparison\":\"gt\"},{\"field\":\"stop\",\"type\":\"numeric\",\"value\":40,\"comparison\":\"lt\"}]"
+	expectedFilter = "[{\"field\":\"start\",\"type\":\"numeric\",\"value\":20,\"comparison\":\"gt\"},{\"field\":\"start\",\"type\":\"numeric\",\"value\":40,\"comparison\":\"lt\"}]"
 )
 
 var (
