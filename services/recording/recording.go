@@ -36,7 +36,7 @@ func New(tvh tvheadend.Client) core.RecordingService {
 
 func (s *service) CreateByEvent(ctx context.Context, opts core.CreateRecordingByEvent) error {
 	q := tvheadend.NewQuery()
-	q.Set("event_id", opts.EventID)
+	q.SetInt("event_id", opts.EventID)
 	q.Set("config_uuid", opts.ConfigID)
 
 	res, err := s.tvh.Exec(ctx, "/api/dvr/entry/create_by_event", nil, q)

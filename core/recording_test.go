@@ -12,7 +12,7 @@ import (
 
 func TestCreateRecordingByEventValidate(t *testing.T) {
 	c := core.CreateRecordingByEvent{
-		EventID:  "someEvenID",
+		EventID:  123,
 		ConfigID: "someConfigID",
 	}
 

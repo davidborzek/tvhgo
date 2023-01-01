@@ -263,12 +263,12 @@ func TestCreateByEventSucceeds(t *testing.T) {
 	defer ctrl.Finish()
 
 	opts := core.CreateRecordingByEvent{
-		EventID:  "someEventID",
+		EventID:  1234,
 		ConfigID: "someConfigID",
 	}
 
 	tvhq := tvheadend.NewQuery()
-	tvhq.Set("event_id", opts.EventID)
+	tvhq.SetInt("event_id", opts.EventID)
 	tvhq.Set("config_uuid", opts.ConfigID)
 
 	mockClient := mock_tvheadend.NewMockClient(ctrl)

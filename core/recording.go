@@ -56,7 +56,7 @@ type (
 	// CreateRecordingByEvent defines options
 	// to create a recording by an epg event.
 	CreateRecordingByEvent struct {
-		EventID  string `json:"eventId"`
+		EventID  int64  `json:"eventId"`
 		ConfigID string `json:"configId"`
 	}
 
@@ -133,7 +133,7 @@ type (
 
 // Validate validates the minimum requirements of CreateRecordingByEvent.
 func (o *CreateRecordingByEvent) Validate() error {
-	if o.EventID == "" {
+	if o.EventID == 0 {
 		return ErrCreateRecordingInvalidEventID
 	}
 	return nil
