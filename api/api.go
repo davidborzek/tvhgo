@@ -52,31 +52,33 @@ func (s *router) Handler() http.Handler {
 	// TODO: cors
 
 	r.Post("/login", s.Login)
-	r.With(s.HandleAuthentication).Post("/logout", s.Logout)
 
-	r.With(s.HandleAuthentication).Get("/user", s.GetUser)
+	authenticated := r.With(s.HandleAuthentication)
+	authenticated.Post("/logout", s.Logout)
 
-	r.With(s.HandleAuthentication).Get("/epg/events", s.GetEpg)
-	r.With(s.HandleAuthentication).Get("/epg/channel/events", s.GetEpgChannelEvents)
-	r.Get("/epg/events/{id}", s.GetEpgEvent)
-	r.Get("/epg/events/{id}/related", s.GetRelatedEpgEvents)
-	r.Get("/epg/content-types", s.GetEpgContentTypes)
+	authenticated.Get("/user", s.GetUser)
 
-	r.Get("/channels", s.GetChannels)
-	r.Get("/channels/{id}", s.GetChannel)
-	r.Get("/channels/{number}/stream", s.StreamChannel)
+	authenticated.Get("/epg/events", s.GetEpg)
+	authenticated.Get("/epg/channel/events", s.GetEpgChannelEvents)
+	authenticated.Get("/epg/events/{id}", s.GetEpgEvent)
+	authenticated.Get("/epg/events/{id}/related", s.GetRelatedEpgEvents)
+	authenticated.Get("/epg/content-types", s.GetEpgContentTypes)
 
-	r.Get("/picon/{id}", s.GetPicon)
+	authenticated.Get("/channels", s.GetChannels)
+	authenticated.Get("/channels/{id}", s.GetChannel)
+	authenticated.Get("/channels/{number}/stream", s.StreamChannel)
 
-	r.Get("/recordings", s.GetRecordings)
-	r.Get("/recordings/{id}", s.GetRecording)
-	r.Post("/recordings", s.CreateRecording)
-	r.Post("/recordings/event", s.CreateRecordingByEvent)
-	r.Put("/recordings/{id}/stop", s.StopRecording)
-	r.Put("/recordings/{id}/cancel", s.CancelRecording)
-	r.Put("/recordings/{id}/move/{dest}", s.MoveRecording)
-	r.Delete("/recordings/{id}", s.RemoveRecording)
-	r.Put("/recordings/{id}", s.UpdateRecording)
+	authenticated.Get("/picon/{id}", s.GetPicon)
+
+	authenticated.Get("/recordings", s.GetRecordings)
+	authenticated.Get("/recordings/{id}", s.GetRecording)
+	authenticated.Post("/recordings", s.CreateRecording)
+	authenticated.Post("/recordings/event", s.CreateRecordingByEvent)
+	authenticated.Put("/recordings/{id}/stop", s.StopRecording)
+	authenticated.Put("/recordings/{id}/cancel", s.CancelRecording)
+	authenticated.Put("/recordings/{id}/move/{dest}", s.MoveRecording)
+	authenticated.Delete("/recordings/{id}", s.RemoveRecording)
+	authenticated.Put("/recordings/{id}", s.UpdateRecording)
 
 	return r
 }
