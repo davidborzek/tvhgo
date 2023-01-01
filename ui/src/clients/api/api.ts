@@ -123,3 +123,25 @@ export async function fetch<T>(path: string): Promise<T> {
   const response = await client.get<T>(path);
   return response.data;
 }
+
+export async function recordByEvent(
+  eventId: number,
+  configId?: string
+): Promise<void> {
+  await client.post('/recordings/event', {
+    eventId,
+    configId,
+  });
+}
+
+export async function stopRecording(
+  dvrId: string,
+): Promise<void> {
+  await client.put(`/recordings/${dvrId}/stop`);
+}
+
+export async function cancelRecording(
+  dvrId: string,
+): Promise<void> {
+  await client.put(`/recordings/${dvrId}/cancel`);
+}

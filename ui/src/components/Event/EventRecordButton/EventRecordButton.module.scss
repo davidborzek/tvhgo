@@ -1,0 +1,28 @@
+.EventRecordButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex: 1;
+  border: 1px solid var(--color-danger-bg);
+  padding: 0.5rem;
+  border-radius: 2px;
+  background-color: var(--color-danger-bg);
+  color: white;
+  cursor: pointer;
+  font-weight: 600;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &.pending {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.icon {
+  width: 1rem;
+  height: 1rem;
+  fill: var(--color-text-primary);
+}
