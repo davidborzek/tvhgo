@@ -1,0 +1,13 @@
+.EventRelated {
+  display: flex;
+  flex-direction: column;
+}
+
+.relatedEvent {
+  color: var(--color-text-primary);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

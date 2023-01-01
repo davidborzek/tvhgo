@@ -183,7 +183,9 @@ function Guide() {
       />
       <GuideNavigation
         type="right"
-        onClick={() => setOffset((old) => nextPage(old, limit, filteredEpg.length))}
+        onClick={() =>
+          setOffset((old) => nextPage(old, limit, filteredEpg.length))
+        }
       />
     </div>
   );

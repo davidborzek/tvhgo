@@ -7,6 +7,7 @@ import {
   getEpgEvent,
   getEpgEvents,
   GetEpgEventsQuery,
+  getRelatedEpgEvents,
 } from '../clients/api/api';
 import { EpgChannel, EpgEvent } from '../clients/api/api.types';
 
@@ -103,23 +104,33 @@ export const useFetchEvent = () => {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [event, setEvent] = useState<EpgEvent>();
+  const [relatedEvents, setRelatedEvents] = useState<EpgEvent[]>([]);
 
-  const fetch = (id: number) => {
+  const fetch = async (id: number) => {
     setLoading(true);
-    getEpgEvent(id)
-      .then(setEvent)
-      .catch((error) => {
-        if (error instanceof ApiError && error.code === 404) {
-          setError(t('not_found'));
-          return;
-        }
-
+    let eventRes: EpgEvent;
+    try {
+      eventRes = await getEpgEvent(id);
+      setEvent(eventRes);
+    } catch (error) {
+      if (error instanceof ApiError && error.code === 404) {
+        setError(t('not_found'));
+      } else {
         setError(t('unexpected'));
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+      }
+      setLoading(false);
+      return;
+    }
+
+    try {
+      const related = await getRelatedEpgEvents(id);
+      setRelatedEvents(related.entries.filter((r) => r.id !== eventRes.id));
+    } catch (error) {
+      setError(t('unexpected'));
+    }
+
+    setLoading(false);
   };
 
-  return { error, loading, event, fetch };
+  return { error, loading, event, relatedEvents, fetch };
 };

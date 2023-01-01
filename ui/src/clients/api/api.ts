@@ -84,6 +84,19 @@ export async function getEpgEvents(
   return response.data;
 }
 
+export async function getRelatedEpgEvents(
+  id: number,
+  q?: PaginationSortQuery
+): Promise<ListResponse<EpgEvent>> {
+  const response = await client.get<ListResponse<EpgEvent>>(
+    `/epg/events/${id}/related`,
+    {
+      params: q,
+    }
+  );
+  return response.data;
+}
+
 export async function getEpgEvent(id: number): Promise<EpgEvent> {
   const response = await client.get<EpgEvent>(`/epg/events/${id}`);
   return response.data;

@@ -86,6 +86,9 @@ type (
 		// GetEvent returns a epg event.
 		GetEvent(ctx context.Context, id int64) (*EpgEvent, error)
 
+		// GetRelatedEvents returns a list of epg related events for a given event.
+		GetRelatedEvents(ctx context.Context, eventId int64, params PaginationSortQueryParams) (*EpgEventsResult, error)
+
 		// GetContentTypes returns a list of epg content types.
 		GetContentTypes(ctx context.Context) ([]*EpgContentType, error)
 	}

@@ -59,6 +59,7 @@ func (s *router) Handler() http.Handler {
 	r.With(s.HandleAuthentication).Get("/epg/events", s.GetEpg)
 	r.With(s.HandleAuthentication).Get("/epg/channel/events", s.GetEpgChannelEvents)
 	r.Get("/epg/events/{id}", s.GetEpgEvent)
+	r.Get("/epg/events/{id}/related", s.GetRelatedEpgEvents)
 	r.Get("/epg/content-types", s.GetEpgContentTypes)
 
 	r.Get("/channels", s.GetChannels)

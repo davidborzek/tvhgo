@@ -80,6 +80,35 @@ func (s *router) GetEpgEvent(w http.ResponseWriter, r *http.Request) {
 	response.JSON(w, event, 200)
 }
 
+func (s *router) GetRelatedEpgEvents(w http.ResponseWriter, r *http.Request) {
+	id, err := request.NumericURLParam(r, "id")
+	if err != nil {
+		response.BadRequestf(w, "invalid value for parameter 'id'")
+		return
+	}
+
+	var q core.PaginationSortQueryParams
+	if err := request.BindQuery(r, &q); err != nil {
+		response.BadRequest(w, err)
+		return
+	}
+
+	if err := q.Validate(); err != nil {
+		response.BadRequest(w, err)
+		return
+	}
+
+	events, err := s.epg.GetRelatedEvents(r.Context(), id, q)
+	if err != nil {
+		log.WithError(err).
+			Error("failed to get epg events")
+		response.InternalErrorCommon(w)
+		return
+	}
+
+	response.JSON(w, events, 200)
+}
+
 func (s *router) GetEpgContentTypes(w http.ResponseWriter, r *http.Request) {
 	contentTypes, err := s.epg.GetContentTypes(r.Context())
 	if err != nil {

@@ -122,6 +122,24 @@ func (s *service) GetChannelEvents(ctx context.Context, params core.GetEpgChanne
 	return &result, nil
 }
 
+func (s *service) GetRelatedEvents(ctx context.Context, eventId int64, params core.PaginationSortQueryParams) (*core.EpgEventsResult, error) {
+	q := params.MapToTvheadendQuery(sortKeyMapping)
+	q.SetInt("eventId", eventId)
+
+	var grid tvheadend.EpgEventGrid
+	res, err := s.tvh.Exec(ctx, "/api/epg/events/related", &grid, q)
+	if err != nil {
+		return nil, err
+	}
+
+	if res.StatusCode >= 400 {
+		return nil, ErrRequestFailed
+	}
+
+	result := core.BuildEpgEventsResult(grid, params.Offset)
+	return &result, nil
+}
+
 func getChannelIndex(channels []*core.EpgChannel, channelId string) (int, bool) {
 	for i, c := range channels {
 		if c.ChannelID == channelId {
