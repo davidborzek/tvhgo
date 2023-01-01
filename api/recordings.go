@@ -11,7 +11,7 @@ import (
 )
 
 func (s *router) GetRecordings(w http.ResponseWriter, r *http.Request) {
-	var q core.PaginationSortQueryParams
+	var q core.GetRecordingsParams
 	if err := request.BindQuery(r, &q); err != nil {
 		response.BadRequest(w, err)
 		return

@@ -298,7 +298,7 @@ func TestGetAllReturnsError(t *testing.T) {
 		Times(1)
 
 	service := recording.New(mockClient)
-	res, err := service.GetAll(ctx, core.PaginationSortQueryParams{})
+	res, err := service.GetAll(ctx, core.GetRecordingsParams{})
 
 	assert.Nil(t, res)
 	assert.EqualError(t, err, "error")
@@ -315,7 +315,7 @@ func TestGetAllReturnsRequestFailedError(t *testing.T) {
 		Times(1)
 
 	service := recording.New(mockClient)
-	res, err := service.GetAll(ctx, core.PaginationSortQueryParams{})
+	res, err := service.GetAll(ctx, core.GetRecordingsParams{})
 
 	assert.Nil(t, res)
 	assert.Equal(t, err, recording.ErrRequestFailed)
@@ -339,7 +339,7 @@ func TestGetAllSucceeds(t *testing.T) {
 
 	service := recording.New(mockClient)
 
-	q := core.PaginationSortQueryParams{}
+	q := core.GetRecordingsParams{}
 	q.Limit = 10
 	q.Offset = 5
 	q.SortDirection = "asc"
@@ -399,7 +399,7 @@ func testGetAllMapsSortKeyCorrectlyParametrize(key string, mappedKey string) fun
 			DoAndReturn(mockClientExecSucceedsForGetAll).
 			Times(1)
 
-		q := core.PaginationSortQueryParams{}
+		q := core.GetRecordingsParams{}
 		q.SortKey = key
 
 		service := recording.New(mockClient)

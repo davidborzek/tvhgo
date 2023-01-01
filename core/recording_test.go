@@ -10,6 +10,31 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+func TestGetRecordingsParamsValidate(t *testing.T) {
+	p := core.GetRecordingsParams{
+		Status: "upcoming",
+	}
+
+	err := p.Validate()
+	assert.Nil(t, err)
+}
+
+func TestGetRecordingsParamsValidateEmptyStatus(t *testing.T) {
+	p := core.GetRecordingsParams{}
+
+	err := p.Validate()
+	assert.Nil(t, err)
+}
+
+func TestGetRecordingsParamsValidateInvalidStatus(t *testing.T) {
+	p := core.GetRecordingsParams{
+		Status: "invalidStatus",
+	}
+
+	err := p.Validate()
+	assert.Equal(t, core.ErrGetRecordingsInvalidStatus, err)
+}
+
 func TestCreateRecordingByEventValidate(t *testing.T) {
 	c := core.CreateRecordingByEvent{
 		EventID:  123,

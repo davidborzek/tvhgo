@@ -12,6 +12,8 @@ import (
 var (
 	ErrRecordingNotFound = errors.New("recording not found")
 
+	ErrGetRecordingsInvalidStatus = errors.New("get recording status invalid")
+
 	ErrCreateRecordingInvalidEventID = errors.New("recording event id invalid")
 
 	ErrRecordingInvalidTitle     = errors.New("recording invalid title")
@@ -51,6 +53,14 @@ type (
 		// after the recording ends.
 		EndPadding int    `json:"endPadding"`
 		Status     string `json:"status"`
+	}
+
+	// GetRecordingsParams defines query params
+	// to paginate, sort and filter the recordings.
+	GetRecordingsParams struct {
+		PaginationSortQueryParams
+		// upcoming, finished, failed, removed
+		Status string `schema:"status"`
 	}
 
 	// CreateRecordingByEvent defines options
@@ -113,7 +123,7 @@ type (
 		// CreateByEvent creates a new recording by an epg event.
 		Create(ctx context.Context, opts CreateRecording) error
 		// GetAll returns a list of recordings.
-		GetAll(ctx context.Context, params PaginationSortQueryParams) ([]*Recording, error)
+		GetAll(ctx context.Context, params GetRecordingsParams) ([]*Recording, error)
 		// Get returns a recording by its id.
 		Get(ctx context.Context, id string) (*Recording, error)
 		// Stop gracefully stops a running recording.
@@ -130,6 +140,14 @@ type (
 		UpdateRecording(ctx context.Context, id string, opts UpdateRecording) error
 	}
 )
+
+// Validate validates the minimum requirements of GetRecordingsParams.
+func (o *GetRecordingsParams) Validate() error {
+	if o.Status != "" && o.Status != "upcoming" && o.Status != "finished" && o.Status != "failed" && o.Status != "remove" {
+		return ErrGetRecordingsInvalidStatus
+	}
+	return nil
+}
 
 // Validate validates the minimum requirements of CreateRecordingByEvent.
 func (o *CreateRecordingByEvent) Validate() error {

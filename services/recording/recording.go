@@ -3,6 +3,7 @@ package recording
 import (
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/davidborzek/tvhgo/core"
 	"github.com/davidborzek/tvhgo/tvheadend"
@@ -73,11 +74,18 @@ func (s *service) Create(ctx context.Context, opts core.CreateRecording) error {
 	return nil
 }
 
-func (s *service) GetAll(ctx context.Context, params core.PaginationSortQueryParams) ([]*core.Recording, error) {
-	q := params.MapToTvheadendQuery(sortKeyMapping)
+func (s *service) GetAll(ctx context.Context, params core.GetRecordingsParams) ([]*core.Recording, error) {
+	q := params.PaginationSortQueryParams.MapToTvheadendQuery(sortKeyMapping)
+
+	var url string
+	if params.Status == "" {
+		url = "/api/dvr/entry/grid"
+	} else {
+		url = fmt.Sprintf("/api/dvr/entry/grid_%s", params.Status)
+	}
 
 	var grid tvheadend.DvrGrid
-	res, err := s.tvh.Exec(ctx, "/api/dvr/entry/grid", &grid, q)
+	res, err := s.tvh.Exec(ctx, url, &grid, q)
 	if err != nil {
 		return nil, err
 	}
