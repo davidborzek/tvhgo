@@ -31,7 +31,7 @@ func main() {
 	log.WithField("pid", os.Getpid()).
 		Info("tvhgo started")
 
-	cfg, err := config.Load("config.yaml")
+	cfg, err := config.Load()
 	if err != nil {
 		log.WithError(err).Fatal("failed to start tvhgo")
 	}

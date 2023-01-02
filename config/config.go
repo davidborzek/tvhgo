@@ -1,8 +1,11 @@
 package config
 
 import (
+	"errors"
 	"os"
+	"path"
 
+	log "github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v3"
 )
 
@@ -14,9 +17,62 @@ type (
 	}
 )
 
+var paths = []string{
+	"./",
+	"/etc/tvhgo/",
+}
+
+// existsConfig checks if either config.yml or config.yaml
+// exists in the given directory and returns the full path.
+func existsConfig(p string) (string, bool, error) {
+	c := path.Join(p, "config.yml")
+	_, err := os.Stat(c)
+	if err != nil && !errors.Is(err, os.ErrNotExist) {
+		return "", false, err
+	}
+
+	if err == nil {
+		return c, true, nil
+	}
+
+	c = path.Join(p, "config.yaml")
+	_, err = os.Stat(c)
+	if errors.Is(err, os.ErrNotExist) {
+		return "", false, nil
+	}
+
+	if err != nil {
+		return "", false, err
+	}
+
+	return c, true, nil
+}
+
+// findConfig tries to find a config file in
+// various directories.
+func findConfig() (string, error) {
+	for _, p := range paths {
+		if c, ok, err := existsConfig(p); err != nil {
+			return "", err
+		} else if ok {
+			return c, nil
+		}
+	}
+
+	return "", errors.New("no config file found")
+}
+
 // Load loads a config from a given path.
-func Load(path string) (*Config, error) {
-	cfgFile, err := os.ReadFile(path)
+func Load() (*Config, error) {
+	cfgPath, err := findConfig()
+	if err != nil {
+		return nil, err
+	}
+
+	log.WithField("path", cfgPath).
+		Info("loading config from file")
+
+	cfgFile, err := os.ReadFile(cfgPath)
 	if err != nil {
 		return nil, err
 	}

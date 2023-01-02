@@ -2,4 +2,5 @@
 out/
 
 config.yaml
+config.yml
 *.db
