@@ -7,9 +7,9 @@ import EventRelated from '../../components/Event/EventRelated/EventRelated';
 import Loading from '../../components/Loading/Loading';
 import { useFetchEvent } from '../../hooks/epg';
 import { useManageRecordingByEvent } from '../../hooks/recording';
-import styles from './Event.module.scss';
+import styles from './EventView.module.scss';
 
-function Event() {
+function EventView() {
   const params = useParams();
   const { fetch, error, event, relatedEvents, loading } = useFetchEvent();
   const { createRecording, stopRecording, cancelRecording, pending } =
@@ -70,4 +70,4 @@ function Event() {
   );
 }
 
-export default Event;
+export default EventView;

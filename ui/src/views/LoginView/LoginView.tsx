@@ -2,7 +2,7 @@ import { useFormik } from 'formik';
 import useLogin from '../../hooks/login';
 import * as Yup from 'yup';
 
-import styles from './Login.module.scss';
+import styles from './LoginView.module.scss';
 import { useTranslation } from 'react-i18next';
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
@@ -13,7 +13,7 @@ import LoginFooter from '../../components/LoginFooter/LoginFooter';
 
 const GITHUB_URL = 'https://github.com/davidborzek/tvhgo';
 
-export default function Login() {
+export default function LoginView() {
   const { t } = useTranslation();
   const { login, loading } = useLogin();
 

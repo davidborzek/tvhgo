@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { useFetchEpg } from '../../hooks/epg';
 
-import styles from './ChannelList.module.scss';
+import styles from './ChannelListView.module.scss';
 import { useTranslation } from 'react-i18next';
 import ChannelListItem from '../../components/ChannelListItem/ChannelListItem';
 import { GetEpgEventsQuery } from '../../clients/api/api';
@@ -16,7 +16,7 @@ const opts: GetEpgEventsQuery = {
   sort_dir: 'asc',
 };
 
-function ChannelList() {
+function ChannelListView() {
   const { t } = useTranslation();
   const { events, offset, total, loading, error, increaseOffset } =
     useFetchEpg(opts);
@@ -56,4 +56,4 @@ function ChannelList() {
   );
 }
 
-export default ChannelList;
+export default ChannelListView;

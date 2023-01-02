@@ -11,15 +11,15 @@ import { useAuth } from './contexts/AuthContext';
 import useLogout from './hooks/logout';
 import AuthProvider from './providers/AuthProvider';
 import { ThemeProvider } from './providers/ThemeProvider';
-import Login from './views/Login/Login';
+import LoginView from './views/LoginView/LoginView';
 import { useTheme } from './contexts/ThemeContext';
 
 import 'react-toastify/dist/ReactToastify.css';
-import ChannelList from './views/ChannelList/ChannelList';
-import Dashboard from './views/Dashboard/Dashboard';
-import Guide from './views/Guide/Guide';
-import Event from './views/Event/Event';
-import Recordings from './views/Recordings/Recordings';
+import ChannelListView from './views/ChannelListView/ChannelListView';
+import DashboardView from './views/DashboardView/DashboardView';
+import GuideView from './views/GuideView/GuideView';
+import EventView from './views/EventView/EventView';
+import RecordingsView from './views/RecordingsView/RecordingsView';
 
 type AuthenticationCheckerProps = {
   redirect?: string;
@@ -77,15 +77,15 @@ function App() {
         <BrowserRouter>
           <Routes>
             <Route element={<Unauthenticated />}>
-              <Route path="/login" element={<Login />} />
+              <Route path="/login" element={<LoginView />} />
             </Route>
 
             <Route element={<Authenticated />}>
-              <Route element={<Dashboard />}>
-                <Route path="/" element={<ChannelList />} />
-                <Route path="/guide" element={<Guide />} />
-                <Route path="/guide/events/:id" element={<Event />} />
-                <Route path="/recordings" element={<Recordings />} />
+              <Route element={<DashboardView />}>
+                <Route path="/" element={<ChannelListView />} />
+                <Route path="/guide" element={<GuideView />} />
+                <Route path="/guide/events/:id" element={<EventView />} />
+                <Route path="/recordings" element={<RecordingsView />} />
                 <Route path="/settings" element={<></>} />
               </Route>
 

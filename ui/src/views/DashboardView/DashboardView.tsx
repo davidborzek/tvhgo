@@ -11,9 +11,9 @@ import MobileNavigation from '../../components/MobileNavigation/MobileNavigation
 import NavigationBar from '../../components/Navigation/NavigationBar/NavigationBar';
 import { INavigationItem } from '../../components/Navigation/types';
 import { c } from '../../utils/classNames';
-import styles from './Dashboard.module.scss';
+import styles from './DashboardView.module.scss';
 
-function Dashboard() {
+function DashboardView() {
   const { t } = useTranslation();
 
   const navigationItems: INavigationItem[] = [
@@ -39,4 +39,4 @@ function Dashboard() {
   );
 }
 
-export default Dashboard;
+export default DashboardView;

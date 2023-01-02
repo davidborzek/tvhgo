@@ -5,9 +5,9 @@ import Error from '../../components/Error/Error';
 import Loading from '../../components/Loading/Loading';
 import RecordingListItem from '../../components/RecordingListItem/RecordingListItem';
 import { useFetchRecordings } from '../../hooks/recording';
-import styles from './Recordings.module.scss';
+import styles from './RecordingsView.module.scss';
 
-function Recordings() {
+function RecordingsView() {
   const { t } = useTranslation();
 
   const { recordings, error, loading, setStatus, status } = useFetchRecordings({
@@ -64,4 +64,4 @@ function Recordings() {
   );
 }
 
-export default Recordings;
+export default RecordingsView;

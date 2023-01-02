@@ -1,5 +1,5 @@
 import { useFetchChannelEvents } from '../../hooks/epg';
-import styles from './Guide.module.scss';
+import styles from './GuideView.module.scss';
 import moment from 'moment';
 import { useEffect, useRef, useState } from 'react';
 import GuideChannel from '../../components/Guide/GuideChannel/GuideChannel';
@@ -40,7 +40,7 @@ function filterEpg(epg: EpgChannel[], search: string) {
   );
 }
 
-function Guide() {
+function GuideView() {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -209,4 +209,4 @@ function Guide() {
   );
 }
 
-export default Guide;
+export default GuideView;
