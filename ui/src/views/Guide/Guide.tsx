@@ -7,9 +7,9 @@ import GuideEventColumn from '../../components/Guide/GuideEventColumn/GuideEvent
 import GuideNavigation from '../../components/Guide/GuideNavigation/GuideNavigation';
 import { EpgChannel } from '../../clients/api/api.types';
 import GuideControls from '../../components/Guide/GuideControls/GuideControls';
-import Loading from '../../components/Loading/Loading';
 import Error from '../../components/Error/Error';
 import { useNavigate } from 'react-router-dom';
+import { c } from '../../utils/classNames';
 
 const SCROLL_PERSIST_KEY = 'tvhgo_guide_scroll_position';
 
@@ -77,7 +77,6 @@ function Guide() {
         setLimit(5);
         return;
       }
-
 
       if (innerWidth > 1200 && innerWidth <= 1500 && current !== 4) {
         setLimit(4);
@@ -176,23 +175,24 @@ function Guide() {
             }}
           />
         </div>
-        <div className={styles.segment}>{renderChannels()}</div>
+        <div className={c(styles.segment, styles.channels)}>
+          {renderChannels()}
+          <GuideNavigation
+            type="left"
+            onClick={() =>
+              setOffset((old) => previousPage(old, limit, filteredEpg.length))
+            }
+          />
+          <GuideNavigation
+            type="right"
+            onClick={() =>
+              setOffset((old) => nextPage(old, limit, filteredEpg.length))
+            }
+          />
+        </div>
       </div>
 
       <div className={styles.segment}>{renderEventColumns()}</div>
-
-      <GuideNavigation
-        type="left"
-        onClick={() =>
-          setOffset((old) => previousPage(old, limit, filteredEpg.length))
-        }
-      />
-      <GuideNavigation
-        type="right"
-        onClick={() =>
-          setOffset((old) => nextPage(old, limit, filteredEpg.length))
-        }
-      />
     </div>
   );
 }

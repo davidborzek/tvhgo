@@ -1,5 +1,5 @@
 .container {
-  padding: 0 4rem 3rem 4rem;
+  padding: 0 2rem 2em 2rem;
   overflow: auto;
 }
 
@@ -15,6 +15,10 @@
   z-index: 1;
   position: sticky;
   top: 0;
+}
+
+.channels {
+  position: relative;
 }
 
 .bar {

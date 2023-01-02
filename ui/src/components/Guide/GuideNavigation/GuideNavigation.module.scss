@@ -1,4 +1,5 @@
 .navigation {
+  position: absolute;
   width: 3rem;
   height: 3rem;
   stroke: var(--color-text-primary);
@@ -6,13 +7,11 @@
 }
 
 .left {
-  position: absolute;
-  left: 0.5rem;
-  top: 50%;
+  left: -1rem;
+  top: 30%;
 }
 
 .right {
-  position: absolute;
-  right: 0.5rem;
-  top: 50%;
+  right: -1rem;
+  top: 30%;
 }
