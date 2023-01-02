@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { EpgEvent } from '../../../clients/api/api.types';
 import styles from './EventRelated.module.scss';
@@ -16,6 +17,8 @@ function renderDatetime(ts: number) {
 }
 
 function EventRelated({ relatedEvents }: Props) {
+  const {t} = useTranslation()
+
   const renderRelatedEvents = () => {
     return relatedEvents.map((event) => {
       return (
@@ -36,7 +39,7 @@ function EventRelated({ relatedEvents }: Props) {
 
   return (
     <div className={styles.EventRelated}>
-      <h2>Related Events</h2>
+      <h2>{t("related_events")}</h2>
       {renderRelatedEvents()}
     </div>
   );
