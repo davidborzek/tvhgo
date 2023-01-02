@@ -14,7 +14,9 @@ type Props = {
 function Dropdown({ options, value, onChange }: Props) {
   const renderOptions = () => {
     return options.map(({ title, value }) => (
-      <option key={title} value={value}>{title}</option>
+      <option key={title} value={value}>
+        {title}
+      </option>
     ));
   };
 

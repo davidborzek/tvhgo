@@ -52,3 +52,28 @@ export type Channel = {
   number: number;
   piconId: number;
 };
+
+export type Recording = {
+  channelId: string;
+  eventId: number;
+  channelName: string;
+  createdAt: number;
+  duration: number;
+  enabled: boolean;
+  filename: string;
+  id: string;
+  langTitle: {
+    ger: string;
+  };
+  title: string;
+  subtitle: string;
+  description: string;
+  extraText: string;
+  originalStartsAt: number;
+  originalEndsAt: number;
+  startsAt: number;
+  endsAt: number;
+  startPadding: number;
+  endPadding: number;
+  status: string;
+};

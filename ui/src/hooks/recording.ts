@@ -79,3 +79,26 @@ export const useManageRecordingByEvent = () => {
     pending,
   };
 };
+
+export const useFetchRecordings = (q?: GetRecordingsQuery) => {
+  const { t } = useTranslation();
+
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
+  const [recordings, setRecordings] = useState<Recording[]>([]);
+  const [status, setStatus] = useState(q?.status);
+
+  const fetch = () => {
+    setLoading(true);
+    getRecordings({ ...q, status })
+      .then(setRecordings)
+      .catch(() => setError(t('unexpected')))
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(() => {
+    fetch();
+  }, [status]);
+
+  return { recordings, error, loading, fetch, setStatus, status };
+};

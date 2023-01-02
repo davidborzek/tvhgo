@@ -5,6 +5,7 @@ import {
   EpgEvent,
   ErrorResponse,
   ListResponse,
+  Recording,
   UserResponse,
 } from './api.types';
 
@@ -15,7 +16,7 @@ type PaginationQuery = {
 
 type SortQuery = {
   sort_key?: string;
-  sort_direction?: string;
+  sort_dir?: string;
 };
 
 type PaginationSortQuery = PaginationQuery & SortQuery;
@@ -36,6 +37,12 @@ export type GetEpgEventsQuery = PaginationSortQuery & {
 export type GetEpgChannelEventsQuery = PaginationSortQuery & {
   startsAt?: number;
   endsAt?: number;
+};
+
+export type RecordingStatus = 'upcoming' | 'finished' | 'failed' | 'removed';
+
+export type GetRecordingsQuery = PaginationSortQuery & {
+  status?: RecordingStatus;
 };
 
 export class ApiError extends Error {
@@ -134,14 +141,19 @@ export async function recordByEvent(
   });
 }
 
-export async function stopRecording(
-  dvrId: string,
-): Promise<void> {
+export async function stopRecording(dvrId: string): Promise<void> {
   await client.put(`/recordings/${dvrId}/stop`);
 }
 
-export async function cancelRecording(
-  dvrId: string,
-): Promise<void> {
+export async function cancelRecording(dvrId: string): Promise<void> {
   await client.put(`/recordings/${dvrId}/cancel`);
+}
+
+export async function getRecordings(
+  q?: GetRecordingsQuery
+): Promise<Recording[]> {
+  const response = await client.get<Recording[]>(`/recordings`, {
+    params: q,
+  });
+  return response.data;
 }

@@ -148,7 +148,7 @@ type (
 
 // Validate validates the minimum requirements of GetRecordingsParams.
 func (o *GetRecordingsParams) Validate() error {
-	if o.Status != "" && o.Status != "upcoming" && o.Status != "finished" && o.Status != "failed" && o.Status != "remove" {
+	if o.Status != "" && o.Status != "upcoming" && o.Status != "finished" && o.Status != "failed" && o.Status != "removed" {
 		return ErrGetRecordingsInvalidStatus
 	}
 	return nil

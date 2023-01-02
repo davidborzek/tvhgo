@@ -13,7 +13,7 @@ const opts: GetEpgEventsQuery = {
   nowPlaying: true,
   limit,
   sort_key: 'channelNumber',
-  sort_direction: 'asc',
+  sort_dir: 'asc',
 };
 
 function ChannelList() {

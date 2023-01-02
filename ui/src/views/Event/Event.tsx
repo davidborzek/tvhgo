@@ -40,7 +40,7 @@ function Event() {
     }
 
     fetchEvent();
-  }
+  };
 
   if (loading) {
     return <Loading />;

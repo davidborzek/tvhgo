@@ -9,7 +9,7 @@ type Props = {
   onClick: () => void;
 };
 
-function EventRecordButton({ dvrState, pending, onClick}: Props) {
+function EventRecordButton({ dvrState, pending, onClick }: Props) {
   const { t } = useTranslation();
 
   const getText = () => {

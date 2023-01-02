@@ -19,6 +19,7 @@ import ChannelList from './views/ChannelList/ChannelList';
 import Dashboard from './views/Dashboard/Dashboard';
 import Guide from './views/Guide/Guide';
 import Event from './views/Event/Event';
+import Recordings from './views/Recordings/Recordings';
 
 type AuthenticationCheckerProps = {
   redirect?: string;
@@ -84,7 +85,7 @@ function App() {
                 <Route path="/" element={<ChannelList />} />
                 <Route path="/guide" element={<Guide />} />
                 <Route path="/guide/events/:id" element={<Event />} />
-                <Route path="/recordings" element={<></>} />
+                <Route path="/recordings" element={<Recordings />} />
                 <Route path="/settings" element={<></>} />
               </Route>
 
