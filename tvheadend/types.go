@@ -83,7 +83,7 @@ type (
 		Child           string            `json:"child"`
 		ContentType     int               `json:"content_type"`
 		CopyrightYear   int               `json:"copyright_year"`
-		Broadcast       int               `json:"broadcast"`
+		Broadcast       int64             `json:"broadcast"`
 		EpisodeDisp     string            `json:"episode_disp"`
 		URL             string            `json:"url"`
 		Filesize        int               `json:"filesize"`

@@ -27,7 +27,9 @@ type (
 	// Recording defines a dvr entry from tvheadend.
 	// TODO: extend necessary fields.
 	Recording struct {
-		ChannelID   string            `json:"channelId"`
+		ChannelID string `json:"channelId"`
+		// ID of the event when the recordings was created by event.
+		EventID     int64             `json:"eventId,omitempty"`
 		ChannelName string            `json:"channelName"`
 		CreatedAt   int64             `json:"createdAt"`
 		Duration    int64             `json:"duration"`
@@ -36,6 +38,9 @@ type (
 		ID          string            `json:"id"`
 		LangTitle   map[string]string `json:"langTitle"`
 		Title       string            `json:"title"`
+		Subtitle    string            `json:"subtitle"`
+		Description string            `json:"description"`
+		ExtraText   string            `json:"extraText"`
 		// OriginalStartsAt time stamp of the original start date
 		// without StartPadding.
 		OriginalStartsAt int64 `json:"originalStartsAt"`
@@ -244,7 +249,11 @@ func MapToTvheadendDvrGridEntryToRecording(entry tvheadend.DvrGridEntry) Recordi
 		StartPadding:     entry.StartExtra,
 		StartsAt:         entry.Start,
 		Title:            entry.DispTitle,
+		Subtitle:         entry.DispSubtitle,
+		ExtraText:        entry.DispExtratext,
 		Status:           entry.SchedStatus,
+		Description:      entry.DispDescription,
+		EventID:          entry.Broadcast,
 	}
 }
 

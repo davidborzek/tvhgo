@@ -249,12 +249,16 @@ func TestMapToTvheadendDvrGridEntryToRecording(t *testing.T) {
 		Title: map[string]string{
 			"de": "someTitle",
 		},
-		StopReal:    time.Now().Unix() + 11000,
-		StartReal:   time.Now().Unix() - 1000,
-		StartExtra:  1,
-		Start:       time.Now().Unix(),
-		DispTitle:   "someTitle",
-		SchedStatus: "scheduled",
+		StopReal:        time.Now().Unix() + 11000,
+		StartReal:       time.Now().Unix() - 1000,
+		StartExtra:      1,
+		Start:           time.Now().Unix(),
+		DispTitle:       "someTitle",
+		DispSubtitle:    "someSubtitle",
+		DispExtratext:   "someExtratext",
+		DispDescription: "someDescription",
+		SchedStatus:     "scheduled",
+		Broadcast:       1234,
 	}
 
 	recording := core.MapToTvheadendDvrGridEntryToRecording(tvhEntry)
@@ -272,8 +276,12 @@ func TestMapToTvheadendDvrGridEntryToRecording(t *testing.T) {
 	assert.Equal(t, tvhEntry.StopReal, recording.OriginalEndsAt)
 	assert.Equal(t, tvhEntry.StartReal, recording.OriginalStartsAt)
 	assert.Equal(t, tvhEntry.StartExtra, recording.StartPadding)
-	assert.Equal(t, tvhEntry.DispTitle, recording.Title)
 	assert.Equal(t, tvhEntry.SchedStatus, recording.Status)
+	assert.Equal(t, tvhEntry.DispTitle, recording.Title)
+	assert.Equal(t, tvhEntry.DispSubtitle, recording.Subtitle)
+	assert.Equal(t, tvhEntry.DispExtratext, recording.ExtraText)
+	assert.Equal(t, tvhEntry.DispDescription, recording.Description)
+	assert.Equal(t, tvhEntry.Broadcast, recording.EventID)
 }
 
 func TestMapTvheadendIdnodeToRecordingFailsForUnexpectedType(t *testing.T) {
