@@ -161,6 +161,29 @@ function Guide() {
     return <Error message={error} />;
   }
 
+  const renderNavigation = () => {
+    if (filteredEpg.length == 0) {
+      return <></>;
+    }
+
+    return (
+      <>
+        <GuideNavigation
+          type="left"
+          onClick={() =>
+            setOffset((old) => previousPage(old, limit, filteredEpg.length))
+          }
+        />
+        <GuideNavigation
+          type="right"
+          onClick={() =>
+            setOffset((old) => nextPage(old, limit, filteredEpg.length))
+          }
+        />
+      </>
+    );
+  };
+
   return (
     <div className={styles.container} ref={containerRef}>
       <div className={styles.header}>
@@ -177,18 +200,7 @@ function Guide() {
         </div>
         <div className={c(styles.segment, styles.channels)}>
           {renderChannels()}
-          <GuideNavigation
-            type="left"
-            onClick={() =>
-              setOffset((old) => previousPage(old, limit, filteredEpg.length))
-            }
-          />
-          <GuideNavigation
-            type="right"
-            onClick={() =>
-              setOffset((old) => nextPage(old, limit, filteredEpg.length))
-            }
-          />
+          {renderNavigation()}
         </div>
       </div>
 
