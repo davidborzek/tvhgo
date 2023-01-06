@@ -27,6 +27,13 @@ func TestInterfaceToStringMapReturnsError(t *testing.T) {
 	assert.Equal(t, conv.ErrInterfaceToStringMap, err)
 }
 
+func TestInterfaceToStringMapReturnsEmptyMapForNilInput(t *testing.T) {
+	out, err := conv.InterfaceToStringMap(nil)
+
+	assert.Nil(t, err)
+	assert.Empty(t, out)
+}
+
 func TestInterfaceToString(t *testing.T) {
 	out, err := conv.InterfaceToString("someString")
 
@@ -39,6 +46,13 @@ func TestInterfaceToStringReturnsError(t *testing.T) {
 
 	assert.Empty(t, out)
 	assert.Equal(t, conv.ErrInterfaceToString, err)
+}
+
+func TestInterfaceToStringReturnsEmptyStringForNilInput(t *testing.T) {
+	out, err := conv.InterfaceToString(nil)
+
+	assert.Nil(t, err)
+	assert.Equal(t, "", out)
 }
 
 func TestInterfaceToBool(t *testing.T) {
@@ -55,6 +69,13 @@ func TestInterfaceToBoolReturnsError(t *testing.T) {
 	assert.Equal(t, conv.ErrInterfaceToBool, err)
 }
 
+func TestInterfaceToBoolReturnsFalseForNilInput(t *testing.T) {
+	out, err := conv.InterfaceToBool(nil)
+
+	assert.Nil(t, err)
+	assert.Equal(t, false, out)
+}
+
 func TestInterfaceToInt64(t *testing.T) {
 	out, err := conv.InterfaceToInt64(float64(1234))
 
@@ -69,6 +90,13 @@ func TestInterfaceToInt64ReturnsError(t *testing.T) {
 	assert.Equal(t, conv.ErrInterfaceToInt64, err)
 }
 
+func TestInterfaceToInt64Returns0ForNilInput(t *testing.T) {
+	out, err := conv.InterfaceToInt64(nil)
+
+	assert.Nil(t, err)
+	assert.Equal(t, int64(0), out)
+}
+
 func TestInterfaceToInt(t *testing.T) {
 	out, err := conv.InterfaceToInt(float64(1234))
 
@@ -81,4 +109,11 @@ func TestInterfaceToIntReturnsError(t *testing.T) {
 
 	assert.Equal(t, 0, out)
 	assert.Equal(t, conv.ErrInterfaceToInt, err)
+}
+
+func TestInterfaceToIntReturns0ForNilInput(t *testing.T) {
+	out, err := conv.InterfaceToInt(nil)
+
+	assert.Nil(t, err)
+	assert.Equal(t, 0, out)
 }

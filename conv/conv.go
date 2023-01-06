@@ -1,6 +1,8 @@
 package conv
 
-import "errors"
+import (
+	"errors"
+)
 
 var (
 	ErrInterfaceToStringMap = errors.New("converting interface to map[string]string failed")
@@ -12,6 +14,10 @@ var (
 
 // InterfaceToStringMap converts a interface to map[string]string.
 func InterfaceToStringMap(in interface{}) (map[string]string, error) {
+	if in == nil {
+		return map[string]string{}, nil
+	}
+
 	m, ok := in.(map[string]interface{})
 
 	if !ok {
@@ -28,6 +34,10 @@ func InterfaceToStringMap(in interface{}) (map[string]string, error) {
 
 // InterfaceToString converts a interface to a string.
 func InterfaceToString(in interface{}) (string, error) {
+	if in == nil {
+		return "", nil
+	}
+
 	out, ok := in.(string)
 	if !ok {
 		return "", ErrInterfaceToString
@@ -38,6 +48,10 @@ func InterfaceToString(in interface{}) (string, error) {
 
 // InterfaceToBool converts a interface to a bool.
 func InterfaceToBool(in interface{}) (bool, error) {
+	if in == nil {
+		return false, nil
+	}
+
 	out, ok := in.(bool)
 	if !ok {
 		return false, ErrInterfaceToBool
@@ -49,6 +63,10 @@ func InterfaceToBool(in interface{}) (bool, error) {
 // InterfaceToInt64 converts a interface from
 // a json un-marshaled struct to a int64.
 func InterfaceToInt64(in interface{}) (int64, error) {
+	if in == nil {
+		return 0, nil
+	}
+
 	out, ok := in.(float64)
 	if !ok {
 		return 0, ErrInterfaceToInt64
@@ -60,6 +78,10 @@ func InterfaceToInt64(in interface{}) (int64, error) {
 // InterfaceToInt converts a interface from
 // a json un-marshaled struct to a int.
 func InterfaceToInt(in interface{}) (int, error) {
+	if in == nil {
+		return 0, nil
+	}
+
 	out, ok := in.(float64)
 	if !ok {
 		return 0, ErrInterfaceToInt
