@@ -31,6 +31,7 @@ type (
 		// ID of the event when the recordings was created by event.
 		EventID     int64             `json:"eventId,omitempty"`
 		ChannelName string            `json:"channelName"`
+		PiconID     int               `json:"piconId"`
 		CreatedAt   int64             `json:"createdAt"`
 		Duration    int64             `json:"duration"`
 		Enabled     bool              `json:"enabled"`
@@ -254,6 +255,7 @@ func MapToTvheadendDvrGridEntryToRecording(entry tvheadend.DvrGridEntry) Recordi
 		Status:           entry.SchedStatus,
 		Description:      entry.DispDescription,
 		EventID:          entry.Broadcast,
+		PiconID:          MapTvheadendIconUrlToPiconID(entry.ChannelIcon),
 	}
 }
 
@@ -297,6 +299,18 @@ func MapTvheadendIdnodeToRecording(idnode tvheadend.Idnode) (*Recording, error) 
 			r.CreatedAt, err = conv.InterfaceToInt64(p.Value)
 		case "sched_status":
 			r.Status, err = conv.InterfaceToString(p.Value)
+		case "broadcast":
+			r.EventID, err = conv.InterfaceToInt64(p.Value)
+		case "disp_description":
+			r.Description, err = conv.InterfaceToString(p.Value)
+		case "disp_extratext":
+			r.ExtraText, err = conv.InterfaceToString(p.Value)
+		case "disp_subtitle":
+			r.Subtitle, err = conv.InterfaceToString(p.Value)
+		case "channel_icon":
+			var value string
+			value, err = conv.InterfaceToString(p.Value)
+			r.PiconID = MapTvheadendIconUrlToPiconID(value)
 		}
 
 		if err != nil {

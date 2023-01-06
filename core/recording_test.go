@@ -1,6 +1,7 @@
 package core_test
 
 import (
+	"fmt"
 	"testing"
 	"time"
 
@@ -236,6 +237,7 @@ func TestUpdateRecordingMapToTvheadendOpts(t *testing.T) {
 }
 
 func TestMapToTvheadendDvrGridEntryToRecording(t *testing.T) {
+	piconId := 6
 	tvhEntry := tvheadend.DvrGridEntry{
 		Channel:     "someChannelID",
 		Channelname: "someChannelName",
@@ -259,6 +261,7 @@ func TestMapToTvheadendDvrGridEntryToRecording(t *testing.T) {
 		DispDescription: "someDescription",
 		SchedStatus:     "scheduled",
 		Broadcast:       1234,
+		ChannelIcon:     fmt.Sprintf("imagecache/%d", piconId),
 	}
 
 	recording := core.MapToTvheadendDvrGridEntryToRecording(tvhEntry)
@@ -282,6 +285,7 @@ func TestMapToTvheadendDvrGridEntryToRecording(t *testing.T) {
 	assert.Equal(t, tvhEntry.DispExtratext, recording.ExtraText)
 	assert.Equal(t, tvhEntry.DispDescription, recording.Description)
 	assert.Equal(t, tvhEntry.Broadcast, recording.EventID)
+	assert.Equal(t, piconId, recording.PiconID)
 }
 
 func TestMapTvheadendIdnodeToRecordingFailsForUnexpectedType(t *testing.T) {
@@ -307,6 +311,11 @@ func TestMapTvheadendIdnodeToRecording(t *testing.T) {
 	filename := "someFilename"
 	channelId := "someChannelId"
 	channelName := "someChannelName"
+	piconId := 6
+	extraText := "someExtraText"
+	description := "someDescription"
+	subtitle := "someSubtitle"
+	eventId := int64(1234)
 
 	startsAt := time.Now().Unix() + 60000
 	originalStartsAt := time.Now().Unix()
@@ -351,6 +360,10 @@ func TestMapTvheadendIdnodeToRecording(t *testing.T) {
 				Value: channelName,
 			},
 			{
+				ID:    "channel_icon",
+				Value: fmt.Sprintf("imagecache/%d", piconId),
+			},
+			{
 				ID:    "start",
 				Value: float64(startsAt),
 			},
@@ -386,6 +399,22 @@ func TestMapTvheadendIdnodeToRecording(t *testing.T) {
 				ID:    "sched_status",
 				Value: status,
 			},
+			{
+				ID:    "disp_subtitle",
+				Value: subtitle,
+			},
+			{
+				ID:    "disp_extratext",
+				Value: extraText,
+			},
+			{
+				ID:    "disp_description",
+				Value: description,
+			},
+			{
+				ID:    "broadcast",
+				Value: float64(eventId),
+			},
 		},
 	}
 
@@ -409,4 +438,9 @@ func TestMapTvheadendIdnodeToRecording(t *testing.T) {
 	assert.Equal(t, duration, recording.Duration)
 	assert.Equal(t, createdAt, recording.CreatedAt)
 	assert.Equal(t, status, recording.Status)
+	assert.Equal(t, subtitle, recording.Subtitle)
+	assert.Equal(t, extraText, recording.ExtraText)
+	assert.Equal(t, description, recording.Description)
+	assert.Equal(t, eventId, recording.EventID)
+	assert.Equal(t, piconId, recording.PiconID)
 }
