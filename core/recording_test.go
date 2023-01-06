@@ -105,56 +105,58 @@ func TestCreateRecordingValidateReturnErrorInvalidEndDate(t *testing.T) {
 }
 
 func TestUpdateRecordingValidate(t *testing.T) {
+	title := "someTitle"
+	startsAt := time.Now().Unix() + 10000
+	endsAt := time.Now().Unix() + 20000
+
 	c := core.UpdateRecording{
-		CreateRecording: core.CreateRecording{
-			Title:     "someTitle",
-			ChannelID: "someChannelID",
-			StartsAt:  time.Now().Unix(),
-			EndsAt:    time.Now().Unix() - 10000,
-		},
+		Title:    &title,
+		StartsAt: &startsAt,
+		EndsAt:   &endsAt,
 	}
 
 	err := c.Validate()
 	assert.Nil(t, err)
 }
 
-func TestUpdateRecordingValidateReturnErrorInvalidTitle(t *testing.T) {
+func TestUpdateRecordingValidateEmpty(t *testing.T) {
 	c := core.UpdateRecording{}
+
+	err := c.Validate()
+	assert.Nil(t, err)
+}
+
+func TestUpdateRecordingValidateReturnsErrorInvalidTitle(t *testing.T) {
+	title := ""
+
+	c := core.UpdateRecording{
+		Title: &title,
+	}
 
 	err := c.Validate()
 	assert.Equal(t, core.ErrRecordingInvalidTitle, err)
 }
 
-func TestUpdateRecordingValidateReturnErrorInvalidChannelID(t *testing.T) {
-	c := core.UpdateRecording{
-		CreateRecording: core.CreateRecording{
-			Title: "someTitle",
-		},
-	}
+func TestUpdateRecordingValidateReturnsErrorInvalidStartDate(t *testing.T) {
+	title := "title"
+	startsAt := int64(0)
 
-	err := c.Validate()
-	assert.Equal(t, core.ErrRecordingInvalidChannelID, err)
-}
-
-func TestUpdateRecordingValidateReturnErrorInvalidStartDate(t *testing.T) {
 	c := core.UpdateRecording{
-		CreateRecording: core.CreateRecording{
-			Title:     "someTitle",
-			ChannelID: "someChannelID",
-		},
+		Title:    &title,
+		StartsAt: &startsAt,
 	}
 
 	err := c.Validate()
 	assert.Equal(t, core.ErrRecordingInvalidStartDate, err)
 }
 
-func TestUpdateRecordingValidateReturnErrorInvalidEndDate(t *testing.T) {
+func TestUpdateRecordingValidateReturnsErrorInvalidEndDate(t *testing.T) {
+	title := "title"
+	endsAt := int64(0)
+
 	c := core.UpdateRecording{
-		CreateRecording: core.CreateRecording{
-			Title:     "someTitle",
-			ChannelID: "someChannelID",
-			StartsAt:  time.Now().Unix(),
-		},
+		Title:  &title,
+		EndsAt: &endsAt,
 	}
 
 	err := c.Validate()
@@ -187,53 +189,6 @@ func TestCreateRecordingMapToTvheadendOpts(t *testing.T) {
 	assert.Equal(t, c.StartPadding, mapped.StartExtra)
 	assert.Equal(t, c.EndsAt, mapped.Stop)
 	assert.Equal(t, c.EndPadding, mapped.StopExtra)
-}
-
-func TestUpdateRecordingMapToTvheadendOpts(t *testing.T) {
-	c := core.UpdateRecording{
-		CreateRecording: core.CreateRecording{
-			Title:        "someTitle",
-			ExtraText:    "someExtraText",
-			ChannelID:    "someChannelID",
-			StartsAt:     time.Now().Unix(),
-			EndsAt:       time.Now().Unix() + 10000,
-			Comment:      "someComment",
-			StartPadding: 1,
-			EndPadding:   1,
-			Priority:     1,
-			ConfigID:     "someConfigID",
-		},
-		Enabled:       true,
-		Episode:       "someEpisode",
-		Owner:         "someOwner",
-		Creator:       "someCreator",
-		RemovalTime:   1,
-		RetentionTime: 1,
-	}
-
-	id := "someId"
-
-	mapped := c.MapToTvheadendOpts(id)
-
-	assert.Equal(t, c.Title, mapped.DispTitle)
-	assert.Equal(t, c.ExtraText, mapped.DispExtratext)
-	assert.Equal(t, c.ChannelID, mapped.Channel)
-	assert.Equal(t, c.Comment, mapped.Comment)
-	assert.Equal(t, c.ConfigID, mapped.ConfigName)
-	assert.Equal(t, c.Priority, mapped.Pri)
-	assert.Equal(t, c.StartsAt, mapped.Start)
-	assert.Equal(t, c.StartPadding, mapped.StartExtra)
-	assert.Equal(t, c.EndsAt, mapped.Stop)
-	assert.Equal(t, c.EndPadding, mapped.StopExtra)
-
-	assert.Equal(t, c.Creator, mapped.Creator)
-	assert.Equal(t, c.Enabled, mapped.Enabled)
-	assert.Equal(t, c.Episode, mapped.EpisodeDisp)
-	assert.Equal(t, c.Owner, mapped.Owner)
-	assert.Equal(t, c.RemovalTime, mapped.Removal)
-	assert.Equal(t, c.RetentionTime, mapped.Retention)
-
-	assert.Equal(t, id, mapped.UUID)
 }
 
 func TestMapToTvheadendDvrGridEntryToRecording(t *testing.T) {
@@ -443,4 +398,181 @@ func TestMapTvheadendIdnodeToRecording(t *testing.T) {
 	assert.Equal(t, description, recording.Description)
 	assert.Equal(t, eventId, recording.EventID)
 	assert.Equal(t, piconId, recording.PiconID)
+}
+
+func TestBuildTvheadendDvrUpdateRecordingOptsFailsForUnexpectedType(t *testing.T) {
+	idnode := tvheadend.Idnode{
+		UUID: "someID",
+		Params: []tvheadend.InodeParams{
+			{
+				ID:    "enabled",
+				Value: "true",
+			},
+		},
+	}
+
+	opts, err := core.BuildTvheadendDvrUpdateRecordingOpts(idnode, core.UpdateRecording{})
+
+	assert.Nil(t, opts)
+	assert.Equal(t, conv.ErrInterfaceToBool, err)
+}
+
+func TestBuildTvheadendDvrUpdateRecording(t *testing.T) {
+	id := "someID"
+	enabled := true
+	title := "someTitle"
+	channelId := "someChannelId"
+	extraText := "someExtraText"
+	comment := "someComment"
+	episode := "someEpisode"
+	priority := 1
+	dvrConfigId := "someDvrConfigId"
+	owner := "someOwner"
+	creator := "someCreator"
+	retention := 1
+	removal := 2
+
+	startsAt := time.Now().Unix() + 60000
+	startPadding := 1
+
+	endsAt := time.Now().Unix() + 1000000
+	endPadding := 1
+
+	idnode := tvheadend.Idnode{
+		UUID: id,
+		Params: []tvheadend.InodeParams{
+			{
+				ID:    "enabled",
+				Value: enabled,
+			},
+			{
+				ID:    "disp_title",
+				Value: title,
+			},
+			{
+				ID:    "disp_extratext",
+				Value: extraText,
+			},
+			{
+				ID:    "channel",
+				Value: channelId,
+			},
+			{
+				ID:    "start",
+				Value: float64(startsAt),
+			},
+			{
+				ID:    "stop",
+				Value: float64(endsAt),
+			},
+			{
+				ID:    "comment",
+				Value: comment,
+			},
+			{
+				ID:    "episode_disp",
+				Value: episode,
+			},
+			{
+				ID:    "start_extra",
+				Value: float64(startPadding),
+			},
+			{
+				ID:    "stop_extra",
+				Value: float64(endPadding),
+			},
+			{
+				ID:    "pri",
+				Value: float64(priority),
+			},
+			{
+				ID:    "config_name",
+				Value: dvrConfigId,
+			},
+			{
+				ID:    "owner",
+				Value: owner,
+			},
+			{
+				ID:    "creator",
+				Value: creator,
+			},
+			{
+				ID:    "removal",
+				Value: float64(removal),
+			},
+			{
+				ID:    "retention",
+				Value: float64(retention),
+			},
+		},
+	}
+
+	// Build opts without merging and assert the values.
+	notMerged, err := core.BuildTvheadendDvrUpdateRecordingOpts(idnode, core.UpdateRecording{})
+	assert.Nil(t, err)
+
+	assert.Equal(t, channelId, notMerged.Channel)
+	assert.Equal(t, comment, notMerged.Comment)
+	assert.Equal(t, dvrConfigId, notMerged.ConfigName)
+	assert.Equal(t, creator, notMerged.Creator)
+	assert.Equal(t, extraText, notMerged.DispExtratext)
+	assert.Equal(t, title, notMerged.DispTitle)
+	assert.Equal(t, enabled, notMerged.Enabled)
+	assert.Equal(t, episode, notMerged.EpisodeDisp)
+	assert.Equal(t, owner, notMerged.Owner)
+	assert.Equal(t, priority, notMerged.Pri)
+	assert.Equal(t, removal, notMerged.Removal)
+	assert.Equal(t, retention, notMerged.Retention)
+	assert.Equal(t, startsAt, notMerged.Start)
+	assert.Equal(t, startPadding, notMerged.StartExtra)
+	assert.Equal(t, endsAt, notMerged.Stop)
+	assert.Equal(t, endPadding, notMerged.StopExtra)
+	assert.Equal(t, id, notMerged.UUID)
+
+	mergedTitle := "mergedTitle"
+	mergedComment := "mergedComment"
+	mergedEnabled := false
+	mergedEndPadding := 2
+	mergedEndsAt := int64(1234)
+	mergedEpisode := "mergedEpisode"
+	mergedExtratext := "mergedExtratext"
+	mergedPriority := 500
+	mergedStartPadding := 2
+	mergedStartsAt := int64(123)
+
+	// Build opts with merging and assert the values.
+	opts := core.UpdateRecording{
+		Title:        &mergedTitle,
+		ExtraText:    &mergedExtratext,
+		StartsAt:     &mergedStartsAt,
+		EndsAt:       &mergedEndsAt,
+		Comment:      &mergedComment,
+		StartPadding: &mergedStartPadding,
+		EndPadding:   &mergedEndPadding,
+		Priority:     &mergedPriority,
+		Enabled:      &mergedEnabled,
+		Episode:      &mergedEpisode,
+	}
+
+	merged, err := core.BuildTvheadendDvrUpdateRecordingOpts(idnode, opts)
+	assert.Nil(t, err)
+
+	assert.Equal(t, channelId, merged.Channel)
+	assert.Equal(t, mergedComment, merged.Comment)
+	assert.Equal(t, dvrConfigId, merged.ConfigName)
+	assert.Equal(t, creator, merged.Creator)
+	assert.Equal(t, mergedExtratext, merged.DispExtratext)
+	assert.Equal(t, mergedTitle, merged.DispTitle)
+	assert.Equal(t, mergedEnabled, merged.Enabled)
+	assert.Equal(t, mergedEpisode, merged.EpisodeDisp)
+	assert.Equal(t, owner, merged.Owner)
+	assert.Equal(t, mergedPriority, merged.Pri)
+	assert.Equal(t, removal, merged.Removal)
+	assert.Equal(t, retention, merged.Retention)
+	assert.Equal(t, mergedStartsAt, merged.Start)
+	assert.Equal(t, mergedStartPadding, merged.StartExtra)
+	assert.Equal(t, mergedEndsAt, merged.Stop)
+	assert.Equal(t, mergedEndPadding, merged.StopExtra)
+	assert.Equal(t, id, merged.UUID)
 }

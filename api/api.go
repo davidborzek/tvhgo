@@ -89,7 +89,7 @@ func (s *router) Handler() http.Handler {
 	authenticated.Put("/recordings/{id}/cancel", s.CancelRecording)
 	authenticated.Put("/recordings/{id}/move/{dest}", s.MoveRecording)
 	authenticated.Delete("/recordings/{id}", s.RemoveRecording)
-	authenticated.Put("/recordings/{id}", s.UpdateRecording)
+	authenticated.Patch("/recordings/{id}", s.UpdateRecording)
 
 	return r
 }

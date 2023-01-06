@@ -695,11 +695,31 @@ func TestMoveFailedSucceeds(t *testing.T) {
 	assert.Nil(t, err)
 }
 
+func TestUpdateRecordingReturnsErrorWhenIdnodeLoadFails(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockClient := mock_tvheadend.NewMockClient(ctrl)
+	mockClient.EXPECT().
+		Exec(ctx, "/api/idnode/load", gomock.Any(), gomock.Any()).
+		DoAndReturn(mock_tvheadend.MockClientExecReturnsError).
+		Times(1)
+
+	service := recording.New(mockClient)
+	err := service.UpdateRecording(ctx, "someID", core.UpdateRecording{})
+
+	assert.EqualError(t, err, "error")
+}
+
 func TestUpdateRecordingReturnsError(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
 	mockClient := mock_tvheadend.NewMockClient(ctrl)
+	mockClient.EXPECT().
+		Exec(ctx, "/api/idnode/load", gomock.Any(), gomock.Any()).
+		DoAndReturn(mockClientExecSucceedsForGet).
+		Times(1)
 	mockClient.EXPECT().
 		Exec(ctx, "/api/idnode/save", gomock.Any(), gomock.Any()).
 		DoAndReturn(mock_tvheadend.MockClientExecReturnsError).
@@ -717,6 +737,10 @@ func TestUpdateRecordingReturnsRequestFailedError(t *testing.T) {
 
 	mockClient := mock_tvheadend.NewMockClient(ctrl)
 	mockClient.EXPECT().
+		Exec(ctx, "/api/idnode/load", gomock.Any(), gomock.Any()).
+		DoAndReturn(mockClientExecSucceedsForGet).
+		Times(1)
+	mockClient.EXPECT().
 		Exec(ctx, "/api/idnode/save", gomock.Any(), gomock.Any()).
 		DoAndReturn(mock_tvheadend.MockClientExecReturnsErroneousHttpStatus).
 		Times(1)
@@ -732,15 +756,15 @@ func TestUpdateRecordingSucceeds(t *testing.T) {
 	defer ctrl.Finish()
 
 	id := "someID"
-	opts := core.UpdateRecording{}
-	q := opts.MapToTvheadendOpts(id)
-	tvhq := tvheadend.NewQuery()
-
-	tvhq.Node(&q)
 
 	mockClient := mock_tvheadend.NewMockClient(ctrl)
 	mockClient.EXPECT().
-		Exec(ctx, "/api/idnode/save", gomock.Any(), tvhq).
+		Exec(ctx, "/api/idnode/load", gomock.Any(), gomock.Any()).
+		DoAndReturn(mockClientExecSucceedsForGet).
+		Times(1)
+
+	mockClient.EXPECT().
+		Exec(ctx, "/api/idnode/save", gomock.Any(), gomock.Any()).
 		Return(&tvheadend.Response{
 			Response: &http.Response{
 				StatusCode: 200,

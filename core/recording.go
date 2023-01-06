@@ -105,20 +105,30 @@ type (
 
 	// UpdateRecording recording defines options to
 	// update a recording timer.
+	// The values are pointers because they are optional to provide.
 	UpdateRecording struct {
-		CreateRecording
+		// Title title of the recording.
+		Title *string `json:"title"`
+		// ExtraText optional extraText of the recording.
+		ExtraText *string `json:"extraText"`
+		// StartAt start date of the recording as unix timestamp.
+		StartsAt *int64 `json:"startsAt"`
+		// EndsAt end date of the recording as unix timestamp.
+		EndsAt *int64 `json:"endsAt"`
+		// Comment optional comment of the recording.
+		Comment *string `json:"comment"`
+		// StartPadding optional padding in minutes to record
+		// before the recording starts.
+		StartPadding *int `json:"startPadding"`
+		// EndPadding optional padding in minutes to record
+		// after the recording ends.
+		EndPadding *int `json:"endPadding"`
+		// Priority priority of the recording.
+		Priority *int `json:"priority"`
 		// Enabled enabled status of the recording.
-		Enabled bool `json:"enabled"`
+		Enabled *bool `json:"enabled"`
 		// Episode episode of the recording.
-		Episode string `json:"episode"`
-		// Owner owner of the recording.
-		Owner string `json:"owner"`
-		// Creator creator of the recording.
-		Creator string `json:"creator"`
-		// RemovalTime removal time in days of the recording.
-		RemovalTime int `json:"removalTime"`
-		// RetentionTime log retention time in days of the recording.
-		RetentionTime int `json:"retentionTime"`
+		Episode *string `json:"episode"`
 	}
 
 	// RecordingService provides access to recording
@@ -178,16 +188,13 @@ func (r *CreateRecording) Validate() error {
 	return nil
 }
 
-// Validate validates the minimum requirements of UpdateRecording.
 func (r *UpdateRecording) Validate() error {
 	switch {
-	case r.Title == "":
+	case r.Title != nil && *r.Title == "":
 		return ErrRecordingInvalidTitle
-	case r.ChannelID == "":
-		return ErrRecordingInvalidChannelID
-	case r.StartsAt == 0:
+	case r.StartsAt != nil && *r.StartsAt < time.Now().Unix():
 		return ErrRecordingInvalidStartDate
-	case r.EndsAt == 0:
+	case r.EndsAt != nil && *r.EndsAt < time.Now().Unix():
 		return ErrRecordingInvalidEndDate
 	}
 	return nil
@@ -206,29 +213,6 @@ func (c *CreateRecording) MapToTvheadendOpts() tvheadend.DvrCreateRecordingOpts 
 		StopExtra:     c.EndPadding,
 		Pri:           c.Priority,
 		ConfigName:    c.ConfigID,
-	}
-}
-
-// MapToTvheadendOpts maps UpdateRecording to tvheadend.DvrUpdateRecordingOpts.
-func (u *UpdateRecording) MapToTvheadendOpts(id string) tvheadend.DvrUpdateRecordingOpts {
-	return tvheadend.DvrUpdateRecordingOpts{
-		Channel:       u.ChannelID,
-		Comment:       u.Comment,
-		ConfigName:    u.ConfigID,
-		Creator:       u.Creator,
-		DispExtratext: u.ExtraText,
-		DispTitle:     u.Title,
-		Enabled:       u.Enabled,
-		EpisodeDisp:   u.Episode,
-		Owner:         u.Owner,
-		Pri:           u.Priority,
-		Removal:       u.RemovalTime,
-		Retention:     u.RetentionTime,
-		Start:         u.StartsAt,
-		StartExtra:    u.StartPadding,
-		Stop:          u.EndsAt,
-		StopExtra:     u.EndPadding,
-		UUID:          id,
 	}
 }
 
@@ -319,4 +303,104 @@ func MapTvheadendIdnodeToRecording(idnode tvheadend.Idnode) (*Recording, error) 
 	}
 
 	return &r, nil
+}
+
+// BuildTvheadendDvrUpdateRecordingOpts builds tvheadend.DvrUpdateRecordingOpts from an existing
+// recording idnode and UpdateRecording.
+func BuildTvheadendDvrUpdateRecordingOpts(idnode tvheadend.Idnode, opts UpdateRecording) (*tvheadend.DvrUpdateRecordingOpts, error) {
+	tvhOpts := tvheadend.DvrUpdateRecordingOpts{
+		UUID: idnode.UUID,
+	}
+
+	for _, p := range idnode.Params {
+		var err error
+
+		switch p.ID {
+		case "enabled":
+			tvhOpts.Enabled, err = conv.InterfaceToBool(p.Value)
+		case "disp_title":
+			tvhOpts.DispTitle, err = conv.InterfaceToString(p.Value)
+		case "disp_extratext":
+			tvhOpts.DispExtratext, err = conv.InterfaceToString(p.Value)
+		case "channel":
+			tvhOpts.Channel, err = conv.InterfaceToString(p.Value)
+		case "start":
+			tvhOpts.Start, err = conv.InterfaceToInt64(p.Value)
+		case "stop":
+			tvhOpts.Stop, err = conv.InterfaceToInt64(p.Value)
+		case "comment":
+			tvhOpts.Comment, err = conv.InterfaceToString(p.Value)
+		case "episode_disp":
+			tvhOpts.EpisodeDisp, err = conv.InterfaceToString(p.Value)
+		case "start_extra":
+			tvhOpts.StartExtra, err = conv.InterfaceToInt(p.Value)
+		case "stop_extra":
+			tvhOpts.StopExtra, err = conv.InterfaceToInt(p.Value)
+		case "pri":
+			tvhOpts.Pri, err = conv.InterfaceToInt(p.Value)
+		case "config_name":
+			tvhOpts.ConfigName, err = conv.InterfaceToString(p.Value)
+		case "owner":
+			tvhOpts.Owner, err = conv.InterfaceToString(p.Value)
+		case "creator":
+			tvhOpts.Creator, err = conv.InterfaceToString(p.Value)
+		case "removal":
+			tvhOpts.Removal, err = conv.InterfaceToInt(p.Value)
+		case "retention":
+			tvhOpts.Retention, err = conv.InterfaceToInt(p.Value)
+		}
+
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	merged := mergeDvrUpdateRecordingOptsAndUpdateRecording(tvhOpts, opts)
+	return &merged, nil
+}
+
+// mergeDvrUpdateRecordingOptsAndUpdateRecording merges the existing tvheadend.DvrUpdateRecordingOpts
+// with optional UpdateRecording.
+func mergeDvrUpdateRecordingOptsAndUpdateRecording(tvhOpts tvheadend.DvrUpdateRecordingOpts, opts UpdateRecording) tvheadend.DvrUpdateRecordingOpts {
+	if opts.Comment != nil {
+		tvhOpts.Comment = *opts.Comment
+	}
+
+	if opts.Enabled != nil {
+		tvhOpts.Enabled = *opts.Enabled
+	}
+
+	if opts.EndPadding != nil {
+		tvhOpts.StopExtra = *opts.EndPadding
+	}
+
+	if opts.EndsAt != nil {
+		tvhOpts.Stop = *opts.EndsAt
+	}
+
+	if opts.Episode != nil {
+		tvhOpts.EpisodeDisp = *opts.Episode
+	}
+
+	if opts.ExtraText != nil {
+		tvhOpts.DispExtratext = *opts.ExtraText
+	}
+
+	if opts.Priority != nil {
+		tvhOpts.Pri = *opts.Priority
+	}
+
+	if opts.StartPadding != nil {
+		tvhOpts.StartExtra = *opts.StartPadding
+	}
+
+	if opts.StartsAt != nil {
+		tvhOpts.Start = *opts.StartsAt
+	}
+
+	if opts.Title != nil {
+		tvhOpts.DispTitle = *opts.Title
+	}
+
+	return tvhOpts
 }

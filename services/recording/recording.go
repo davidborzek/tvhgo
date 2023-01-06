@@ -184,10 +184,18 @@ func (s *service) MoveFailed(ctx context.Context, id string) error {
 }
 
 func (s *service) UpdateRecording(ctx context.Context, id string, opts core.UpdateRecording) error {
-	q := tvheadend.NewQuery()
-	node := opts.MapToTvheadendOpts(id)
+	idnode, err := s.getRecordingIdnode(ctx, id)
+	if err != nil {
+		return err
+	}
 
-	if err := q.Node(&node); err != nil {
+	node, err := core.BuildTvheadendDvrUpdateRecordingOpts(*idnode, opts)
+	if err != nil {
+		return err
+	}
+
+	q := tvheadend.NewQuery()
+	if err := q.Node(node); err != nil {
 		return err
 	}
 
@@ -204,6 +212,20 @@ func (s *service) UpdateRecording(ctx context.Context, id string, opts core.Upda
 }
 
 func (s *service) Get(ctx context.Context, id string) (*core.Recording, error) {
+	idnode, err := s.getRecordingIdnode(ctx, id)
+	if err != nil {
+		return nil, err
+	}
+
+	recording, err := core.MapTvheadendIdnodeToRecording(*idnode)
+	if err != nil {
+		return nil, err
+	}
+
+	return recording, nil
+}
+
+func (s *service) getRecordingIdnode(ctx context.Context, id string) (*tvheadend.Idnode, error) {
 	q := tvheadend.NewQuery()
 	q.Set("uuid", id)
 
@@ -221,10 +243,5 @@ func (s *service) Get(ctx context.Context, id string) (*core.Recording, error) {
 		return nil, core.ErrRecordingNotFound
 	}
 
-	recording, err := core.MapTvheadendIdnodeToRecording(idnodeLoad.Entries[0])
-	if err != nil {
-		return nil, err
-	}
-
-	return recording, nil
+	return &idnodeLoad.Entries[0], nil
 }
