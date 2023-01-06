@@ -15,9 +15,9 @@ function EventRecordButton({ dvrState, pending, onClick }: Props) {
   const getText = () => {
     switch (dvrState) {
       case 'scheduled':
-        return t('cancel');
+        return t('cancel_recording');
       case 'recording':
-        return t('stop');
+        return t('stop_recording');
     }
     return t('record');
   };

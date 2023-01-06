@@ -25,6 +25,11 @@
     border-color: var(--color-danger-bg);
   }
 
+  &.disabled {
+    cursor: not-allowed;
+    background-color: var(--color-border-subtle);
+  }
+
   &:focus {
     outline: #58a6ff solid 2px;
     outline-offset: 2px;

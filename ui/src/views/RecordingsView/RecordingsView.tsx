@@ -1,4 +1,5 @@
 import { useTranslation } from 'react-i18next';
+import { useNavigate } from 'react-router-dom';
 import { RecordingStatus } from '../../clients/api/api';
 import Dropdown from '../../components/Dropdown/Dropdown';
 import Error from '../../components/Error/Error';
@@ -9,6 +10,7 @@ import styles from './RecordingsView.module.scss';
 
 function RecordingsView() {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const { recordings, error, loading, setStatus, status } = useFetchRecordings({
     status: 'upcoming',
@@ -29,7 +31,13 @@ function RecordingsView() {
     }
 
     return recordings.map((recording) => (
-      <RecordingListItem key={recording.id} recording={recording} />
+      <RecordingListItem
+        key={recording.id}
+        recording={recording}
+        onClick={() => {
+          navigate(`/recordings/${recording.id}`);
+        }}
+      />
     ));
   };
 

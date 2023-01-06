@@ -6,6 +6,7 @@ import {
   ErrorResponse,
   ListResponse,
   Recording,
+  UpdateRecording,
   UserResponse,
 } from './api.types';
 
@@ -141,12 +142,16 @@ export async function recordByEvent(
   });
 }
 
-export async function stopRecording(dvrId: string): Promise<void> {
-  await client.put(`/recordings/${dvrId}/stop`);
+export async function stopRecording(id: string): Promise<void> {
+  await client.put(`/recordings/${id}/stop`);
 }
 
-export async function cancelRecording(dvrId: string): Promise<void> {
-  await client.put(`/recordings/${dvrId}/cancel`);
+export async function cancelRecording(id: string): Promise<void> {
+  await client.put(`/recordings/${id}/cancel`);
+}
+
+export async function removeRecording(id: string): Promise<void> {
+  await client.delete(`/recordings/${id}`);
 }
 
 export async function getRecordings(
@@ -156,4 +161,16 @@ export async function getRecordings(
     params: q,
   });
   return response.data;
+}
+
+export async function getRecording(id: string): Promise<Recording> {
+  const response = await client.get<Recording>(`/recordings/${id}`);
+  return response.data;
+}
+
+export async function updateRecording(
+  id: string,
+  opts: UpdateRecording
+): Promise<void> {
+  await client.patch(`/recordings/${id}`, opts);
 }

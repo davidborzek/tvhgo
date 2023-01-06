@@ -14,6 +14,7 @@ type Props = {
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
   className?: string;
   required?: boolean;
+  disabled?: boolean;
   error?: string;
 };
 
@@ -34,7 +35,11 @@ function Input(props: Props, ref: React.LegacyRef<HTMLInputElement>) {
       )}
       <input
         type={props.type}
-        className={c(styles.input, props.error ? styles.error : '')}
+        className={c(
+          styles.input,
+          props.disabled ? styles.disabled : '',
+          props.error ? styles.error : ''
+        )}
         name={props.name}
         placeholder={props.placeholder}
         value={props.value}
@@ -42,6 +47,7 @@ function Input(props: Props, ref: React.LegacyRef<HTMLInputElement>) {
         onBlur={props.onBlur}
         required={props.required}
         ref={ref}
+        disabled={props.disabled}
       />
       {props.error ? (
         <div className={styles.errorMessage}>{props.error}</div>

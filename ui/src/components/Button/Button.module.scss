@@ -8,12 +8,17 @@
   cursor: pointer;
   font-weight: 600;
 
-  &:hover &:not(.disabled) {
-    background-color: #2ea043;
+  &.red {
+    border: 1px solid var(--color-danger-bg);
+    background-color: var(--color-danger-bg);
   }
 
   &.disabled {
     opacity: 0.5;
     cursor: not-allowed;
+  }
+
+  &:hover {
+    opacity: 0.8;
   }
 }

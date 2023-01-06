@@ -17,7 +17,7 @@ function renderDatetime(ts: number) {
 }
 
 function EventRelated({ relatedEvents }: Props) {
-  const {t} = useTranslation()
+  const { t } = useTranslation();
 
   const renderRelatedEvents = () => {
     return relatedEvents.map((event) => {
@@ -39,7 +39,7 @@ function EventRelated({ relatedEvents }: Props) {
 
   return (
     <div className={styles.EventRelated}>
-      <h2>{t("related_events")}</h2>
+      <h2>{t('related_events')}</h2>
       {renderRelatedEvents()}
     </div>
   );

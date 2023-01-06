@@ -1,42 +1,24 @@
 import { Recording } from '../../clients/api/api.types';
+import { parseDatetime } from '../../utils/time';
 import styles from './RecordingListItem.module.scss';
 
 type Props = {
   recording: Recording;
+  onClick: () => void;
 };
-
-function renderDate(ts: number) {
-  return new Date(ts * 1000).toLocaleDateString(undefined, {
-    day: '2-digit',
-    month: '2-digit',
-  });
-}
-
-function renderTime(ts: number) {
-  return new Date(ts * 1000).toLocaleTimeString(undefined, {
-    hour: '2-digit',
-    minute: '2-digit',
-  });
-}
-
-function renderRecordingDatetime(startsAt: number, endsAt: number) {
-  return `${renderDate(startsAt)} • ${renderTime(startsAt)} - ${renderTime(
-    endsAt
-  )}`;
-}
 
 function renderTitle(title: string, subtitle?: string) {
   return `${title}${subtitle ? ` (${subtitle})` : ''}`;
 }
 
-function RecordingListItem({ recording }: Props) {
+function RecordingListItem({ recording, onClick }: Props) {
   return (
-    <div className={styles.RecordingListItem}>
+    <div className={styles.RecordingListItem} onClick={onClick} tabIndex={0}>
       <span className={styles.title}>
         {renderTitle(recording.title, recording.subtitle)}
       </span>
       <span className={styles.secondary}>
-        {renderRecordingDatetime(recording.startsAt, recording.endsAt)}
+        {parseDatetime(recording.startsAt, recording.endsAt)}
       </span>
     </div>
   );

@@ -56,6 +56,7 @@ export type Channel = {
 export type Recording = {
   channelId: string;
   eventId: number;
+  piconId: number;
   channelName: string;
   createdAt: number;
   duration: number;
@@ -76,4 +77,17 @@ export type Recording = {
   startPadding: number;
   endPadding: number;
   status: string;
+};
+
+export type UpdateRecording = {
+  title?: string;
+  extraText?: string;
+  startsAt?: number;
+  endsAt?: number;
+  comment?: string;
+  startPadding?: number;
+  endPadding?: number;
+  priority?: number;
+  enabled?: boolean;
+  episode?: string;
 };
