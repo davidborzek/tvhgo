@@ -1,5 +1,5 @@
 import { useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import Error from '../../components/Error/Error';
 import EventChannelInfo from '../../components/Event/EventChannelInfo/EventChannelInfo';
 import EventInfo from '../../components/Event/EventInfo/EventInfo';
@@ -10,6 +10,7 @@ import { useManageRecordingByEvent } from '../../hooks/recording';
 import styles from './EventView.module.scss';
 
 function EventView() {
+  const navigate = useNavigate();
   const params = useParams();
   const { fetch, error, event, relatedEvents, loading } = useFetchEvent();
   const { createRecording, stopRecording, cancelRecording, pending } =
@@ -31,14 +32,12 @@ function EventView() {
       return;
     }
 
-    if (event.dvrState === 'scheduled') {
-      await cancelRecording(event.dvrUuid!);
-    } else if (event.dvrState === 'recording') {
-      await stopRecording(event.dvrUuid!);
-    } else {
-      await createRecording(event.id);
+    if (event.dvrUuid) {
+      navigate(`/recordings/${event.dvrUuid}`);
+      return;
     }
 
+    await createRecording(event.id);
     fetchEvent();
   };
 

@@ -32,7 +32,7 @@ function EventInfo({ event, handleOnRecord, pending }: Props) {
         <EventRecordButton
           pending={pending}
           onClick={handleOnRecord}
-          dvrState={event.dvrState}
+          dvrUuid={event.dvrUuid}
         />
       </div>
       <span>{renderDatetime(event.startsAt, event.endsAt)}</span>

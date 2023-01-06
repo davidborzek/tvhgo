@@ -4,20 +4,17 @@ import { c } from '../../../utils/classNames';
 import styles from './EventRecordButton.module.scss';
 
 type Props = {
-  dvrState?: string;
+  dvrUuid?: string;
   pending?: boolean;
   onClick: () => void;
 };
 
-function EventRecordButton({ dvrState, pending, onClick }: Props) {
+function EventRecordButton({ dvrUuid, pending, onClick }: Props) {
   const { t } = useTranslation();
 
   const getText = () => {
-    switch (dvrState) {
-      case 'scheduled':
-        return t('cancel_recording');
-      case 'recording':
-        return t('stop_recording');
+    if (dvrUuid) {
+      return t('modify_recording');
     }
     return t('record');
   };
