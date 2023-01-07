@@ -1,3 +1,4 @@
+import { useTranslation } from 'react-i18next';
 import { Recording } from '../../clients/api/api.types';
 import { parseDatetime } from '../../utils/time';
 import styles from './RecordingListItem.module.scss';
@@ -12,14 +13,28 @@ function renderTitle(title: string, subtitle?: string) {
 }
 
 function RecordingListItem({ recording, onClick }: Props) {
+  const { t } = useTranslation();
+
+  const renderRecIndicator = () => {
+    if (recording.status === 'recording') {
+      return (
+        <div
+          title={t('recording_running') || ''}
+          className={styles.recIndicator}
+        />
+      );
+    }
+  };
+
   return (
     <div className={styles.RecordingListItem} onClick={onClick} tabIndex={0}>
       <span className={styles.title}>
         {renderTitle(recording.title, recording.subtitle)}
       </span>
-      <span className={styles.secondary}>
-        {parseDatetime(recording.startsAt, recording.endsAt)}
-      </span>
+      <div className={styles.secondary}>
+        {renderRecIndicator()}
+        <span>{parseDatetime(recording.startsAt, recording.endsAt)}</span>
+      </div>
     </div>
   );
 }

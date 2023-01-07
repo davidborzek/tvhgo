@@ -15,10 +15,20 @@
 }
 
 .secondary {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
   font-size: 0.8rem;
   opacity: 0.8;
   font-weight: 400;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.recIndicator {
+  background-color: var(--color-danger-bg);
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 90px;
 }
