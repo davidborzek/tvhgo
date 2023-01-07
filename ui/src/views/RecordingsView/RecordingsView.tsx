@@ -1,5 +1,6 @@
+import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { RecordingStatus } from '../../clients/api/api';
 import Dropdown from '../../components/Dropdown/Dropdown';
 import Error from '../../components/Error/Error';
@@ -11,11 +12,23 @@ import styles from './RecordingsView.module.scss';
 function RecordingsView() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const [queryParams, setQueryParams] = useSearchParams();
 
   const { recordings, error, loading, setStatus, status } = useFetchRecordings({
     status: 'upcoming',
     sort_key: 'startsAt',
   });
+
+  useEffect(() => {
+    const queryStatus = queryParams.get('status') as RecordingStatus;
+    if (queryStatus) {
+      setStatus(queryStatus);
+    } else {
+      setQueryParams({
+        status: 'upcoming',
+      });
+    }
+  }, [queryParams]);
 
   if (loading) {
     return <Loading />;
@@ -46,7 +59,11 @@ function RecordingsView() {
       <div className={styles.header}>
         <Dropdown
           value={status}
-          onChange={(value) => setStatus(value as RecordingStatus)}
+          onChange={(value) => {
+            setQueryParams({
+              status: value,
+            });
+          }}
           options={[
             {
               title: t('upcoming'),
