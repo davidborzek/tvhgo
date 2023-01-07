@@ -20,14 +20,7 @@ function RecordingsView() {
   });
 
   useEffect(() => {
-    const queryStatus = queryParams.get('status') as RecordingStatus;
-    if (queryStatus) {
-      setStatus(queryStatus);
-    } else {
-      setQueryParams({
-        status: 'upcoming',
-      });
-    }
+    setStatus((queryParams.get('status') as RecordingStatus) || 'upcoming');
   }, [queryParams]);
 
   if (loading) {
