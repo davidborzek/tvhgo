@@ -13,6 +13,7 @@ import {
   updateRecording,
 } from '../clients/api/api';
 import { Recording, UpdateRecording } from '../clients/api/api.types';
+import { useLoading } from '../contexts/LoadingContext';
 
 export const useManageRecordingByEvent = () => {
   const NOTIFICATION_ID = 'manageRecordingByEvent';
@@ -120,35 +121,36 @@ export const useManageRecordingByEvent = () => {
 export const useFetchRecordings = (q?: GetRecordingsQuery) => {
   const { t } = useTranslation();
 
+  const { setIsLoading } = useLoading();
+
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
   const [recordings, setRecordings] = useState<Recording[]>([]);
   const [status, setStatus] = useState(q?.status);
 
   const fetch = () => {
-    setLoading(true);
+    setIsLoading(true);
     getRecordings({ ...q, status })
       .then(setRecordings)
       .catch(() => setError(t('unexpected')))
-      .finally(() => setLoading(false));
+      .finally(() => setIsLoading(false));
   };
 
   useEffect(() => {
     fetch();
   }, [status]);
 
-  return { recordings, error, loading, fetch, setStatus, status };
+  return { recordings, error, fetch, setStatus, status };
 };
 
 export const useFetchRecording = () => {
   const { t } = useTranslation();
+  const { setIsLoading } = useLoading();
 
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
   const [recording, setRecording] = useState<Recording>();
 
   const fetch = async (id: string) => {
-    setLoading(true);
+    setIsLoading(true);
     getRecording(id)
       .then(setRecording)
       .catch((error) => {
@@ -158,8 +160,8 @@ export const useFetchRecording = () => {
           setError(t('unexpected'));
         }
       })
-      .finally(() => setLoading(false));
+      .finally(() => setIsLoading(false));
   };
 
-  return { error, loading, recording, fetch };
+  return { error, recording, fetch };
 };

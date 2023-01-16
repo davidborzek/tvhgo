@@ -21,6 +21,7 @@ import GuideView from './views/GuideView/GuideView';
 import EventView from './views/EventView/EventView';
 import RecordingsView from './views/RecordingsView/RecordingsView';
 import RecordingDetailView from './views/RecordingDetailView/RecordingDetailView';
+import LoadingProvider from './providers/LoadingProvider';
 
 type AuthenticationCheckerProps = {
   redirect?: string;
@@ -45,15 +46,11 @@ function Authenticated(props: AuthenticationCheckerProps) {
 }
 
 function Logout() {
-  const { logout, loading } = useLogout();
+  const { logout } = useLogout();
 
   useEffect(() => {
     logout();
   }, []);
-
-  if (loading) {
-    return <div>Loading...</div>;
-  }
 
   return <Navigate to="/login" />;
 }
@@ -74,31 +71,33 @@ function Notification() {
 function App() {
   return (
     <ThemeProvider>
-      <AuthProvider>
-        <BrowserRouter>
-          <Routes>
-            <Route element={<Unauthenticated />}>
-              <Route path="/login" element={<LoginView />} />
-            </Route>
-
-            <Route element={<Authenticated />}>
-              <Route element={<DashboardView />}>
-                <Route path="/" element={<ChannelListView />} />
-                <Route path="/guide" element={<GuideView />} />
-                <Route path="/guide/events/:id" element={<EventView />} />
-                <Route path="/recordings" element={<RecordingsView />} />
-                <Route
-                  path="/recordings/:id"
-                  element={<RecordingDetailView />}
-                />
-                <Route path="/settings" element={<></>} />
+      <LoadingProvider>
+        <AuthProvider>
+          <BrowserRouter>
+            <Routes>
+              <Route element={<Unauthenticated />}>
+                <Route path="/login" element={<LoginView />} />
               </Route>
 
-              <Route path="/logout" element={<Logout />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
-      </AuthProvider>
+              <Route element={<Authenticated />}>
+                <Route element={<DashboardView />}>
+                  <Route path="/" element={<ChannelListView />} />
+                  <Route path="/guide" element={<GuideView />} />
+                  <Route path="/guide/events/:id" element={<EventView />} />
+                  <Route path="/recordings" element={<RecordingsView />} />
+                  <Route
+                    path="/recordings/:id"
+                    element={<RecordingDetailView />}
+                  />
+                  <Route path="/settings" element={<></>} />
+                </Route>
+
+                <Route path="/logout" element={<Logout />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </AuthProvider>
+      </LoadingProvider>
       <Notification />
     </ThemeProvider>
   );

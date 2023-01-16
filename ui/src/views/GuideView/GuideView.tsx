@@ -44,12 +44,11 @@ function GuideView() {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const { events, setStartsAt, setEndsAt, loading, error } =
-    useFetchChannelEvents({
-      endsAt: moment().add(24, 'hour').unix(),
-      sort_key: 'channelNumber',
-      limit: 100,
-    });
+  const { events, setStartsAt, setEndsAt, error } = useFetchChannelEvents({
+    endsAt: moment().add(24, 'hour').unix(),
+    sort_key: 'channelNumber',
+    limit: 100,
+  });
 
   const setDate = (start?: number, end?: number) => {
     setStartsAt(start);

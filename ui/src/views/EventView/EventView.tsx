@@ -12,7 +12,7 @@ import styles from './EventView.module.scss';
 function EventView() {
   const navigate = useNavigate();
   const params = useParams();
-  const { fetch, error, event, relatedEvents, loading } = useFetchEvent();
+  const { fetch, error, event, relatedEvents } = useFetchEvent();
   const { createRecording, stopRecording, cancelRecording, pending } =
     useManageRecordingByEvent();
 
@@ -40,10 +40,6 @@ function EventView() {
     await createRecording(event.id);
     fetchEvent();
   };
-
-  if (loading) {
-    return <Loading />;
-  }
 
   if (error) {
     return <Error message={error} />;

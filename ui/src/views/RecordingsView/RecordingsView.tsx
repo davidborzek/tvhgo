@@ -14,7 +14,7 @@ function RecordingsView() {
   const navigate = useNavigate();
   const [queryParams, setQueryParams] = useSearchParams();
 
-  const { recordings, error, loading, setStatus, status } = useFetchRecordings({
+  const { recordings, error, setStatus, status } = useFetchRecordings({
     status: 'upcoming',
     sort_key: 'startsAt',
   });
@@ -22,10 +22,6 @@ function RecordingsView() {
   useEffect(() => {
     setStatus((queryParams.get('status') as RecordingStatus) || 'upcoming');
   }, [queryParams]);
-
-  if (loading) {
-    return <Loading />;
-  }
 
   if (error) {
     return <Error message={error} />;

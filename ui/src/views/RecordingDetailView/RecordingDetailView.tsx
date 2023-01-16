@@ -26,7 +26,7 @@ function RecordingDetailView() {
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { recording, error, loading, fetch } = useFetchRecording();
+  const { recording, error, fetch } = useFetchRecording();
   const {
     cancelRecording,
     stopRecording,
@@ -172,10 +172,6 @@ function RecordingDetailView() {
       );
     }
   };
-
-  if (loading) {
-    return <Loading />;
-  }
 
   if (error) {
     return <Error message={error} />;

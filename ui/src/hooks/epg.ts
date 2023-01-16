@@ -10,20 +10,22 @@ import {
   getRelatedEpgEvents,
 } from '../clients/api/api';
 import { EpgChannel, EpgEvent } from '../clients/api/api.types';
+import { useLoading } from '../contexts/LoadingContext';
 
 export const useFetchEpg = (q?: GetEpgEventsQuery) => {
   const initialOffset = q?.offset || 0;
 
   const { t } = useTranslation();
 
+  const { setIsLoading } = useLoading();
+
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
   const [epg, setEpg] = useState<EpgEvent[]>([]);
   const [offset, setOffset] = useState(initialOffset);
 
   useEffect(() => {
-    setLoading(true);
+    setIsLoading(true);
     getEpgEvents({ ...q, offset })
       .then((events) => {
         if (offset !== initialOffset) {
@@ -38,7 +40,7 @@ export const useFetchEpg = (q?: GetEpgEventsQuery) => {
         setError(t('unexpected'));
       })
       .finally(() => {
-        setLoading(false);
+        setIsLoading(false);
       });
   }, [offset]);
 
@@ -46,21 +48,21 @@ export const useFetchEpg = (q?: GetEpgEventsQuery) => {
     setOffset((oldOffset) => oldOffset + value);
   };
 
-  return { error, loading, events: epg, increaseOffset, offset, total };
+  return { error, events: epg, increaseOffset, offset, total };
 };
 
 export const useFetchChannelEvents = (q?: GetEpgChannelEventsQuery) => {
   const { t } = useTranslation();
+  const { setIsLoading } = useLoading();
 
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
   const [epg, setEpg] = useState<EpgChannel[]>([]);
   const [startsAt, setStartsAt] = useState<number | undefined>(q?.startsAt);
   const [endsAt, setEndsAt] = useState<number | undefined>(q?.endsAt);
 
   const fetch = async () => {
-    setLoading(true);
+    setIsLoading(true);
     try {
       const meta = await getEpgChannelEvents({
         ...q,
@@ -79,7 +81,7 @@ export const useFetchChannelEvents = (q?: GetEpgChannelEventsQuery) => {
     } catch (error) {
       setError(t('unexpected'));
     }
-    setLoading(false);
+    setIsLoading(false);
   };
 
   useEffect(() => {
@@ -88,7 +90,6 @@ export const useFetchChannelEvents = (q?: GetEpgChannelEventsQuery) => {
 
   return {
     error,
-    loading,
     events: epg,
     total,
     setEndsAt,
@@ -100,14 +101,14 @@ export const useFetchChannelEvents = (q?: GetEpgChannelEventsQuery) => {
 
 export const useFetchEvent = () => {
   const { t } = useTranslation();
+  const { setIsLoading } = useLoading();
 
   const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
   const [event, setEvent] = useState<EpgEvent>();
   const [relatedEvents, setRelatedEvents] = useState<EpgEvent[]>([]);
 
   const fetch = async (id: number) => {
-    setLoading(true);
+    setIsLoading(true);
     let eventRes: EpgEvent;
     try {
       eventRes = await getEpgEvent(id);
@@ -118,7 +119,7 @@ export const useFetchEvent = () => {
       } else {
         setError(t('unexpected'));
       }
-      setLoading(false);
+      setIsLoading(false);
       return;
     }
 
@@ -129,8 +130,8 @@ export const useFetchEvent = () => {
       setError(t('unexpected'));
     }
 
-    setLoading(false);
+    setIsLoading(false);
   };
 
-  return { error, loading, event, relatedEvents, fetch };
+  return { error, event, relatedEvents, fetch };
 };

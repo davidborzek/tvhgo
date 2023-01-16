@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import ChannelListItem from '../../components/ChannelListItem/ChannelListItem';
 import { GetEpgEventsQuery } from '../../clients/api/api';
 import Error from '../../components/Error/Error';
+import { useLoading } from '../../contexts/LoadingContext';
 
 const limit = 50;
 
@@ -18,8 +19,9 @@ const opts: GetEpgEventsQuery = {
 
 function ChannelListView() {
   const { t } = useTranslation();
-  const { events, offset, total, loading, error, increaseOffset } =
-    useFetchEpg(opts);
+  const { events, offset, total, error, increaseOffset } = useFetchEpg(opts);
+
+  const { isLoading } = useLoading();
 
   const handleScroll = useCallback<React.UIEventHandler<HTMLDivElement>>(
     (evt) => {
@@ -28,12 +30,12 @@ function ChannelListView() {
       if (
         scrollHeight - scrollTop - clientHeight < 50 &&
         total > offset &&
-        !loading
+        !isLoading
       ) {
         increaseOffset(limit);
       }
     },
-    [total, loading, offset]
+    [total, isLoading, offset]
   );
 
   const renderChannels = () => {
