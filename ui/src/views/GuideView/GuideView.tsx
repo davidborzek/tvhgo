@@ -74,7 +74,6 @@ function GuideView() {
     containerRef.current?.scrollTo(0, 0);
   };
 
-  const [offset, setOffset] = useState(0);
   const [limit, _setLimit] = useState(5);
 
   const limitRef = useRef(limit);
@@ -132,6 +131,7 @@ function GuideView() {
   const filteredEpg = filterEpg(events, searchParams.get('search') || '');
 
   const renderChannels = () => {
+    const offset = parseInt(searchParams.get('offset') || '0');
     return filteredEpg
       .slice(offset, limit + offset)
       .map((event) => (
@@ -145,6 +145,7 @@ function GuideView() {
   };
 
   const renderEventColumns = () => {
+    const offset = parseInt(searchParams.get('offset') || '0');
     return filteredEpg.slice(offset, limit + offset).map((channel) => (
       <GuideEventColumn
         key={channel.channelId}
@@ -176,13 +177,31 @@ function GuideView() {
         <GuideNavigation
           type="left"
           onClick={() =>
-            setOffset((old) => previousPage(old, limit, filteredEpg.length))
+            setSearchParams((prev) => {
+              const offset = previousPage(
+                parseInt(prev.get('offset') || '0'),
+                limit,
+                filteredEpg.length
+              );
+
+              prev.set('offset', `${offset}`);
+              return prev;
+            })
           }
         />
         <GuideNavigation
           type="right"
           onClick={() =>
-            setOffset((old) => nextPage(old, limit, filteredEpg.length))
+            setSearchParams((prev) => {
+              const offset = nextPage(
+                parseInt(prev.get('offset') || '0'),
+                limit,
+                filteredEpg.length
+              );
+
+              prev.set('offset', `${offset}`);
+              return prev;
+            })
           }
         />
       </>
@@ -197,12 +216,18 @@ function GuideView() {
             day={searchParams.get('day') || 'today'}
             search={searchParams.get('search') || ''}
             onDayChange={(day) => {
-              setSearchParams((prev) => ({ ...prev, day }));
+              setSearchParams((prev) => {
+                prev.set('day', day);
+                return prev;
+              });
               setDate(parseStartDate(day), calculateEndDate(day));
             }}
             onSearch={(q) => {
-              setSearchParams((prev) => ({ ...prev, search: q }));
-              setOffset(0);
+              setSearchParams((prev) => {
+                prev.set('search', q);
+                prev.set('offset', '0');
+                return prev;
+              });
               containerRef.current?.scrollTo(0, 0);
             }}
           />
