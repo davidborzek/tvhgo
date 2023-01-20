@@ -8,9 +8,10 @@ type Props = {
   onSearch: (q: string) => void;
   onDayChange: (day: string) => void;
   search: string;
+  day: string;
 };
 
-function GuideControls({ search, onSearch, onDayChange }: Props) {
+function GuideControls({ day, search, onSearch, onDayChange }: Props) {
   const { t } = useTranslation();
 
   const getDays = () => {
@@ -42,7 +43,7 @@ function GuideControls({ search, onSearch, onDayChange }: Props) {
 
   return (
     <div className={styles.controls}>
-      <Dropdown options={getDays()} onChange={onDayChange} />
+      <Dropdown value={day} options={getDays()} onChange={onDayChange} />
       <Input
         value={search}
         placeholder={t('search') || ''}

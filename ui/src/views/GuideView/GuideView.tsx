@@ -8,10 +8,26 @@ import GuideNavigation from '../../components/Guide/GuideNavigation/GuideNavigat
 import { EpgChannel } from '../../clients/api/api.types';
 import GuideControls from '../../components/Guide/GuideControls/GuideControls';
 import Error from '../../components/Error/Error';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { c } from '../../utils/classNames';
 
 const SCROLL_PERSIST_KEY = 'tvhgo_guide_scroll_position';
+
+const parseStartDate = (start?: string | null) => {
+  if (!start || start === 'today') {
+    return;
+  }
+
+  return parseInt(start, 10);
+};
+
+const calculateEndDate = (end?: string | null) => {
+  if (!end || end === 'today') {
+    return moment().add(24, 'hour').unix();
+  }
+
+  return moment.unix(parseInt(end, 10)).endOf('day').unix();
+};
 
 function previousPage(oldOffset: number, limit: number, total: number): number {
   if (oldOffset >= limit) {
@@ -43,9 +59,11 @@ function filterEpg(epg: EpgChannel[], search: string) {
 function GuideView() {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const { events, setStartsAt, setEndsAt, error } = useFetchChannelEvents({
-    endsAt: moment().add(24, 'hour').unix(),
+    startsAt: parseStartDate(searchParams.get('day')),
+    endsAt: calculateEndDate(searchParams.get('day')),
     sort_key: 'channelNumber',
     limit: 100,
   });
@@ -55,8 +73,6 @@ function GuideView() {
     setEndsAt(end);
     containerRef.current?.scrollTo(0, 0);
   };
-
-  const [search, setSearch] = useState('');
 
   const [offset, setOffset] = useState(0);
   const [limit, _setLimit] = useState(5);
@@ -113,17 +129,7 @@ function GuideView() {
     }
   }, [events]);
 
-  const filteredEpg = filterEpg(events, search);
-
-  const handleDayChange = (dateString: string) => {
-    if (dateString === 'today') {
-      setDate(undefined, moment().endOf('day').unix());
-      return;
-    }
-
-    const date = moment.unix(parseInt(dateString, 10));
-    setDate(date.unix(), date.endOf('day').unix());
-  };
+  const filteredEpg = filterEpg(events, searchParams.get('search') || '');
 
   const renderChannels = () => {
     return filteredEpg
@@ -188,10 +194,14 @@ function GuideView() {
       <div className={styles.header}>
         <div className={styles.bar}>
           <GuideControls
-            search={search}
-            onDayChange={handleDayChange}
+            day={searchParams.get('day') || 'today'}
+            search={searchParams.get('search') || ''}
+            onDayChange={(day) => {
+              setSearchParams((prev) => ({ ...prev, day }));
+              setDate(parseStartDate(day), calculateEndDate(day));
+            }}
             onSearch={(q) => {
-              setSearch(q);
+              setSearchParams((prev) => ({ ...prev, search: q }));
               setOffset(0);
               containerRef.current?.scrollTo(0, 0);
             }}

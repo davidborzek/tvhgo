@@ -16,8 +16,6 @@ export default function LoadingProvider({
   const ref = useRef<LoadingBarRef>(null);
 
   useEffect(() => {
-    console.log(isLoading);
-
     isLoading ? ref.current?.continuousStart() : ref.current?.complete();
   }, [isLoading]);
 
