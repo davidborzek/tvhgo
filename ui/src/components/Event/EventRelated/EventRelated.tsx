@@ -1,20 +1,22 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { EpgEvent } from '../../../clients/api/api.types';
+import { parseDatetime } from '../../../utils/time';
+import Pair from '../../PairList/Pair/Pair';
+import PairKey from '../../PairList/PairKey/PairKey';
+import PairList from '../../PairList/PairList';
+import PairValue from '../../PairList/PairValue/PairValue';
 import styles from './EventRelated.module.scss';
 
 type Props = {
   relatedEvents: EpgEvent[];
 };
 
-function renderDatetime(ts: number) {
-  return new Date(ts * 1000).toLocaleString(undefined, {
-    hour: '2-digit',
-    minute: '2-digit',
-    month: '2-digit',
-    day: '2-digit',
-  });
-}
+const renderTitle = (event: EpgEvent) => {
+  return `${parseDatetime(event.startsAt, event.endsAt)}${
+    event.subtitle ? ` • ${event.subtitle}` : ''
+  }`;
+};
 
 function EventRelated({ relatedEvents }: Props) {
   const { t } = useTranslation();
@@ -22,13 +24,20 @@ function EventRelated({ relatedEvents }: Props) {
   const renderRelatedEvents = () => {
     return relatedEvents.map((event) => {
       return (
-        <Link
-          className={styles.relatedEvent}
-          key={event.id}
-          to={`/guide/events/${event.id}`}
-        >
-          {renderDatetime(event.startsAt)} - {event.title}
-        </Link>
+        <PairList>
+          <Pair>
+            <PairKey>{event.channelName}</PairKey>
+            <PairValue>
+              <Link
+                className={styles.link}
+                key={event.id}
+                to={`/guide/events/${event.id}`}
+              >
+                {renderTitle(event)}
+              </Link>
+            </PairValue>
+          </Pair>
+        </PairList>
       );
     });
   };

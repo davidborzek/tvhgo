@@ -1,12 +1,12 @@
 .EventRelated {
   display: flex;
   flex-direction: column;
+  gap: 0.4rem;
 }
 
-.relatedEvent {
+.link {
   color: var(--color-text-primary);
   text-decoration: none;
-
   &:hover {
     text-decoration: underline;
   }
