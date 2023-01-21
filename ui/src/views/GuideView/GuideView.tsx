@@ -11,8 +11,6 @@ import Error from '../../components/Error/Error';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { c } from '../../utils/classNames';
 
-const SCROLL_PERSIST_KEY = 'tvhgo_guide_scroll_position';
-
 const parseStartDate = (start?: string | null) => {
   if (!start || start === 'today') {
     return;
@@ -121,12 +119,72 @@ function GuideView() {
   }, []);
 
   useEffect(() => {
-    const scrollPos = localStorage.getItem(SCROLL_PERSIST_KEY);
-    if (scrollPos && events.length > 0) {
-      containerRef.current?.scrollTo(0, parseInt(scrollPos));
-      localStorage.removeItem(SCROLL_PERSIST_KEY);
+    const scrollPos = searchParams.get('pos');
+
+    if (events.length > 0) {
+      containerRef.current?.scrollTo(0, parseInt(scrollPos || '0'));
     }
-  }, [events]);
+  }, [events, searchParams]);
+
+  const handleEventClick = (id: number) => {
+    if (containerRef.current?.scrollTop !== undefined) {
+      const pos = Math.floor(containerRef.current?.scrollTop);
+
+      setSearchParams((prev) => {
+        prev.set('pos', `${Math.floor(pos)}`);
+        return prev;
+      });
+    }
+
+    navigate(`/guide/events/${id}`, {
+      preventScrollReset: true,
+    });
+  };
+
+  const handleNextPageClick = () => {
+    setSearchParams((prev) => {
+      const offset = nextPage(
+        parseInt(prev.get('offset') || '0'),
+        limit,
+        filteredEpg.length
+      );
+
+      prev.set('offset', `${offset}`);
+      return prev;
+    });
+  };
+
+  const handlePreviousPageClick = () => {
+    setSearchParams((prev) => {
+      const offset = previousPage(
+        parseInt(prev.get('offset') || '0'),
+        limit,
+        filteredEpg.length
+      );
+
+      prev.set('offset', `${offset}`);
+      return prev;
+    });
+  };
+
+  const handleDayChange = (day: string) => {
+    setSearchParams((prev) => {
+      prev.set('day', day);
+      return prev;
+    });
+
+    setDate(parseStartDate(day), calculateEndDate(day));
+  };
+
+  const handleSearch = (search: string) => {
+    setSearchParams((prev) => {
+      prev.set('search', search);
+      prev.set('offset', '0');
+      return prev;
+    });
+
+    containerRef.current?.scrollTo(0, 0);
+  };
 
   const filteredEpg = filterEpg(events, searchParams.get('search') || '');
 
@@ -146,21 +204,15 @@ function GuideView() {
 
   const renderEventColumns = () => {
     const offset = parseInt(searchParams.get('offset') || '0');
-    return filteredEpg.slice(offset, limit + offset).map((channel) => (
-      <GuideEventColumn
-        key={channel.channelId}
-        events={channel.events}
-        onClick={(id) => {
-          localStorage.setItem(
-            SCROLL_PERSIST_KEY,
-            `${containerRef.current?.scrollTop || ''}`
-          );
-          navigate(`/guide/events/${id}`, {
-            preventScrollReset: true,
-          });
-        }}
-      />
-    ));
+    return filteredEpg
+      .slice(offset, limit + offset)
+      .map((channel) => (
+        <GuideEventColumn
+          key={channel.channelId}
+          events={channel.events}
+          onClick={handleEventClick}
+        />
+      ));
   };
 
   if (error) {
@@ -174,36 +226,8 @@ function GuideView() {
 
     return (
       <>
-        <GuideNavigation
-          type="left"
-          onClick={() =>
-            setSearchParams((prev) => {
-              const offset = previousPage(
-                parseInt(prev.get('offset') || '0'),
-                limit,
-                filteredEpg.length
-              );
-
-              prev.set('offset', `${offset}`);
-              return prev;
-            })
-          }
-        />
-        <GuideNavigation
-          type="right"
-          onClick={() =>
-            setSearchParams((prev) => {
-              const offset = nextPage(
-                parseInt(prev.get('offset') || '0'),
-                limit,
-                filteredEpg.length
-              );
-
-              prev.set('offset', `${offset}`);
-              return prev;
-            })
-          }
-        />
+        <GuideNavigation type="left" onClick={handlePreviousPageClick} />
+        <GuideNavigation type="right" onClick={handleNextPageClick} />
       </>
     );
   };
@@ -215,21 +239,8 @@ function GuideView() {
           <GuideControls
             day={searchParams.get('day') || 'today'}
             search={searchParams.get('search') || ''}
-            onDayChange={(day) => {
-              setSearchParams((prev) => {
-                prev.set('day', day);
-                return prev;
-              });
-              setDate(parseStartDate(day), calculateEndDate(day));
-            }}
-            onSearch={(q) => {
-              setSearchParams((prev) => {
-                prev.set('search', q);
-                prev.set('offset', '0');
-                return prev;
-              });
-              containerRef.current?.scrollTo(0, 0);
-            }}
+            onDayChange={handleDayChange}
+            onSearch={handleSearch}
           />
         </div>
         <div className={c(styles.segment, styles.channels)}>
