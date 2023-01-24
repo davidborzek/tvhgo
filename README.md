@@ -8,6 +8,12 @@
   <a href="#screenshots">Screenshots</a>
 </p>
 
+<span align="center">
+
+[![Build](https://github.com/davidborzek/tvhgo/actions/workflows/docker.yml/badge.svg)](https://github.com/davidborzek/tvhgo/actions/workflows/docker.yml)
+
+</span>
+
 <p align="center">
   tvhgo provides a modern and secure alternative for the Tvheadend web interface and the api.
   It aims to give users an all-round access to Tvheadend from any platform.
