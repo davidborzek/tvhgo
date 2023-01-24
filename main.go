@@ -15,10 +15,6 @@ import (
 
 //	@BasePath	/api
 
-//	@securityDefinitions.apikey	JWT
-//	@in							header
-//	@name						Authorization
-
 func main() {
 	app := cli.App{
 		Name:  "tvhgo",
