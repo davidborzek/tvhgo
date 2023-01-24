@@ -5,23 +5,32 @@ import (
 	"os"
 	"path"
 
+	"github.com/caarlos0/env/v6"
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v3"
 )
 
 type (
 	Config struct {
-		Server    ServerConfig    `yaml:"server"`
-		Tvheadend TvheadendConfig `yaml:"tvheadend"`
-		Auth      AuthConfig      `yaml:"auth"`
-		Database  DatabaseConfig  `yaml:"database"`
+		Server    ServerConfig    `yaml:"server" envPrefix:"SERVER_"`
+		Tvheadend TvheadendConfig `yaml:"tvheadend" envPrefix:"TVHEADEND_"`
+		Auth      AuthConfig      `yaml:"auth" envPrefix:"AUTH_"`
+		Database  DatabaseConfig  `yaml:"database" envPrefix:"DATABASE_"`
 	}
 )
 
-var paths = []string{
-	"./",
-	"/etc/tvhgo/",
-}
+var (
+	// Possible paths of the configuration file.
+	paths = []string{
+		"./",
+		"/etc/tvhgo/",
+	}
+
+	// Options to load configuration from environment variables.
+	envOpts = env.Options{
+		Prefix: "TVHGO_",
+	}
+)
 
 // existsConfig checks if either config.yml or config.yaml
 // exists in the given directory and returns the full path.
@@ -63,10 +72,16 @@ func findConfig() (string, error) {
 	return "", errors.New("no config file found")
 }
 
-// Load loads a config from a given path.
+// Load loads a config from a config file at a given path
+// and overrides from environment variables.
 func Load() (*Config, error) {
 	cfgPath, err := findConfig()
 	if err != nil {
+		return nil, err
+	}
+
+	var cfg Config
+	if err := env.Parse(&cfg, envOpts); err != nil {
 		return nil, err
 	}
 
@@ -78,7 +93,6 @@ func Load() (*Config, error) {
 		return nil, err
 	}
 
-	var cfg Config
 	if err := yaml.Unmarshal(cfgFile, &cfg); err != nil {
 		return nil, err
 	}

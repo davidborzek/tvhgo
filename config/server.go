@@ -11,8 +11,8 @@ const (
 
 type (
 	ServerConfig struct {
-		Host string `yaml:"host"`
-		Port int    `yaml:"port"`
+		Host string `yaml:"host" env:"HOST"`
+		Port int    `yaml:"port" env:"PORT"`
 	}
 )
 

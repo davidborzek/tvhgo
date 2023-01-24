@@ -6,7 +6,7 @@ const (
 
 type (
 	DatabaseConfig struct {
-		Path string `yaml:"path"`
+		Path string `yaml:"path" env:"PATH"`
 	}
 )
 

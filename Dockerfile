@@ -5,7 +5,7 @@ ARG GIT_COMMIT
 
 WORKDIR /build
 COPY ui ui
-WORKDIR ui
+WORKDIR /build/ui
 
 RUN yarn install --frozen-lockfile
 RUN yarn build
