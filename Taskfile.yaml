@@ -44,3 +44,8 @@ tasks:
           -t {{.IMAGE}} .
       - cmd: >
           docker tag {{.IMAGE}} {{.IMAGE}}:{{.GIT_COMMIT}}
+
+  swagger:
+    cmds:
+      - swag fmt
+      - swag init
