@@ -11,6 +11,17 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+// StreamChannel godoc
+//
+//	@Summary	Get channel picon
+//	@Tags		channels
+//	@Param		number	path	string	true	"Channel number"
+//	@Produce	video/*
+//	@Produce	json
+//	@Success	200
+//	@Failure	401	{object}	response.ErrorResponse
+//	@Security	JWT
+//	@Router		/channels/{number}/stream [get]
 func (s *router) StreamChannel(w http.ResponseWriter, r *http.Request) {
 	number, err := request.NumericURLParam(r, "number")
 

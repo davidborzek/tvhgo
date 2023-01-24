@@ -1,0 +1,1415 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "description": "tvhgo REST API documentation.",
+        "title": "tvhgo",
+        "contact": {},
+        "version": "1.0"
+    },
+    "basePath": "/api",
+    "paths": {
+        "/channels": {
+            "get": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "channels"
+                ],
+                "summary": "Get list of channels",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Limit",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Offset",
+                        "name": "offset",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sort key",
+                        "name": "sort_key",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sort direction",
+                        "name": "sort_dir",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/core.Channel"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/channels/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "channels"
+                ],
+                "summary": "Get a channel by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Channel id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/core.Channel"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/channels/{number}/stream": {
+            "get": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "produces": [
+                    "video/*",
+                    "application/json"
+                ],
+                "tags": [
+                    "channels"
+                ],
+                "summary": "Get channel picon",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Channel number",
+                        "name": "number",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/epg": {
+            "get": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "epg"
+                ],
+                "summary": "Get epg",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Limit",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Offset",
+                        "name": "offset",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sort key",
+                        "name": "sort_key",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sort direction",
+                        "name": "sort_dir",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Start timestamp",
+                        "name": "startsAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "End timestamp",
+                        "name": "endsAt",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/core.ListResult-core_EpgChannel"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/epg/content-types": {
+            "get": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "epg"
+                ],
+                "summary": "Get epg content types",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/core.EpgContentType"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/epg/events": {
+            "get": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "epg"
+                ],
+                "summary": "Get epg events",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Limit",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Offset",
+                        "name": "offset",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sort key",
+                        "name": "sort_key",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sort direction",
+                        "name": "sort_dir",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Title",
+                        "name": "title",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Enable full test search",
+                        "name": "fullText",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Language",
+                        "name": "lang",
+                        "in": "query"
+                    },
+                    {
+                        "type": "boolean",
+                        "description": "Now playing",
+                        "name": "nowPlaying",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Channel name or channel id",
+                        "name": "channel",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Content type",
+                        "name": "contentType",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Minimum Duration",
+                        "name": "durationMin",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Maximum Duration",
+                        "name": "durationMax",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Start timestamp",
+                        "name": "startsAt",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "End timestamp",
+                        "name": "endsAt",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/core.EpgEvent"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/epg/events/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "epg"
+                ],
+                "summary": "Get a epg event by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Event id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/core.EpgEvent"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/epg/events/{id}/related": {
+            "get": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "epg"
+                ],
+                "summary": "Get related epg events",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Event id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Limit",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Offset",
+                        "name": "offset",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sort key",
+                        "name": "sort_key",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sort direction",
+                        "name": "sort_dir",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/core.EpgEvent"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/picon/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "produces": [
+                    "image/*",
+                    "application/json"
+                ],
+                "tags": [
+                    "picon"
+                ],
+                "summary": "Get channel picon",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Picon id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/recordings": {
+            "get": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "recordings"
+                ],
+                "summary": "Get list of recordings",
+                "parameters": [
+                    {
+                        "type": "integer",
+                        "description": "Limit",
+                        "name": "limit",
+                        "in": "query"
+                    },
+                    {
+                        "type": "integer",
+                        "description": "Offset",
+                        "name": "offset",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sort key",
+                        "name": "sort_key",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Sort direction",
+                        "name": "sort_dir",
+                        "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Recording status",
+                        "name": "status",
+                        "in": "query"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/core.Recording"
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "recordings"
+                ],
+                "summary": "Create a recording",
+                "parameters": [
+                    {
+                        "description": "Body",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/core.CreateRecording"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/recordings/event": {
+            "post": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "recordings"
+                ],
+                "summary": "Create a recording by a event",
+                "parameters": [
+                    {
+                        "description": "Body",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/core.CreateRecordingByEvent"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/recordings/{id}": {
+            "get": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "recordings"
+                ],
+                "summary": "Get a recording by id",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Recording id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/core.Recording"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "recordings"
+                ],
+                "summary": "Updates a recording",
+                "parameters": [
+                    {
+                        "description": "Body",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/core.UpdateRecording"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/recordings/{id}/cancel": {
+            "put": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "recordings"
+                ],
+                "summary": "Cancels a recording",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Recording id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/recordings/{id}/move/{dest}": {
+            "put": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "recordings"
+                ],
+                "summary": "Moves a recording",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Recording id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Recording id",
+                        "name": "dest",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/recordings/{id}/remove": {
+            "put": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "recordings"
+                ],
+                "summary": "Removes a recording",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Recording id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/recordings/{id}/stop": {
+            "put": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "recordings"
+                ],
+                "summary": "Stops a recording",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Recording id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/user": {
+            "get": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get the current user",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/core.User"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        "core.Channel": {
+            "type": "object",
+            "properties": {
+                "enabled": {
+                    "type": "boolean"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "name": {
+                    "type": "string"
+                },
+                "number": {
+                    "type": "integer"
+                },
+                "piconId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "core.CreateRecording": {
+            "type": "object",
+            "properties": {
+                "channelId": {
+                    "description": "ChannelID the channel id for the recording.",
+                    "type": "string"
+                },
+                "comment": {
+                    "description": "Comment optional comment of the recording.",
+                    "type": "string"
+                },
+                "configId": {
+                    "description": "ConfigID configuration id of the dvr config.",
+                    "type": "string"
+                },
+                "endPadding": {
+                    "description": "EndPadding optional padding in minutes to record\nafter the recording ends.",
+                    "type": "integer"
+                },
+                "endsAt": {
+                    "description": "EndsAt end date of the recording as unix timestamp.",
+                    "type": "integer"
+                },
+                "extraText": {
+                    "description": "ExtraText optional extraText of the recording.",
+                    "type": "string"
+                },
+                "priority": {
+                    "description": "Priority priority of the recording.",
+                    "type": "integer"
+                },
+                "startPadding": {
+                    "description": "StartPadding optional padding in minutes to record\nbefore the recording starts.",
+                    "type": "integer"
+                },
+                "startsAt": {
+                    "description": "StartAt start date of the recording as unix timestamp.",
+                    "type": "integer"
+                },
+                "title": {
+                    "description": "Title title of the recording.",
+                    "type": "string"
+                }
+            }
+        },
+        "core.CreateRecordingByEvent": {
+            "type": "object",
+            "properties": {
+                "configId": {
+                    "type": "string"
+                },
+                "eventId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "core.EpgChannel": {
+            "type": "object",
+            "properties": {
+                "channelId": {
+                    "type": "string"
+                },
+                "channelName": {
+                    "type": "string"
+                },
+                "channelNumber": {
+                    "type": "integer"
+                },
+                "events": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/core.EpgEvent"
+                    }
+                },
+                "piconId": {
+                    "type": "integer"
+                }
+            }
+        },
+        "core.EpgContentType": {
+            "type": "object",
+            "properties": {
+                "id": {
+                    "type": "integer"
+                },
+                "string": {
+                    "type": "string"
+                }
+            }
+        },
+        "core.EpgEvent": {
+            "type": "object",
+            "properties": {
+                "audioDesc": {
+                    "type": "boolean"
+                },
+                "channelId": {
+                    "type": "string"
+                },
+                "channelName": {
+                    "type": "string"
+                },
+                "channelNumber": {
+                    "type": "integer"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "dvrState": {
+                    "type": "string"
+                },
+                "dvrUuid": {
+                    "type": "string"
+                },
+                "endsAt": {
+                    "type": "integer"
+                },
+                "hd": {
+                    "type": "boolean"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "nextEventId": {
+                    "type": "integer"
+                },
+                "piconId": {
+                    "type": "integer"
+                },
+                "startsAt": {
+                    "type": "integer"
+                },
+                "subtitle": {
+                    "type": "string"
+                },
+                "subtitled": {
+                    "type": "boolean"
+                },
+                "title": {
+                    "type": "string"
+                },
+                "widescreen": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "core.ListResult-core_EpgChannel": {
+            "type": "object",
+            "properties": {
+                "entries": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/core.EpgChannel"
+                    }
+                },
+                "offset": {
+                    "type": "integer"
+                },
+                "total": {
+                    "type": "integer"
+                }
+            }
+        },
+        "core.Recording": {
+            "type": "object",
+            "properties": {
+                "channelId": {
+                    "type": "string"
+                },
+                "channelName": {
+                    "type": "string"
+                },
+                "createdAt": {
+                    "type": "integer"
+                },
+                "description": {
+                    "type": "string"
+                },
+                "duration": {
+                    "type": "integer"
+                },
+                "enabled": {
+                    "type": "boolean"
+                },
+                "endPadding": {
+                    "description": "EndPadding optional padding in minutes to record\nafter the recording ends.",
+                    "type": "integer"
+                },
+                "endsAt": {
+                    "description": "EndsAt end date of the recording as unix timestamp.",
+                    "type": "integer"
+                },
+                "eventId": {
+                    "description": "ID of the event when the recordings was created by event.",
+                    "type": "integer"
+                },
+                "extraText": {
+                    "type": "string"
+                },
+                "filename": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "string"
+                },
+                "langTitle": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "originalEndsAt": {
+                    "description": "OriginalEndsAt time stamp of the original end date\nwithout theEndPadding.",
+                    "type": "integer"
+                },
+                "originalStartsAt": {
+                    "description": "OriginalStartsAt time stamp of the original start date\nwithout StartPadding.",
+                    "type": "integer"
+                },
+                "piconId": {
+                    "type": "integer"
+                },
+                "startPadding": {
+                    "description": "StartPadding optional padding in minutes to record\nbefore the recording starts.",
+                    "type": "integer"
+                },
+                "startsAt": {
+                    "description": "StartAt start date of the recording as unix timestamp.",
+                    "type": "integer"
+                },
+                "status": {
+                    "type": "string"
+                },
+                "subtitle": {
+                    "type": "string"
+                },
+                "title": {
+                    "type": "string"
+                }
+            }
+        },
+        "core.UpdateRecording": {
+            "type": "object",
+            "properties": {
+                "comment": {
+                    "description": "Comment optional comment of the recording.",
+                    "type": "string"
+                },
+                "enabled": {
+                    "description": "Enabled enabled status of the recording.",
+                    "type": "boolean"
+                },
+                "endPadding": {
+                    "description": "EndPadding optional padding in minutes to record\nafter the recording ends.",
+                    "type": "integer"
+                },
+                "endsAt": {
+                    "description": "EndsAt end date of the recording as unix timestamp.",
+                    "type": "integer"
+                },
+                "episode": {
+                    "description": "Episode episode of the recording.",
+                    "type": "string"
+                },
+                "extraText": {
+                    "description": "ExtraText optional extraText of the recording.",
+                    "type": "string"
+                },
+                "priority": {
+                    "description": "Priority priority of the recording.",
+                    "type": "integer"
+                },
+                "startPadding": {
+                    "description": "StartPadding optional padding in minutes to record\nbefore the recording starts.",
+                    "type": "integer"
+                },
+                "startsAt": {
+                    "description": "StartAt start date of the recording as unix timestamp.",
+                    "type": "integer"
+                },
+                "title": {
+                    "description": "Title title of the recording.",
+                    "type": "string"
+                }
+            }
+        },
+        "core.User": {
+            "type": "object",
+            "properties": {
+                "createdAt": {
+                    "type": "integer"
+                },
+                "displayName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "id": {
+                    "type": "integer"
+                },
+                "updatedAt": {
+                    "type": "integer"
+                },
+                "username": {
+                    "type": "string"
+                }
+            }
+        },
+        "response.ErrorResponse": {
+            "type": "object",
+            "properties": {
+                "message": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "securityDefinitions": {
+        "JWT": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
+    }
+}

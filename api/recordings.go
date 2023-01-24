@@ -10,6 +10,24 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+// GetRecordings godoc
+//
+//	@Summary	Get list of recordings
+//	@Tags		recordings
+//
+//	@Param		limit		query	int		false	"Limit"
+//	@Param		offset		query	int		false	"Offset"
+//	@Param		sort_key	query	string	false	"Sort key"
+//	@Param		sort_dir	query	string	false	"Sort direction"
+//	@Param		status		query	string	false	"Recording status"
+//
+//	@Produce	json
+//	@Success	200	{array}		core.Recording
+//	@Failure	400	{object}	response.ErrorResponse
+//	@Failure	401	{object}	response.ErrorResponse
+//	@Failure	500	{object}	response.ErrorResponse
+//	@Security	JWT
+//	@Router		/recordings [get]
 func (s *router) GetRecordings(w http.ResponseWriter, r *http.Request) {
 	var q core.GetRecordingsParams
 	if err := request.BindQuery(r, &q); err != nil {
@@ -34,6 +52,20 @@ func (s *router) GetRecordings(w http.ResponseWriter, r *http.Request) {
 	response.JSON(w, recordings, 200)
 }
 
+// GetRecording godoc
+//
+//	@Summary	Get a recording by id
+//	@Tags		recordings
+//
+//	@Param		id	path	string	true	"Recording id"
+//
+//	@Produce	json
+//	@Success	200	{object}	core.Recording
+//	@Failure	400	{object}	response.ErrorResponse
+//	@Failure	404	{object}	response.ErrorResponse
+//	@Failure	500	{object}	response.ErrorResponse
+//	@Security	JWT
+//	@Router		/recordings/{id} [get]
 func (s *router) GetRecording(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 
@@ -55,6 +87,19 @@ func (s *router) GetRecording(w http.ResponseWriter, r *http.Request) {
 	response.JSON(w, recordings, 200)
 }
 
+// CreateRecording godoc
+//
+//	@Summary	Create a recording
+//	@Tags		recordings
+//	@Accept		json
+//	@Param		body	body	core.CreateRecording	true	"Body"
+//	@Produce	json
+//	@Success	201
+//	@Failure	400	{object}	response.ErrorResponse
+//	@Failure	401	{object}	response.ErrorResponse
+//	@Failure	500	{object}	response.ErrorResponse
+//	@Security	JWT
+//	@Router		/recordings [post]
 func (s *router) CreateRecording(w http.ResponseWriter, r *http.Request) {
 	var in core.CreateRecording
 	if err := request.BindJSON(r, &in); err != nil {
@@ -79,6 +124,19 @@ func (s *router) CreateRecording(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(201)
 }
 
+// CreateRecordingByEvent godoc
+//
+//	@Summary	Create a recording by a event
+//	@Tags		recordings
+//	@Accept		json
+//	@Param		body	body	core.CreateRecordingByEvent	true	"Body"
+//	@Produce	json
+//	@Success	201
+//	@Failure	400	{object}	response.ErrorResponse
+//	@Failure	401	{object}	response.ErrorResponse
+//	@Failure	500	{object}	response.ErrorResponse
+//	@Security	JWT
+//	@Router		/recordings/event [post]
 func (s *router) CreateRecordingByEvent(w http.ResponseWriter, r *http.Request) {
 	var in core.CreateRecordingByEvent
 	if err := request.BindJSON(r, &in); err != nil {
@@ -103,6 +161,17 @@ func (s *router) CreateRecordingByEvent(w http.ResponseWriter, r *http.Request) 
 	w.WriteHeader(201)
 }
 
+// StopRecording godoc
+//
+//	@Summary	Stops a recording
+//	@Tags		recordings
+//	@Param		id	path	string	true	"Recording id"
+//	@Produce	json
+//	@Success	204
+//	@Failure	401	{object}	response.ErrorResponse
+//	@Failure	500	{object}	response.ErrorResponse
+//	@Security	JWT
+//	@Router		/recordings/{id}/stop [put]
 func (s *router) StopRecording(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 
@@ -119,6 +188,17 @@ func (s *router) StopRecording(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(204)
 }
 
+// CancelRecording godoc
+//
+//	@Summary	Cancels a recording
+//	@Tags		recordings
+//	@Param		id	path	string	true	"Recording id"
+//	@Produce	json
+//	@Success	204
+//	@Failure	401	{object}	response.ErrorResponse
+//	@Failure	500	{object}	response.ErrorResponse
+//	@Security	JWT
+//	@Router		/recordings/{id}/cancel [put]
 func (s *router) CancelRecording(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 
@@ -135,6 +215,17 @@ func (s *router) CancelRecording(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(204)
 }
 
+// RemoveRecording godoc
+//
+//	@Summary	Removes a recording
+//	@Tags		recordings
+//	@Param		id	path	string	true	"Recording id"
+//	@Produce	json
+//	@Success	204
+//	@Failure	401	{object}	response.ErrorResponse
+//	@Failure	500	{object}	response.ErrorResponse
+//	@Security	JWT
+//	@Router		/recordings/{id}/remove [put]
 func (s *router) RemoveRecording(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 
@@ -151,6 +242,19 @@ func (s *router) RemoveRecording(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(204)
 }
 
+// MoveRecording godoc
+//
+//	@Summary	Moves a recording
+//	@Tags		recordings
+//	@Param		id		path	string	true	"Recording id"
+//	@Param		dest	path	string	true	"Recording id"
+//	@Produce	json
+//	@Success	204
+//	@Failure	400	{object}	response.ErrorResponse
+//	@Failure	401	{object}	response.ErrorResponse
+//	@Failure	500	{object}	response.ErrorResponse
+//	@Security	JWT
+//	@Router		/recordings/{id}/move/{dest} [put]
 func (s *router) MoveRecording(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 	dest := chi.URLParam(r, "dest")
@@ -179,6 +283,19 @@ func (s *router) MoveRecording(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(204)
 }
 
+// UpdateRecording godoc
+//
+//	@Summary	Updates a recording
+//	@Tags		recordings
+//	@Accept		json
+//	@Param		body	body	core.UpdateRecording	true	"Body"
+//	@Produce	json
+//	@Success	201
+//	@Failure	400	{object}	response.ErrorResponse
+//	@Failure	401	{object}	response.ErrorResponse
+//	@Failure	500	{object}	response.ErrorResponse
+//	@Security	JWT
+//	@Router		/recordings/{id} [patch]
 func (s *router) UpdateRecording(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 

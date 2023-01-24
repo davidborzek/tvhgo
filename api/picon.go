@@ -9,6 +9,17 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
+// GetPicon godoc
+//
+//	@Summary	Get channel picon
+//	@Tags		picon
+//	@Param		id	path	string	true	"Picon id"
+//	@Produce	image/*
+//	@Produce	json
+//	@Success	200
+//	@Failure	401	{object}	response.ErrorResponse
+//	@Security	JWT
+//	@Router		/picon/{id} [get]
 func (s *router) GetPicon(w http.ResponseWriter, r *http.Request) {
 	id, err := strconv.Atoi(chi.URLParam(r, "id"))
 	if err != nil {
