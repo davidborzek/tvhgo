@@ -102,7 +102,7 @@ func (s *service) GetContentTypes(ctx context.Context) ([]*core.EpgContentType, 
 	return contentTypes, nil
 }
 
-func (s *service) GetChannelEvents(ctx context.Context, params core.GetEpgChannelEventsQueryParams) (*core.EpgChannelEventsResult, error) {
+func (s *service) GetEpg(ctx context.Context, params core.GetEpgChannelEventsQueryParams) (*core.EpgChannelEventsResult, error) {
 	q, err := params.MapToTvheadendQuery(sortKeyMapping)
 	if err != nil {
 		return nil, err

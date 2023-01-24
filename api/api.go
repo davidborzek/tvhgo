@@ -60,8 +60,6 @@ func (s *router) Handler() http.Handler {
 	r.Use(middleware.NoCache)
 	r.Use(cors.Handler(corsOpts))
 
-	r.Use()
-
 	r.Post("/login", s.Login)
 
 	authenticated := r.With(s.HandleAuthentication)
@@ -69,8 +67,8 @@ func (s *router) Handler() http.Handler {
 
 	authenticated.Get("/user", s.GetUser)
 
-	authenticated.Get("/epg/events", s.GetEpg)
-	authenticated.Get("/epg/channel/events", s.GetEpgChannelEvents)
+	authenticated.Get("/epg", s.GetEpg)
+	authenticated.Get("/epg/events", s.GetEpgEvents)
 	authenticated.Get("/epg/events/{id}", s.GetEpgEvent)
 	authenticated.Get("/epg/events/{id}/related", s.GetRelatedEpgEvents)
 	authenticated.Get("/epg/content-types", s.GetEpgContentTypes)

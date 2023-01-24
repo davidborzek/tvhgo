@@ -9,7 +9,7 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func (s *router) GetEpg(w http.ResponseWriter, r *http.Request) {
+func (s *router) GetEpgEvents(w http.ResponseWriter, r *http.Request) {
 	var q core.GetEpgQueryParams
 	if err := request.BindQuery(r, &q); err != nil {
 		response.BadRequest(w, err)
@@ -32,7 +32,7 @@ func (s *router) GetEpg(w http.ResponseWriter, r *http.Request) {
 	response.JSON(w, events, 200)
 }
 
-func (s *router) GetEpgChannelEvents(w http.ResponseWriter, r *http.Request) {
+func (s *router) GetEpg(w http.ResponseWriter, r *http.Request) {
 	var q core.GetEpgChannelEventsQueryParams
 	if err := request.BindQuery(r, &q); err != nil {
 		response.BadRequest(w, err)
@@ -44,7 +44,7 @@ func (s *router) GetEpgChannelEvents(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	events, err := s.epg.GetChannelEvents(r.Context(), q)
+	events, err := s.epg.GetEpg(r.Context(), q)
 	if err != nil {
 		log.WithError(err).
 			Error("failed to get epg events")

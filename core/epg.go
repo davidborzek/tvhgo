@@ -79,11 +79,11 @@ type (
 	// EpgService provides access to epg
 	// resources from the tvheadend server.
 	EpgService interface {
+		// GetEpg returns the epg (events for each channel).
+		GetEpg(ctx context.Context, params GetEpgChannelEventsQueryParams) (*EpgChannelEventsResult, error)
+
 		// GetEvents returns a list of epg events.
 		GetEvents(ctx context.Context, params GetEpgQueryParams) (*EpgEventsResult, error)
-
-		// GetChannelEvents returns a the epg events grouped by the channel.
-		GetChannelEvents(ctx context.Context, params GetEpgChannelEventsQueryParams) (*EpgChannelEventsResult, error)
 
 		// GetEvent returns a epg event.
 		GetEvent(ctx context.Context, id int64) (*EpgEvent, error)
