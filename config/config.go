@@ -69,7 +69,7 @@ func findConfig() (string, error) {
 		}
 	}
 
-	return "", errors.New("no config file found")
+	return "", nil
 }
 
 // Load loads a config from a config file at a given path
@@ -85,15 +85,7 @@ func Load() (*Config, error) {
 		return nil, err
 	}
 
-	log.WithField("path", cfgPath).
-		Info("loading config from file")
-
-	cfgFile, err := os.ReadFile(cfgPath)
-	if err != nil {
-		return nil, err
-	}
-
-	if err := yaml.Unmarshal(cfgFile, &cfg); err != nil {
+	if err := loadFromFile(cfgPath, &cfg); err != nil {
 		return nil, err
 	}
 
@@ -104,6 +96,23 @@ func Load() (*Config, error) {
 	cfg.loadDefaults()
 
 	return &cfg, nil
+}
+
+// Loads the config from a file if the path is not empty.
+func loadFromFile(cfgPath string, cfg *Config) error {
+	if cfgPath == "" {
+		return nil
+	}
+
+	log.WithField("path", cfgPath).
+		Info("loading config from file")
+
+	cfgFile, err := os.ReadFile(cfgPath)
+	if err != nil {
+		return err
+	}
+
+	return yaml.Unmarshal(cfgFile, &cfg)
 }
 
 func (c *Config) validate() error {
