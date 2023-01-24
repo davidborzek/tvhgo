@@ -1,12 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Outlet } from 'react-router-dom';
-import {
-  GuideIcon,
-  LogoutIcon,
-  RecordingsIcon,
-  SettingsIcon,
-  TvIcon,
-} from '../../assets';
+import { GuideIcon, RecordingsIcon, SettingsIcon, TvIcon } from '../../assets';
 import MobileNavigation from '../../components/MobileNavigation/MobileNavigation';
 import NavigationBar from '../../components/Navigation/NavigationBar/NavigationBar';
 import { INavigationItem } from '../../components/Navigation/types';
@@ -21,7 +15,6 @@ function DashboardView() {
     { icon: <GuideIcon />, title: t('guide'), to: '/guide' },
     { icon: <RecordingsIcon />, title: t('recordings'), to: '/recordings' },
     { icon: <SettingsIcon />, title: t('settings'), to: '/settings' },
-    { icon: <LogoutIcon />, title: t('logout'), to: '/logout' },
   ];
 
   return (

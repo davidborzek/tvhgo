@@ -22,6 +22,7 @@ import EventView from './views/EventView/EventView';
 import RecordingsView from './views/RecordingsView/RecordingsView';
 import RecordingDetailView from './views/RecordingDetailView/RecordingDetailView';
 import LoadingProvider from './providers/LoadingProvider';
+import SettingsView from './views/SettingsView/SettingsView';
 
 type AuthenticationCheckerProps = {
   redirect?: string;
@@ -89,7 +90,7 @@ function App() {
                     path="/recordings/:id"
                     element={<RecordingDetailView />}
                   />
-                  <Route path="/settings" element={<></>} />
+                  <Route path="/settings" element={<SettingsView />} />
                 </Route>
 
                 <Route path="/logout" element={<Logout />} />
