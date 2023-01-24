@@ -9,3 +9,6 @@ tvheadend:
   port: 9981
   username: <tvheadend_username>
   password: <tvheadend_password>
+
+database:
+  path: ./tvhgo.db

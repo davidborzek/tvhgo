@@ -5,8 +5,8 @@ import (
 	"fmt"
 
 	"github.com/AlecAivazis/survey/v2"
+	actx "github.com/davidborzek/tvhgo/cmd/admin/context"
 	"github.com/davidborzek/tvhgo/core"
-	"github.com/davidborzek/tvhgo/db"
 	"github.com/davidborzek/tvhgo/repository/user"
 	"github.com/urfave/cli/v2"
 	"golang.org/x/crypto/bcrypt"
@@ -61,12 +61,7 @@ func addUser(ctx *cli.Context) error {
 		return err
 	}
 
-	dbConn, err := db.Connect("./tvhgo.db")
-	if err != nil {
-		return err
-	}
-
-	userRepository := user.New(dbConn)
+	userRepository := user.New(actx.GetDB())
 
 	hash, err := bcrypt.GenerateFromPassword([]byte(answers.Password), bcryptCost)
 	if err != nil {

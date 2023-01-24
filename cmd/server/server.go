@@ -43,11 +43,14 @@ func start(ctx *cli.Context) error {
 		log.WithError(err).Fatal("failed to start tvhgo")
 	}
 
-	dbConn, err := db.Connect("./tvhgo.db")
+	dbConn, err := db.Connect(cfg.Database.Path)
 	if err != nil {
 		log.WithError(err).
 			Fatal("failed to create database connection")
 	}
+
+	log.WithField("db", cfg.Database.Path).
+		Info("database connection established")
 
 	tvhOpts := tvheadend.ClientOpts{
 		URL:      cfg.Tvheadend.URL(),

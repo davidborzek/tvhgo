@@ -14,6 +14,7 @@ type (
 		Server    ServerConfig    `yaml:"server"`
 		Tvheadend TvheadendConfig `yaml:"tvheadend"`
 		Auth      AuthConfig      `yaml:"auth"`
+		Database  DatabaseConfig  `yaml:"database"`
 	}
 )
 
@@ -103,4 +104,5 @@ func (c *Config) loadDefaults() {
 	c.Server.SetDefaults()
 	c.Tvheadend.SetDefaults()
 	c.Auth.Session.SetDefaults()
+	c.Database.SetDefaults()
 }
