@@ -5,9 +5,11 @@ import (
 
 	"github.com/davidborzek/tvhgo/config"
 	"github.com/davidborzek/tvhgo/core"
+	_ "github.com/davidborzek/tvhgo/docs"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"github.com/go-chi/cors"
+	httpSwagger "github.com/swaggo/http-swagger"
 )
 
 type router struct {
@@ -63,6 +65,15 @@ func (s *router) Handler() http.Handler {
 	r.Post("/login", s.Login)
 
 	authenticated := r.With(s.HandleAuthentication)
+
+	authenticated.Get("/swagger", func(w http.ResponseWriter, r *http.Request) {
+		http.Redirect(w, r, "/api/swagger/index.html", http.StatusMovedPermanently)
+	})
+
+	authenticated.Get("/swagger/*", httpSwagger.Handler(
+		httpSwagger.URL("/api/swagger/doc.json"),
+	))
+
 	authenticated.Post("/logout", s.Logout)
 
 	authenticated.Get("/user", s.GetUser)
