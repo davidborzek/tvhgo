@@ -11,7 +11,7 @@ import { LoadingContext } from '../contexts/LoadingContext';
 export default function LoadingProvider({
   children,
 }: PropsWithChildren<unknown>): ReactElement {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const ref = useRef<LoadingBarRef>(null);
 
