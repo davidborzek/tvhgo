@@ -1,0 +1,926 @@
+basePath: /api
+definitions:
+  core.Channel:
+    properties:
+      enabled:
+        type: boolean
+      id:
+        type: string
+      name:
+        type: string
+      number:
+        type: integer
+      piconId:
+        type: integer
+    type: object
+  core.CreateRecording:
+    properties:
+      channelId:
+        description: ChannelID the channel id for the recording.
+        type: string
+      comment:
+        description: Comment optional comment of the recording.
+        type: string
+      configId:
+        description: ConfigID configuration id of the dvr config.
+        type: string
+      endPadding:
+        description: |-
+          EndPadding optional padding in minutes to record
+          after the recording ends.
+        type: integer
+      endsAt:
+        description: EndsAt end date of the recording as unix timestamp.
+        type: integer
+      extraText:
+        description: ExtraText optional extraText of the recording.
+        type: string
+      priority:
+        description: Priority priority of the recording.
+        type: integer
+      startPadding:
+        description: |-
+          StartPadding optional padding in minutes to record
+          before the recording starts.
+        type: integer
+      startsAt:
+        description: StartAt start date of the recording as unix timestamp.
+        type: integer
+      title:
+        description: Title title of the recording.
+        type: string
+    type: object
+  core.CreateRecordingByEvent:
+    properties:
+      configId:
+        type: string
+      eventId:
+        type: integer
+    type: object
+  core.EpgChannel:
+    properties:
+      channelId:
+        type: string
+      channelName:
+        type: string
+      channelNumber:
+        type: integer
+      events:
+        items:
+          $ref: '#/definitions/core.EpgEvent'
+        type: array
+      piconId:
+        type: integer
+    type: object
+  core.EpgContentType:
+    properties:
+      id:
+        type: integer
+      string:
+        type: string
+    type: object
+  core.EpgEvent:
+    properties:
+      audioDesc:
+        type: boolean
+      channelId:
+        type: string
+      channelName:
+        type: string
+      channelNumber:
+        type: integer
+      description:
+        type: string
+      dvrState:
+        type: string
+      dvrUuid:
+        type: string
+      endsAt:
+        type: integer
+      hd:
+        type: boolean
+      id:
+        type: integer
+      nextEventId:
+        type: integer
+      piconId:
+        type: integer
+      startsAt:
+        type: integer
+      subtitle:
+        type: string
+      subtitled:
+        type: boolean
+      title:
+        type: string
+      widescreen:
+        type: boolean
+    type: object
+  core.ListResult-core_EpgChannel:
+    properties:
+      entries:
+        items:
+          $ref: '#/definitions/core.EpgChannel'
+        type: array
+      offset:
+        type: integer
+      total:
+        type: integer
+    type: object
+  core.Recording:
+    properties:
+      channelId:
+        type: string
+      channelName:
+        type: string
+      createdAt:
+        type: integer
+      description:
+        type: string
+      duration:
+        type: integer
+      enabled:
+        type: boolean
+      endPadding:
+        description: |-
+          EndPadding optional padding in minutes to record
+          after the recording ends.
+        type: integer
+      endsAt:
+        description: EndsAt end date of the recording as unix timestamp.
+        type: integer
+      eventId:
+        description: ID of the event when the recordings was created by event.
+        type: integer
+      extraText:
+        type: string
+      filename:
+        type: string
+      id:
+        type: string
+      langTitle:
+        additionalProperties:
+          type: string
+        type: object
+      originalEndsAt:
+        description: |-
+          OriginalEndsAt time stamp of the original end date
+          without theEndPadding.
+        type: integer
+      originalStartsAt:
+        description: |-
+          OriginalStartsAt time stamp of the original start date
+          without StartPadding.
+        type: integer
+      piconId:
+        type: integer
+      startPadding:
+        description: |-
+          StartPadding optional padding in minutes to record
+          before the recording starts.
+        type: integer
+      startsAt:
+        description: StartAt start date of the recording as unix timestamp.
+        type: integer
+      status:
+        type: string
+      subtitle:
+        type: string
+      title:
+        type: string
+    type: object
+  core.UpdateRecording:
+    properties:
+      comment:
+        description: Comment optional comment of the recording.
+        type: string
+      enabled:
+        description: Enabled enabled status of the recording.
+        type: boolean
+      endPadding:
+        description: |-
+          EndPadding optional padding in minutes to record
+          after the recording ends.
+        type: integer
+      endsAt:
+        description: EndsAt end date of the recording as unix timestamp.
+        type: integer
+      episode:
+        description: Episode episode of the recording.
+        type: string
+      extraText:
+        description: ExtraText optional extraText of the recording.
+        type: string
+      priority:
+        description: Priority priority of the recording.
+        type: integer
+      startPadding:
+        description: |-
+          StartPadding optional padding in minutes to record
+          before the recording starts.
+        type: integer
+      startsAt:
+        description: StartAt start date of the recording as unix timestamp.
+        type: integer
+      title:
+        description: Title title of the recording.
+        type: string
+    type: object
+  core.User:
+    properties:
+      createdAt:
+        type: integer
+      displayName:
+        type: string
+      email:
+        type: string
+      id:
+        type: integer
+      updatedAt:
+        type: integer
+      username:
+        type: string
+    type: object
+  response.ErrorResponse:
+    properties:
+      message:
+        type: string
+    type: object
+info:
+  contact: {}
+  description: tvhgo REST API documentation.
+  title: tvhgo
+  version: "1.0"
+paths:
+  /channels:
+    get:
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      - description: Sort key
+        in: query
+        name: sort_key
+        type: string
+      - description: Sort direction
+        in: query
+        name: sort_dir
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/core.Channel'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Get list of channels
+      tags:
+      - channels
+  /channels/{id}:
+    get:
+      parameters:
+      - description: Channel id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/core.Channel'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Get a channel by id
+      tags:
+      - channels
+  /channels/{number}/stream:
+    get:
+      parameters:
+      - description: Channel number
+        in: path
+        name: number
+        required: true
+        type: string
+      produces:
+      - video/*
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Get channel picon
+      tags:
+      - channels
+  /epg:
+    get:
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      - description: Sort key
+        in: query
+        name: sort_key
+        type: string
+      - description: Sort direction
+        in: query
+        name: sort_dir
+        type: string
+      - description: Start timestamp
+        in: query
+        name: startsAt
+        type: integer
+      - description: End timestamp
+        in: query
+        name: endsAt
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/core.ListResult-core_EpgChannel'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Get epg
+      tags:
+      - epg
+  /epg/content-types:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/core.EpgContentType'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Get epg content types
+      tags:
+      - epg
+  /epg/events:
+    get:
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      - description: Sort key
+        in: query
+        name: sort_key
+        type: string
+      - description: Sort direction
+        in: query
+        name: sort_dir
+        type: string
+      - description: Title
+        in: query
+        name: title
+        type: string
+      - description: Enable full test search
+        in: query
+        name: fullText
+        type: boolean
+      - description: Language
+        in: query
+        name: lang
+        type: string
+      - description: Now playing
+        in: query
+        name: nowPlaying
+        type: boolean
+      - description: Channel name or channel id
+        in: query
+        name: channel
+        type: string
+      - description: Content type
+        in: query
+        name: contentType
+        type: string
+      - description: Minimum Duration
+        in: query
+        name: durationMin
+        type: integer
+      - description: Maximum Duration
+        in: query
+        name: durationMax
+        type: integer
+      - description: Start timestamp
+        in: query
+        name: startsAt
+        type: integer
+      - description: End timestamp
+        in: query
+        name: endsAt
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/core.EpgEvent'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Get epg events
+      tags:
+      - epg
+  /epg/events/{id}:
+    get:
+      parameters:
+      - description: Event id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/core.EpgEvent'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Get a epg event by id
+      tags:
+      - epg
+  /epg/events/{id}/related:
+    get:
+      parameters:
+      - description: Event id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      - description: Sort key
+        in: query
+        name: sort_key
+        type: string
+      - description: Sort direction
+        in: query
+        name: sort_dir
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/core.EpgEvent'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Get related epg events
+      tags:
+      - epg
+  /picon/{id}:
+    get:
+      parameters:
+      - description: Picon id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - image/*
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Get channel picon
+      tags:
+      - picon
+  /recordings:
+    get:
+      parameters:
+      - description: Limit
+        in: query
+        name: limit
+        type: integer
+      - description: Offset
+        in: query
+        name: offset
+        type: integer
+      - description: Sort key
+        in: query
+        name: sort_key
+        type: string
+      - description: Sort direction
+        in: query
+        name: sort_dir
+        type: string
+      - description: Recording status
+        in: query
+        name: status
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/core.Recording'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Get list of recordings
+      tags:
+      - recordings
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/core.CreateRecording'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Create a recording
+      tags:
+      - recordings
+  /recordings/{id}:
+    get:
+      parameters:
+      - description: Recording id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/core.Recording'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Get a recording by id
+      tags:
+      - recordings
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: Body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/core.UpdateRecording'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Updates a recording
+      tags:
+      - recordings
+  /recordings/{id}/cancel:
+    put:
+      parameters:
+      - description: Recording id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Cancels a recording
+      tags:
+      - recordings
+  /recordings/{id}/move/{dest}:
+    put:
+      parameters:
+      - description: Recording id
+        in: path
+        name: id
+        required: true
+        type: string
+      - description: Recording id
+        in: path
+        name: dest
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Moves a recording
+      tags:
+      - recordings
+  /recordings/{id}/remove:
+    put:
+      parameters:
+      - description: Recording id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Removes a recording
+      tags:
+      - recordings
+  /recordings/{id}/stop:
+    put:
+      parameters:
+      - description: Recording id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Stops a recording
+      tags:
+      - recordings
+  /recordings/event:
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/core.CreateRecordingByEvent'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Create a recording by a event
+      tags:
+      - recordings
+  /user:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/core.User'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Get the current user
+      tags:
+      - user
+securityDefinitions:
+  JWT:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

@@ -9,6 +9,16 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
+//	@title			tvhgo
+//	@version		1.0
+//	@description	tvhgo REST API documentation.
+
+//	@BasePath	/api
+
+//	@securityDefinitions.apikey	JWT
+//	@in							header
+//	@name						Authorization
+
 func main() {
 	app := cli.App{
 		Name:  "tvhgo",
