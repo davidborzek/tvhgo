@@ -1,0 +1,46 @@
+# https://taskfile.dev
+
+version: "3"
+
+tasks:
+  deps-ui:
+    dir: ./ui
+    cmds:
+      - yarn
+
+  deps:
+    cmds:
+      - go mod download
+      - task: deps-ui
+
+  test:
+    cmds:
+      - go test ./...
+
+  build-ui:
+    dir: ./ui
+    cmds:
+      - task: deps-ui
+      - yarn build
+
+  build:
+    cmds:
+      - task: build-ui
+      - go build -o out/tvhgo -tags prod main.go
+
+  docker:
+    vars:
+      IMAGE: ghcr.io/davidborzek/tvhgo
+      GIT_COMMIT:
+        sh: git rev-parse --short HEAD
+    cmds:
+      - cmd: docker rmi {{.IMAGE}}
+        ignore_error: true
+      - cmd: docker rmi {{.IMAGE}}:{{.GIT_COMMIT}}
+        ignore_error: true
+      - cmd: >
+          docker build --rm
+          --build-arg GIT_COMMIT={{.GIT_COMMIT}}
+          -t {{.IMAGE}} .
+      - cmd: >
+          docker tag {{.IMAGE}} {{.IMAGE}}:{{.GIT_COMMIT}}
