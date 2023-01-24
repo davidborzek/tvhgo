@@ -33,13 +33,16 @@ func (s *sqlRepository) Find(ctx context.Context, hashedToken string) (*core.Ses
 }
 
 func (s *sqlRepository) Create(ctx context.Context, session *core.Session) error {
+	now := time.Now().Unix()
+
 	res, err := s.db.ExecContext(ctx, stmtInsert,
 		session.UserId,
 		session.HashedToken,
 		session.ClientIP,
 		session.UserAgent,
-		time.Now().Unix(),
-		time.Now().Unix(),
+		now,
+		now,
+		now,
 	)
 
 	if err != nil {
@@ -52,6 +55,9 @@ func (s *sqlRepository) Create(ctx context.Context, session *core.Session) error
 	}
 
 	session.ID = id
+	session.CreatedAt = now
+	session.LastUsedAt = now
+	session.RotatedAt = now
 	return nil
 }
 
@@ -61,6 +67,7 @@ func (s *sqlRepository) Update(ctx context.Context, session *core.Session) error
 		session.ClientIP,
 		session.UserAgent,
 		session.LastUsedAt,
+		session.RotatedAt,
 		session.ID,
 	)
 

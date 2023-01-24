@@ -19,8 +19,9 @@ type (
 
 	// SessionManager defines operations to manage a session of a user.
 	SessionManager interface {
-		// Validate validates a session and updates the last usage.
-		Validate(ctx context.Context, token string) (*AuthContext, error)
+		// Validate validates a session and updates the last usage and rotates the token if needed.
+		// The rotated token is returned as second return value when the token was rotated.
+		Validate(ctx context.Context, token string) (*AuthContext, *string, error)
 		// Create creates a new session for a user with a client ip and a user agent.
 		Create(ctx context.Context, userId int64, clientIp string, userAgent string) (string, error)
 		// Revoke revokes a specific session.

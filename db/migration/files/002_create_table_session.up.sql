@@ -6,5 +6,6 @@ CREATE TABLE IF NOT EXISTS session (
     user_agent TEXT NOT NULL,
     created_at INTEGER NOT NULL,
     last_used_at INTEGER,
+    rotated_at INTEGER NOT NULL,
     FOREIGN KEY(user_id) REFERENCES user(id)
 )

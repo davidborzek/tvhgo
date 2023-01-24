@@ -5,7 +5,6 @@ import (
 	"database/sql"
 	"os"
 	"testing"
-	"time"
 
 	"github.com/davidborzek/tvhgo/core"
 	"github.com/davidborzek/tvhgo/db/testdb"
@@ -65,13 +64,14 @@ func TestCreate(t *testing.T) {
 		HashedToken: "someHashedToken",
 		ClientIP:    "127.0.0.1",
 		UserAgent:   "someUserAgent",
-		CreatedAt:   time.Now().Unix(),
-		LastUsedAt:  time.Now().Unix(),
 	}
 
 	err := repository.Create(noCtx, session)
 	assert.Nil(t, err)
 	assert.NotEmpty(t, session.ID)
+	assert.NotEmpty(t, session.CreatedAt)
+	assert.NotEmpty(t, session.LastUsedAt)
+	assert.NotEmpty(t, session.RotatedAt)
 
 	t.Run("Find", testFind(session))
 	t.Run("Update", testUpdate(session))

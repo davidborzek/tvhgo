@@ -9,7 +9,8 @@ session.hashed_token,
 session.client_ip,
 session.user_agent,
 session.created_at,
-session.last_used_at
+session.last_used_at,
+session.rotated_at
 FROM session
 `
 
@@ -27,9 +28,10 @@ hashed_token,
 client_ip,
 user_agent,
 created_at,
-last_used_at
+last_used_at,
+rotated_at
 ) VALUES (
-?, ?, ?, ?, ?, ?
+?, ?, ?, ?, ?, ?, ?
 )
 `
 
@@ -39,7 +41,8 @@ UPDATE session SET
 hashed_token = ?,
 client_ip = ?,
 user_agent = ?,
-last_used_at = ?
+last_used_at = ?,
+rotated_at = ?
 WHERE id = ?
 `
 

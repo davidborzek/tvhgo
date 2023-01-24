@@ -69,6 +69,7 @@ func start(ctx *cli.Context) error {
 		sessionRepository,
 		cfg.Auth.Session.MaximumInactiveLifetime,
 		cfg.Auth.Session.MaximumLifetime,
+		cfg.Auth.Session.TokenRotationInterval,
 	)
 
 	passwordAuthenticator := auth.NewLocalPasswordAuthenticator(userRepository)

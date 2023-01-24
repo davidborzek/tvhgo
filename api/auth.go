@@ -13,7 +13,7 @@ func (router *router) HandleAuthentication(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		token := extractToken(r, router.cfg.Auth.Session.CookieName)
 
-		ctx, err := router.sessions.Validate(r.Context(), token)
+		ctx, rotatedToken, err := router.sessions.Validate(r.Context(), token)
 		if err != nil {
 			if err == core.ErrInvalidOrExpiredToken {
 				response.Unauthorized(w, err)
@@ -22,6 +22,15 @@ func (router *router) HandleAuthentication(next http.Handler) http.Handler {
 
 			response.InternalError(w, err)
 			return
+		}
+
+		if rotatedToken != nil {
+			setSessionCookie(
+				w,
+				router.cfg.Auth.Session.CookieName,
+				*rotatedToken,
+				router.cfg.Auth.Session.CookieSecure,
+			)
 		}
 
 		next.ServeHTTP(w, r.WithContext(

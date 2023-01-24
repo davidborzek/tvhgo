@@ -13,8 +13,9 @@ import (
 )
 
 type sessionManager struct {
-	inactiveLifetime time.Duration
-	lifetime         time.Duration
+	inactiveLifetime      time.Duration
+	lifetime              time.Duration
+	tokenRotationInterval time.Duration
 
 	sessionRepository core.SessionRepository
 }
@@ -23,11 +24,13 @@ func NewSessionManager(
 	sessionRepository core.SessionRepository,
 	inactiveLifetime time.Duration,
 	lifetime time.Duration,
+	tokenRotationInterval time.Duration,
 ) core.SessionManager {
 	return &sessionManager{
-		sessionRepository: sessionRepository,
-		inactiveLifetime:  inactiveLifetime,
-		lifetime:          lifetime,
+		sessionRepository:     sessionRepository,
+		inactiveLifetime:      inactiveLifetime,
+		lifetime:              lifetime,
+		tokenRotationInterval: tokenRotationInterval,
 	}
 }
 
@@ -76,7 +79,7 @@ func (s *sessionManager) Revoke(ctx context.Context, sessionId int64) error {
 	return nil
 }
 
-func (s *sessionManager) Validate(ctx context.Context, token string) (*core.AuthContext, error) {
+func (s *sessionManager) Validate(ctx context.Context, token string) (*core.AuthContext, *string, error) {
 	hashedToken := hashToken(token)
 
 	session, err := s.sessionRepository.Find(ctx, hashedToken)
@@ -85,24 +88,32 @@ func (s *sessionManager) Validate(ctx context.Context, token string) (*core.Auth
 			WithField("session", session.ID).
 			Error("could not get session")
 
-		return nil, core.ErrUnexpectedError
+		return nil, nil, core.ErrUnexpectedError
 	}
 
 	if session == nil {
-		return nil, core.ErrInvalidOrExpiredToken
+		return nil, nil, core.ErrInvalidOrExpiredToken
 	}
 
 	if isExpired(session.CreatedAt, s.lifetime) || isExpired(session.LastUsedAt, s.inactiveLifetime) {
-		return nil, core.ErrInvalidOrExpiredToken
+		return nil, nil, core.ErrInvalidOrExpiredToken
+	}
+
+	rotatedToken, err := s.rotateToken(session)
+	if err != nil {
+		log.WithError(err).
+			Error("could not rotate token")
+		return nil, nil, err
 	}
 
 	session.LastUsedAt = time.Now().Unix()
+
 	if err := s.sessionRepository.Update(ctx, session); err != nil {
 		log.WithError(err).
 			WithField("session", session.ID).
-			Error("could not update last used timestamp for session")
+			Error("could not update session")
 
-		return nil, core.ErrUnexpectedError
+		return nil, nil, core.ErrUnexpectedError
 	}
 
 	authCtx := core.AuthContext{
@@ -110,7 +121,24 @@ func (s *sessionManager) Validate(ctx context.Context, token string) (*core.Auth
 		UserID:    session.UserId,
 	}
 
-	return &authCtx, nil
+	return &authCtx, rotatedToken, nil
+}
+
+// rotateToken rotates the token if necessary.
+func (s *sessionManager) rotateToken(session *core.Session) (rotatedToken *string, err error) {
+	if isExpired(session.RotatedAt, s.tokenRotationInterval) {
+		token, err := generateToken()
+		if err != nil {
+			return nil, core.ErrUnexpectedError
+		}
+
+		session.HashedToken = hashToken(token)
+		session.RotatedAt = time.Now().Unix()
+
+		rotatedToken = &token
+	}
+
+	return
 }
 
 // Generates a random 256-bit token.

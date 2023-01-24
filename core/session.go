@@ -14,6 +14,7 @@ type (
 		UserAgent   string
 		CreatedAt   int64
 		LastUsedAt  int64
+		RotatedAt   int64
 	}
 
 	// SessionRepository defines CRUD operations for working with sessions.

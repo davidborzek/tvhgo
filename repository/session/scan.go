@@ -15,5 +15,6 @@ func scanRow(scanner repository.Scanner, dest *core.Session) error {
 		&dest.UserAgent,
 		&dest.CreatedAt,
 		&dest.LastUsedAt,
+		&dest.RotatedAt,
 	)
 }
