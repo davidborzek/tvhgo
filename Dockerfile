@@ -27,8 +27,11 @@ RUN go mod download
 RUN go build -o tvhgo -tags prod main.go
 
 FROM alpine:3.17 as prod
+EXPOSE 8080
+VOLUME /data
 
-COPY --from=build /build/tvhgo /app/tvhgo
+ENV TVHGO_DATABASE_PATH /data/tvhgo.db
 
-WORKDIR /app
-ENTRYPOINT ["./tvhgo"]
+COPY --from=build /build/tvhgo /bin/tvhgo
+
+ENTRYPOINT ["/bin/tvhgo"]
