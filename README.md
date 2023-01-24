@@ -46,3 +46,9 @@ You can more information about the tvhgo configuration in [the wiki](https://git
 ![Recordings](docs/screenshots/recordings.png)
 
 More screenshots can be found [here](docs/screenshots/).
+
+## Contributing
+
+Contributing and pull requests are very welcome.
+
+More information about contributing to this project can be found [here](CONTRIBUTING.md)
