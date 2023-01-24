@@ -8,10 +8,22 @@ export type Option = {
 type Props = {
   options: Option[];
   value?: string;
+  label?: string | null;
+  name?: string;
+  maxWidth?: string | number;
+  fullWidth?: boolean;
   onChange?: (option: string) => void;
 };
 
-function Dropdown({ options, value, onChange }: Props) {
+function Dropdown({
+  fullWidth,
+  name,
+  label,
+  options,
+  value,
+  maxWidth,
+  onChange,
+}: Props) {
   const renderOptions = () => {
     return options.map(({ title, value }) => (
       <option key={title} value={value}>
@@ -21,13 +33,24 @@ function Dropdown({ options, value, onChange }: Props) {
   };
 
   return (
-    <select
-      value={value}
-      className={styles.dropdown}
-      onChange={(e) => onChange && onChange(e.target.value)}
-    >
-      {renderOptions()}
-    </select>
+    <div className={styles.inputContainer}>
+      {label ? (
+        <label className={styles.inputLabel} htmlFor={name}>
+          {label}
+        </label>
+      ) : (
+        <></>
+      )}
+      <select
+        name={name}
+        value={value}
+        className={styles.dropdown}
+        onChange={(e) => onChange && onChange(e.target.value)}
+        style={{ maxWidth, width: fullWidth ? '100%' : 'fit-content' }}
+      >
+        {renderOptions()}
+      </select>
+    </div>
   );
 }
 
