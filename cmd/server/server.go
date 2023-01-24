@@ -20,10 +20,7 @@ import (
 	"github.com/davidborzek/tvhgo/ui"
 	"github.com/go-chi/chi"
 	log "github.com/sirupsen/logrus"
-	httpSwagger "github.com/swaggo/http-swagger"
 	"github.com/urfave/cli/v2"
-
-	_ "github.com/davidborzek/tvhgo/docs"
 )
 
 var Cmd = &cli.Command{
@@ -103,14 +100,6 @@ func start(ctx *cli.Context) error {
 	}
 
 	r := chi.NewRouter()
-
-	r.Get("/swagger", func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, "/swagger/index.html", http.StatusMovedPermanently)
-	})
-
-	r.Get("/swagger/*", httpSwagger.Handler(
-		httpSwagger.URL("/swagger/doc.json"),
-	))
 
 	r.Mount("/api", apiRouter.Handler())
 	r.Mount("/health", healthRouter.Handler())
