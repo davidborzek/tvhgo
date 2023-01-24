@@ -12,3 +12,11 @@ tvheadend:
 
 database:
   path: ./tvhgo.db
+
+auth:
+  session:
+    cookie_name: tvhgo_session
+    cookie_secure: false
+    maximum_inactive_lifetime: 168h
+    maximum_lifetime: 720h
+    token_rotation_interval: 30m
