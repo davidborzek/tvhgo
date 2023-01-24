@@ -918,9 +918,4 @@ paths:
       summary: Get the current user
       tags:
       - user
-securityDefinitions:
-  JWT:
-    in: header
-    name: Authorization
-    type: apiKey
 swagger: "2.0"
