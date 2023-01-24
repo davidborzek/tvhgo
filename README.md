@@ -1,25 +1,29 @@
 <p align="center">
-<img src="docs/images/tvhgo.png" alt="tvhgo" title="tvhgo" />
+<img src="docs/images/tvhgo.png" alt="tvhgo" title="tvhgo" height="300px" />
 </p>
 
-<h2 align="center">tvhgo - a modern web ui for Tvheadend</h2>
+<p align="center">
+  <a href="#features">Features</a> | 
+  <a href="#installation">Installation</a>
+</p>
 
 tvhgo provides a modern and secure alternative for the Tvheadend web interface and the api.
 It aims to give users an all-round access to Tvheadend from any platform.
 
-# Features
+## Features
 
-This is an incomplete list of available/upcoming features.
+This is a list of available features.
 
-- [ ] Authentication
-- [ ] Channels
-- [ ] EPG
-- [ ] Recordings
-- [ ] DVR Config
-- [ ] Streaming
+- Channel list
+- TV Guide
+- Create and manage recordings
 
-# Development
+## Installation
 
-For development, please check the relevant READMEs for [server](server/README.md) and [web](web/README.md).
+There are various methods available to install tvhgo. For detailed instructions you can follow these guides:
 
-# Installation
+- [Docker](https://github.com/davidborzek/tvhgo/wiki/Docker-Installation)
+
+### Configuration
+
+You can more information about the tvhgo configuration in [the wiki](https://github.com/davidborzek/tvhgo/wiki/Configuration).
