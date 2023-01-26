@@ -91,3 +91,10 @@ export type UpdateRecording = {
   enabled?: boolean;
   episode?: string;
 };
+
+export type UpdateUser = {
+  displayName?: string;
+  email?: string;
+  username?: string;
+  password?: string;
+};

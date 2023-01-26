@@ -16,6 +16,8 @@ type Props = {
   required?: boolean;
   disabled?: boolean;
   error?: string;
+  maxWidth?: string | number;
+  fullWidth?: boolean;
 };
 
 function Input(props: Props, ref: React.LegacyRef<HTMLInputElement>) {
@@ -25,6 +27,10 @@ function Input(props: Props, ref: React.LegacyRef<HTMLInputElement>) {
         styles.inputContainer,
         props.className ? props.className : ''
       )}
+      style={{
+        maxWidth: props.maxWidth,
+        width: props.fullWidth ? '100%' : 'fit-content',
+      }}
     >
       {props.label ? (
         <label className={styles.inputLabel} htmlFor={props.name}>

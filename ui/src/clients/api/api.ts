@@ -7,6 +7,7 @@ import {
   ListResponse,
   Recording,
   UpdateRecording,
+  UpdateUser,
   UserResponse,
 } from './api.types';
 
@@ -170,4 +171,9 @@ export async function updateRecording(
   opts: UpdateRecording
 ): Promise<void> {
   await client.patch(`/recordings/${id}`, opts);
+}
+
+export async function updateUser(opts: UpdateUser): Promise<UserResponse> {
+  const response = await client.patch<UserResponse>(`/user`, opts);
+  return response.data;
 }
