@@ -1,5 +1,16 @@
 basePath: /api
 definitions:
+  api.userUpdate:
+    properties:
+      displayName:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
   core.Channel:
     properties:
       enabled:
@@ -916,6 +927,36 @@ paths:
       security:
       - JWT: []
       summary: Get the current user
+      tags:
+      - user
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: Body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/api.userUpdate'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/core.User'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Updates the current user
       tags:
       - user
 swagger: "2.0"

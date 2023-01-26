@@ -8,11 +8,9 @@ import (
 	actx "github.com/davidborzek/tvhgo/cmd/admin/context"
 	"github.com/davidborzek/tvhgo/core"
 	"github.com/davidborzek/tvhgo/repository/user"
+	"github.com/davidborzek/tvhgo/services/auth"
 	"github.com/urfave/cli/v2"
-	"golang.org/x/crypto/bcrypt"
 )
-
-const bcryptCost = 12
 
 var addUserCmd = &cli.Command{
 	Name:   "add",
@@ -63,7 +61,7 @@ func addUser(ctx *cli.Context) error {
 
 	userRepository := user.New(actx.GetDB())
 
-	hash, err := bcrypt.GenerateFromPassword([]byte(answers.Password), bcryptCost)
+	hash, err := auth.HashPassword(answers.Password)
 	if err != nil {
 		return err
 	}
