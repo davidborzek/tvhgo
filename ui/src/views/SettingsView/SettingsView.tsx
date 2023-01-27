@@ -6,7 +6,7 @@ import Dropdown, { Option } from '../../components/Dropdown/Dropdown';
 import Form from '../../components/Form/Form';
 import Input from '../../components/Input/Input';
 import { Theme, useTheme } from '../../contexts/ThemeContext';
-import { useFetchUser as useUpdateUser } from '../../hooks/user';
+import { useUpdateUser } from '../../hooks/user';
 import i18n from '../../i18n/i18n';
 import styles from './SettingsView.module.scss';
 import * as Yup from 'yup';

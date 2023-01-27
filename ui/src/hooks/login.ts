@@ -23,9 +23,7 @@ const useLogin = () => {
   const fetchUser = () => {
     setLoading(true);
     getUser()
-      .then(({ username }) => {
-        setUser(username);
-      })
+      .then(setUser)
       .catch(() => {
         notify(t('unexpected'));
       })

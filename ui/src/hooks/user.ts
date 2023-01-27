@@ -5,7 +5,7 @@ import { updateUser } from '../clients/api/api';
 import { toast } from 'react-toastify';
 import { useAuth } from '../contexts/AuthContext';
 
-export const useFetchUser = () => {
+export const useUpdateUser = () => {
   const NOTIFICATION_ID = 'manageUser';
 
   const notifyError = (message?: string | null) => {
