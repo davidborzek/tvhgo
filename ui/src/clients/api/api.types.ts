@@ -8,7 +8,7 @@ export type UserResponse = {
   id: string;
   username: string;
   email: string;
-  displayNAme: string;
+  displayName: string;
   createdAt: number;
   updatedAt: number;
 };

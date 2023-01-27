@@ -7,6 +7,8 @@
   "dark": "Dark",
   "delete_recording": "Delete recording",
   "description": "Description",
+  "display_name": "Name",
+  "email": "Email",
   "english": "English",
   "error": "Error",
   "failed": "Failed",
@@ -63,5 +65,7 @@
   "weekday_3": "Wednesday",
   "weekday_4": "Thursday",
   "weekday_5": "Friday",
-  "weekday_6": "Saturday"
+  "weekday_6": "Saturday",
+  "user_updated_successfully": "Settings saved",
+  "password_updated_successfully": "Password saved"
 }
