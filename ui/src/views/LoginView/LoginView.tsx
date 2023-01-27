@@ -48,6 +48,7 @@ export default function LoginView() {
           onChange={formik.handleChange}
           error={formik.touched.username ? formik.errors.username : undefined}
           ref={usernameRef}
+          fullWidth
         />
         <Input
           type="password"
@@ -58,6 +59,7 @@ export default function LoginView() {
           onChange={formik.handleChange}
           error={formik.touched.password ? formik.errors.password : undefined}
           ref={passwordRef}
+          fullWidth
         />
         <Button
           label={t('login')}
