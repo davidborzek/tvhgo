@@ -8,7 +8,7 @@ type Props = {
   name?: string;
   type?: React.HTMLInputTypeAttribute;
   label?: string | null;
-  placeholder?: string;
+  placeholder?: string | null;
   value?: string | number;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
@@ -47,7 +47,7 @@ function Input(props: Props, ref: React.LegacyRef<HTMLInputElement>) {
           props.error ? styles.error : ''
         )}
         name={props.name}
-        placeholder={props.placeholder}
+        placeholder={props.placeholder || undefined}
         value={props.value}
         onChange={props.onChange}
         onBlur={props.onBlur}

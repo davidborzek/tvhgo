@@ -1,5 +1,5 @@
 .Settings {
-  padding: 5rem;
+  padding: 1rem 5rem 2rem 5rem;
   overflow: auto;
   gap: 3rem;
   display: flex;
@@ -13,13 +13,13 @@
 
 .row {
   display: flex;
-  gap: 2rem;
+  gap: 5rem;
   flex-wrap: wrap;
   justify-content: center;
 }
 
 .section {
-  max-width: 20rem;
+  max-width: 30rem;
   flex: 1;
   display: flex;
   flex-direction: column;
