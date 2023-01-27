@@ -1,10 +1,9 @@
 import { UpdateUser } from './../clients/api/api.types';
 import { useTranslation } from 'react-i18next';
 import { useLoading } from './../contexts/LoadingContext';
-import { useState, useEffect } from 'react';
-import { getUser, updateUser } from '../clients/api/api';
-import { UserResponse } from '../clients/api/api.types';
+import { updateUser } from '../clients/api/api';
 import { toast } from 'react-toastify';
+import { useAuth } from '../contexts/AuthContext';
 
 export const useFetchUser = () => {
   const NOTIFICATION_ID = 'manageUser';
@@ -23,19 +22,10 @@ export const useFetchUser = () => {
     });
   };
 
+  const { setUser } = useAuth();
   const { t } = useTranslation();
-  const [user, setUser] = useState<UserResponse>();
-  const [error, setError] = useState<string | null>(null);
 
   const { setIsLoading } = useLoading();
-
-  useEffect(() => {
-    setIsLoading(true);
-    getUser()
-      .then(setUser)
-      .catch(() => setError(t('unexpected')))
-      .finally(() => setIsLoading(false));
-  }, []);
 
   const update = async (opts: UpdateUser, msg?: string | null) => {
     setIsLoading(true);
@@ -50,5 +40,5 @@ export const useFetchUser = () => {
       .finally(() => setIsLoading(false));
   };
 
-  return { update, user, error };
+  return { update };
 };

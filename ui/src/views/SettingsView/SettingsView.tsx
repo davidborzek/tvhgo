@@ -3,24 +3,26 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
 import Dropdown, { Option } from '../../components/Dropdown/Dropdown';
-import Error from '../../components/Error/Error';
 import Form from '../../components/Form/Form';
 import Input from '../../components/Input/Input';
 import { Theme, useTheme } from '../../contexts/ThemeContext';
-import { useFetchUser } from '../../hooks/user';
+import { useFetchUser as useUpdateUser } from '../../hooks/user';
 import i18n from '../../i18n/i18n';
 import styles from './SettingsView.module.scss';
 import * as Yup from 'yup';
 import { useEffect, useRef } from 'react';
 import useFormikErrorFocus from '../../hooks/formik';
+import { useAuth } from '../../contexts/AuthContext';
 
 function SettingsView() {
+  const { user } = useAuth();
+
   const navigate = useNavigate();
   const { t } = useTranslation();
 
   const { setTheme, theme } = useTheme();
 
-  const { update, user, error } = useFetchUser();
+  const { update } = useUpdateUser();
 
   const themeOptions: Option[] = [
     { title: t('dark'), value: 'dark' },
@@ -101,10 +103,6 @@ function SettingsView() {
       });
     }
   }, [user]);
-
-  if (error) {
-    return <Error message={t('unexpected')} />;
-  }
 
   return (
     <div className={styles.Settings}>

@@ -2,6 +2,7 @@ import { PropsWithChildren, ReactElement, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { toast } from 'react-toastify';
 import { getUser, ApiError } from '../clients/api/api';
+import { UserResponse } from '../clients/api/api.types';
 import { AuthContext } from '../contexts/AuthContext';
 
 const NOTIFICATION_ID = 'authError';
@@ -18,17 +19,17 @@ export default function AuthProvider({
 }: PropsWithChildren<unknown>): ReactElement {
   const { t } = useTranslation();
 
-  const [username, setUsername] = useState<string | null>(null);
+  const [user, setUser] = useState<UserResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getUser()
-      .then((response) => {
-        setUsername(response.username);
+      .then((user) => {
+        setUser(user);
       })
       .catch((error) => {
         if (error instanceof ApiError && error.code === 401) {
-          setUsername(null);
+          setUser(null);
         } else {
           notify(t('unexpected'));
         }
@@ -43,8 +44,8 @@ export default function AuthProvider({
   return (
     <AuthContext.Provider
       value={{
-        username,
-        setUser: setUsername,
+        user,
+        setUser,
       }}
     >
       {children}

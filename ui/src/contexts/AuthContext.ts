@@ -1,12 +1,13 @@
 import { createContext, useContext } from 'react';
+import { UserResponse } from '../clients/api/api.types';
 
 export type AuthContextProps = {
-  username: string | null;
-  setUser: (username: string | null) => void;
+  user: UserResponse | null;
+  setUser: (user: UserResponse | null) => void;
 };
 
 export const AuthContext = createContext<AuthContextProps>({
-  username: null,
+  user: null,
   setUser: () => {
     throw new Error('not implemented');
   },

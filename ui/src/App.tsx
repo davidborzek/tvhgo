@@ -30,14 +30,14 @@ type AuthenticationCheckerProps = {
 
 function Unauthenticated(props: AuthenticationCheckerProps) {
   const authContext = useAuth();
-  const isAuthenticated = !!authContext.username;
+  const isAuthenticated = !!authContext.user;
 
   return isAuthenticated ? <Navigate to={props.redirect || '/'} /> : <Outlet />;
 }
 
 function Authenticated(props: AuthenticationCheckerProps) {
   const authContext = useAuth();
-  const isAuthenticated = !!authContext.username;
+  const isAuthenticated = !!authContext.user;
 
   return isAuthenticated ? (
     <Outlet />
