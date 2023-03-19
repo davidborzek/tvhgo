@@ -13,8 +13,6 @@ const version = env.VERSION || "local";
 const keep = {
   name: "Create static keep file for git",
   closeBundle() {
-    console.error("HALLO");
-    
     openSync(resolve(__dirname, 'dist/keep'), "w");
 }};
 
