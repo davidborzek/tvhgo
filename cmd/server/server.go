@@ -46,6 +46,7 @@ func start(ctx *cli.Context) error {
 	dbConn, err := db.Connect(cfg.Database.Path)
 	if err != nil {
 		log.WithError(err).
+			WithField("db", cfg.Database.Path).
 			Fatal("failed to create database connection")
 	}
 
