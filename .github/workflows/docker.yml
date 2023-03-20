@@ -36,7 +36,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: tvhgo-ui-${{ github.sha }}
-          path: ./dist
+          path: ./ui/dist
 
 
   build-and-push-image:
