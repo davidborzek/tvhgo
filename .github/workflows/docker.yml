@@ -5,11 +5,40 @@ on:
     branches: ["main"]
 
 env:
+  NODE_VERSION: 18.12.1
   PLATFORMS: linux/amd64,linux/arm64
   REGISTRY: ghcr.io
   IMAGE_NAME: "ghcr.io/${{ github.repository }}"
 
 jobs:
+  build-ui:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./ui
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Build ui
+        run: yarn build
+
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: tvhgo-ui-${{ github.sha }}
+          path: ./dist
+
+
   build-and-push-image:
     runs-on: ubuntu-latest
     permissions:
@@ -19,6 +48,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
+
+      - name: Download ui build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: tvhgo-ui-${{ github.sha }}
+          path: ./ui/dist
 
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
