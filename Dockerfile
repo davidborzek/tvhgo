@@ -13,11 +13,7 @@ RUN yarn build
 FROM golang:1.19.4-alpine3.17 AS build
 RUN apk add --no-cache build-base
 
-ENV CGO_ENABLED=1 \
-    GO111MODULE=on \
-    GOOS=linux \
-    GOARCH=amd64
-
+ENV CGO_ENABLED=1
 WORKDIR /build
 
 COPY . .
