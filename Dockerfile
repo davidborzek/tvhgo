@@ -7,7 +7,7 @@ WORKDIR /build
 COPY ui ui
 WORKDIR /build/ui
 
-RUN yarn install --frozen-lockfile
+RUN yarn install --frozen-lockfile --network-timeout 1000000
 RUN yarn build
 
 FROM golang:1.19.4-alpine3.17 AS build
