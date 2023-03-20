@@ -59,7 +59,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Download ui build artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: tvhgo-ui-${{ github.sha }}
           path: ./ui/dist
