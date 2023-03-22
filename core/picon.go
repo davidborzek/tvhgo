@@ -2,12 +2,16 @@ package core
 
 import (
 	"context"
-	"net/http"
+	"errors"
+)
+
+var (
+	ErrPiconNotFound = errors.New("picon not found")
 )
 
 type (
 	PiconService interface {
-		// GetPicon returns the raw http response of the channels picon.
-		Get(ctx context.Context, id int) (*http.Response, error)
+		// GetPicon returns the picon of a channel.
+		Get(ctx context.Context, id int) ([]byte, error)
 	}
 )
