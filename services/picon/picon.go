@@ -24,7 +24,7 @@ func New(tvh tvheadend.Client) core.PiconService {
 	}
 }
 
-func (s *service) Get(ctx context.Context, id int) ([]byte, error) {
+func (s *service) Get(ctx context.Context, id int) (io.Reader, error) {
 	res, err := s.tvh.Exec(ctx, fmt.Sprintf("/imagecache/%d", id), nil)
 	if err != nil {
 		return nil, err
@@ -38,10 +38,5 @@ func (s *service) Get(ctx context.Context, id int) ([]byte, error) {
 		return nil, ErrRequestFailed
 	}
 
-	picon, err := io.ReadAll(res.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	return picon, nil
+	return res.Body, nil
 }

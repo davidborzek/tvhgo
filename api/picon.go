@@ -1,6 +1,7 @@
 package api
 
 import (
+	"io"
 	"net/http"
 	"strconv"
 
@@ -43,5 +44,5 @@ func (s *router) GetPicon(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Write(picon)
+	io.Copy(w, picon)
 }

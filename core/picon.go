@@ -3,6 +3,7 @@ package core
 import (
 	"context"
 	"errors"
+	"io"
 )
 
 var (
@@ -12,6 +13,6 @@ var (
 type (
 	PiconService interface {
 		// GetPicon returns the picon of a channel.
-		Get(ctx context.Context, id int) ([]byte, error)
+		Get(ctx context.Context, id int) (io.Reader, error)
 	}
 )
