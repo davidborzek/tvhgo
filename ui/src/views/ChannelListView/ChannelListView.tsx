@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import { useFetchEpg } from '../../hooks/epg';
+import { useFetchEvents } from '../../hooks/epg';
 
 import styles from './ChannelListView.module.scss';
 import { useTranslation } from 'react-i18next';
@@ -19,7 +19,7 @@ const opts: GetEpgEventsQuery = {
 
 function ChannelListView() {
   const { t } = useTranslation();
-  const { events, offset, total, error, increaseOffset } = useFetchEpg(opts);
+  const { events, offset, total, error, increaseOffset } = useFetchEvents(opts);
 
   const { isLoading } = useLoading();
 

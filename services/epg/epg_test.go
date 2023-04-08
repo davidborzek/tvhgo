@@ -72,7 +72,7 @@ func TestGetEventsReturnsError(t *testing.T) {
 		Times(1)
 
 	service := epg.New(mockClient)
-	res, err := service.GetEvents(ctx, core.GetEpgQueryParams{})
+	res, err := service.GetEvents(ctx, core.GetEpgEventsQueryParams{})
 
 	assert.Nil(t, res)
 	assert.EqualError(t, err, "error")
@@ -89,7 +89,7 @@ func TestGetEventsReturnsRequestFailedError(t *testing.T) {
 		Times(1)
 
 	service := epg.New(mockClient)
-	res, err := service.GetEvents(ctx, core.GetEpgQueryParams{})
+	res, err := service.GetEvents(ctx, core.GetEpgEventsQueryParams{})
 
 	assert.Nil(t, res)
 	assert.Equal(t, err, epg.ErrRequestFailed)
@@ -115,7 +115,7 @@ func TestGetEvents(t *testing.T) {
 
 	service := epg.New(mockClient)
 
-	q := core.GetEpgQueryParams{}
+	q := core.GetEpgEventsQueryParams{}
 	q.Limit = 10
 	q.Offset = 5
 	q.SortDirection = "asc"
@@ -159,7 +159,7 @@ func testGetEventsMapsSortKeyCorrectlyParametrize(key string, mappedKey string) 
 			DoAndReturn(mockClientReturnsEvents).
 			Times(1)
 
-		q := core.GetEpgQueryParams{}
+		q := core.GetEpgEventsQueryParams{}
 		q.SortKey = key
 
 		service := epg.New(mockClient)
@@ -236,4 +236,141 @@ func TestGetEventSucceeds(t *testing.T) {
 
 	assert.NotNil(t, res)
 	assert.Nil(t, err)
+}
+
+func TestGetEpg(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	expectedMetaQuery := tvheadend.NewQuery()
+	expectedMetaQuery.Limit(0)
+
+	mockClient := mock_tvheadend.NewMockClient(ctrl)
+	mockClient.EXPECT().
+		Exec(ctx, "/api/epg/events/grid", gomock.Any(), expectedMetaQuery).
+		DoAndReturn(mockClientReturnsEvents).
+		Times(1)
+
+	expectedQuery := tvheadend.NewQuery()
+	expectedQuery.Limit(20)
+	mockClient.EXPECT().
+		Exec(ctx, "/api/epg/events/grid", gomock.Any(), expectedQuery).
+		DoAndReturn(mockClientReturnsEvents).
+		Times(1)
+	service := epg.New(mockClient)
+
+	q := core.GetEpgQueryParams{}
+	res, err := service.GetEpg(ctx, q)
+
+	assert.Nil(t, err)
+	assert.NotNil(t, res)
+}
+
+func TestGetEpgReturnsError(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockClient := mock_tvheadend.NewMockClient(ctrl)
+	mockClient.EXPECT().
+		Exec(ctx, "/api/epg/events/grid", gomock.Any(), gomock.Any()).
+		DoAndReturn(mock_tvheadend.MockClientExecReturnsError).
+		Times(1)
+
+	service := epg.New(mockClient)
+
+	q := core.GetEpgQueryParams{}
+	res, err := service.GetEpg(ctx, q)
+
+	assert.Nil(t, res)
+	assert.EqualError(t, err, "error")
+}
+
+func TestGetEpgReturnsRequestFailedError(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockClient := mock_tvheadend.NewMockClient(ctrl)
+	mockClient.EXPECT().
+		Exec(ctx, "/api/epg/events/grid", gomock.Any(), gomock.Any()).
+		DoAndReturn(mock_tvheadend.MockClientExecReturnsErroneousHttpStatus).
+		Times(1)
+
+	service := epg.New(mockClient)
+
+	q := core.GetEpgQueryParams{}
+	res, err := service.GetEpg(ctx, q)
+
+	assert.Nil(t, res)
+	assert.Equal(t, err, epg.ErrRequestFailed)
+}
+
+func TestGetRelatedEvents(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	eventId := int64(1234)
+
+	tvhq := tvheadend.NewQuery()
+	tvhq.Limit(10)
+	tvhq.Start(5)
+	tvhq.SortKey("title")
+	tvhq.SortDir("asc")
+	tvhq.SetInt("eventId", eventId)
+
+	mockClient := mock_tvheadend.NewMockClient(ctrl)
+	mockClient.EXPECT().
+		Exec(ctx, "/api/epg/events/related", gomock.Any(), tvhq).
+		DoAndReturn(mockClientReturnsEvents).
+		Times(1)
+
+	service := epg.New(mockClient)
+
+	q := core.PaginationSortQueryParams{}
+	q.Limit = 10
+	q.Offset = 5
+	q.SortDirection = "asc"
+	q.SortKey = "title"
+
+	events, err := service.GetRelatedEvents(ctx, eventId, q)
+
+	assert.Nil(t, err)
+	assert.NotNil(t, events)
+}
+
+func TestGetRelatedEventsReturnsError(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockClient := mock_tvheadend.NewMockClient(ctrl)
+	mockClient.EXPECT().
+		Exec(ctx, "/api/epg/events/related", gomock.Any(), gomock.Any()).
+		DoAndReturn(mock_tvheadend.MockClientExecReturnsError).
+		Times(1)
+
+	service := epg.New(mockClient)
+
+	q := core.PaginationSortQueryParams{}
+	events, err := service.GetRelatedEvents(ctx, 1234, q)
+
+	assert.Nil(t, events)
+	assert.EqualError(t, err, "error")
+}
+
+func TestGetRelatedEventsReturnsRequestFailedError(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockClient := mock_tvheadend.NewMockClient(ctrl)
+	mockClient.EXPECT().
+		Exec(ctx, "/api/epg/events/related", gomock.Any(), gomock.Any()).
+		DoAndReturn(mock_tvheadend.MockClientExecReturnsErroneousHttpStatus).
+		Times(1)
+
+	service := epg.New(mockClient)
+
+	q := core.PaginationSortQueryParams{}
+	events, err := service.GetRelatedEvents(ctx, 1234, q)
+
+	assert.Nil(t, events)
+	assert.Equal(t, err, epg.ErrRequestFailed)
 }

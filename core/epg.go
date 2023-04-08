@@ -3,6 +3,7 @@ package core
 import (
 	"context"
 	"errors"
+	"sort"
 	"strconv"
 
 	"github.com/davidborzek/tvhgo/tvheadend"
@@ -37,6 +38,7 @@ type (
 	// EpgEventsResult defines a ListResult of epg events.
 	EpgEventsResult = ListResult[*EpgEvent]
 
+	// EpgChannel defines a channel with epg events from tvheadend.
 	EpgChannel struct {
 		ChannelID     string      `json:"channelId"`
 		ChannelName   string      `json:"channelName"`
@@ -45,17 +47,15 @@ type (
 		Events        []*EpgEvent `json:"events"`
 	}
 
-	EpgChannelEventsResult = ListResult[*EpgChannel]
-
 	// EpgContentType defines a epg content type from tvheadend.
 	EpgContentType struct {
 		ID   int    `json:"id"`
 		Name string `json:"string"`
 	}
 
-	// GetEpgQueryParams defines query params
+	// GetEpgEventsQueryParams defines query params
 	// to paginate, sort and filter the epg.
-	GetEpgQueryParams struct {
+	GetEpgEventsQueryParams struct {
 		PaginationSortQueryParams
 		Title      string `schema:"title"`
 		FullText   bool   `schema:"fullText"`
@@ -70,8 +70,8 @@ type (
 		EndsAt      int64  `schema:"endsAt"`
 	}
 
-	GetEpgChannelEventsQueryParams struct {
-		PaginationSortQueryParams
+	GetEpgQueryParams struct {
+		SortQueryParams
 		StartsAt int64 `schema:"startsAt"`
 		EndsAt   int64 `schema:"endsAt"`
 	}
@@ -80,10 +80,10 @@ type (
 	// resources from the tvheadend server.
 	EpgService interface {
 		// GetEpg returns the epg (events for each channel).
-		GetEpg(ctx context.Context, params GetEpgChannelEventsQueryParams) (*EpgChannelEventsResult, error)
+		GetEpg(ctx context.Context, params GetEpgQueryParams) ([]*EpgChannel, error)
 
 		// GetEvents returns a list of epg events.
-		GetEvents(ctx context.Context, params GetEpgQueryParams) (*EpgEventsResult, error)
+		GetEvents(ctx context.Context, params GetEpgEventsQueryParams) (*EpgEventsResult, error)
 
 		// GetEvent returns a epg event.
 		GetEvent(ctx context.Context, id int64) (*EpgEvent, error)
@@ -96,9 +96,9 @@ type (
 	}
 )
 
-// MapToTvheadendQuery maps a GetEpgQueryParams model to a tvheadend
+// MapToTvheadendQuery maps a GetEpgEventsQueryParams model to a tvheadend
 // query model.
-func (p *GetEpgQueryParams) MapToTvheadendQuery(sortKeyMapping map[string]string) (*tvheadend.Query, error) {
+func (p *GetEpgEventsQueryParams) MapToTvheadendQuery(sortKeyMapping map[string]string) (*tvheadend.Query, error) {
 	q := p.PaginationSortQueryParams.MapToTvheadendQuery(sortKeyMapping)
 
 	if p.Title != "" {
@@ -137,7 +137,7 @@ func (p *GetEpgQueryParams) MapToTvheadendQuery(sortKeyMapping map[string]string
 		q.Set("durationMax", strconv.FormatInt(p.DurationMax, 10))
 	}
 
-	filter := mapToTvheadendFilter(p.StartsAt, p.EndsAt)
+	filter := mapTimeRangeToTvheadendFilter(p.StartsAt, p.EndsAt)
 	if len(filter) > 0 {
 		if err := q.Filter(filter); err != nil {
 			return nil, err
@@ -147,12 +147,12 @@ func (p *GetEpgQueryParams) MapToTvheadendQuery(sortKeyMapping map[string]string
 	return &q, nil
 }
 
-// MapToTvheadendQuery maps a GetEpgChannelEventsQueryParams model to a tvheadend
+// MapToTvheadendQuery maps a GetEpgQueryParams model to a tvheadend
 // query model.
-func (p *GetEpgChannelEventsQueryParams) MapToTvheadendQuery(sortKeyMapping map[string]string) (*tvheadend.Query, error) {
-	q := p.PaginationQueryParams.MapToTvheadendQuery()
+func (p *GetEpgQueryParams) MapToTvheadendQuery(sortKeyMapping map[string]string) (*tvheadend.Query, error) {
+	q := p.SortQueryParams.MapToTvheadendQuery(sortKeyMapping)
 
-	filter := mapToTvheadendFilter(p.StartsAt, p.EndsAt)
+	filter := mapTimeRangeToTvheadendFilter(p.StartsAt, p.EndsAt)
 
 	if len(filter) > 0 {
 		if err := q.Filter(filter); err != nil {
@@ -163,7 +163,7 @@ func (p *GetEpgChannelEventsQueryParams) MapToTvheadendQuery(sortKeyMapping map[
 	return &q, nil
 }
 
-func mapToTvheadendFilter(startsAt int64, endsAt int64) []tvheadend.FilterQuery {
+func mapTimeRangeToTvheadendFilter(startsAt int64, endsAt int64) []tvheadend.FilterQuery {
 	var filter []tvheadend.FilterQuery
 	if startsAt > 0 {
 		filter = append(filter, tvheadend.FilterQuery{
@@ -186,9 +186,9 @@ func mapToTvheadendFilter(startsAt int64, endsAt int64) []tvheadend.FilterQuery 
 	return filter
 }
 
-// MapTvheadendEpgEventToEpgEvent maps a epg grid event entry
+// BuildEpgEvent maps a epg grid event entry
 // from Tvheadend to a EpgEvent model.
-func MapTvheadendEpgEventToEpgEvent(src tvheadend.EpgEventGridEntry) EpgEvent {
+func BuildEpgEvent(src tvheadend.EpgEventGridEntry) EpgEvent {
 	channelNumber, _ := strconv.ParseInt(src.ChannelNumber, 10, 0)
 
 	return EpgEvent{
@@ -212,10 +212,12 @@ func MapTvheadendEpgEventToEpgEvent(src tvheadend.EpgEventGridEntry) EpgEvent {
 	}
 }
 
+// BuildEpgEventsResult builds the EpgEventsResult model for a given
+// tvheadend.EpgEventGrid.
 func BuildEpgEventsResult(src tvheadend.EpgEventGrid, offset int64) EpgEventsResult {
 	events := make([]*EpgEvent, 0)
 	for _, entry := range src.Entries {
-		e := MapTvheadendEpgEventToEpgEvent(entry)
+		e := BuildEpgEvent(entry)
 		events = append(events, &e)
 	}
 
@@ -226,4 +228,65 @@ func BuildEpgEventsResult(src tvheadend.EpgEventGrid, offset int64) EpgEventsRes
 	}
 
 	return result
+}
+
+// BuildEpgResult builds the epg result for a given tvheadend.EpgEventGrid
+// and sorts th channels by the given SortQueryParams.
+func BuildEpgResult(grid tvheadend.EpgEventGrid, params SortQueryParams) []*EpgChannel {
+	channels := make([]*EpgChannel, 0)
+
+	for _, entry := range grid.Entries {
+		event := BuildEpgEvent(entry)
+
+		index, ok := getChannelIndex(channels, event.ChannelID)
+		if ok {
+			channels[index].Events = append(channels[index].Events, &event)
+		} else {
+			channels = append(channels, &EpgChannel{
+				ChannelID:     event.ChannelID,
+				ChannelName:   event.ChannelName,
+				ChannelNumber: event.ChannelNumber,
+				PiconID:       event.PiconID,
+				Events: []*EpgEvent{
+					&event,
+				},
+			})
+		}
+	}
+
+	sortEpgChannels(channels, params)
+	return channels
+}
+
+// sortEpgChannels sorts an array of EpgChannel by the given
+// SortQueryParams.
+func sortEpgChannels(channels []*EpgChannel, params SortQueryParams) {
+	sort.SliceStable(channels, func(i, j int) bool {
+		switch params.SortKey {
+		case "channelName":
+			{
+				if params.SortDirection == "desc" {
+					return channels[i].ChannelName > channels[j].ChannelName
+				}
+
+				return channels[i].ChannelName < channels[j].ChannelName
+			}
+		}
+
+		if params.SortDirection == "desc" {
+			return channels[i].ChannelNumber > channels[j].ChannelNumber
+		}
+
+		return channels[i].ChannelNumber < channels[j].ChannelNumber
+	})
+}
+
+// A helper function to find the index of channel in an array of channels by its id.
+func getChannelIndex(channels []*EpgChannel, channelId string) (int, bool) {
+	for i, c := range channels {
+		if c.ChannelID == channelId {
+			return i, true
+		}
+	}
+	return 0, false
 }

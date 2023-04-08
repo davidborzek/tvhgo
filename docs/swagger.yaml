@@ -366,14 +366,6 @@ paths:
   /epg:
     get:
       parameters:
-      - description: Limit
-        in: query
-        name: limit
-        type: integer
-      - description: Offset
-        in: query
-        name: offset
-        type: integer
       - description: Sort key
         in: query
         name: sort_key

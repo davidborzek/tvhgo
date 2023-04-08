@@ -1,15 +1,12 @@
 package core_test
 
 import (
+	"encoding/json"
 	"testing"
 
 	"github.com/davidborzek/tvhgo/core"
 	"github.com/davidborzek/tvhgo/tvheadend"
 	"github.com/stretchr/testify/assert"
-)
-
-const (
-	expectedFilter = "[{\"field\":\"start\",\"type\":\"numeric\",\"value\":20,\"comparison\":\"gt\"},{\"field\":\"start\",\"type\":\"numeric\",\"value\":40,\"comparison\":\"lt\"}]"
 )
 
 var (
@@ -28,11 +25,63 @@ var (
 		Subtitled:     1,
 		Title:         "someTitle",
 		Widescreen:    1,
+		ChannelIcon:   "imagecache/7",
+	}
+
+	tvhEventSameChannel = tvheadend.EpgEventGridEntry{
+		AudioDesc:     1,
+		ChannelUUID:   "someChannelID",
+		ChannelName:   "someChannel",
+		ChannelNumber: "1",
+		Description:   "someDescription",
+		Stop:          1234,
+		HD:            1,
+		EventID:       2,
+		NextEventID:   2,
+		Start:         123,
+		Subtitle:      "someSubtitle",
+		Subtitled:     1,
+		Title:         "someOtherTitle",
+		Widescreen:    1,
+		ChannelIcon:   "imagecache/7",
+	}
+
+	tvhEventSecondChannel = tvheadend.EpgEventGridEntry{
+		AudioDesc:     1,
+		ChannelUUID:   "someOtherChannelID",
+		ChannelName:   "1someOtherChannel",
+		ChannelNumber: "2",
+		Description:   "someOtherDescription",
+		Stop:          1234,
+		HD:            1,
+		EventID:       3,
+		NextEventID:   2,
+		Start:         123,
+		Subtitle:      "someSubtitle",
+		Subtitled:     1,
+		Title:         "someTitle",
+		Widescreen:    1,
+		ChannelIcon:   "imagecache/8",
+	}
+
+	tvhFilter = []tvheadend.FilterQuery{
+		{
+			Field:      "start",
+			Type:       "numeric",
+			Value:      20,
+			Comparison: "gt",
+		},
+		{
+			Field:      "start",
+			Type:       "numeric",
+			Value:      40,
+			Comparison: "lt",
+		},
 	}
 )
 
-func TestGetEpgQueryParamsMapToTvheadendQuery(t *testing.T) {
-	q := core.GetEpgQueryParams{
+func TestGetEpgEventsQueryParamsMapToTvheadendQuery(t *testing.T) {
+	q := core.GetEpgEventsQueryParams{
 		Title:       "someTitle",
 		FullText:    true,
 		Language:    "de",
@@ -58,11 +107,12 @@ func TestGetEpgQueryParamsMapToTvheadendQuery(t *testing.T) {
 	assert.Equal(t, "123", m.Get("durationMin"))
 	assert.Equal(t, "1234", m.Get("durationMax"))
 
-	assert.Equal(t, expectedFilter, m.Get("filter"))
+	filterRaw, _ := json.Marshal(&tvhFilter)
+	assert.Equal(t, string(filterRaw), m.Get("filter"))
 }
 
-func TestGetEpgQueryParamsMapToTvheadendQueryFalsyBoolean(t *testing.T) {
-	q := core.GetEpgQueryParams{
+func TestGetEpgEventsQueryParamsMapToTvheadendQueryFalsyBoolean(t *testing.T) {
+	q := core.GetEpgEventsQueryParams{
 		FullText:   false,
 		NowPlaying: false,
 	}
@@ -74,8 +124,8 @@ func TestGetEpgQueryParamsMapToTvheadendQueryFalsyBoolean(t *testing.T) {
 	assert.Equal(t, "all", m.Get("mode"))
 }
 
-func TestMapTvheadendEpgEventToEpgEvent(t *testing.T) {
-	event := core.MapTvheadendEpgEventToEpgEvent(tvhEvent)
+func TestBuildEpgEvent(t *testing.T) {
+	event := core.BuildEpgEvent(tvhEvent)
 
 	assert.True(t, event.Subtitled)
 	assert.True(t, event.AudioDesc)
@@ -94,10 +144,10 @@ func TestMapTvheadendEpgEventToEpgEvent(t *testing.T) {
 	assert.Equal(t, tvhEvent.Title, event.Title)
 }
 
-func TestMapTvheadendEpgEventToEpgEventFalsyBoolean(t *testing.T) {
+func TestBuildEpgEventFalsyBoolean(t *testing.T) {
 	tvhEvent := tvheadend.EpgEventGridEntry{}
 
-	event := core.MapTvheadendEpgEventToEpgEvent(tvhEvent)
+	event := core.BuildEpgEvent(tvhEvent)
 
 	assert.False(t, event.Subtitled)
 	assert.False(t, event.AudioDesc)
@@ -105,11 +155,11 @@ func TestMapTvheadendEpgEventToEpgEventFalsyBoolean(t *testing.T) {
 	assert.False(t, event.HD)
 }
 
-func TestMapTvheadendEpgEventToEpgEventSetChannelNumberToZeroWhenFailure(t *testing.T) {
+func TestBuildEpgEventSetChannelNumberToZeroWhenFailure(t *testing.T) {
 	tvhEvent := tvheadend.EpgEventGridEntry{
 		ChannelNumber: "noNumber",
 	}
-	event := core.MapTvheadendEpgEventToEpgEvent(tvhEvent)
+	event := core.BuildEpgEvent(tvhEvent)
 	assert.Equal(t, int64(0), event.ChannelNumber)
 }
 
@@ -131,4 +181,56 @@ func TestBuildEpgEventsResult(t *testing.T) {
 	assert.Len(t, result.Entries, 1)
 	assert.Equal(t, offset, result.Offset)
 	assert.Equal(t, total, result.Total)
+}
+
+func TestBuildEpgResultDefaultSort(t *testing.T) {
+	tvhGrid := tvheadend.EpgEventGrid{
+		Entries: []tvheadend.EpgEventGridEntry{
+			// This one has channel number equals to 2
+			tvhEventSecondChannel,
+			// These ones have channel number equals to 1
+			tvhEvent,
+			tvhEventSameChannel,
+		},
+	}
+
+	result := core.BuildEpgResult(tvhGrid, core.SortQueryParams{})
+
+	// Verify the first channel in the result with channel number 1.
+	// Should have been sorted as first entry.
+	assert.Len(t, result, 2)
+	assert.Equal(t, result[0].ChannelID, tvhEvent.ChannelUUID)
+	assert.Equal(t, result[0].ChannelName, tvhEvent.ChannelName)
+	assert.Equal(t, result[0].ChannelNumber, int64(1))
+	assert.Equal(t, result[0].PiconID, 7)
+	assert.Len(t, result[0].Events, 2)
+
+	// Verify the second channel in the result with channel number 2.
+	assert.Equal(t, result[1].ChannelID, tvhEventSecondChannel.ChannelUUID)
+	assert.Len(t, result[1].Events, 1)
+}
+
+func TestBuildEpgResultSortChannelName(t *testing.T) {
+	tvhGrid := tvheadend.EpgEventGrid{
+		Entries: []tvheadend.EpgEventGridEntry{
+			tvhEvent,
+			tvhEventSameChannel,
+			tvhEventSecondChannel,
+		},
+	}
+
+	result := core.BuildEpgResult(tvhGrid, core.SortQueryParams{
+		SortKey: "channelName",
+	})
+
+	// Verify the channel sorted by channel name is first in the result.
+	assert.Len(t, result, 2)
+	assert.Equal(t, result[0].ChannelID, tvhEventSecondChannel.ChannelUUID)
+	assert.Equal(t, result[0].ChannelName, tvhEventSecondChannel.ChannelName)
+	assert.Equal(t, result[0].ChannelNumber, int64(2))
+	assert.Equal(t, result[0].PiconID, 8)
+	assert.Len(t, result[0].Events, 1)
+
+	assert.Equal(t, result[1].ChannelID, tvhEvent.ChannelUUID)
+	assert.Len(t, result[1].Events, 2)
 }

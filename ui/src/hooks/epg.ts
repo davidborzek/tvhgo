@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   ApiError,
-  getEpgChannelEvents,
+  getEpg,
   GetEpgChannelEventsQuery,
   getEpgEvent,
   getEpgEvents,
@@ -12,7 +12,7 @@ import {
 import { EpgChannel, EpgEvent } from '../clients/api/api.types';
 import { useLoading } from '../contexts/LoadingContext';
 
-export const useFetchEpg = (q?: GetEpgEventsQuery) => {
+export const useFetchEvents = (q?: GetEpgEventsQuery) => {
   const initialOffset = q?.offset || 0;
 
   const { t } = useTranslation();
@@ -51,12 +51,11 @@ export const useFetchEpg = (q?: GetEpgEventsQuery) => {
   return { error, events: epg, increaseOffset, offset, total };
 };
 
-export const useFetchChannelEvents = (q?: GetEpgChannelEventsQuery) => {
+export const useFetchEpg = (q?: GetEpgChannelEventsQuery) => {
   const { t } = useTranslation();
   const { setIsLoading } = useLoading();
 
   const [error, setError] = useState<string | null>(null);
-  const [total, setTotal] = useState(0);
   const [epg, setEpg] = useState<EpgChannel[]>([]);
   const [startsAt, setStartsAt] = useState<number | undefined>(q?.startsAt);
   const [endsAt, setEndsAt] = useState<number | undefined>(q?.endsAt);
@@ -64,20 +63,12 @@ export const useFetchChannelEvents = (q?: GetEpgChannelEventsQuery) => {
   const fetch = async () => {
     setIsLoading(true);
     try {
-      const meta = await getEpgChannelEvents({
+      const result = await getEpg({
         ...q,
-        limit: 1,
         startsAt,
         endsAt,
       });
-      const result = await getEpgChannelEvents({
-        ...q,
-        limit: meta.total,
-        startsAt,
-        endsAt,
-      });
-      setEpg(result.entries);
-      setTotal(result.total);
+      setEpg(result);
     } catch (error) {
       setError(t('unexpected'));
     }
@@ -91,7 +82,6 @@ export const useFetchChannelEvents = (q?: GetEpgChannelEventsQuery) => {
   return {
     error,
     events: epg,
-    total,
     setEndsAt,
     endsAt,
     setStartsAt,

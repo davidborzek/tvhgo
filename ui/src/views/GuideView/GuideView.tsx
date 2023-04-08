@@ -1,4 +1,4 @@
-import { useFetchChannelEvents } from '../../hooks/epg';
+import { useFetchEpg } from '../../hooks/epg';
 import styles from './GuideView.module.scss';
 import moment from 'moment';
 import { useEffect, useRef, useState } from 'react';
@@ -59,7 +59,7 @@ function GuideView() {
   const containerRef = useRef<HTMLDivElement>(null);
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const { events, setStartsAt, setEndsAt, error } = useFetchChannelEvents({
+  const { events, setStartsAt, setEndsAt, error } = useFetchEpg({
     startsAt: parseStartDate(searchParams.get('day')),
     endsAt: calculateEndDate(searchParams.get('day')),
     sort_key: 'channelNumber',

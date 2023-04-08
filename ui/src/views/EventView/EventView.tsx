@@ -4,7 +4,6 @@ import Error from '../../components/Error/Error';
 import EventChannelInfo from '../../components/Event/EventChannelInfo/EventChannelInfo';
 import EventInfo from '../../components/Event/EventInfo/EventInfo';
 import EventRelated from '../../components/Event/EventRelated/EventRelated';
-import Loading from '../../components/Loading/Loading';
 import { useFetchEvent } from '../../hooks/epg';
 import { useManageRecordingByEvent } from '../../hooks/recording';
 import styles from './EventView.module.scss';
@@ -13,8 +12,7 @@ function EventView() {
   const navigate = useNavigate();
   const params = useParams();
   const { fetch, error, event, relatedEvents } = useFetchEvent();
-  const { createRecording, stopRecording, cancelRecording, pending } =
-    useManageRecordingByEvent();
+  const { createRecording, pending } = useManageRecordingByEvent();
 
   const fetchEvent = () => {
     const id = params['id'];

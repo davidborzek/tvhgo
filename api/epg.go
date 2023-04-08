@@ -36,7 +36,7 @@ import (
 //	@Security	JWT
 //	@Router		/epg/events [get]
 func (s *router) GetEpgEvents(w http.ResponseWriter, r *http.Request) {
-	var q core.GetEpgQueryParams
+	var q core.GetEpgEventsQueryParams
 	if err := request.BindQuery(r, &q); err != nil {
 		response.BadRequest(w, err)
 		return
@@ -62,8 +62,6 @@ func (s *router) GetEpgEvents(w http.ResponseWriter, r *http.Request) {
 //
 //	@Summary	Get epg
 //	@Tags		epg
-//	@Param		limit		query	int		false	"Limit"
-//	@Param		offset		query	int		false	"Offset"
 //	@Param		sort_key	query	string	false	"Sort key"
 //	@Param		sort_dir	query	string	false	"Sort direction"
 //	@Param		startsAt	query	int64	false	"Start timestamp"
@@ -77,7 +75,7 @@ func (s *router) GetEpgEvents(w http.ResponseWriter, r *http.Request) {
 //	@Security	JWT
 //	@Router		/epg [get]
 func (s *router) GetEpg(w http.ResponseWriter, r *http.Request) {
-	var q core.GetEpgChannelEventsQueryParams
+	var q core.GetEpgQueryParams
 	if err := request.BindQuery(r, &q); err != nil {
 		response.BadRequest(w, err)
 		return

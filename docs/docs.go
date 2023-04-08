@@ -191,18 +191,6 @@ const docTemplate = `{
                 "summary": "Get epg",
                 "parameters": [
                     {
-                        "type": "integer",
-                        "description": "Limit",
-                        "name": "limit",
-                        "in": "query"
-                    },
-                    {
-                        "type": "integer",
-                        "description": "Offset",
-                        "name": "offset",
-                        "in": "query"
-                    },
-                    {
                         "type": "string",
                         "description": "Sort key",
                         "name": "sort_key",
