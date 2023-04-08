@@ -6,6 +6,7 @@
 .segment {
   display: grid;
   grid-auto-flow: column;
+  grid-auto-columns: minmax(0, 1fr);
   gap: 2rem;
 }
 
