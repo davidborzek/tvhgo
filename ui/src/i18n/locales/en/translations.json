@@ -11,6 +11,9 @@
   "email": "Email",
   "english": "English",
   "error": "Error",
+  "event_datetime": "{{ event.startsAt, moment(format: L) }} • $t(event_time)",
+  "event_duration": "{{ event, event_duration }} min.",
+  "event_time": "{{ event.startsAt, moment(format: LT) }} - {{ event.endsAt, moment(format: LT) }} ($t(event_duration))",
   "failed": "Failed",
   "finished": "Finished",
   "german": "German",
@@ -30,6 +33,7 @@
   "password_min_chars_error": "Password must have at least 8 characters.",
   "password_repeat": "Repeat password",
   "password_required": "Password is required.",
+  "password_updated_successfully": "Password saved",
   "passwords_do_not_match": "Passwords do not match.",
   "record": "Record",
   "recording_canceled": "Recording successfully canceled.",
@@ -57,6 +61,7 @@
   "today": "Today",
   "unexpected": "Unexpected error. Please try again later.",
   "upcoming": "Upcoming",
+  "user_updated_successfully": "Settings saved",
   "username": "Username",
   "username_required": "Username is required.",
   "weekday_0": "Sunday",
@@ -66,6 +71,5 @@
   "weekday_4": "Thursday",
   "weekday_5": "Friday",
   "weekday_6": "Saturday",
-  "user_updated_successfully": "Settings saved",
-  "password_updated_successfully": "Password saved"
+  "short_date": "{{ ts, moment(format: ll) }}"
 }

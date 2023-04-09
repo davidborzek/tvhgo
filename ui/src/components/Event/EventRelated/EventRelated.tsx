@@ -1,7 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
 import { EpgEvent } from '../../../clients/api/api.types';
-import { parseDatetime } from '../../../utils/time';
 import Pair from '../../PairList/Pair/Pair';
 import PairKey from '../../PairList/PairKey/PairKey';
 import PairList from '../../PairList/PairList';
@@ -12,14 +11,14 @@ type Props = {
   relatedEvents: EpgEvent[];
 };
 
-const renderTitle = (event: EpgEvent) => {
-  return `${parseDatetime(event.startsAt, event.endsAt)}${
-    event.subtitle ? ` • ${event.subtitle}` : ''
-  }`;
-};
-
 function EventRelated({ relatedEvents }: Props) {
   const { t } = useTranslation();
+
+  const renderTitle = (event: EpgEvent) => {
+    const datetime = t('event_datetime', { event });
+    const subtitle = event.subtitle ? ` • ${event.subtitle}` : '';
+    return `${datetime}${subtitle}`;
+  };
 
   const renderRelatedEvents = () => {
     return relatedEvents.map((event) => {

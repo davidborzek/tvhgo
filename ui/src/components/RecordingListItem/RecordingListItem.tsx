@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 import { Recording } from '../../clients/api/api.types';
-import { parseDatetime } from '../../utils/time';
 import styles from './RecordingListItem.module.scss';
 
 type Props = {
@@ -33,7 +32,7 @@ function RecordingListItem({ recording, onClick }: Props) {
       </span>
       <div className={styles.secondary}>
         {renderRecIndicator()}
-        <span>{parseDatetime(recording.startsAt, recording.endsAt)}</span>
+        <span>{t('event_datetime', { event: recording })}</span>
       </div>
     </div>
   );

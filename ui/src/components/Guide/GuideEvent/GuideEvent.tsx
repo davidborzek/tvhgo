@@ -1,6 +1,6 @@
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
 import { c } from '../../../utils/classNames';
-import { parseTime } from '../../../utils/time';
 import styles from './GuideEvent.module.scss';
 
 type Props = {
@@ -15,14 +15,6 @@ type Props = {
   onClick: (eventId: number) => void;
 };
 
-function renderTime(startsAt: number, endsAt: number): string {
-  const minutesLeft = Math.floor((endsAt - startsAt) / 60);
-  const start = parseTime(startsAt);
-  const end = parseTime(endsAt);
-
-  return `${start} - ${end} (${minutesLeft} Min.)`;
-}
-
 function GuideEvent({
   eventId,
   title,
@@ -34,7 +26,9 @@ function GuideEvent({
   dvrState,
   onClick,
 }: Props) {
-  const time = renderTime(startsAt, endsAt);
+  const { t } = useTranslation();
+
+  const time = t('event_time', { event: { startsAt, endsAt } });
   const extra = subtitle || description;
 
   const renderProgress = () => {

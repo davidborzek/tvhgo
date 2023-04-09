@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 import { EpgEvent } from '../../../clients/api/api.types';
-import { parseDatetime } from '../../../utils/time';
 import Pair from '../../PairList/Pair/Pair';
 import PairKey from '../../PairList/PairKey/PairKey';
 import PairList from '../../PairList/PairList';
@@ -34,7 +33,7 @@ function EventInfo({ event, handleOnRecord, pending }: Props) {
         </Pair>
         <Pair>
           <PairKey>{t('airs')}</PairKey>
-          <PairValue>{parseDatetime(event.startsAt, event.endsAt)}</PairValue>
+          <PairValue>{t('event_datetime', { event })}</PairValue>
         </Pair>
         <Pair>
           <PairKey>{t('description')}</PairKey>

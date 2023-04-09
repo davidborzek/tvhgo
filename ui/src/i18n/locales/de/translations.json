@@ -11,6 +11,7 @@
   "email": "E-Mail",
   "english": "Englisch",
   "error": "Fehler",
+  "event_duration": "{{ event, event_duration }} Min.",
   "failed": "Fehlgeschlagen",
   "finished": "Abgeschlossen",
   "german": "Deutsch",

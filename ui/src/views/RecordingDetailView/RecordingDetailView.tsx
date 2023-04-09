@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Error from '../../components/Error/Error';
 import Input from '../../components/Input/Input';
-import Loading from '../../components/Loading/Loading';
 import {
   useFetchRecording,
   useManageRecordingByEvent,
@@ -13,7 +12,6 @@ import * as Yup from 'yup';
 import Button from '../../components/Button/Button';
 import { useTranslation } from 'react-i18next';
 import FormGroup from '../../components/Form/FormGroup/FormGroup';
-import { parseDatetime } from '../../utils/time';
 import EventChannelInfo from '../../components/Event/EventChannelInfo/EventChannelInfo';
 import Form from '../../components/Form/Form';
 import PairList from '../../components/PairList/PairList';
@@ -195,9 +193,7 @@ function RecordingDetailView() {
         </Pair>
         <Pair>
           <PairKey>{t('airs')}</PairKey>
-          <PairValue>
-            {parseDatetime(recording.startsAt, recording.endsAt)}
-          </PairValue>
+          <PairValue>{t('event_datetime', { event: recording })}</PairValue>
         </Pair>
         <Pair>
           <PairKey>{t('status')}</PairKey>

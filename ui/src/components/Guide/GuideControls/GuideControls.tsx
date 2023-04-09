@@ -25,13 +25,9 @@ function GuideControls({ day, search, onSearch, onDayChange }: Props) {
     for (let i = 1; i < 7; i++) {
       const date = moment().add(i, 'day').startOf('day');
 
-      // TODO: date localization
-      const title = `${t(`weekday_${date.day()}`)} (${date
-        .toDate()
-        .toLocaleDateString(undefined, {
-          day: '2-digit',
-          month: 'short',
-        })})`;
+      const title = `${t(`weekday_${date.day()}`)} (${t('short_date', {
+        ts: date.unix(),
+      })})`;
 
       days.push({
         title,

@@ -6,7 +6,14 @@ import LanguageDetector from 'i18next-browser-languagedetector';
 import en from './locales/en/translations.json';
 import de from './locales/de/translations.json';
 
+import moment from 'moment';
+import 'moment/dist/locale/de';
+
 const fallbackLng = 'en';
+
+i18n.on('languageChanged', (lng) => {
+  moment.locale(lng);
+});
 
 i18n
   .use(LanguageDetector)
@@ -31,5 +38,13 @@ i18n
       useSuspense: false,
     },
   });
+
+i18n.services.formatter?.add('moment', (value, _lng, options) => {
+  return moment(new Date(value * 1000)).format(options.format);
+});
+
+i18n.services.formatter?.add('event_duration', (value, _lng, _options) => {
+  return `${Math.floor((value.endsAt - value.startsAt) / 60)}`;
+});
 
 export default i18n;
