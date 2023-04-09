@@ -85,7 +85,6 @@ func (s *sessionManager) Validate(ctx context.Context, token string) (*core.Auth
 	session, err := s.sessionRepository.Find(ctx, hashedToken)
 	if err != nil {
 		log.WithError(err).
-			WithField("session", session.ID).
 			Error("could not get session")
 
 		return nil, nil, core.ErrUnexpectedError
