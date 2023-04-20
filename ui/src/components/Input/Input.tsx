@@ -15,6 +15,7 @@ type Props = {
   className?: string;
   required?: boolean;
   disabled?: boolean;
+  selecTextOnFocus?: boolean;
   error?: string;
   maxWidth?: string | number;
   fullWidth?: boolean;
@@ -54,6 +55,11 @@ function Input(props: Props, ref: React.LegacyRef<HTMLInputElement>) {
         required={props.required}
         ref={ref}
         disabled={props.disabled}
+        onFocus={(evt) => {
+          if (props.selecTextOnFocus) {
+            evt.target.select();
+          }
+        }}
       />
       {props.error ? (
         <div className={styles.errorMessage}>{props.error}</div>
