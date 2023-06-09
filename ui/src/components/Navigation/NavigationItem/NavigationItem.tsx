@@ -19,7 +19,7 @@ function NavigationItem({ to, icon, title }: Props) {
       to={to}
     >
       {icon}
-      {title}
+      <span>{title}</span>
     </NavLink>
   );
 }
