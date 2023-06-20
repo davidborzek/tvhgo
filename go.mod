@@ -12,7 +12,7 @@ require (
 	github.com/gorilla/schema v1.2.0
 	github.com/sirupsen/logrus v1.8.1
 	github.com/stretchr/testify v1.7.0
-	github.com/swaggo/http-swagger v1.3.3
+	github.com/swaggo/http-swagger v1.3.4
 	github.com/swaggo/swag v1.8.9
 	github.com/urfave/cli/v2 v2.24.1
 	golang.org/x/crypto v0.1.0
