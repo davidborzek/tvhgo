@@ -1,0 +1,50 @@
+name: Build UI
+
+on:
+  workflow_call:
+    inputs:
+      upload_artifact:
+        description: "Upload the build artifact"
+        required: false
+        default: false
+        type: boolean
+
+env:
+  NODE_VERSION: 18.12.1
+
+jobs:
+  build-ui:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./ui
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Prepare
+        id: prep
+        run: |
+          echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Build ui
+        env:
+          VERSION: beta
+          GIT_COMMIT: ${{ steps.prep.outputs.sha_short }}
+        run: yarn build
+
+      - name: Upload build artifact
+        if: ${{ inputs.upload_artifact }}
+        uses: actions/upload-artifact@v3
+        with:
+          name: tvhgo-ui-${{ github.sha }}
+          path: ./ui/dist

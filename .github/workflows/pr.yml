@@ -1,8 +1,11 @@
-name: Tests
-on: [push, pull_request]
+name: Verify pull request
+
+on:
+  pull_request:
+    branches: [main]
 
 jobs:
-  test:
+  go-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -16,3 +19,8 @@ jobs:
 
       - run: go mod download
       - run: go test ./...
+
+  build-ui:
+    uses: ./.github/workflows/build-ui.yml
+    with:
+      upload_artifact: false
