@@ -3,7 +3,7 @@ module github.com/davidborzek/tvhgo
 go 1.19
 
 require (
-	github.com/AlecAivazis/survey/v2 v2.3.6
+	github.com/AlecAivazis/survey/v2 v2.3.7
 	github.com/caarlos0/env/v6 v6.10.1
 	github.com/go-chi/chi v1.5.4
 	github.com/go-chi/cors v1.2.1
