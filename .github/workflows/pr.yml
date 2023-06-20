@@ -5,20 +5,8 @@ on:
     branches: [main]
 
 jobs:
-  go-tests:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      - name: Set up Go
-        uses: actions/setup-go@v3
-        id: go
-        with:
-          go-version: 1.19
-
-      - run: go mod download
-      - run: go test ./...
+  tests:
+    uses: ./.github/workflows/tests.yml
 
   build-ui:
     uses: ./.github/workflows/build-ui.yml
