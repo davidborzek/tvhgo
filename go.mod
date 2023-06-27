@@ -10,7 +10,7 @@ require (
 	github.com/golang-migrate/migrate/v4 v4.15.2
 	github.com/golang/mock v1.6.0
 	github.com/gorilla/schema v1.2.0
-	github.com/sirupsen/logrus v1.8.1
+	github.com/sirupsen/logrus v1.9.3
 	github.com/stretchr/testify v1.8.4
 	github.com/swaggo/http-swagger v1.3.4
 	github.com/swaggo/swag v1.8.9
