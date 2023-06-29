@@ -15,7 +15,7 @@ require (
 	github.com/swaggo/http-swagger v1.3.4
 	github.com/swaggo/swag v1.16.1
 	github.com/urfave/cli/v2 v2.25.7
-	golang.org/x/crypto v0.7.0
+	golang.org/x/crypto v0.10.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
@@ -42,9 +42,9 @@ require (
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
 	golang.org/x/net v0.10.0 // indirect
-	golang.org/x/sys v0.8.0 // indirect
-	golang.org/x/term v0.8.0 // indirect
-	golang.org/x/text v0.9.0 // indirect
+	golang.org/x/sys v0.9.0 // indirect
+	golang.org/x/term v0.9.0 // indirect
+	golang.org/x/text v0.10.0 // indirect
 	golang.org/x/tools v0.9.1 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
