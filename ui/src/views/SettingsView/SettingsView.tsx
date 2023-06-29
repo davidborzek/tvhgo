@@ -47,7 +47,7 @@ function SettingsView() {
       .min(8, t('password_min_chars_error') || ''),
     passwordRepeat: Yup.string()
       .required(t('passwords_do_not_match') || '')
-      .oneOf([Yup.ref('password'), null], t('passwords_do_not_match') || ''),
+      .oneOf([Yup.ref('password')], t('passwords_do_not_match') || ''),
   });
 
   const passwordChangeFormik = useFormik({
