@@ -5,7 +5,7 @@ import (
 	"os"
 	"path"
 
-	"github.com/caarlos0/env/v6"
+	"github.com/caarlos0/env/v9"
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v3"
 )
@@ -81,7 +81,7 @@ func Load() (*Config, error) {
 	}
 
 	var cfg Config
-	if err := env.Parse(&cfg, envOpts); err != nil {
+	if err := env.ParseWithOptions(&cfg, envOpts); err != nil {
 		return nil, err
 	}
 

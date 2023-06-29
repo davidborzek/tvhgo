@@ -4,7 +4,6 @@ go 1.19
 
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.7
-	github.com/caarlos0/env/v6 v6.10.1
 	github.com/caarlos0/env/v9 v9.0.0
 	github.com/go-chi/chi v1.5.4
 	github.com/go-chi/cors v1.2.1
@@ -14,7 +13,6 @@ require (
 	github.com/sirupsen/logrus v1.9.3
 	github.com/stretchr/testify v1.8.4
 	github.com/swaggo/http-swagger v1.3.4
-	github.com/swaggo/http-swagger/v2 v2.0.1
 	github.com/swaggo/swag v1.16.1
 	github.com/urfave/cli/v2 v2.25.7
 	golang.org/x/crypto v0.10.0
