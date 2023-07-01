@@ -698,6 +698,31 @@ paths:
       tags:
       - recordings
   /recordings/{id}:
+    delete:
+      parameters:
+      - description: Recording id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Removes a recording
+      tags:
+      - recordings
     get:
       parameters:
       - description: Recording id
@@ -820,32 +845,6 @@ paths:
       security:
       - JWT: []
       summary: Moves a recording
-      tags:
-      - recordings
-  /recordings/{id}/remove:
-    put:
-      parameters:
-      - description: Recording id
-        in: path
-        name: id
-        required: true
-        type: string
-      produces:
-      - application/json
-      responses:
-        "204":
-          description: No Content
-        "401":
-          description: Unauthorized
-          schema:
-            $ref: '#/definitions/response.ErrorResponse'
-        "500":
-          description: Internal Server Error
-          schema:
-            $ref: '#/definitions/response.ErrorResponse'
-      security:
-      - JWT: []
-      summary: Removes a recording
       tags:
       - recordings
   /recordings/{id}/stop:

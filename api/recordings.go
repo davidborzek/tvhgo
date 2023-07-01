@@ -225,7 +225,7 @@ func (s *router) CancelRecording(w http.ResponseWriter, r *http.Request) {
 //	@Failure	401	{object}	response.ErrorResponse
 //	@Failure	500	{object}	response.ErrorResponse
 //	@Security	JWT
-//	@Router		/recordings/{id}/remove [put]
+//	@Router		/recordings/{id} [delete]
 func (s *router) RemoveRecording(w http.ResponseWriter, r *http.Request) {
 	id := chi.URLParam(r, "id")
 
