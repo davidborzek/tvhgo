@@ -7,11 +7,32 @@
 }
 
 .header {
+  display: flex;
+  justify-content: space-between;
   padding: 2rem 0;
   position: sticky;
   top: 0;
   background-color: var(--color-bg);
   z-index: 1;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.selectAll {
+  margin-right: 0.5rem;
+}
+
+.deleteButton {
+  flex: 0;
+  visibility: hidden;
+
+  &.deleteButtonVisible {
+    visibility: visible;
+  }
 }
 
 .recordings {

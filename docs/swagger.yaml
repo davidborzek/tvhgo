@@ -617,6 +617,38 @@ paths:
       tags:
       - picon
   /recordings:
+    delete:
+      parameters:
+      - collectionFormat: multi
+        description: recording ids
+        in: query
+        items:
+          type: string
+        name: ids
+        required: true
+        type: array
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Remove multiple recordings
+      tags:
+      - recordings
     get:
       parameters:
       - description: Limit
@@ -873,6 +905,39 @@ paths:
       summary: Stops a recording
       tags:
       - recordings
+  /recordings/cancel:
+    put:
+      parameters:
+      - collectionFormat: multi
+        description: recording ids
+        in: query
+        items:
+          type: string
+        name: ids
+        required: true
+        type: array
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Cancel multiple recordings
+      tags:
+      - recordings
   /recordings/event:
     post:
       consumes:
@@ -904,6 +969,39 @@ paths:
       security:
       - JWT: []
       summary: Create a recording by a event
+      tags:
+      - recordings
+  /recordings/stop:
+    put:
+      parameters:
+      - collectionFormat: multi
+        description: recording ids
+        in: query
+        items:
+          type: string
+        name: ids
+        required: true
+        type: array
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Stop multiple recordings
       tags:
       - recordings
   /user:

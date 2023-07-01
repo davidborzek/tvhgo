@@ -1,20 +1,28 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { RecordingStatus } from '../../clients/api/api';
 import Dropdown from '../../components/Dropdown/Dropdown';
 import Error from '../../components/Error/Error';
-import Loading from '../../components/Loading/Loading';
 import RecordingListItem from '../../components/RecordingListItem/RecordingListItem';
-import { useFetchRecordings } from '../../hooks/recording';
+import { useFetchRecordings, useManageRecordings } from '../../hooks/recording';
 import styles from './RecordingsView.module.scss';
+import Button from '../../components/Button/Button';
+import { c } from '../../utils/classNames';
+import { Recording } from '../../clients/api/api.types';
+import Checkbox from '../../components/Checkbox/Checkbox';
 
 function RecordingsView() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [queryParams, setQueryParams] = useSearchParams();
+  const [selectedRecordings, setSelectedRecordings] = useState<Set<Recording>>(
+    new Set()
+  );
+  const { stopAndCancelRecordings, removeRecordings, pending } =
+    useManageRecordings();
 
-  const { recordings, error, setStatus, status } = useFetchRecordings({
+  const { recordings, error, setStatus, status, fetch } = useFetchRecordings({
     status: 'upcoming',
     sort_key: 'startsAt',
   });
@@ -26,6 +34,10 @@ function RecordingsView() {
   if (error) {
     return <Error message={error} />;
   }
+
+  const getDeleteOrCancelButtonLabel = () => {
+    return status === 'upcoming' ? t('cancel') : t('delete');
+  };
 
   const renderRecordings = () => {
     if (recordings.length === 0) {
@@ -39,8 +51,43 @@ function RecordingsView() {
         onClick={() => {
           navigate(`/recordings/${recording.id}`);
         }}
+        onSelection={(selected) => {
+          setSelectedRecordings((prv) =>
+            selected
+              ? new Set([...prv, recording])
+              : new Set([...prv].filter((v) => v.id != recording.id))
+          );
+        }}
+        selected={selectedRecordings.has(recording)}
       />
     ));
+  };
+
+  const handleDeleteOrCancelRecordings = () => {
+    if (status === 'upcoming') {
+      const stopIds = [...selectedRecordings]
+        .filter((rec) => rec.status === 'recording')
+        .map((rec) => rec.id);
+
+      const cancelIds = [...selectedRecordings]
+        .filter((rec) => rec.status !== 'recording')
+        .map((rec) => rec.id);
+
+      stopAndCancelRecordings(stopIds, cancelIds, () => {
+        setSelectedRecordings(new Set());
+        fetch();
+      });
+
+      return;
+    }
+
+    removeRecordings(
+      [...selectedRecordings].map((rec) => rec.id),
+      () => {
+        setSelectedRecordings(new Set());
+        fetch();
+      }
+    );
   };
 
   return (
@@ -72,6 +119,34 @@ function RecordingsView() {
             },
           ]}
         />
+
+        <div className={styles.actions}>
+          <Button
+            label={getDeleteOrCancelButtonLabel()}
+            onClick={handleDeleteOrCancelRecordings}
+            style="red"
+            disabled={pending}
+            className={c(
+              styles.deleteButton,
+              selectedRecordings.size > 0 ? styles.deleteButtonVisible : ''
+            )}
+          />
+
+          <Checkbox
+            onChange={(checked) =>
+              checked
+                ? setSelectedRecordings(new Set(recordings))
+                : setSelectedRecordings(new Set())
+            }
+            className={styles.selectAll}
+            checked={
+              recordings.length > 0 &&
+              selectedRecordings.size === recordings.length
+            }
+            indeterminate={selectedRecordings.size > 0}
+            disabled={recordings.length < 1}
+          />
+        </div>
       </div>
       <div className={styles.recordings}>{renderRecordings()}</div>
     </div>

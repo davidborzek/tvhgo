@@ -31,7 +31,7 @@
   }
 
   &:focus {
-    outline: #58a6ff solid 2px;
+    outline: var(--color-accent) solid 2px;
     outline-offset: 2px;
   }
 }

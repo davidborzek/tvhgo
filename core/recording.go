@@ -136,22 +136,40 @@ type (
 	RecordingService interface {
 		// CreateByEvent creates a new recording by an epg event.
 		CreateByEvent(ctx context.Context, opts CreateRecordingByEvent) error
+
 		// CreateByEvent creates a new recording by an epg event.
 		Create(ctx context.Context, opts CreateRecording) error
+
 		// GetAll returns a list of recordings.
 		GetAll(ctx context.Context, params GetRecordingsParams) ([]*Recording, error)
+
 		// Get returns a recording by its id.
 		Get(ctx context.Context, id string) (*Recording, error)
+
 		// Stop gracefully stops a running recording.
 		Stop(ctx context.Context, id string) error
+
+		// BatchStop gracefully stops running recordings.
+		BatchStop(ctx context.Context, ids []string) error
+
 		// Cancel deletes a upcoming recording or aborts a running recording.
 		Cancel(ctx context.Context, id string) error
+
+		// BatchCancel deletes multiple upcoming recordings or aborts running recordings.
+		BatchCancel(ctx context.Context, ids []string) error
+
 		// Remove removes a finished recording from disk.
 		Remove(ctx context.Context, id string) error
+
+		// BatchRemove removes multiple recordings from disk.
+		BatchRemove(ctx context.Context, ids []string) error
+
 		// MoveFinished moves a recording to finished status.
 		MoveFinished(ctx context.Context, id string) error
+
 		// MoveFailed moves a recording to failed status.
 		MoveFailed(ctx context.Context, id string) error
+
 		// UpdateRecording updates a recording.
 		UpdateRecording(ctx context.Context, id string, opts UpdateRecording) error
 	}

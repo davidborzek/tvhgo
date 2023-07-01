@@ -12,6 +12,7 @@ body {
   --color-border-subtle: #d8dee2;
 
   --color-bg: #f9f9f9;
+  --color-accent-contrast: #2e2e2e;
 
   &[data-theme='dark'] {
     --color-text-primary: #f3f3f3;
@@ -21,7 +22,10 @@ body {
     --color-border-subtle: #23262d;
 
     --color-bg: rgb(17, 18, 23);
+    --color-accent-contrast: #c1c1c1;
   }
+
+  --color-accent: #58a6ff;
 
   --toastify-color-light: var(--color-card-bg);
   --toastify-color-dark: var(--color-card-bg);

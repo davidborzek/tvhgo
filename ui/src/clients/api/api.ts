@@ -10,6 +10,7 @@ import {
   UpdateUser,
   UserResponse,
 } from './api.types';
+import qs from 'qs';
 
 type PaginationQuery = {
   limit?: number;
@@ -55,6 +56,7 @@ export class ApiError extends Error {
 
 const client = axios.create({
   baseURL: '/api',
+  paramsSerializer: (params) => qs.stringify(params, { arrayFormat: 'repeat' }),
 });
 
 client.interceptors.response.use(
@@ -150,6 +152,24 @@ export async function cancelRecording(id: string): Promise<void> {
 
 export async function removeRecording(id: string): Promise<void> {
   await client.delete(`/recordings/${id}`);
+}
+
+export async function stopRecordings(ids: string[]): Promise<void> {
+  await client.put(`/recordings/stop`, null, {
+    params: { ids },
+  });
+}
+
+export async function cancelRecordings(ids: string[]): Promise<void> {
+  await client.put(`/recordings/cancel`, null, {
+    params: { ids },
+  });
+}
+
+export async function removeRecordings(ids: string[]): Promise<void> {
+  await client.delete(`/recordings`, {
+    params: { ids },
+  });
 }
 
 export async function getRecordings(

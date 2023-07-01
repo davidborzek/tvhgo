@@ -107,48 +107,42 @@ func (s *service) Stop(ctx context.Context, id string) error {
 	q := tvheadend.NewQuery()
 	q.Set("uuid", id)
 
-	res, err := s.tvh.Exec(ctx, "/api/dvr/entry/stop", nil, q)
-	if err != nil {
-		return err
-	}
+	return s.stop(ctx, q)
+}
 
-	if res.StatusCode >= 400 {
-		return ErrRequestFailed
-	}
+func (s *service) BatchStop(ctx context.Context, ids []string) error {
+	q := tvheadend.NewQuery()
+	q.SetJSON("uuid", ids)
 
-	return nil
+	return s.stop(ctx, q)
 }
 
 func (s *service) Cancel(ctx context.Context, id string) error {
 	q := tvheadend.NewQuery()
 	q.Set("uuid", id)
 
-	res, err := s.tvh.Exec(ctx, "/api/dvr/entry/cancel", nil, q)
-	if err != nil {
-		return err
-	}
+	return s.cancel(ctx, q)
+}
 
-	if res.StatusCode >= 400 {
-		return ErrRequestFailed
-	}
+func (s *service) BatchCancel(ctx context.Context, ids []string) error {
+	q := tvheadend.NewQuery()
+	q.SetJSON("uuid", ids)
 
-	return nil
+	return s.cancel(ctx, q)
 }
 
 func (s *service) Remove(ctx context.Context, id string) error {
 	q := tvheadend.NewQuery()
 	q.Set("uuid", id)
 
-	res, err := s.tvh.Exec(ctx, "/api/dvr/entry/remove", nil, q)
-	if err != nil {
-		return err
-	}
+	return s.remove(ctx, q)
+}
 
-	if res.StatusCode >= 400 {
-		return ErrRequestFailed
-	}
+func (s *service) BatchRemove(ctx context.Context, ids []string) error {
+	q := tvheadend.NewQuery()
+	q.SetJSON("uuid", ids)
 
-	return nil
+	return s.remove(ctx, q)
 }
 
 func (s *service) MoveFinished(ctx context.Context, id string) error {
@@ -244,4 +238,43 @@ func (s *service) getRecordingIdnode(ctx context.Context, id string) (*tvheadend
 	}
 
 	return &idnodeLoad.Entries[0], nil
+}
+
+func (s *service) stop(ctx context.Context, q tvheadend.Query) error {
+	res, err := s.tvh.Exec(ctx, "/api/dvr/entry/stop", nil, q)
+	if err != nil {
+		return err
+	}
+
+	if res.StatusCode >= 400 {
+		return ErrRequestFailed
+	}
+
+	return nil
+}
+
+func (s *service) cancel(ctx context.Context, q tvheadend.Query) error {
+	res, err := s.tvh.Exec(ctx, "/api/dvr/entry/cancel", nil, q)
+	if err != nil {
+		return err
+	}
+
+	if res.StatusCode >= 400 {
+		return ErrRequestFailed
+	}
+
+	return nil
+}
+
+func (s *service) remove(ctx context.Context, q tvheadend.Query) error {
+	res, err := s.tvh.Exec(ctx, "/api/dvr/entry/remove", nil, q)
+	if err != nil {
+		return err
+	}
+
+	if res.StatusCode >= 400 {
+		return ErrRequestFailed
+	}
+
+	return nil
 }

@@ -188,6 +188,40 @@ func (s *router) StopRecording(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(204)
 }
 
+// BatchStopRecordings godoc
+//
+//	@Summary	Stop multiple recordings
+//	@Tags		recordings
+//	@Param		ids	query	[]string	true	"recording ids"	collectionFormat(multi)
+//	@Produce	json
+//	@Success	204
+//	@Failure	400	{object}	response.ErrorResponse
+//	@Failure	401	{object}	response.ErrorResponse
+//	@Failure	500	{object}	response.ErrorResponse
+//	@Security	JWT
+//	@Router		/recordings/stop [put]
+func (s *router) BatchStopRecordings(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	ids := r.Form["ids"]
+
+	if len(ids) < 1 {
+		response.BadRequestf(w, "ids are required")
+		return
+	}
+
+	err := s.recordings.BatchStop(r.Context(), ids)
+	if err != nil {
+		log.WithError(err).
+			WithField("ids", ids).
+			Error("failed to stop recordings")
+
+		response.InternalErrorCommon(w)
+		return
+	}
+
+	w.WriteHeader(204)
+}
+
 // CancelRecording godoc
 //
 //	@Summary	Cancels a recording
@@ -215,6 +249,40 @@ func (s *router) CancelRecording(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(204)
 }
 
+// BatchCancelRecordings godoc
+//
+//	@Summary	Cancel multiple recordings
+//	@Tags		recordings
+//	@Param		ids	query	[]string	true	"recording ids"	collectionFormat(multi)
+//	@Produce	json
+//	@Success	204
+//	@Failure	400	{object}	response.ErrorResponse
+//	@Failure	401	{object}	response.ErrorResponse
+//	@Failure	500	{object}	response.ErrorResponse
+//	@Security	JWT
+//	@Router		/recordings/cancel [put]
+func (s *router) BatchCancelRecordings(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	ids := r.Form["ids"]
+
+	if len(ids) < 1 {
+		response.BadRequestf(w, "ids are required")
+		return
+	}
+
+	err := s.recordings.BatchCancel(r.Context(), ids)
+	if err != nil {
+		log.WithError(err).
+			WithField("ids", ids).
+			Error("failed to cancel recordings")
+
+		response.InternalErrorCommon(w)
+		return
+	}
+
+	w.WriteHeader(204)
+}
+
 // RemoveRecording godoc
 //
 //	@Summary	Removes a recording
@@ -234,6 +302,40 @@ func (s *router) RemoveRecording(w http.ResponseWriter, r *http.Request) {
 		log.WithError(err).
 			WithField("id", id).
 			Error("failed to remove recording")
+
+		response.InternalErrorCommon(w)
+		return
+	}
+
+	w.WriteHeader(204)
+}
+
+// BatchRemoveRecordings godoc
+//
+//	@Summary	Remove multiple recordings
+//	@Tags		recordings
+//	@Param		ids	query	[]string	true	"recording ids"	collectionFormat(multi)
+//	@Produce	json
+//	@Success	204
+//	@Failure	400	{object}	response.ErrorResponse
+//	@Failure	401	{object}	response.ErrorResponse
+//	@Failure	500	{object}	response.ErrorResponse
+//	@Security	JWT
+//	@Router		/recordings [delete]
+func (s *router) BatchRemoveRecordings(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	ids := r.Form["ids"]
+
+	if len(ids) < 1 {
+		response.BadRequestf(w, "ids are required")
+		return
+	}
+
+	err := s.recordings.BatchRemove(r.Context(), ids)
+	if err != nil {
+		log.WithError(err).
+			WithField("ids", ids).
+			Error("failed to remove recordings")
 
 		response.InternalErrorCommon(w)
 		return

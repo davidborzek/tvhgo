@@ -92,14 +92,20 @@ func (s *router) Handler() http.Handler {
 	authenticated.Get("/picon/{id}", s.GetPicon)
 
 	authenticated.Get("/recordings", s.GetRecordings)
-	authenticated.Get("/recordings/{id}", s.GetRecording)
 	authenticated.Post("/recordings", s.CreateRecording)
+
+	authenticated.Delete("/recordings", s.BatchRemoveRecordings)
+	authenticated.Put("/recordings/stop", s.BatchStopRecordings)
+	authenticated.Put("/recordings/cancel", s.BatchCancelRecordings)
+
 	authenticated.Post("/recordings/event", s.CreateRecordingByEvent)
+
+	authenticated.Get("/recordings/{id}", s.GetRecording)
+	authenticated.Delete("/recordings/{id}", s.RemoveRecording)
+	authenticated.Patch("/recordings/{id}", s.UpdateRecording)
 	authenticated.Put("/recordings/{id}/stop", s.StopRecording)
 	authenticated.Put("/recordings/{id}/cancel", s.CancelRecording)
 	authenticated.Put("/recordings/{id}/move/{dest}", s.MoveRecording)
-	authenticated.Delete("/recordings/{id}", s.RemoveRecording)
-	authenticated.Patch("/recordings/{id}", s.UpdateRecording)
 
 	return r
 }

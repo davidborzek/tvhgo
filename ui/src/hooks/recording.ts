@@ -4,12 +4,15 @@ import { toast } from 'react-toastify';
 import {
   ApiError,
   cancelRecording,
+  cancelRecordings,
   getRecording,
   getRecordings,
   GetRecordingsQuery,
   recordByEvent,
   removeRecording,
+  removeRecordings,
   stopRecording,
+  stopRecordings,
   updateRecording,
 } from '../clients/api/api';
 import { Recording, UpdateRecording } from '../clients/api/api.types';
@@ -83,7 +86,7 @@ export const useManageRecordingByEvent = () => {
     setPending(true);
     return await removeRecording(id)
       .then(() => {
-        notifySuccess(t('recording_stopped'));
+        notifySuccess(t('recording_removed'));
         success && success();
       })
       .catch(() => {
@@ -164,4 +167,75 @@ export const useFetchRecording = () => {
   };
 
   return { error, recording, fetch };
+};
+
+export const useManageRecordings = () => {
+  const NOTIFICATION_ID = 'manageRecordings';
+
+  const notifyError = (message?: string | null) => {
+    toast.error(message, {
+      toastId: NOTIFICATION_ID,
+      updateId: NOTIFICATION_ID,
+    });
+  };
+
+  const notifySuccess = (message?: string | null) => {
+    toast.success(message, {
+      toastId: NOTIFICATION_ID,
+      updateId: NOTIFICATION_ID,
+    });
+  };
+
+  const { t } = useTranslation();
+  const [pending, setPending] = useState(false);
+
+  const stopAndCancelRecordings = async (
+    stopIds: string[],
+    cancelIds: string[],
+    success?: () => void
+  ) => {
+    setPending(true);
+
+    const promises = [];
+    if (stopIds.length > 0) {
+      promises.push(stopRecordings(stopIds));
+    }
+
+    if (cancelIds.length > 0) {
+      promises.push(cancelRecordings(cancelIds));
+    }
+
+    return await Promise.all(promises)
+      .then(() => {
+        notifySuccess(t('recordings_stopped_canceled'));
+        success && success();
+      })
+      .catch(() => {
+        notifyError(t('unexpected'));
+      })
+      .finally(() => {
+        setPending(false);
+      });
+  };
+
+  const _removeRecordings = async (ids: string[], success?: () => void) => {
+    setPending(true);
+    return await removeRecordings(ids)
+      .then(() => {
+        notifySuccess(t('recordings_removed'));
+        success && success();
+      })
+      .catch(() => {
+        notifyError(t('unexpected'));
+      })
+      .finally(() => {
+        setPending(false);
+      });
+  };
+
+  return {
+    stopAndCancelRecordings,
+    removeRecordings: _removeRecordings,
+    pending,
+  };
 };
