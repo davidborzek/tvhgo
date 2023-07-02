@@ -95,6 +95,7 @@ function RecordingDetailView() {
   const handleDeleteOrStop = () => {
     if (recording?.status === 'recording') {
       stopRecording(recording.id, () => {
+        setConfirmationModalVisible(false);
         fetch(recording.id);
       });
     } else if (recording?.status === 'scheduled') {
