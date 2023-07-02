@@ -7,13 +7,14 @@ import { useTranslation } from 'react-i18next';
 
 type Props = {
   event: EpgEvent;
+  onClick: (id: string) => void;
 };
 
-function ChannelListItem({ event }: Props) {
+function ChannelListItem({ event, onClick }: Props) {
   const { t } = useTranslation();
 
   return (
-    <div className={styles.channel}>
+    <div className={styles.channel} onClick={() => onClick(event.channelId)}>
       <div className={styles.piconContainer}>
         <Image
           className={styles.picon}

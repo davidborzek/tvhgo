@@ -1,46 +1,60 @@
-import React, { useCallback } from 'react';
+import { useEffect, useRef } from 'react';
 import { useFetchEvents } from '../../hooks/epg';
 
 import styles from './ChannelListView.module.scss';
 import { useTranslation } from 'react-i18next';
 import ChannelListItem from '../../components/ChannelListItem/ChannelListItem';
-import { GetEpgEventsQuery } from '../../clients/api/api';
 import Error from '../../components/Error/Error';
-import { useLoading } from '../../contexts/LoadingContext';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { usePagination } from '../../hooks/pagination';
+import PaginationControls from '../../components/PaginationControls/PaginationControls';
 
-const limit = 50;
-
-const opts: GetEpgEventsQuery = {
-  nowPlaying: true,
-  limit,
-  sort_key: 'channelNumber',
-  sort_dir: 'asc',
-};
+const defaultLimit = 50;
 
 function ChannelListView() {
+  const ref = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
-  const { events, offset, total, error, increaseOffset } = useFetchEvents(opts);
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const { isLoading } = useLoading();
+  const { limit, nextPage, previousPage, getOffset, firstPage, lastPage } =
+    usePagination(defaultLimit, searchParams, setSearchParams);
 
-  const handleScroll = useCallback<React.UIEventHandler<HTMLDivElement>>(
-    (evt) => {
-      const { scrollHeight, scrollTop, clientHeight } = evt.currentTarget;
+  const { events, total, error } = useFetchEvents({
+    nowPlaying: true,
+    limit,
+    offset: getOffset(),
+    sort_key: 'channelNumber',
+    sort_dir: 'asc',
+  });
 
-      if (
-        scrollHeight - scrollTop - clientHeight < 50 &&
-        total > offset &&
-        !isLoading
-      ) {
-        increaseOffset(limit);
-      }
-    },
-    [total, isLoading, offset]
-  );
+  useEffect(() => {
+    const scrollPos = searchParams.get('pos');
+
+    if (events.length > 0) {
+      ref.current?.scrollTo(0, parseInt(scrollPos || '0'));
+    }
+  }, [events, searchParams]);
 
   const renderChannels = () => {
     return events.map((event) => {
-      return <ChannelListItem key={event.id} event={event} />;
+      return (
+        <ChannelListItem
+          key={event.id}
+          event={event}
+          onClick={(id) => {
+            if (ref.current?.scrollTop !== undefined) {
+              const pos = Math.floor(ref.current?.scrollTop);
+              setSearchParams((prev) => {
+                prev.set('pos', `${Math.floor(pos)}`);
+                return prev;
+              });
+            }
+
+            navigate(`/channels/${id}`);
+          }}
+        />
+      );
     });
   };
 
@@ -49,11 +63,27 @@ function ChannelListView() {
   }
 
   return (
-    <div className={styles.container} onScroll={handleScroll}>
+    <div ref={ref} className={styles.container}>
       <div className={styles.channelList}>
         <h1>{t('channels')}</h1>
         {renderChannels()}
       </div>
+      <PaginationControls
+        onNextPage={nextPage}
+        onPreviousPage={previousPage}
+        onFirstPage={firstPage}
+        onLastPage={() => lastPage(total)}
+        scrollTop={() => {
+          setSearchParams((prev) => {
+            prev.delete('pos');
+            return prev;
+          });
+          ref.current?.scrollTo(0, 0);
+        }}
+        limit={limit}
+        offset={getOffset()}
+        total={total}
+      />
     </div>
   );
 }

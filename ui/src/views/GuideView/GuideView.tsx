@@ -198,6 +198,7 @@ function GuideView() {
           name={event.channelName}
           picon={`/api/picon/${event.piconId}`}
           number={event.channelNumber}
+          onClick={() => navigate(`/channels/${event.channelId}`)}
         />
       ));
   };

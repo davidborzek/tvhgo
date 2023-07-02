@@ -11,7 +11,7 @@ function DashboardView() {
   const { t } = useTranslation();
 
   const navigationItems: INavigationItem[] = [
-    { icon: <TvIcon />, title: t('channels'), to: '/' },
+    { icon: <TvIcon />, title: t('channels'), to: '/channels' },
     { icon: <GuideIcon />, title: t('guide'), to: '/guide' },
     { icon: <RecordingsIcon />, title: t('recordings'), to: '/recordings' },
     { icon: <SettingsIcon />, title: t('settings'), to: '/settings' },

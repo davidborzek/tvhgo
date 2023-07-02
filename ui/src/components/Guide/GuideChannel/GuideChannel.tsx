@@ -5,11 +5,12 @@ type Props = {
   name: string;
   picon: string;
   number: number;
+  onClick: () => void;
 };
 
-function GuideChannel({ name, picon, number }: Props) {
+function GuideChannel({ name, picon, number, onClick }: Props) {
   return (
-    <div className={styles.channel} tabIndex={0}>
+    <div className={styles.channel} tabIndex={0} onClick={onClick}>
       <Image title={name} className={styles.picon} src={picon} />
       <span className={styles.number}>{number}</span>
     </div>

@@ -12,6 +12,7 @@ type Props = {
   endsAt: number;
   showProgress?: boolean;
   dvrState?: string;
+  showDate?: boolean;
   onClick: (eventId: number) => void;
 };
 
@@ -24,17 +25,25 @@ function GuideEvent({
   endsAt,
   showProgress,
   dvrState,
+  showDate,
   onClick,
 }: Props) {
   const { t } = useTranslation();
 
-  const time = t('event_time', { event: { startsAt, endsAt } });
+  const time = showDate
+    ? t('event_datetime', { event: { startsAt, endsAt } })
+    : t('event_time', { event: { startsAt, endsAt } });
+
   const extra = subtitle || description;
 
   const renderProgress = () => {
     const width = Math.floor(
       ((moment().unix() - startsAt) / (endsAt - startsAt)) * 100
     );
+
+    if (width < 1) {
+      return;
+    }
 
     return (
       <div
@@ -48,7 +57,9 @@ function GuideEvent({
 
   const renderRecBadge = () => {
     if (dvrState === 'scheduled' || dvrState === 'recording') {
-      return <span className={styles.recBadge} />;
+      return (
+        <span className={styles.recBadge} title={t('recording_running')} />
+      );
     }
   };
 

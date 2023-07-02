@@ -13,8 +13,6 @@ import { EpgChannel, EpgEvent } from '../clients/api/api.types';
 import { useLoading } from '../contexts/LoadingContext';
 
 export const useFetchEvents = (q?: GetEpgEventsQuery) => {
-  const initialOffset = q?.offset || 0;
-
   const { t } = useTranslation();
 
   const { setIsLoading } = useLoading();
@@ -22,18 +20,12 @@ export const useFetchEvents = (q?: GetEpgEventsQuery) => {
   const [error, setError] = useState<string | null>(null);
   const [total, setTotal] = useState(0);
   const [epg, setEpg] = useState<EpgEvent[]>([]);
-  const [offset, setOffset] = useState(initialOffset);
 
   useEffect(() => {
     setIsLoading(true);
-    getEpgEvents({ ...q, offset })
+    getEpgEvents(q)
       .then((events) => {
-        if (offset !== initialOffset) {
-          setEpg([...epg, ...events.entries]);
-        } else {
-          setEpg(events.entries);
-        }
-
+        setEpg(events.entries);
         setTotal(events.total);
       })
       .catch(() => {
@@ -42,13 +34,9 @@ export const useFetchEvents = (q?: GetEpgEventsQuery) => {
       .finally(() => {
         setIsLoading(false);
       });
-  }, [offset]);
+  }, [q?.limit, q?.offset]);
 
-  const increaseOffset = (value: number) => {
-    setOffset((oldOffset) => oldOffset + value);
-  };
-
-  return { error, events: epg, increaseOffset, offset, total };
+  return { error, events: epg, total };
 };
 
 export const useFetchEpg = (q?: GetEpgChannelEventsQuery) => {

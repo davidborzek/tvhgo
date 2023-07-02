@@ -165,7 +165,7 @@ function RecordingDetailView() {
         <ButtonLink
           href={getRecordingUrl(recording.id)}
           download
-          label={t("download")}
+          label={t('download')}
         />
       );
     }

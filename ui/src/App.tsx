@@ -23,6 +23,7 @@ import RecordingsView from './views/RecordingsView/RecordingsView';
 import RecordingDetailView from './views/RecordingDetailView/RecordingDetailView';
 import LoadingProvider from './providers/LoadingProvider';
 import SettingsView from './views/SettingsView/SettingsView';
+import ChannelView from './views/ChannelView/ChannelView';
 
 type AuthenticationCheckerProps = {
   redirect?: string;
@@ -82,7 +83,9 @@ function App() {
 
               <Route element={<Authenticated />}>
                 <Route element={<DashboardView />}>
-                  <Route path="/" element={<ChannelListView />} />
+                  <Route path="/" element={<Navigate to={'/channels'} />} />
+                  <Route path="/channels" element={<ChannelListView />} />
+                  <Route path="/channels/:id" element={<ChannelView />} />
                   <Route path="/guide" element={<GuideView />} />
                   <Route path="/guide/events/:id" element={<EventView />} />
                   <Route path="/recordings" element={<RecordingsView />} />
