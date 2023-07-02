@@ -99,28 +99,19 @@ export const useFetchEvent = () => {
 
   const fetch = async (id: number) => {
     setIsLoading(true);
-    let eventRes: EpgEvent;
-    try {
-      eventRes = await getEpgEvent(id);
-      setEvent(eventRes);
-    } catch (error) {
-      if (error instanceof ApiError && error.code === 404) {
-        setError(t('not_found'));
-      } else {
-        setError(t('unexpected'));
-      }
-      setIsLoading(false);
-      return;
-    }
-
-    try {
-      const related = await getRelatedEpgEvents(id);
-      setRelatedEvents(related.entries.filter((r) => r.id !== eventRes.id));
-    } catch (error) {
-      setError(t('unexpected'));
-    }
-
-    setIsLoading(false);
+    return await Promise.all([getEpgEvent(id), getRelatedEpgEvents(id)])
+      .then(([event, related]) => {
+        setEvent(event);
+        setRelatedEvents(related.entries.filter((r) => r.id !== id));
+      })
+      .catch((error) => {
+        if (error instanceof ApiError && error.code === 404) {
+          setError(t('not_found'));
+        } else {
+          setError(t('unexpected'));
+        }
+      })
+      .finally(() => setIsLoading(false));
   };
 
   return { error, event, relatedEvents, fetch };
