@@ -19,6 +19,8 @@ function RecordingsView() {
   const [selectedRecordings, setSelectedRecordings] = useState<Set<Recording>>(
     new Set()
   );
+  const clearSelection = () => setSelectedRecordings(new Set());
+
   const { stopAndCancelRecordings, removeRecordings, pending } =
     useManageRecordings();
 
@@ -74,7 +76,7 @@ function RecordingsView() {
         .map((rec) => rec.id);
 
       stopAndCancelRecordings(stopIds, cancelIds, () => {
-        setSelectedRecordings(new Set());
+        clearSelection();
         fetch();
       });
 
@@ -84,7 +86,7 @@ function RecordingsView() {
     removeRecordings(
       [...selectedRecordings].map((rec) => rec.id),
       () => {
-        setSelectedRecordings(new Set());
+        clearSelection();
         fetch();
       }
     );
@@ -96,6 +98,7 @@ function RecordingsView() {
         <Dropdown
           value={status}
           onChange={(value) => {
+            clearSelection();
             setQueryParams({
               status: value,
             });
@@ -136,7 +139,7 @@ function RecordingsView() {
             onChange={(checked) =>
               checked
                 ? setSelectedRecordings(new Set(recordings))
-                : setSelectedRecordings(new Set())
+                : clearSelection()
             }
             className={styles.selectAll}
             checked={
