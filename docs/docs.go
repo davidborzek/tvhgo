@@ -152,7 +152,7 @@ const docTemplate = `{
                 "tags": [
                     "channels"
                 ],
-                "summary": "Get channel picon",
+                "summary": "Stream a channel by channel number",
                 "parameters": [
                     {
                         "type": "string",
@@ -1182,6 +1182,43 @@ const docTemplate = `{
                     },
                     "500": {
                         "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/recordings/{id}/stream": {
+            "get": {
+                "security": [
+                    {
+                        "JWT": []
+                    }
+                ],
+                "produces": [
+                    "video/*",
+                    "application/json"
+                ],
+                "tags": [
+                    "recordings"
+                ],
+                "summary": "Stream a recording",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "Recording id",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Unauthorized",
                         "schema": {
                             "$ref": "#/definitions/response.ErrorResponse"
                         }

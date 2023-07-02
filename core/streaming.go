@@ -7,7 +7,10 @@ import (
 
 type (
 	StreamingService interface {
-		// GetChannelStream returns the raw http response the channel stream.
+		// GetChannelStream returns a raw http response of the channel stream.
 		GetChannelStream(ctx context.Context, channelNumber int64) (*http.Response, error)
+
+		// GetRecordingStream returns a raw http response of the recording stream.
+		GetRecordingStream(ctx context.Context, recordingId string) (*http.Response, error)
 	}
 )

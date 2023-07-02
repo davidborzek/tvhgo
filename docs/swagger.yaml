@@ -360,7 +360,7 @@ paths:
             $ref: '#/definitions/response.ErrorResponse'
       security:
       - JWT: []
-      summary: Get channel picon
+      summary: Stream a channel by channel number
       tags:
       - channels
   /epg:
@@ -903,6 +903,29 @@ paths:
       security:
       - JWT: []
       summary: Stops a recording
+      tags:
+      - recordings
+  /recordings/{id}/stream:
+    get:
+      parameters:
+      - description: Recording id
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - video/*
+      - application/json
+      responses:
+        "200":
+          description: OK
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Stream a recording
       tags:
       - recordings
   /recordings/cancel:

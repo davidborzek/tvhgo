@@ -1,5 +1,4 @@
 .button {
-  flex: 1;
   border: 1px solid #58a6ff;
   padding: 0.5rem;
   border-radius: 2px;
@@ -7,6 +6,7 @@
   color: white;
   cursor: pointer;
   font-weight: 600;
+  font-size: 0.8rem;
 
   &.red {
     border: 1px solid var(--color-danger-bg);
@@ -21,4 +21,8 @@
   &:hover {
     opacity: 0.8;
   }
+}
+
+a.button {
+  text-decoration: none;
 }

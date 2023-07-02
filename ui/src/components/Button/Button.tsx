@@ -16,16 +16,16 @@ type Props = {
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
+export const getStyleClass = (style?: ButtonStyle) => {
+  switch (style) {
+    case 'red':
+      return styles.red;
+  }
+  return '';
+};
+
 function Button(props: Props) {
   const disabled = props.disabled || props.loading;
-
-  const getStyleClass = () => {
-    switch (props.style) {
-      case 'red':
-        return styles.red;
-    }
-    return '';
-  };
 
   return (
     <button
@@ -33,7 +33,7 @@ function Button(props: Props) {
       disabled={disabled}
       className={c(
         styles.button,
-        getStyleClass(),
+        getStyleClass(props.style),
         disabled ? styles.disabled : '',
         props.className ? props.className : ''
       )}

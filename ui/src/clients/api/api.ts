@@ -197,3 +197,7 @@ export async function updateUser(opts: UpdateUser): Promise<UserResponse> {
   const response = await client.patch<UserResponse>(`/user`, opts);
   return response.data;
 }
+
+export function getRecordingUrl(id: string): string {
+  return `/api/recordings/${id}/stream`;
+}

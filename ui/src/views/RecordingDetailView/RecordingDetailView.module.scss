@@ -3,10 +3,13 @@
   overflow: auto;
 }
 
-.cancelButton {
+.timeForm {
   margin-top: 2rem;
 }
 
-.timeForm {
+.actions {
   margin-top: 2rem;
+  display: flex;
+  justify-content: flex-start;
+  gap: 1rem;
 }

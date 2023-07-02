@@ -106,6 +106,7 @@ func (s *router) Handler() http.Handler {
 	authenticated.Put("/recordings/{id}/stop", s.StopRecording)
 	authenticated.Put("/recordings/{id}/cancel", s.CancelRecording)
 	authenticated.Put("/recordings/{id}/move/{dest}", s.MoveRecording)
+	authenticated.Get("/recordings/{id}/stream", s.StreamRecording)
 
 	return r
 }

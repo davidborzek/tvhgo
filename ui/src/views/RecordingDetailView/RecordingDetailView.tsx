@@ -19,6 +19,8 @@ import Pair from '../../components/PairList/Pair/Pair';
 import PairValue from '../../components/PairList/PairValue/PairValue';
 import PairKey from '../../components/PairList/PairKey/PairKey';
 import DeleteConfirmationModal from '../../components/DeleteConfirmationModal/DeleteConfirmationModal';
+import { getRecordingUrl } from '../../clients/api/api';
+import ButtonLink from '../../components/Button/ButtonLink';
 
 function RecordingDetailView() {
   const { t } = useTranslation();
@@ -147,11 +149,22 @@ function RecordingDetailView() {
     ) {
       return (
         <Button
-          className={styles.cancelButton}
           type="button"
           label={getCancelButtonLabel()}
           style="red"
           onClick={() => setConfirmationModalVisible(true)}
+        />
+      );
+    }
+  };
+
+  const renderDownloadButton = () => {
+    if (recording?.status === 'completed') {
+      return (
+        <ButtonLink
+          href={getRecordingUrl(recording.id)}
+          download
+          label="Download"
         />
       );
     }
@@ -242,7 +255,12 @@ function RecordingDetailView() {
           <PairValue>{recording.description}</PairValue>
         </Pair>
       </PairList>
-      {renderCancelButton()}
+
+      <div className={styles.actions}>
+        {renderCancelButton()}
+        {renderDownloadButton()}
+      </div>
+
       {renderTimeForm()}
     </div>
   );

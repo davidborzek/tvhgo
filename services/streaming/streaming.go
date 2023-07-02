@@ -27,3 +27,12 @@ func (s *service) GetChannelStream(ctx context.Context, channelNumber int64) (*h
 
 	return res.Response, nil
 }
+
+func (s *service) GetRecordingStream(ctx context.Context, recordingId string) (*http.Response, error) {
+	res, err := s.tvh.Exec(ctx, fmt.Sprintf("/dvrfile/%s", recordingId), nil)
+	if err != nil {
+		return nil, err
+	}
+
+	return res.Response, nil
+}
