@@ -19,8 +19,14 @@ func New(tvh tvheadend.Client) core.StreamingService {
 	}
 }
 
-func (s *service) GetChannelStream(ctx context.Context, channelNumber int64) (*http.Response, error) {
-	res, err := s.tvh.Exec(ctx, fmt.Sprintf("/stream/channelnumber/%d", channelNumber), nil)
+func (s *service) GetChannelStream(ctx context.Context, channelNumber int64, profile string) (*http.Response, error) {
+	q := tvheadend.NewQuery()
+
+	if profile != "" {
+		q.Set("profile", profile)
+	}
+
+	res, err := s.tvh.Exec(ctx, fmt.Sprintf("/stream/channelnumber/%d", channelNumber), nil, q)
 	if err != nil {
 		return nil, err
 	}

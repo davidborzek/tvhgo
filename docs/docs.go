@@ -160,6 +160,12 @@ const docTemplate = `{
                         "name": "number",
                         "in": "path",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "Streaming profile",
+                        "name": "profile",
+                        "in": "query"
                     }
                 ],
                 "responses": {

@@ -348,6 +348,10 @@ paths:
         name: number
         required: true
         type: string
+      - description: Streaming profile
+        in: query
+        name: profile
+        type: string
       produces:
       - video/*
       - application/json

@@ -17,6 +17,7 @@ import (
 //	@Summary	Stream a channel by channel number
 //	@Tags		channels
 //	@Param		number	path	string	true	"Channel number"
+//	@Param		profile	query	string	false	"Streaming profile"
 //	@Produce	video/*
 //	@Produce	json
 //	@Success	200
@@ -26,12 +27,14 @@ import (
 func (s *router) StreamChannel(w http.ResponseWriter, r *http.Request) {
 	number, err := request.NumericURLParam(r, "number")
 
+	profile := r.URL.Query().Get("profile")
+
 	if err != nil {
 		response.BadRequestf(w, "invalid value for parameter 'number'")
 		return
 	}
 
-	res, err := s.streaming.GetChannelStream(context.Background(), number)
+	res, err := s.streaming.GetChannelStream(context.Background(), number, profile)
 	if err != nil {
 		log.WithError(err).
 			WithField("channel", number).
