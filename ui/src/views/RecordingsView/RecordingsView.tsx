@@ -11,6 +11,7 @@ import Button from '../../components/Button/Button';
 import { c } from '../../utils/classNames';
 import { Recording } from '../../clients/api/api.types';
 import Checkbox from '../../components/Checkbox/Checkbox';
+import DeleteConfirmationModal from '../../components/DeleteConfirmationModal/DeleteConfirmationModal';
 
 function RecordingsView() {
   const { t } = useTranslation();
@@ -20,6 +21,8 @@ function RecordingsView() {
     new Set()
   );
   const clearSelection = () => setSelectedRecordings(new Set());
+  const [confirmationModalVisible, setConfirmationModalVisible] =
+    useState<boolean>(false);
 
   const { stopAndCancelRecordings, removeRecordings, pending } =
     useManageRecordings();
@@ -39,6 +42,12 @@ function RecordingsView() {
 
   const getDeleteOrCancelButtonLabel = () => {
     return status === 'upcoming' ? t('cancel') : t('delete');
+  };
+
+  const getConfirmationModalTitle = () => {
+    return status === 'upcoming'
+      ? t('confirm_cancel_recordings')
+      : t('confirm_delete_recordings');
   };
 
   const renderRecordings = () => {
@@ -77,6 +86,7 @@ function RecordingsView() {
 
       stopAndCancelRecordings(stopIds, cancelIds, () => {
         clearSelection();
+        setConfirmationModalVisible(false);
         fetch();
       });
 
@@ -87,6 +97,7 @@ function RecordingsView() {
       [...selectedRecordings].map((rec) => rec.id),
       () => {
         clearSelection();
+        setConfirmationModalVisible(false);
         fetch();
       }
     );
@@ -94,6 +105,15 @@ function RecordingsView() {
 
   return (
     <div className={styles.Recordings}>
+      <DeleteConfirmationModal
+        visible={confirmationModalVisible}
+        onClose={() => setConfirmationModalVisible(false)}
+        onConfirm={handleDeleteOrCancelRecordings}
+        title={getConfirmationModalTitle()}
+        buttonTitle={getDeleteOrCancelButtonLabel()}
+        pending={pending}
+      />
+
       <div className={styles.header}>
         <Dropdown
           value={status}
@@ -126,7 +146,7 @@ function RecordingsView() {
         <div className={styles.actions}>
           <Button
             label={getDeleteOrCancelButtonLabel()}
-            onClick={handleDeleteOrCancelRecordings}
+            onClick={() => setConfirmationModalVisible(true)}
             style="red"
             disabled={pending}
             className={c(

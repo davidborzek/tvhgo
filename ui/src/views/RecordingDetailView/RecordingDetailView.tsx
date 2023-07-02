@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import Error from '../../components/Error/Error';
 import Input from '../../components/Input/Input';
@@ -18,6 +18,7 @@ import PairList from '../../components/PairList/PairList';
 import Pair from '../../components/PairList/Pair/Pair';
 import PairValue from '../../components/PairList/PairValue/PairValue';
 import PairKey from '../../components/PairList/PairKey/PairKey';
+import DeleteConfirmationModal from '../../components/DeleteConfirmationModal/DeleteConfirmationModal';
 
 function RecordingDetailView() {
   const { t } = useTranslation();
@@ -32,6 +33,9 @@ function RecordingDetailView() {
     updateRecording,
     pending,
   } = useManageRecordingByEvent();
+
+  const [confirmationModalVisible, setConfirmationModalVisible] =
+    useState<boolean>(false);
 
   const parseStatus = () => {
     switch (recording?.status) {
@@ -53,6 +57,30 @@ function RecordingDetailView() {
         return t('stop_recording');
       case 'completed':
         return t('delete_recording');
+    }
+    return '';
+  };
+
+  const getConfirmationButtonLabel = () => {
+    switch (recording?.status) {
+      case 'scheduled':
+        return t('cancel');
+      case 'recording':
+        return t('stop');
+      case 'completed':
+        return t('delete');
+    }
+    return '';
+  };
+
+  const getConfirmationModalTitle = () => {
+    switch (recording?.status) {
+      case 'scheduled':
+        return t('confirm_cancel_recording');
+      case 'recording':
+        return t('confirm_stop_recording');
+      case 'completed':
+        return t('confirm_delete_recording');
     }
     return '';
   };
@@ -123,8 +151,7 @@ function RecordingDetailView() {
           type="button"
           label={getCancelButtonLabel()}
           style="red"
-          onClick={handleDeleteOrStop}
-          disabled={pending}
+          onClick={() => setConfirmationModalVisible(true)}
         />
       );
     }
@@ -183,6 +210,15 @@ function RecordingDetailView() {
 
   return (
     <div className={styles.RecordingDetailView}>
+      <DeleteConfirmationModal
+        visible={confirmationModalVisible}
+        onClose={() => setConfirmationModalVisible(false)}
+        onConfirm={handleDeleteOrStop}
+        title={getConfirmationModalTitle()}
+        buttonTitle={getConfirmationButtonLabel()}
+        pending={pending}
+      />
+
       <EventChannelInfo
         channelName={recording.channelName}
         picon={`/api/picon/${recording.piconId}`}

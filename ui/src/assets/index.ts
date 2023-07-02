@@ -1,6 +1,7 @@
 import { ReactComponent as ArrowRightIcon } from './arrow_right.svg';
 import { ReactComponent as BurgerMenuIcon } from './burger_menu.svg';
 import { ReactComponent as Checkmark } from "./checkmark.svg";
+import { ReactComponent as Close } from "./close.svg";
 import { ReactComponent as Dash } from './dash.svg';
 import { ReactComponent as GuideIcon } from './guide.svg';
 import { ReactComponent as LargeArrowLeftIcon } from './large_arrow_left.svg';
@@ -16,6 +17,7 @@ export {
   ArrowRightIcon,
   BurgerMenuIcon,
   Checkmark,
+  Close,
   Dash,
   GuideIcon,
   LargeArrowLeftIcon,

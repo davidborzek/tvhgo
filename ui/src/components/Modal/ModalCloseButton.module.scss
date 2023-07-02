@@ -1,0 +1,26 @@
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  padding: 0.5rem;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  top: 1rem;
+  right: 1rem;
+
+  svg {
+    width: 1.5rem;
+    height: 1.5rem;
+    path {
+      stroke: var(--color-text-primary);
+    }
+  }
+
+  &:hover {
+    background-color: var(--color-accent-light);
+    border-radius: 5px;
+  }
+}
