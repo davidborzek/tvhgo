@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { SetURLSearchParams, useSearchParams } from 'react-router-dom';
+import { SetURLSearchParams } from 'react-router-dom';
 import { URLSearchParams } from 'url';
 
 export const usePagination = (

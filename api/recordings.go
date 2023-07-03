@@ -22,7 +22,7 @@ import (
 //	@Param		status		query	string	false	"Recording status"
 //
 //	@Produce	json
-//	@Success	200	{array}		core.Recording
+//	@Success	200	{array}		core.RecordingListResult
 //	@Failure	400	{object}	response.ErrorResponse
 //	@Failure	401	{object}	response.ErrorResponse
 //	@Failure	500	{object}	response.ErrorResponse

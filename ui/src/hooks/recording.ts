@@ -128,21 +128,25 @@ export const useFetchRecordings = (q?: GetRecordingsQuery) => {
 
   const [error, setError] = useState<string | null>(null);
   const [recordings, setRecordings] = useState<Recording[]>([]);
-  const [status, setStatus] = useState(q?.status);
+  const [total, setTotal] = useState(0);
 
   const fetch = () => {
     setIsLoading(true);
-    getRecordings({ ...q, status })
-      .then(setRecordings)
+    setRecordings([]);
+    getRecordings(q)
+      .then((result) => {
+        setRecordings(result.entries);
+        setTotal(result.total);
+      })
       .catch(() => setError(t('unexpected')))
       .finally(() => setIsLoading(false));
   };
 
   useEffect(() => {
     fetch();
-  }, [status]);
+  }, [q?.status, q?.limit, q?.offset]);
 
-  return { recordings, error, fetch, setStatus, status };
+  return { recordings, error, fetch, total };
 };
 
 export const useFetchRecording = () => {

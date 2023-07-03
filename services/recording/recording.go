@@ -74,7 +74,7 @@ func (s *service) Create(ctx context.Context, opts core.CreateRecording) error {
 	return nil
 }
 
-func (s *service) GetAll(ctx context.Context, params core.GetRecordingsParams) ([]*core.Recording, error) {
+func (s *service) GetAll(ctx context.Context, params core.GetRecordingsParams) (*core.RecordingListResult, error) {
 	q := params.PaginationSortQueryParams.MapToTvheadendQuery(sortKeyMapping)
 
 	var url string
@@ -100,7 +100,13 @@ func (s *service) GetAll(ctx context.Context, params core.GetRecordingsParams) (
 		recordings = append(recordings, &r)
 	}
 
-	return recordings, nil
+	result := core.RecordingListResult{
+		Entries: recordings,
+		Total:   grid.Total,
+		Offset:  params.Offset,
+	}
+
+	return &result, nil
 }
 
 func (s *service) Stop(ctx context.Context, id string) error {

@@ -3,7 +3,7 @@ package tvheadend
 type (
 	GridResponse[T any] struct {
 		Entries []T   `json:"entries"`
-		Total   int64 `json:"totalCount"`
+		Total   int64 `json:"total"`
 	}
 
 	ListResponse[T any] struct {
@@ -206,7 +206,10 @@ type (
 		DvrState      string `json:"dvrState,omitempty"`
 	}
 
-	EpgEventGrid GridResponse[EpgEventGridEntry]
+	EpgEventGrid struct {
+		Entries []EpgEventGridEntry `json:"entries"`
+		Total   int64               `json:"totalCount"`
+	}
 
 	EpgContentType struct {
 		Key int    `json:"key"`

@@ -200,6 +200,17 @@ definitions:
       title:
         type: string
     type: object
+  core.RecordingListResult:
+    properties:
+      entries:
+        items:
+          $ref: '#/definitions/core.Recording'
+        type: array
+      offset:
+        type: integer
+      total:
+        type: integer
+    type: object
   core.UpdateRecording:
     properties:
       comment:
@@ -682,7 +693,7 @@ paths:
           description: OK
           schema:
             items:
-              $ref: '#/definitions/core.Recording'
+              $ref: '#/definitions/core.RecordingListResult'
             type: array
         "400":
           description: Bad Request

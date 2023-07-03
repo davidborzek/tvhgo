@@ -83,7 +83,7 @@ const ChannelView = () => {
         onPreviousPage={previousPage}
         onFirstPage={firstPage}
         onLastPage={() => lastPage(total)}
-        scrollTop={() => {
+        onPageChange={() => {
           setSearchParams((prev) => {
             prev.delete('pos');
             return prev;

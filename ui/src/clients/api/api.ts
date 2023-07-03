@@ -174,8 +174,8 @@ export async function removeRecordings(ids: string[]): Promise<void> {
 
 export async function getRecordings(
   q?: GetRecordingsQuery
-): Promise<Recording[]> {
-  const response = await client.get<Recording[]>(`/recordings`, {
+): Promise<ListResponse<Recording>> {
+  const response = await client.get<ListResponse<Recording>>(`/recordings`, {
     params: q,
   });
   return response.data;

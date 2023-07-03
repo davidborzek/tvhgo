@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { RecordingStatus } from '../../clients/api/api';
@@ -12,10 +12,17 @@ import { c } from '../../utils/classNames';
 import { Recording } from '../../clients/api/api.types';
 import Checkbox from '../../components/Checkbox/Checkbox';
 import DeleteConfirmationModal from '../../components/DeleteConfirmationModal/DeleteConfirmationModal';
+import { usePagination } from '../../hooks/pagination';
+import PaginationControls from '../../components/PaginationControls/PaginationControls';
+import { useLoading } from '../../contexts/LoadingContext';
+
+const defaultLimit = 50;
 
 function RecordingsView() {
+  const ref = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { isLoading } = useLoading();
   const [queryParams, setQueryParams] = useSearchParams();
   const [selectedRecordings, setSelectedRecordings] = useState<Set<Recording>>(
     new Set()
@@ -24,28 +31,44 @@ function RecordingsView() {
   const [confirmationModalVisible, setConfirmationModalVisible] =
     useState<boolean>(false);
 
+  const { limit, nextPage, previousPage, getOffset, firstPage, lastPage } =
+    usePagination(defaultLimit, queryParams, setQueryParams);
+
   const { stopAndCancelRecordings, removeRecordings, pending } =
     useManageRecordings();
 
-  const { recordings, error, setStatus, status, fetch } = useFetchRecordings({
-    status: 'upcoming',
+  const getStatus = () =>
+    (queryParams.get('status') as RecordingStatus) || 'upcoming';
+
+  const { recordings, error, fetch, total } = useFetchRecordings({
+    status: getStatus(),
     sort_key: 'startsAt',
+    limit,
+    offset: getOffset(),
   });
 
   useEffect(() => {
-    setStatus((queryParams.get('status') as RecordingStatus) || 'upcoming');
-  }, [queryParams]);
+    const scrollPos = queryParams.get('pos');
+
+    if (recordings.length > 0) {
+      ref.current?.scrollTo(0, parseInt(scrollPos || '0'));
+    }
+  }, [recordings, queryParams]);
+
+  if (isLoading) {
+    return <></>;
+  }
 
   if (error) {
     return <Error message={error} />;
   }
 
   const getDeleteOrCancelButtonLabel = () => {
-    return status === 'upcoming' ? t('cancel') : t('delete');
+    return getStatus() === 'upcoming' ? t('cancel') : t('delete');
   };
 
   const getConfirmationModalTitle = () => {
-    return status === 'upcoming'
+    return getStatus() === 'upcoming'
       ? t('confirm_cancel_recordings')
       : t('confirm_delete_recordings');
   };
@@ -60,7 +83,15 @@ function RecordingsView() {
         key={recording.id}
         recording={recording}
         onClick={() => {
-          navigate(`/recordings/${recording.id}`);
+          if (ref.current?.scrollTop !== undefined) {
+            const pos = Math.floor(ref.current?.scrollTop);
+            setQueryParams((prev) => {
+              prev.set('pos', `${Math.floor(pos)}`);
+              return prev;
+            });
+          }
+
+          navigate(`/recordings/${recording.id}`, { preventScrollReset: true });
         }}
         onSelection={(selected) => {
           setSelectedRecordings((prv) =>
@@ -75,7 +106,7 @@ function RecordingsView() {
   };
 
   const handleDeleteOrCancelRecordings = () => {
-    if (status === 'upcoming') {
+    if (getStatus() === 'upcoming') {
       const stopIds = [...selectedRecordings]
         .filter((rec) => rec.status === 'recording')
         .map((rec) => rec.id);
@@ -104,7 +135,7 @@ function RecordingsView() {
   };
 
   return (
-    <div className={styles.Recordings}>
+    <div ref={ref} className={styles.Recordings}>
       <DeleteConfirmationModal
         visible={confirmationModalVisible}
         onClose={() => setConfirmationModalVisible(false)}
@@ -116,7 +147,7 @@ function RecordingsView() {
 
       <div className={styles.header}>
         <Dropdown
-          value={status}
+          value={getStatus()}
           onChange={(value) => {
             clearSelection();
             setQueryParams({
@@ -172,6 +203,23 @@ function RecordingsView() {
         </div>
       </div>
       <div className={styles.recordings}>{renderRecordings()}</div>
+      <PaginationControls
+        onNextPage={nextPage}
+        onPreviousPage={previousPage}
+        onFirstPage={firstPage}
+        onLastPage={() => lastPage(total)}
+        onPageChange={() => {
+          setQueryParams((prev) => {
+            prev.delete('pos');
+            return prev;
+          });
+          ref.current?.scrollTo(0, 0);
+          clearSelection();
+        }}
+        limit={limit}
+        offset={getOffset()}
+        total={total}
+      />
     </div>
   );
 }

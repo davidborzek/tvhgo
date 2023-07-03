@@ -24,6 +24,9 @@ var (
 )
 
 type (
+	// RecordingListResult defines a ListResult of recordings.
+	RecordingListResult = ListResult[*Recording]
+
 	// Recording defines a dvr entry from tvheadend.
 	// TODO: extend necessary fields.
 	Recording struct {
@@ -141,7 +144,7 @@ type (
 		Create(ctx context.Context, opts CreateRecording) error
 
 		// GetAll returns a list of recordings.
-		GetAll(ctx context.Context, params GetRecordingsParams) ([]*Recording, error)
+		GetAll(ctx context.Context, params GetRecordingsParams) (*RecordingListResult, error)
 
 		// Get returns a recording by its id.
 		Get(ctx context.Context, id string) (*Recording, error)
