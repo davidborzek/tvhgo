@@ -25,7 +25,7 @@
 
 @media screen and (min-width: 700px) {
   .root.desktop {
-    grid-template-columns: 10rem 1fr;
+    grid-template-columns: 12rem 1fr;
     grid-template-rows: 1fr;
     grid-template-areas: 'sidebar main';
   }
