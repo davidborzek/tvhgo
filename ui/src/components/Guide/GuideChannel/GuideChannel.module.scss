@@ -4,17 +4,29 @@
   opacity: 0.8;
 }
 
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  padding-bottom: 1rem;
+}
+
+.picon {
+  height: 3rem;
+}
+
 .channel {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  overflow: hidden;
-  padding: 1rem 0;
-  cursor: pointer;
+  padding: 1rem;
   gap: 0.5rem;
-}
+  cursor: pointer;
 
-.picon {
-  height: 3rem;
+  &:hover {
+    background-color: var(--color-accent-light);
+    border-radius: 5px;
+  }
 }
