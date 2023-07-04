@@ -9,7 +9,7 @@ function Image(
   const [loaded, setLoaded] = useState(false);
 
   return (
-    <>
+    <div className={props.className}>
       {!loaded && <div style={{ width: '100%', height: '100%' }}></div>}
       <img
         {...props}
@@ -18,7 +18,7 @@ function Image(
         }}
         style={loaded ? props.style : { display: 'none' }}
       />
-    </>
+    </div>
   );
 }
 
