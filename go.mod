@@ -4,6 +4,7 @@ go 1.19
 
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.7
+	github.com/alexliesenfeld/health v0.7.0
 	github.com/caarlos0/env/v9 v9.0.0
 	github.com/go-chi/chi v1.5.4
 	github.com/go-chi/cors v1.2.1

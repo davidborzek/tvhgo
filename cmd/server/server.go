@@ -93,7 +93,7 @@ func start(ctx *cli.Context) error {
 		passwordAuthenticator,
 	)
 
-	healthRouter := health.New(tvhClient)
+	healthRouter := health.New(tvhClient, dbConn)
 
 	uiRouter, err := ui.NewRouter()
 	if err != nil {
