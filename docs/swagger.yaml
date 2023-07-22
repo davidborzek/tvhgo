@@ -6,9 +6,14 @@ definitions:
         type: string
       email:
         type: string
-      password:
-        type: string
       username:
+        type: string
+    type: object
+  api.userUpdatePassword:
+    properties:
+      currentPassword:
+        type: string
+      password:
         type: string
     type: object
   core.Channel:
@@ -1081,6 +1086,10 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/core.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
         "401":
           description: Unauthorized
           schema:
@@ -1092,6 +1101,39 @@ paths:
       security:
       - JWT: []
       summary: Updates the current user
+      tags:
+      - user
+  /user/password:
+    patch:
+      consumes:
+      - application/json
+      parameters:
+      - description: Body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/api.userUpdatePassword'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Updates the password of the current user
       tags:
       - user
 swagger: "2.0"

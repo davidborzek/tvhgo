@@ -6,7 +6,7 @@ import Dropdown, { Option } from '../../components/Dropdown/Dropdown';
 import Form from '../../components/Form/Form';
 import Input from '../../components/Input/Input';
 import { Theme, useTheme } from '../../contexts/ThemeContext';
-import { useUpdateUser } from '../../hooks/user';
+import { useUpdateUser, useUpdateUserPassword } from '../../hooks/user';
 import i18n from '../../i18n/i18n';
 import styles from './SettingsView.module.scss';
 import * as Yup from 'yup';
@@ -24,6 +24,7 @@ function SettingsView() {
   const { setTheme, theme } = useTheme();
 
   const { update } = useUpdateUser();
+  const { updatePassword } = useUpdateUserPassword();
 
   const [activeTab, setActiveTab] = useState(0);
 
@@ -41,10 +42,12 @@ function SettingsView() {
     i18n.changeLanguage(lang, () => window.location.reload());
   };
 
+  const currentPasswordRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordRepeatRef = useRef<HTMLInputElement>(null);
 
   const passwordChangeValidationSchema = Yup.object().shape({
+    currentPassword: Yup.string().required(t('input_required') || ''),
     password: Yup.string()
       .required(t('input_required') || '')
       .min(8, t('password_min_chars_error') || ''),
@@ -55,14 +58,15 @@ function SettingsView() {
 
   const passwordChangeFormik = useFormik({
     initialValues: {
+      currentPassword: '',
       password: '',
       passwordRepeat: '',
     },
     validationSchema: passwordChangeValidationSchema,
-    onSubmit: async ({ password }) => {
-      await update({ password }, t('password_updated_successfully'));
-
-      passwordChangeFormik.resetForm();
+    onSubmit: async ({ password, currentPassword }) => {
+      updatePassword({ password, currentPassword }).then(() =>
+        passwordChangeFormik.resetForm()
+      );
     },
   });
 
@@ -181,6 +185,22 @@ function SettingsView() {
             onSubmit={passwordChangeFormik.handleSubmit}
             className={styles.section}
           >
+            <Input
+              placeholder={t('current_password')}
+              label={t('current_password')}
+              value={passwordChangeFormik.values.currentPassword}
+              name="currentPassword"
+              type="password"
+              onChange={passwordChangeFormik.handleChange}
+              onBlur={passwordChangeFormik.handleBlur}
+              error={
+                passwordChangeFormik.touched.currentPassword
+                  ? passwordChangeFormik.errors.currentPassword
+                  : undefined
+              }
+              ref={currentPasswordRef}
+              fullWidth
+            />
             <Input
               placeholder={t('password')}
               label={t('password')}

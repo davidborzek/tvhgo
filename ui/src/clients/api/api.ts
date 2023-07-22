@@ -8,6 +8,7 @@ import {
   Recording,
   UpdateRecording,
   UpdateUser,
+  UpdateUserPassword,
   UserResponse,
 } from './api.types';
 import qs from 'qs';
@@ -197,6 +198,11 @@ export async function updateUser(opts: UpdateUser): Promise<UserResponse> {
   const response = await client.patch<UserResponse>(`/user`, opts);
   return response.data;
 }
+
+export async function updateUserPassword(opts: UpdateUserPassword): Promise<void> {
+  await client.patch(`/user/password`, opts);
+}
+
 
 export function getRecordingUrl(id: string): string {
   return `/api/recordings/${id}/stream`;

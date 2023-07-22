@@ -5,7 +5,6 @@ import (
 
 	"github.com/davidborzek/tvhgo/core"
 	log "github.com/sirupsen/logrus"
-	"golang.org/x/crypto/bcrypt"
 )
 
 func NewLocalPasswordAuthenticator(userRepository core.UserRepository) *localPasswordAuthenticator {
@@ -32,7 +31,7 @@ func (s *localPasswordAuthenticator) Login(ctx context.Context, login string, pa
 		return nil, core.ErrInvalidUsernameOrPassword
 	}
 
-	if err := bcrypt.CompareHashAndPassword([]byte(user.PasswordHash), []byte(password)); err != nil {
+	if err := ComparePassword(password, user.PasswordHash); err != nil {
 		return nil, core.ErrInvalidUsernameOrPassword
 	}
 

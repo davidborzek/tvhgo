@@ -96,5 +96,9 @@ export type UpdateUser = {
   displayName?: string;
   email?: string;
   username?: string;
+};
+
+export type UpdateUserPassword = {
+  currentPassword?: string;
   password?: string;
 };

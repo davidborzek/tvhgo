@@ -78,6 +78,7 @@ func (s *router) Handler() http.Handler {
 
 	authenticated.Get("/user", s.GetUser)
 	authenticated.Patch("/user", s.UpdateUser)
+	authenticated.Patch("/user/password", s.UpdateUserPassword)
 
 	authenticated.Get("/epg", s.GetEpg)
 	authenticated.Get("/epg/events", s.GetEpgEvents)
