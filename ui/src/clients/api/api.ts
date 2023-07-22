@@ -199,10 +199,11 @@ export async function updateUser(opts: UpdateUser): Promise<UserResponse> {
   return response.data;
 }
 
-export async function updateUserPassword(opts: UpdateUserPassword): Promise<void> {
+export async function updateUserPassword(
+  opts: UpdateUserPassword
+): Promise<void> {
   await client.patch(`/user/password`, opts);
 }
-
 
 export function getRecordingUrl(id: string): string {
   return `/api/recordings/${id}/stream`;
