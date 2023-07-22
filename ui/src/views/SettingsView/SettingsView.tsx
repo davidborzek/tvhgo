@@ -10,9 +10,10 @@ import { useUpdateUser } from '../../hooks/user';
 import i18n from '../../i18n/i18n';
 import styles from './SettingsView.module.scss';
 import * as Yup from 'yup';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import useFormikErrorFocus from '../../hooks/formik';
 import { useAuth } from '../../contexts/AuthContext';
+import Tabs from '../../components/Tabs/Tabs';
 
 function SettingsView() {
   const { user } = useAuth();
@@ -23,6 +24,8 @@ function SettingsView() {
   const { setTheme, theme } = useTheme();
 
   const { update } = useUpdateUser();
+
+  const [activeTab, setActiveTab] = useState(0);
 
   const themeOptions: Option[] = [
     { title: t('dark'), value: 'dark' },
@@ -107,127 +110,137 @@ function SettingsView() {
   return (
     <div className={styles.Settings}>
       <div className={styles.heading}>
-        <h1>{t('settings')}</h1>
+        <Tabs
+          tabs={[
+            {
+              label: 'General',
+              active: activeTab === 0,
+            },
+          ]}
+          onChange={setActiveTab}
+        />
       </div>
-      <div className={styles.row}>
-        <Form
-          onSubmit={userSettingsFormik.handleSubmit}
-          className={styles.section}
-        >
-          <Input
-            label={t('username')}
-            placeholder={t('username')}
-            value={userSettingsFormik.values.username}
-            name="username"
-            onChange={userSettingsFormik.handleChange}
-            onBlur={userSettingsFormik.handleBlur}
-            error={
-              userSettingsFormik.touched.username
-                ? userSettingsFormik.errors.username
-                : undefined
-            }
-            ref={usernameRef}
-            fullWidth
-          />
-          <Input
-            label={t('email')}
-            placeholder={t('email')}
-            value={userSettingsFormik.values.email}
-            name="email"
-            onChange={userSettingsFormik.handleChange}
-            onBlur={userSettingsFormik.handleBlur}
-            error={
-              userSettingsFormik.touched.email
-                ? userSettingsFormik.errors.email
-                : undefined
-            }
-            ref={emailRef}
-            fullWidth
-          />
-          <Input
-            label={t('display_name')}
-            placeholder={t('display_name')}
-            value={userSettingsFormik.values.displayName}
-            name="displayName"
-            onChange={userSettingsFormik.handleChange}
-            onBlur={userSettingsFormik.handleBlur}
-            error={
-              userSettingsFormik.touched.displayName
-                ? userSettingsFormik.errors.displayName
-                : undefined
-            }
-            ref={displayNameRef}
-            fullWidth
-          />
-          <div>
-            <Button type="submit" label={t('save')} />
-          </div>
-        </Form>
-      </div>
-      <div className={styles.row}>
-        <Form
-          onSubmit={passwordChangeFormik.handleSubmit}
-          className={styles.section}
-        >
-          <Input
-            placeholder={t('password')}
-            label={t('password')}
-            value={passwordChangeFormik.values.password}
-            name="password"
-            type="password"
-            onChange={passwordChangeFormik.handleChange}
-            onBlur={passwordChangeFormik.handleBlur}
-            error={
-              passwordChangeFormik.touched.password
-                ? passwordChangeFormik.errors.password
-                : undefined
-            }
-            ref={passwordRef}
-            fullWidth
-          />
-          <Input
-            label={t('password_repeat')}
-            placeholder={t('password_repeat')}
-            value={passwordChangeFormik.values.passwordRepeat}
-            name="passwordRepeat"
-            type="password"
-            onChange={passwordChangeFormik.handleChange}
-            onBlur={passwordChangeFormik.handleBlur}
-            error={
-              passwordChangeFormik.touched.passwordRepeat
-                ? passwordChangeFormik.errors.passwordRepeat
-                : undefined
-            }
-            ref={passwordRepeatRef}
-            fullWidth
-          />
-          <div>
-            <Button type="submit" label={t('save')} />
-          </div>
-        </Form>
-      </div>
-      <div className={styles.row}>
-        <div className={styles.section}>
-          <Dropdown
-            label={t('appearance')}
-            value={theme}
-            options={themeOptions}
-            onChange={(theme) => setTheme(theme as Theme)}
-            fullWidth
-          />
-          <Dropdown
-            label={t('language')}
-            value={i18n.language}
-            options={languageOptions}
-            onChange={handleChangeLanguage}
-            fullWidth
-          />
-          <div>
-            <Button
-              label={t('logout')}
-              style="red"
-              onClick={() => navigate('/logout')}
+      <div className={styles.content}>
+        <div className={styles.row}>
+          <Form
+            onSubmit={userSettingsFormik.handleSubmit}
+            className={styles.section}
+          >
+            <Input
+              label={t('username')}
+              placeholder={t('username')}
+              value={userSettingsFormik.values.username}
+              name="username"
+              onChange={userSettingsFormik.handleChange}
+              onBlur={userSettingsFormik.handleBlur}
+              error={
+                userSettingsFormik.touched.username
+                  ? userSettingsFormik.errors.username
+                  : undefined
+              }
+              ref={usernameRef}
+              fullWidth
             />
+            <Input
+              label={t('email')}
+              placeholder={t('email')}
+              value={userSettingsFormik.values.email}
+              name="email"
+              onChange={userSettingsFormik.handleChange}
+              onBlur={userSettingsFormik.handleBlur}
+              error={
+                userSettingsFormik.touched.email
+                  ? userSettingsFormik.errors.email
+                  : undefined
+              }
+              ref={emailRef}
+              fullWidth
+            />
+            <Input
+              label={t('display_name')}
+              placeholder={t('display_name')}
+              value={userSettingsFormik.values.displayName}
+              name="displayName"
+              onChange={userSettingsFormik.handleChange}
+              onBlur={userSettingsFormik.handleBlur}
+              error={
+                userSettingsFormik.touched.displayName
+                  ? userSettingsFormik.errors.displayName
+                  : undefined
+              }
+              ref={displayNameRef}
+              fullWidth
+            />
+            <div>
+              <Button type="submit" label={t('save')} />
+            </div>
+          </Form>
+        </div>
+        <div className={styles.row}>
+          <Form
+            onSubmit={passwordChangeFormik.handleSubmit}
+            className={styles.section}
+          >
+            <Input
+              placeholder={t('password')}
+              label={t('password')}
+              value={passwordChangeFormik.values.password}
+              name="password"
+              type="password"
+              onChange={passwordChangeFormik.handleChange}
+              onBlur={passwordChangeFormik.handleBlur}
+              error={
+                passwordChangeFormik.touched.password
+                  ? passwordChangeFormik.errors.password
+                  : undefined
+              }
+              ref={passwordRef}
+              fullWidth
+            />
+            <Input
+              label={t('password_repeat')}
+              placeholder={t('password_repeat')}
+              value={passwordChangeFormik.values.passwordRepeat}
+              name="passwordRepeat"
+              type="password"
+              onChange={passwordChangeFormik.handleChange}
+              onBlur={passwordChangeFormik.handleBlur}
+              error={
+                passwordChangeFormik.touched.passwordRepeat
+                  ? passwordChangeFormik.errors.passwordRepeat
+                  : undefined
+              }
+              ref={passwordRepeatRef}
+              fullWidth
+            />
+            <div>
+              <Button type="submit" label={t('save')} />
+            </div>
+          </Form>
+        </div>
+        <div className={styles.row}>
+          <div className={styles.section}>
+            <Dropdown
+              label={t('appearance')}
+              value={theme}
+              options={themeOptions}
+              onChange={(theme) => setTheme(theme as Theme)}
+              fullWidth
+            />
+            <Dropdown
+              label={t('language')}
+              value={i18n.language}
+              options={languageOptions}
+              onChange={handleChangeLanguage}
+              fullWidth
+            />
+            <div>
+              <Button
+                label={t('logout')}
+                style="red"
+                onClick={() => navigate('/logout')}
+              />
+            </div>
           </div>
         </div>
       </div>

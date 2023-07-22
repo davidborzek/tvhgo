@@ -1,14 +1,26 @@
 .Settings {
-  padding: 1rem 2rem 2rem 2rem;
+  padding: 0 2rem 2rem 2rem;
   overflow: auto;
-  gap: 3rem;
   display: flex;
   flex-direction: column;
 }
 
 .heading {
   display: flex;
-  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 2rem 0;
+
+  position: sticky;
+  top: 0;
+  background-color: var(--color-bg);
+  z-index: 1;
+}
+
+.content {
+  gap: 3rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .row {
