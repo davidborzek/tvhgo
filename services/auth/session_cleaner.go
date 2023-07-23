@@ -34,6 +34,8 @@ func (s *sessionCleaner) Start() {
 		Info("starting session cleaner")
 	ticker := time.NewTicker(s.interval)
 
+	s.RunNow()
+
 	go func() {
 		for {
 			<-ticker.C
