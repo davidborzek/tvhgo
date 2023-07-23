@@ -1,5 +1,4 @@
 .Settings {
-  padding: 0 2rem 2rem 2rem;
   overflow: auto;
   display: flex;
   flex-direction: column;
@@ -18,6 +17,7 @@
 }
 
 .content {
+  padding: 0 2rem 2rem 2rem;
   gap: 3rem;
   display: flex;
   flex-direction: column;
