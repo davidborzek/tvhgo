@@ -8,6 +8,11 @@ on:
         required: false
         default: false
         type: boolean
+      version:
+        description: "Version"
+        required: false
+        default: "local"
+        type: string
 
 env:
   NODE_VERSION: 18.12.1
@@ -38,7 +43,7 @@ jobs:
 
       - name: Build ui
         env:
-          VERSION: beta
+          VERSION: ${{ inputs.version }}
           GIT_COMMIT: ${{ steps.prep.outputs.sha_short }}
         run: yarn build
 
