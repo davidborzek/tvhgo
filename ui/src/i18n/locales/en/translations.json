@@ -46,6 +46,7 @@
   "modify_recording": "Modify recording",
   "no_recordings": "No Recordings",
   "not_found": "Not found.",
+  "now": "Now",
   "pagination_info": "{{ from }}-{{ to }} of {{ total }}",
   "password": "Password",
   "password_min_chars_error": "Password must have at least 8 characters.",
@@ -75,6 +76,7 @@
   "save": "Save",
   "search": "Search",
   "security": "Security",
+  "session_revoked": "Session successfully revoked.",
   "sessions": "Sessions",
   "settings": "Settings",
   "short_date": "{{ ts, moment(format: ll) }}",
@@ -98,6 +100,5 @@
   "weekday_3": "Wednesday",
   "weekday_4": "Thursday",
   "weekday_5": "Friday",
-  "weekday_6": "Saturday",
-  "now": "Now"
+  "weekday_6": "Saturday"
 }
