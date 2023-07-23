@@ -25,6 +25,12 @@ WHERE
 user.username = ?
 `
 
+// Select user by email query
+const queryByEmail = queryBase + `
+WHERE
+user.email = ?
+`
+
 // Insert user statement.
 const stmtInsert = `
 INSERT INTO user (

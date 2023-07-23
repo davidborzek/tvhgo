@@ -70,6 +70,8 @@ func TestCreate(t *testing.T) {
 	t.Run("FindByUsername", testFindByUsername(user))
 	t.Run("Find", testFind(user))
 	t.Run("FindOffset", testFindOffset(user))
+	t.Run("CreateWithExistingUsername", testCreateWithExistingUsername(user))
+	t.Run("CreateWithExistingMail", testCreateWithExistingEmail(user))
 	t.Run("Update", testUpdate(user))
 	t.Run("Delete", testDelete(user))
 }
@@ -113,6 +115,25 @@ func testFindOffset(created *core.User) func(t *testing.T) {
 
 		assert.Nil(t, err)
 		assert.Empty(t, users)
+	}
+}
+
+func testCreateWithExistingUsername(created *core.User) func(t *testing.T) {
+	return func(t *testing.T) {
+		err := repository.Create(noCtx, &core.User{
+			Username: created.Username,
+		})
+		assert.Equal(t, core.ErrUsernameAlreadyExists, err)
+	}
+}
+
+func testCreateWithExistingEmail(created *core.User) func(t *testing.T) {
+	return func(t *testing.T) {
+		err := repository.Create(noCtx, &core.User{
+			Username: "newUser",
+			Email:    created.Email,
+		})
+		assert.Equal(t, core.ErrEmailAlreadyExists, err)
 	}
 }
 

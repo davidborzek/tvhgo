@@ -34,7 +34,16 @@ export const useUpdateUser = () => {
         notifySuccess(t('user_updated_successfully'));
         setUser(user);
       })
-      .catch(() => {
+      .catch((error) => {
+        if (error instanceof ApiError && error.code === 400) {
+          if (error.message === 'username already exists') {
+            notifyError(t('username_already_exists'));
+          } else if (error.message === 'email already exists') {
+            notifyError(t('email_already_exists'));
+          }
+          return;
+        }
+
         notifyError(t('unexpected'));
       })
       .finally(() => setIsLoading(false));

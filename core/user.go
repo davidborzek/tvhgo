@@ -1,6 +1,14 @@
 package core
 
-import "context"
+import (
+	"context"
+	"errors"
+)
+
+var (
+	ErrUsernameAlreadyExists = errors.New("username already exists")
+	ErrEmailAlreadyExists    = errors.New("email already exists")
+)
 
 type (
 	// User represents a user.

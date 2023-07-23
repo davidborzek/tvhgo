@@ -5,6 +5,7 @@ import (
 
 	"github.com/davidborzek/tvhgo/api/request"
 	"github.com/davidborzek/tvhgo/api/response"
+	"github.com/davidborzek/tvhgo/core"
 	"github.com/davidborzek/tvhgo/services/auth"
 )
 
@@ -92,6 +93,11 @@ func (s *router) UpdateUser(w http.ResponseWriter, r *http.Request) {
 	}
 
 	err = s.users.Update(r.Context(), user)
+	if err == core.ErrEmailAlreadyExists || err == core.ErrUsernameAlreadyExists {
+		response.BadRequest(w, err)
+		return
+	}
+
 	if err != nil {
 		response.InternalError(w, err)
 		return
