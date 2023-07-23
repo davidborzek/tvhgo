@@ -66,9 +66,10 @@ export const useUpdateUserPassword = () => {
 
   const updatePassword = async (opts: UpdateUserPassword) => {
     setIsLoading(true);
-    await updateUserPassword(opts)
+    return await updateUserPassword(opts)
       .then(() => {
         notifySuccess(t('password_updated_successfully'));
+        return true;
       })
       .catch((error) => {
         if (
@@ -77,7 +78,7 @@ export const useUpdateUserPassword = () => {
           error.message === 'current password is invalid'
         ) {
           notifyError(t('invalid_current_password'));
-          return;
+          return false;
         }
 
         notifyError(t('unexpected'));
