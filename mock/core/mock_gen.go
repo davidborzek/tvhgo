@@ -160,17 +160,17 @@ func (mr *MockSessionRepositoryMockRecorder) Create(arg0, arg1 interface{}) *gom
 }
 
 // Delete mocks base method.
-func (m *MockSessionRepository) Delete(arg0 context.Context, arg1 int64) error {
+func (m *MockSessionRepository) Delete(arg0 context.Context, arg1, arg2 int64) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Delete", arg0, arg1)
+	ret := m.ctrl.Call(m, "Delete", arg0, arg1, arg2)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // Delete indicates an expected call of Delete.
-func (mr *MockSessionRepositoryMockRecorder) Delete(arg0, arg1 interface{}) *gomock.Call {
+func (mr *MockSessionRepositoryMockRecorder) Delete(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockSessionRepository)(nil).Delete), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockSessionRepository)(nil).Delete), arg0, arg1, arg2)
 }
 
 // Find mocks base method.
@@ -186,6 +186,21 @@ func (m *MockSessionRepository) Find(arg0 context.Context, arg1 string) (*core.S
 func (mr *MockSessionRepositoryMockRecorder) Find(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Find", reflect.TypeOf((*MockSessionRepository)(nil).Find), arg0, arg1)
+}
+
+// FindByUser mocks base method.
+func (m *MockSessionRepository) FindByUser(arg0 context.Context, arg1 int64) ([]*core.Session, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "FindByUser", arg0, arg1)
+	ret0, _ := ret[0].([]*core.Session)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// FindByUser indicates an expected call of FindByUser.
+func (mr *MockSessionRepositoryMockRecorder) FindByUser(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "FindByUser", reflect.TypeOf((*MockSessionRepository)(nil).FindByUser), arg0, arg1)
 }
 
 // Update mocks base method.

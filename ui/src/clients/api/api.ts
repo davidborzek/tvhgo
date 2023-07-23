@@ -6,6 +6,7 @@ import {
   ErrorResponse,
   ListResponse,
   Recording,
+  Session,
   UpdateRecording,
   UpdateUser,
   UpdateUserPassword,
@@ -207,4 +208,13 @@ export async function updateUserPassword(
 
 export function getRecordingUrl(id: string): string {
   return `/api/recordings/${id}/stream`;
+}
+
+export async function getSessions(): Promise<Array<Session>> {
+  const response = await client.get<Array<Session>>(`/sessions`);
+  return response.data;
+}
+
+export async function deleteSession(id: number): Promise<void> {
+  return await client.delete(`/sessions/${id}`);
 }

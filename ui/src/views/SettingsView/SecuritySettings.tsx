@@ -9,9 +9,12 @@ import Button from '../../components/Button/Button';
 
 import styles from './SettingsView.module.scss';
 import Form from '../../components/Form/Form';
+import { useManageSessions } from '../../hooks/session';
+import SessionList from '../../components/SessionList/SessionList';
 
 const SecuritySettings = () => {
   const { t } = useTranslation();
+  const { sessions, error, revokeSession } = useManageSessions();
   const { updatePassword } = useUpdateUserPassword();
 
   const currentPasswordRef = useRef<HTMLInputElement>(null);
@@ -112,6 +115,9 @@ const SecuritySettings = () => {
             <Button type="submit" label={t('save')} />
           </div>
         </Form>
+      </div>
+      <div className={styles.row}>
+        <SessionList sessions={sessions} onRevoke={revokeSession} />
       </div>
     </>
   );

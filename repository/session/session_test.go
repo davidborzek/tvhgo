@@ -58,6 +58,13 @@ func TestFindReturnsNil(t *testing.T) {
 	assert.Nil(t, err)
 }
 
+func TestFindByUserReturnsEmptyArray(t *testing.T) {
+	sessions, err := repository.FindByUser(noCtx, 0)
+
+	assert.Empty(t, sessions)
+	assert.Nil(t, err)
+}
+
 func TestCreate(t *testing.T) {
 	session := &core.Session{
 		UserId:      testUser.ID,
@@ -74,6 +81,7 @@ func TestCreate(t *testing.T) {
 	assert.NotEmpty(t, session.RotatedAt)
 
 	t.Run("Find", testFind(session))
+	t.Run("FindByUser", testFindByUser(session))
 	t.Run("Update", testUpdate(session))
 	t.Run("Delete", testDelete(session))
 }
@@ -84,6 +92,16 @@ func testFind(created *core.Session) func(t *testing.T) {
 
 		assert.Nil(t, err)
 		assert.Equal(t, created, session)
+	}
+}
+
+func testFindByUser(created *core.Session) func(t *testing.T) {
+	return func(t *testing.T) {
+		sessions, err := repository.FindByUser(noCtx, created.UserId)
+
+		assert.Nil(t, err)
+		assert.Len(t, sessions, 1)
+		assert.Equal(t, created, sessions[0])
 	}
 }
 
@@ -110,7 +128,7 @@ func testUpdate(created *core.Session) func(t *testing.T) {
 
 func testDelete(created *core.Session) func(t *testing.T) {
 	return func(t *testing.T) {
-		err := repository.Delete(noCtx, created.ID)
+		err := repository.Delete(noCtx, created.ID, created.UserId)
 
 		assert.Nil(t, err)
 

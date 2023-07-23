@@ -19,7 +19,8 @@ type router struct {
 	picons                core.PiconService
 	recordings            core.RecordingService
 	streaming             core.StreamingService
-	sessions              core.SessionManager
+	sessionManager        core.SessionManager
+	sessions              core.SessionRepository
 	users                 core.UserRepository
 	passwordAuthenticator core.PasswordAuthenticator
 }
@@ -39,7 +40,8 @@ func New(
 	picons core.PiconService,
 	recordings core.RecordingService,
 	streaming core.StreamingService,
-	sessions core.SessionManager,
+	sessionManager core.SessionManager,
+	sessions core.SessionRepository,
 	users core.UserRepository,
 	passwordAuthenticator core.PasswordAuthenticator,
 ) *router {
@@ -49,6 +51,7 @@ func New(
 		epg:                   epg,
 		picons:                picons,
 		recordings:            recordings,
+		sessionManager:        sessionManager,
 		sessions:              sessions,
 		users:                 users,
 		streaming:             streaming,
@@ -79,6 +82,9 @@ func (s *router) Handler() http.Handler {
 	authenticated.Get("/user", s.GetUser)
 	authenticated.Patch("/user", s.UpdateUser)
 	authenticated.Patch("/user/password", s.UpdateUserPassword)
+
+	authenticated.Get("/sessions", s.GetSessions)
+	authenticated.Delete("/sessions/{id}", s.DeleteSession)
 
 	authenticated.Get("/epg", s.GetEpg)
 	authenticated.Get("/epg/events", s.GetEpgEvents)

@@ -27,8 +27,8 @@ func (s *router) Logout(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	err := s.sessions.Revoke(
-		r.Context(), ctx.SessionID,
+	err := s.sessionManager.Revoke(
+		r.Context(), ctx.SessionID, ctx.UserID,
 	)
 
 	if err != nil {

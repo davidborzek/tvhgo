@@ -67,11 +67,11 @@ func (s *sessionManager) Create(
 	return token, nil
 }
 
-func (s *sessionManager) Revoke(ctx context.Context, sessionId int64) error {
-	err := s.sessionRepository.Delete(ctx, sessionId)
+func (s *sessionManager) Revoke(ctx context.Context, sessionID int64, userID int64) error {
+	err := s.sessionRepository.Delete(ctx, sessionID, userID)
 	if err != nil {
 		log.WithError(err).
-			WithField("session", sessionId).
+			WithField("session", sessionID).
 			Error("could not delete session")
 
 		return core.ErrUnexpectedError

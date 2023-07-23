@@ -102,3 +102,12 @@ export type UpdateUserPassword = {
   currentPassword?: string;
   password?: string;
 };
+
+export type Session = {
+  id: number;
+  userId: string;
+  clientIp: string;
+  userAgent: string;
+  createdAt: number;
+  lastUsedAt: number;
+};

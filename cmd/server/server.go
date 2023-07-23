@@ -89,6 +89,7 @@ func start(ctx *cli.Context) error {
 		recordingService,
 		streamingService,
 		sessionManager,
+		sessionRepository,
 		userRepository,
 		passwordAuthenticator,
 	)

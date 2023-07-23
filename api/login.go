@@ -67,7 +67,7 @@ func (s *router) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	token, err := s.sessions.Create(
+	token, err := s.sessionManager.Create(
 		r.Context(),
 		user.ID,
 		addr,

@@ -20,6 +20,13 @@ WHERE
 session.hashed_token = ?
 `
 
+// Select sessions by user id
+const queryByUserID = queryBase + `
+WHERE
+session.user_id = ?
+ORDER BY session.last_used_at DESC
+`
+
 // Insert session statement
 const stmtInsert = `
 INSERT INTO session (
@@ -49,5 +56,6 @@ WHERE id = ?
 // Delete session statement
 const stmtDelete = `
 DELETE FROM session
-WHERE session.id=?
+WHERE session.id=? AND
+session.user_id=?
 `

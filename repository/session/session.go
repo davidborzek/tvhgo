@@ -32,6 +32,15 @@ func (s *sqlRepository) Find(ctx context.Context, hashedToken string) (*core.Ses
 	return session, nil
 }
 
+func (s *sqlRepository) FindByUser(ctx context.Context, userID int64) ([]*core.Session, error) {
+	rows, err := s.db.QueryContext(ctx, queryByUserID, userID)
+	if err != nil {
+		return nil, err
+	}
+
+	return scanRows(rows)
+}
+
 func (s *sqlRepository) Create(ctx context.Context, session *core.Session) error {
 	now := time.Now().Unix()
 
@@ -74,7 +83,7 @@ func (s *sqlRepository) Update(ctx context.Context, session *core.Session) error
 	return err
 }
 
-func (s *sqlRepository) Delete(ctx context.Context, token int64) error {
-	_, err := s.db.ExecContext(ctx, stmtDelete, token)
+func (s *sqlRepository) Delete(ctx context.Context, sessionID int64, userID int64) error {
+	_, err := s.db.ExecContext(ctx, stmtDelete, sessionID, userID)
 	return err
 }

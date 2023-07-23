@@ -94,12 +94,12 @@ func TestSessionManagerRevokeSucceeds(t *testing.T) {
 
 	mockRepository := mock_core.NewMockSessionRepository(ctrl)
 	mockRepository.EXPECT().
-		Delete(ctx, sessionID).
+		Delete(ctx, sessionID, userID).
 		Return(nil).
 		Times(1)
 
 	sessionManager := auth.NewSessionManager(mockRepository, 0, 0, 0)
-	err := sessionManager.Revoke(ctx, sessionID)
+	err := sessionManager.Revoke(ctx, sessionID, userID)
 
 	assert.Nil(t, err)
 }
@@ -110,12 +110,12 @@ func TestSessionManagerRevokeReturnsErrUnexpectedError(t *testing.T) {
 
 	mockRepository := mock_core.NewMockSessionRepository(ctrl)
 	mockRepository.EXPECT().
-		Delete(ctx, sessionID).
+		Delete(ctx, sessionID, userID).
 		Return(errors.New("some unexpected error")).
 		Times(1)
 
 	sessionManager := auth.NewSessionManager(mockRepository, 0, 0, 0)
-	err := sessionManager.Revoke(ctx, sessionID)
+	err := sessionManager.Revoke(ctx, sessionID, userID)
 
 	assert.Equal(t, core.ErrUnexpectedError, err)
 }

@@ -216,6 +216,21 @@ definitions:
       total:
         type: integer
     type: object
+  core.Session:
+    properties:
+      clientIp:
+        type: string
+      createdAt:
+        type: integer
+      id:
+        type: integer
+      lastUsedAt:
+        type: integer
+      userAgent:
+        type: string
+      userId:
+        type: integer
+    type: object
   core.UpdateRecording:
     properties:
       comment:
@@ -1047,6 +1062,56 @@ paths:
       summary: Stop multiple recordings
       tags:
       - recordings
+  /sessions:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/core.Session'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Get list of sessions for the current user
+      tags:
+      - sessions
+  /sessions/{id}:
+    delete:
+      parameters:
+      - description: Session id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Revokes a session
+      tags:
+      - sessions
   /user:
     get:
       produces:

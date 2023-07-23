@@ -5,22 +5,25 @@ import (
 )
 
 type (
-	// Session defines a internal representation for a session of a user.
+	// Session defines a representation for a session of a user.
 	Session struct {
-		ID          int64
-		UserId      int64
-		HashedToken string
-		ClientIP    string
-		UserAgent   string
-		CreatedAt   int64
-		LastUsedAt  int64
-		RotatedAt   int64
+		ID          int64  `json:"id"`
+		UserId      int64  `json:"userId"`
+		HashedToken string `json:"-"`
+		ClientIP    string `json:"clientIp"`
+		UserAgent   string `json:"userAgent"`
+		CreatedAt   int64  `json:"createdAt"`
+		LastUsedAt  int64  `json:"lastUsedAt"`
+		RotatedAt   int64  `json:"-"`
 	}
 
 	// SessionRepository defines CRUD operations for working with sessions.
 	SessionRepository interface {
 		// Find returns a sessions.
 		Find(ctx context.Context, hashedToken string) (*Session, error)
+
+		// FindByUser returns a list of sessions for a user.
+		FindByUser(ctx context.Context, userID int64) ([]*Session, error)
 
 		// Create persists a new session.
 		Create(ctx context.Context, session *Session) error
@@ -29,6 +32,6 @@ type (
 		Update(ctx context.Context, session *Session) error
 
 		// Delete deletes a session.
-		Delete(ctx context.Context, id int64) error
+		Delete(ctx context.Context, sessionID int64, userID int64) error
 	}
 )

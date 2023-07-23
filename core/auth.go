@@ -25,7 +25,7 @@ type (
 		// Create creates a new session for a user with a client ip and a user agent.
 		Create(ctx context.Context, userId int64, clientIp string, userAgent string) (string, error)
 		// Revoke revokes a specific session.
-		Revoke(ctx context.Context, sessionId int64) error
+		Revoke(ctx context.Context, sessionID int64, userID int64) error
 	}
 
 	// PasswordAuthenticator defines operations to log in users via login and password.
