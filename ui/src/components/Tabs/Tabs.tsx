@@ -33,7 +33,7 @@ const Tabs = (props: TabsProps) => {
   return (
     <nav className={styles.Tabs}>
       {props.tabs.map((tab, index) => (
-        <TabItem tab={tab} onClick={() => props.onChange(index)} />
+        <TabItem key={index} tab={tab} onClick={() => props.onChange(index)} />
       ))}
     </nav>
   );
