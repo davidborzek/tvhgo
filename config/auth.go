@@ -7,6 +7,7 @@ const (
 	defaultSessionMaximumInactiveLifeTime = 7 * 24 * time.Hour
 	defaultSessionMaximumLifetime         = 30 * 24 * time.Hour
 	defaultSessionTokenRotationInterval   = 30 * time.Minute
+	defaultSessionCleanupInterval         = 12 * time.Hour
 )
 
 type (
@@ -16,6 +17,7 @@ type (
 		MaximumInactiveLifetime time.Duration `yaml:"maximum_inactive_lifetime" env:"MAXIMUM_INACTIVE_LIFETIME"`
 		MaximumLifetime         time.Duration `yaml:"maximum_lifetime" env:"MAXIMUM_LIFETIME"`
 		TokenRotationInterval   time.Duration `yaml:"token_rotation_interval" env:"TOKEN_ROTATION_INTERVAL"`
+		CleanupInterval         time.Duration `yaml:"cleanup_interval" env:"CLEANUP_INTERVAL"`
 	}
 
 	AuthConfig struct {
@@ -35,5 +37,8 @@ func (s *SessionConfig) SetDefaults() {
 	}
 	if s.TokenRotationInterval == 0 {
 		s.TokenRotationInterval = defaultSessionTokenRotationInterval
+	}
+	if s.CleanupInterval == 0 {
+		s.CleanupInterval = defaultSessionCleanupInterval
 	}
 }

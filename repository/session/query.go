@@ -59,3 +59,10 @@ DELETE FROM session
 WHERE session.id=? AND
 session.user_id=?
 `
+
+// Delete expired sessions statement
+const stmtDeleteExpired = `
+DELETE FROM session
+WHERE session.created_at < ?
+OR session.last_used_at < ?
+`

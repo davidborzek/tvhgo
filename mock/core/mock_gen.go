@@ -173,6 +173,21 @@ func (mr *MockSessionRepositoryMockRecorder) Delete(arg0, arg1, arg2 interface{}
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Delete", reflect.TypeOf((*MockSessionRepository)(nil).Delete), arg0, arg1, arg2)
 }
 
+// DeleteExpired mocks base method.
+func (m *MockSessionRepository) DeleteExpired(arg0 context.Context, arg1, arg2 int64) (int64, error) {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "DeleteExpired", arg0, arg1, arg2)
+	ret0, _ := ret[0].(int64)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
+}
+
+// DeleteExpired indicates an expected call of DeleteExpired.
+func (mr *MockSessionRepositoryMockRecorder) DeleteExpired(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "DeleteExpired", reflect.TypeOf((*MockSessionRepository)(nil).DeleteExpired), arg0, arg1, arg2)
+}
+
 // Find mocks base method.
 func (m *MockSessionRepository) Find(arg0 context.Context, arg1 string) (*core.Session, error) {
 	m.ctrl.T.Helper()

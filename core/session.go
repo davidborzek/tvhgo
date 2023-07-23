@@ -33,5 +33,8 @@ type (
 
 		// Delete deletes a session.
 		Delete(ctx context.Context, sessionID int64, userID int64) error
+
+		// DeleteExpired deletes all expired sessions.
+		DeleteExpired(ctx context.Context, expirationDate int64, inactiveExpirationDate int64) (int64, error)
 	}
 )

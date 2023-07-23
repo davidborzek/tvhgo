@@ -5,6 +5,7 @@ import (
 	"database/sql"
 	"os"
 	"testing"
+	"time"
 
 	"github.com/davidborzek/tvhgo/core"
 	"github.com/davidborzek/tvhgo/db/testdb"
@@ -17,6 +18,8 @@ var noCtx = context.TODO()
 
 var repository core.SessionRepository
 
+var db *sql.DB
+
 // Test data models
 var testUser = &core.User{
 	Username:    "testuser",
@@ -24,19 +27,20 @@ var testUser = &core.User{
 	DisplayName: "Test user",
 }
 
-func initTestUser(db *sql.DB) error {
+func initTestUser() error {
 	return user.New(db).
 		Create(noCtx, testUser)
 }
 
 func TestMain(m *testing.M) {
-	db, err := testdb.Setup()
+	_db, err := testdb.Setup()
 	if err != nil {
 		panic(err)
 	}
+	db = _db
 	defer testdb.Close(db)
 
-	if err := initTestUser(db); err != nil {
+	if err := initTestUser(); err != nil {
 		panic(err)
 	}
 
@@ -137,4 +141,25 @@ func testDelete(created *core.Session) func(t *testing.T) {
 		assert.Nil(t, err)
 		assert.Nil(t, session)
 	}
+}
+
+func TestDeleteExpired(t *testing.T) {
+	q := `INSERT INTO session
+	(user_id, hashed_token, client_ip, user_agent, created_at, last_used_at, rotated_at)
+	VALUES (?, ?, ?, ?, ?, ?, ?)
+	`
+	now := time.Now().Unix()
+
+	_, err := db.Exec(q, testUser.ID, "", "", "", 111, now, 0)
+	assert.Nil(t, err)
+
+	_, err = db.Exec(q, testUser.ID, "", "", "", now, 111, 0)
+	assert.Nil(t, err)
+
+	_, err = db.Exec(q, testUser.ID, "", "", "", now, now, 0)
+	assert.Nil(t, err)
+
+	rows, err := repository.DeleteExpired(noCtx, 222, 222)
+	assert.Nil(t, err)
+	assert.Equal(t, int64(2), rows)
 }

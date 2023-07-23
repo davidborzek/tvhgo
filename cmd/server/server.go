@@ -81,6 +81,14 @@ func start(ctx *cli.Context) error {
 	recordingService := recording.New(tvhClient)
 	streamingService := streaming.New(tvhStreamingClient)
 
+	sessionCleaner := auth.NewSessionCleaner(
+		cfg.Auth.Session.CleanupInterval,
+		sessionRepository,
+		cfg.Auth.Session.MaximumInactiveLifetime,
+		cfg.Auth.Session.MaximumLifetime,
+	)
+	sessionCleaner.Start()
+
 	apiRouter := api.New(
 		cfg,
 		channelService,

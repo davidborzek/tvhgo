@@ -87,3 +87,12 @@ func (s *sqlRepository) Delete(ctx context.Context, sessionID int64, userID int6
 	_, err := s.db.ExecContext(ctx, stmtDelete, sessionID, userID)
 	return err
 }
+
+func (s *sqlRepository) DeleteExpired(ctx context.Context, expirationDate int64, inactiveExpirationDate int64) (int64, error) {
+	res, err := s.db.ExecContext(ctx, stmtDeleteExpired, expirationDate, inactiveExpirationDate)
+	if err != nil {
+		return 0, err
+	}
+
+	return res.RowsAffected()
+}
