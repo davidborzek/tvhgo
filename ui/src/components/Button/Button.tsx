@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { c } from '../../utils/classNames';
 
 import styles from './Button.module.scss';
@@ -6,7 +6,8 @@ import styles from './Button.module.scss';
 export type ButtonStyle = 'red' | 'blue';
 
 type Props = {
-  label: string;
+  label?: string;
+  icon?: ReactElement;
   type?: 'submit' | 'reset' | 'button';
   disabled?: boolean;
   loading?: boolean;
@@ -27,6 +28,14 @@ export const getStyleClass = (style?: ButtonStyle) => {
 function Button(props: Props) {
   const disabled = props.disabled || props.loading;
 
+  const getLabel = () => {
+    if (props.loading) {
+      return props.loadingLabel || '...';
+    }
+
+    return props.label || '';
+  };
+
   return (
     <button
       type={props.type}
@@ -39,7 +48,8 @@ function Button(props: Props) {
       )}
       onClick={props.onClick}
     >
-      {props.loading ? props.loadingLabel || '...' : props.label}
+      {props.icon}
+      {getLabel()}
     </button>
   );
 }

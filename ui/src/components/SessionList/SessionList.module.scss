@@ -37,6 +37,12 @@
   }
 }
 
+.sessionDeleteButton {
+  path {
+    stroke: var(--color-text-primary);
+  }
+}
+
 @media screen and (max-width: 750px) {
   .created {
     display: none;

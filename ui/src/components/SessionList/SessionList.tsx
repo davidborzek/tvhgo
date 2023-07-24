@@ -3,6 +3,8 @@ import { Session } from '../../clients/api/api.types';
 import styles from './SessionList.module.scss';
 import { useTranslation } from 'react-i18next';
 import Button from '../Button/Button';
+import { Close } from '../../assets';
+import { useLoading } from '../../contexts/LoadingContext';
 
 type Props = {
   sessions: Session[];
@@ -13,6 +15,7 @@ const unixNow = () => Math.floor(Date.now() / 1000);
 
 const SessionList = (props: Props) => {
   const { t } = useTranslation();
+  const { isLoading } = useLoading();
 
   const parseUserAgent = (rawUserAgent?: string) => {
     if (!rawUserAgent) {
@@ -77,9 +80,10 @@ const SessionList = (props: Props) => {
                   <td>{parseUserAgent(session.userAgent)}</td>
                   <td>
                     <Button
-                      label={t('delete')}
+                      icon={<Close className={styles.sessionDeleteButton} />}
                       style="red"
                       onClick={() => props.onRevoke(session.id)}
+                      disabled={isLoading}
                     />
                   </td>
                 </tr>

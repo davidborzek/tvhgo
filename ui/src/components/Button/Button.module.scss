@@ -7,6 +7,9 @@
   cursor: pointer;
   font-weight: 600;
   font-size: 0.8rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 
   &.red {
     border: 1px solid var(--color-danger-bg);
@@ -18,8 +21,15 @@
     cursor: not-allowed;
   }
 
-  &:hover {
+  &:hover:not(&.disabled) {
     opacity: 0.8;
+  }
+
+  svg {
+    width: 0.8rem;
+    height: 0.8rem;
+    margin: 0;
+    padding: 0;
   }
 }
 
