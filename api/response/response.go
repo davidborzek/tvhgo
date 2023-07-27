@@ -9,9 +9,12 @@ import (
 // JSON writes the json-encoded data to the response
 // with a given status code.
 func JSON(w http.ResponseWriter, v interface{}, status int) error {
+	enc := json.NewEncoder(w)
+	enc.SetEscapeHTML(false)
+
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(status)
-	return json.NewEncoder(w).Encode(v)
+	return enc.Encode(v)
 }
 
 // CopyResponse writes a http response to the response

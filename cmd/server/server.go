@@ -9,6 +9,7 @@ import (
 	"github.com/davidborzek/tvhgo/db"
 	"github.com/davidborzek/tvhgo/health"
 	"github.com/davidborzek/tvhgo/repository/session"
+	twofactorsettings "github.com/davidborzek/tvhgo/repository/two_factor_settings"
 	"github.com/davidborzek/tvhgo/repository/user"
 	"github.com/davidborzek/tvhgo/services/auth"
 	"github.com/davidborzek/tvhgo/services/channel"
@@ -66,8 +67,9 @@ func start(ctx *cli.Context) error {
 	tvhStreamingClient := tvheadend.NewStreamingClient(tvhOpts)
 
 	userRepository := user.New(dbConn, clock)
-
 	sessionRepository := session.New(dbConn, clock)
+	// TODO clock
+	twoFactorSettingsRepository := twofactorsettings.New(dbConn)
 
 	sessionManager := auth.NewSessionManager(
 		sessionRepository,
@@ -78,6 +80,8 @@ func start(ctx *cli.Context) error {
 	)
 
 	passwordAuthenticator := auth.NewLocalPasswordAuthenticator(userRepository)
+
+	twoFactorService := auth.NewTwoFactorService(twoFactorSettingsRepository, userRepository)
 
 	channelService := channel.New(tvhClient)
 	epgService := epg.New(tvhClient)
@@ -105,6 +109,7 @@ func start(ctx *cli.Context) error {
 		sessionRepository,
 		userRepository,
 		passwordAuthenticator,
+		twoFactorService,
 	)
 
 	healthRouter := health.New(tvhClient, dbConn)

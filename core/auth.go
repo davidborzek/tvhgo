@@ -39,6 +39,10 @@ type (
 	PasswordAuthenticator interface {
 		Login(ctx context.Context, login string, username string) (*User, error)
 	}
+
+	TwoFactorService interface {
+		Setup(ctx context.Context, userId int64) (string, error)
+	}
 )
 
 func (InvalidOrExpiredTokenError) Error() string {
