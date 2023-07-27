@@ -150,13 +150,13 @@ func TestDeleteExpired(t *testing.T) {
 	`
 	now := time.Now().Unix()
 
-	_, err := db.Exec(q, testUser.ID, "", "", "", 111, now, 0)
+	_, err := db.Exec(q, testUser.ID, "token1", "", "", 111, now, 0)
 	assert.Nil(t, err)
 
-	_, err = db.Exec(q, testUser.ID, "", "", "", now, 111, 0)
+	_, err = db.Exec(q, testUser.ID, "token2", "", "", now, 111, 0)
 	assert.Nil(t, err)
 
-	_, err = db.Exec(q, testUser.ID, "", "", "", now, now, 0)
+	_, err = db.Exec(q, testUser.ID, "token3", "", "", now, now, 0)
 	assert.Nil(t, err)
 
 	rows, err := repository.DeleteExpired(noCtx, 222, 222)
