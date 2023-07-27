@@ -12,6 +12,7 @@ import (
 	"github.com/davidborzek/tvhgo/repository/user"
 	"github.com/davidborzek/tvhgo/services/auth"
 	"github.com/davidborzek/tvhgo/services/channel"
+	"github.com/davidborzek/tvhgo/services/clock"
 	"github.com/davidborzek/tvhgo/services/epg"
 	"github.com/davidborzek/tvhgo/services/picon"
 	"github.com/davidborzek/tvhgo/services/recording"
@@ -53,6 +54,8 @@ func start(ctx *cli.Context) error {
 	log.WithField("db", cfg.Database.Path).
 		Info("database connection established")
 
+	clock := clock.NewClock()
+
 	tvhOpts := tvheadend.ClientOpts{
 		URL:      cfg.Tvheadend.URL(),
 		Username: cfg.Tvheadend.Username,
@@ -62,12 +65,13 @@ func start(ctx *cli.Context) error {
 	tvhClient := tvheadend.New(tvhOpts)
 	tvhStreamingClient := tvheadend.NewStreamingClient(tvhOpts)
 
-	userRepository := user.New(dbConn)
+	userRepository := user.New(dbConn, clock)
 
-	sessionRepository := session.New(dbConn)
+	sessionRepository := session.New(dbConn, clock)
 
 	sessionManager := auth.NewSessionManager(
 		sessionRepository,
+		clock,
 		cfg.Auth.Session.MaximumInactiveLifetime,
 		cfg.Auth.Session.MaximumLifetime,
 		cfg.Auth.Session.TokenRotationInterval,
@@ -82,8 +86,9 @@ func start(ctx *cli.Context) error {
 	streamingService := streaming.New(tvhStreamingClient)
 
 	sessionCleaner := auth.NewSessionCleaner(
-		cfg.Auth.Session.CleanupInterval,
 		sessionRepository,
+		clock,
+		cfg.Auth.Session.CleanupInterval,
 		cfg.Auth.Session.MaximumInactiveLifetime,
 		cfg.Auth.Session.MaximumLifetime,
 	)

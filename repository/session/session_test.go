@@ -11,6 +11,7 @@ import (
 	"github.com/davidborzek/tvhgo/db/testdb"
 	"github.com/davidborzek/tvhgo/repository/session"
 	"github.com/davidborzek/tvhgo/repository/user"
+	"github.com/davidborzek/tvhgo/services/clock"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -28,7 +29,7 @@ var testUser = &core.User{
 }
 
 func initTestUser() error {
-	return user.New(db).
+	return user.New(db, clock.NewClock()).
 		Create(noCtx, testUser)
 }
 
@@ -44,7 +45,7 @@ func TestMain(m *testing.M) {
 		panic(err)
 	}
 
-	repository = session.New(db)
+	repository = session.New(db, clock.NewClock())
 	code := m.Run()
 
 	err = testdb.TruncateTables(db, "session", "user")

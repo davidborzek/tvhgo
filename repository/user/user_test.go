@@ -8,6 +8,7 @@ import (
 	"github.com/davidborzek/tvhgo/core"
 	"github.com/davidborzek/tvhgo/db/testdb"
 	"github.com/davidborzek/tvhgo/repository/user"
+	"github.com/davidborzek/tvhgo/services/clock"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -21,7 +22,7 @@ func TestMain(m *testing.M) {
 		panic(err)
 	}
 
-	repository = user.New(db)
+	repository = user.New(db, clock.NewClock())
 	code := m.Run()
 
 	err = testdb.TruncateTables(db, "user")

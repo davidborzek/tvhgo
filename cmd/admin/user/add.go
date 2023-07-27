@@ -9,6 +9,7 @@ import (
 	"github.com/davidborzek/tvhgo/core"
 	"github.com/davidborzek/tvhgo/repository/user"
 	"github.com/davidborzek/tvhgo/services/auth"
+	"github.com/davidborzek/tvhgo/services/clock"
 	"github.com/urfave/cli/v2"
 )
 
@@ -105,7 +106,7 @@ func addUser(ctx *cli.Context) error {
 }
 
 func createUser(username, password, email, displayName string) error {
-	userRepository := user.New(actx.GetDB())
+	userRepository := user.New(actx.GetDB(), clock.NewClock())
 
 	hash, err := auth.HashPassword(password)
 	if err != nil {

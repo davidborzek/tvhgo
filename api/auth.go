@@ -1,6 +1,7 @@
 package api
 
 import (
+	"errors"
 	"net/http"
 	"strings"
 
@@ -15,7 +16,7 @@ func (router *router) HandleAuthentication(next http.Handler) http.Handler {
 
 		ctx, rotatedToken, err := router.sessionManager.Validate(r.Context(), token)
 		if err != nil {
-			if err == core.ErrInvalidOrExpiredToken {
+			if errors.As(err, &core.InvalidOrExpiredTokenError{}) {
 				response.Unauthorized(w, err)
 				return
 			}

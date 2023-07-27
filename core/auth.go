@@ -6,11 +6,18 @@ import (
 )
 
 var (
-	ErrInvalidOrExpiredToken     = errors.New("invalid or expired token")
+	ErrExpiredTokenLifetime         = errors.New("expired token lifetime")
+	ErrExpiredInactiveTokenLifetime = errors.New("expired inactive token lifetime")
+	ErrTokenInvalid                 = errors.New("token invalid")
+
 	ErrInvalidUsernameOrPassword = errors.New("invalid username or password")
 )
 
 type (
+	InvalidOrExpiredTokenError struct {
+		Reason error
+	}
+
 	// AuthContext represent the authenticated context for a user and a session.
 	AuthContext struct {
 		UserID    int64
@@ -33,3 +40,7 @@ type (
 		Login(ctx context.Context, login string, username string) (*User, error)
 	}
 )
+
+func (InvalidOrExpiredTokenError) Error() string {
+	return "invalid or expired token"
+}

@@ -9,21 +9,24 @@ import (
 )
 
 type sessionCleaner struct {
-	interval         time.Duration
 	sessions         core.SessionRepository
+	clock            core.Clock
+	interval         time.Duration
 	inactiveLifetime time.Duration
 	lifetime         time.Duration
 }
 
 func NewSessionCleaner(
-	interval time.Duration,
 	sessions core.SessionRepository,
+	clock core.Clock,
+	interval time.Duration,
 	inactiveLifetime time.Duration,
 	lifetime time.Duration,
 ) *sessionCleaner {
 	return &sessionCleaner{
-		interval:         interval,
 		sessions:         sessions,
+		clock:            clock,
+		interval:         interval,
 		lifetime:         lifetime,
 		inactiveLifetime: inactiveLifetime,
 	}
@@ -46,8 +49,8 @@ func (s *sessionCleaner) Start() {
 }
 
 func (s *sessionCleaner) RunNow() {
-	expirationDate := time.Now().Add(-s.lifetime)
-	inActiveExpirationDate := time.Now().Add(-s.inactiveLifetime)
+	expirationDate := s.clock.Now().Add(-s.lifetime)
+	inActiveExpirationDate := s.clock.Now().Add(-s.inactiveLifetime)
 
 	rows, err := s.sessions.DeleteExpired(
 		context.Background(),

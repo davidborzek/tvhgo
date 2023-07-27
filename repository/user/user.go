@@ -3,18 +3,19 @@ package user
 import (
 	"context"
 	"database/sql"
-	"time"
 
 	"github.com/davidborzek/tvhgo/core"
 )
 
 type sqlRepository struct {
-	db *sql.DB
+	db    *sql.DB
+	clock core.Clock
 }
 
-func New(db *sql.DB) core.UserRepository {
+func New(db *sql.DB, clock core.Clock) core.UserRepository {
 	return &sqlRepository{
-		db: db,
+		db:    db,
+		clock: clock,
 	}
 }
 
@@ -57,7 +58,7 @@ func (s *sqlRepository) Create(ctx context.Context, user *core.User) error {
 		return err
 	}
 
-	createdAt := time.Now().Unix()
+	createdAt := s.clock.Now().Unix()
 
 	res, err := s.db.ExecContext(ctx, stmtInsert,
 		user.Username,
@@ -88,7 +89,7 @@ func (s *sqlRepository) Update(ctx context.Context, user *core.User) error {
 		return err
 	}
 
-	updatedAt := time.Now().Unix()
+	updatedAt := s.clock.Now().Unix()
 
 	_, err := s.db.ExecContext(ctx, stmtUpdate,
 		user.Username,

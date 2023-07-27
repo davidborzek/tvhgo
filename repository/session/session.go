@@ -3,18 +3,19 @@ package session
 import (
 	"context"
 	"database/sql"
-	"time"
 
 	"github.com/davidborzek/tvhgo/core"
 )
 
 type sqlRepository struct {
-	db *sql.DB
+	db    *sql.DB
+	clock core.Clock
 }
 
-func New(db *sql.DB) core.SessionRepository {
+func New(db *sql.DB, clock core.Clock) core.SessionRepository {
 	return &sqlRepository{
-		db: db,
+		db:    db,
+		clock: clock,
 	}
 }
 
@@ -42,7 +43,7 @@ func (s *sqlRepository) FindByUser(ctx context.Context, userID int64) ([]*core.S
 }
 
 func (s *sqlRepository) Create(ctx context.Context, session *core.Session) error {
-	now := time.Now().Unix()
+	now := s.clock.Now().Unix()
 
 	res, err := s.db.ExecContext(ctx, stmtInsert,
 		session.UserId,

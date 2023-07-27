@@ -64,7 +64,7 @@ func TestSessionManagerCreateReturnsToken(t *testing.T) {
 		Return(nil).
 		Times(1)
 
-	sessionManager := auth.NewSessionManager(mockRepository, 0, 0, 0)
+	sessionManager := auth.NewSessionManager(mockRepository, mock_core.NewMockClock(ctrl), 0, 0, 0)
 	token, err := sessionManager.Create(ctx, userID, clientIp, userAgent)
 
 	assert.Nil(t, err)
@@ -81,7 +81,7 @@ func TestSessionManagerCreateReturnsErrUnexpectedErrWhenPersistingSessionFails(t
 		Return(errors.New("some unexpected error")).
 		Times(1)
 
-	sessionManager := auth.NewSessionManager(mockRepository, 0, 0, 0)
+	sessionManager := auth.NewSessionManager(mockRepository, mock_core.NewMockClock(ctrl), 0, 0, 0)
 	token, err := sessionManager.Create(ctx, userID, clientIp, userAgent)
 
 	assert.Equal(t, core.ErrUnexpectedError, err)
@@ -98,7 +98,7 @@ func TestSessionManagerRevokeSucceeds(t *testing.T) {
 		Return(nil).
 		Times(1)
 
-	sessionManager := auth.NewSessionManager(mockRepository, 0, 0, 0)
+	sessionManager := auth.NewSessionManager(mockRepository, mock_core.NewMockClock(ctrl), 0, 0, 0)
 	err := sessionManager.Revoke(ctx, sessionID, userID)
 
 	assert.Nil(t, err)
@@ -114,7 +114,7 @@ func TestSessionManagerRevokeReturnsErrUnexpectedError(t *testing.T) {
 		Return(errors.New("some unexpected error")).
 		Times(1)
 
-	sessionManager := auth.NewSessionManager(mockRepository, 0, 0, 0)
+	sessionManager := auth.NewSessionManager(mockRepository, mock_core.NewMockClock(ctrl), 0, 0, 0)
 	err := sessionManager.Revoke(ctx, sessionID, userID)
 
 	assert.Equal(t, core.ErrUnexpectedError, err)
@@ -130,7 +130,7 @@ func TestSessionManagerValidateReturnsErrUnexpectedErrorWhenFindingSessionFails(
 		Return(nil, errors.New("some unexpected error")).
 		Times(1)
 
-	sessionManager := auth.NewSessionManager(mockRepository, 0, 0, 0)
+	sessionManager := auth.NewSessionManager(mockRepository, mock_core.NewMockClock(ctrl), 0, 0, 0)
 	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, token)
 
 	assert.Nil(t, authCtx)
@@ -148,17 +148,29 @@ func TestSessionManagerValidateReturnsErrInvalidOrExpiredTokenWhenSessionWasNotF
 		Return(nil, nil).
 		Times(1)
 
-	sessionManager := auth.NewSessionManager(mockRepository, 0, 0, 0)
+	sessionManager := auth.NewSessionManager(mockRepository, mock_core.NewMockClock(ctrl), 0, 0, 0)
 	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, token)
 
 	assert.Nil(t, authCtx)
 	assert.Nil(t, maybeRotatedToken)
-	assert.Equal(t, core.ErrInvalidOrExpiredToken, err)
+
+	assert.ErrorIs(t, err, core.InvalidOrExpiredTokenError{
+		Reason: core.ErrTokenInvalid,
+	})
 }
 
 func TestSessionManagerValidateReturnsErrInvalidOrExpiredTokenWhenSessionLifetimeIsExpired(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
+
+	// Sun Jan 01 2023 00:00:00 GMT+0000
+	now := time.Unix(1672527600, 0)
+
+	// Thu Dec 01 2022 00:00:00 GMT+0000
+	createdAt := int64(1669849200)
+
+	// 7 Days
+	lifetime := 7 * 24 * time.Hour
 
 	session := &core.Session{
 		ID:          sessionID,
@@ -166,9 +178,9 @@ func TestSessionManagerValidateReturnsErrInvalidOrExpiredTokenWhenSessionLifetim
 		ClientIP:    clientIp,
 		UserAgent:   userAgent,
 		HashedToken: "someHash",
-		CreatedAt:   1,
-		LastUsedAt:  1,
-		RotatedAt:   1,
+		CreatedAt:   createdAt,
+		LastUsedAt:  0,
+		RotatedAt:   0,
 	}
 
 	mockRepository := mock_core.NewMockSessionRepository(ctrl)
@@ -177,20 +189,47 @@ func TestSessionManagerValidateReturnsErrInvalidOrExpiredTokenWhenSessionLifetim
 		Return(session, nil).
 		Times(1)
 
-	sessionManager := auth.NewSessionManager(mockRepository, 1, 1, 1)
+	mockClock := mock_core.NewMockClock(ctrl)
+	mockClock.EXPECT().
+		Now().
+		Return(now)
+
+	sessionManager := auth.NewSessionManager(
+		mockRepository,
+		mockClock,
+		1,
+		lifetime,
+		1,
+	)
+
 	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, token)
 
 	assert.Nil(t, authCtx)
 	assert.Nil(t, maybeRotatedToken)
-	assert.Equal(t, core.ErrInvalidOrExpiredToken, err)
+
+	assert.ErrorIs(t, err, core.InvalidOrExpiredTokenError{
+		Reason: core.ErrExpiredTokenLifetime,
+	})
 }
 
 func TestSessionManagerValidateReturnsErrInvalidOrExpiredTokenWhenSessionInactiveLifetimeIsExpired(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	createdAt := time.Now().Unix()
-	lastUsedAt := time.Now().Add(-2 * time.Hour).Unix()
+	// Sun Jan 01 2023 00:00:00 GMT+0000
+	now := time.Unix(1672527600, 0)
+
+	// Tue Dec 06 2022 00:00:00 GMT+0000
+	createdAt := int64(1670284800)
+
+	// 30 Days
+	lifetime := 30 * 24 * time.Hour
+
+	// Tue Dec 20 2022 00:00:00 GMT+0000
+	lastUsedAt := int64(1671494400)
+
+	// 7 days
+	inactiveLifetime := 7 * 24 * time.Hour
 
 	session := &core.Session{
 		ID:          sessionID,
@@ -209,19 +248,51 @@ func TestSessionManagerValidateReturnsErrInvalidOrExpiredTokenWhenSessionInactiv
 		Return(session, nil).
 		Times(1)
 
-	sessionManager := auth.NewSessionManager(mockRepository, time.Hour, time.Hour, 1)
+	mockClock := mock_core.NewMockClock(ctrl)
+	mockClock.EXPECT().
+		Now().
+		Return(now).
+		AnyTimes()
+
+	sessionManager := auth.NewSessionManager(
+		mockRepository,
+		mockClock,
+		inactiveLifetime,
+		lifetime,
+		1,
+	)
+
 	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, token)
 
 	assert.Nil(t, authCtx)
 	assert.Nil(t, maybeRotatedToken)
-	assert.Equal(t, core.ErrInvalidOrExpiredToken, err)
+
+	assert.ErrorIs(t, err, core.InvalidOrExpiredTokenError{
+		Reason: core.ErrExpiredInactiveTokenLifetime,
+	})
 }
 
-func TestSessionManagerValidateReturnsAuthContextAndDoesNotRotateToken(t *testing.T) {
+func TestSessionManagerValidateReturnsAuthContext(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	now := time.Now().Unix()
+	// Sun Jan 01 2023 00:00:00 GMT+0000
+	now := time.Unix(1672527600, 0)
+
+	// Tue Dec 06 2022 00:00:00 GMT+0000
+	createdAt := int64(1670284800)
+
+	// 30 Days
+	lifetime := 30 * 24 * time.Hour
+
+	// Sat Dec 31 2022 00:00:00 GMT+0000
+	lastUsedAt := int64(1672444800)
+
+	// 7 days
+	inactiveLifetime := 7 * 24 * time.Hour
+
+	rotatedAt := now.Unix()
+	tokenRotationInterval := 1 * time.Hour
 
 	session := &core.Session{
 		ID:          sessionID,
@@ -229,9 +300,9 @@ func TestSessionManagerValidateReturnsAuthContextAndDoesNotRotateToken(t *testin
 		ClientIP:    clientIp,
 		UserAgent:   userAgent,
 		HashedToken: "someHash",
-		CreatedAt:   now,
-		LastUsedAt:  now,
-		RotatedAt:   now,
+		CreatedAt:   createdAt,
+		LastUsedAt:  lastUsedAt,
+		RotatedAt:   rotatedAt,
 	}
 
 	mockRepository := mock_core.NewMockSessionRepository(ctrl)
@@ -240,9 +311,24 @@ func TestSessionManagerValidateReturnsAuthContextAndDoesNotRotateToken(t *testin
 		Return(session, nil).
 		Times(1)
 
-	mockRepository.EXPECT().Update(ctx, newEqSessionMatcher(session)).Return(nil).Times(1)
+	mockRepository.EXPECT().
+		Update(ctx, newEqSessionMatcher(session)).
+		Return(nil).Times(1)
 
-	sessionManager := auth.NewSessionManager(mockRepository, time.Hour, time.Hour, time.Hour)
+	mockClock := mock_core.NewMockClock(ctrl)
+	mockClock.EXPECT().
+		Now().
+		Return(now).
+		AnyTimes()
+
+	sessionManager := auth.NewSessionManager(
+		mockRepository,
+		mockClock,
+		inactiveLifetime,
+		lifetime,
+		tokenRotationInterval,
+	)
+
 	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, token)
 
 	assert.Equal(t, sessionID, authCtx.SessionID)
@@ -255,7 +341,13 @@ func TestSessionManagerValidateReturnsAuthContextAndRotatesToken(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	now := time.Now().Unix()
+	// Sun Jan 01 2023 00:00:00 GMT+0000
+	now := time.Unix(1672527600, 0)
+
+	// Sat Dec 31 2022 00:00:00 GMT+0000
+	rotatedAt := int64(1672444800)
+
+	tokenRotationInterval := 1 * time.Hour
 
 	session := &core.Session{
 		ID:          sessionID,
@@ -263,9 +355,9 @@ func TestSessionManagerValidateReturnsAuthContextAndRotatesToken(t *testing.T) {
 		ClientIP:    clientIp,
 		UserAgent:   userAgent,
 		HashedToken: "someHash",
-		CreatedAt:   now,
-		LastUsedAt:  now,
-		RotatedAt:   1000,
+		CreatedAt:   now.Unix(),
+		LastUsedAt:  now.Unix(),
+		RotatedAt:   rotatedAt,
 	}
 
 	mockRepository := mock_core.NewMockSessionRepository(ctrl)
@@ -276,7 +368,20 @@ func TestSessionManagerValidateReturnsAuthContextAndRotatesToken(t *testing.T) {
 
 	mockRepository.EXPECT().Update(ctx, newEqSessionMatcher(session)).Return(nil).Times(1)
 
-	sessionManager := auth.NewSessionManager(mockRepository, time.Hour, time.Hour, time.Hour)
+	mockClock := mock_core.NewMockClock(ctrl)
+	mockClock.EXPECT().
+		Now().
+		Return(now).
+		AnyTimes()
+
+	sessionManager := auth.NewSessionManager(
+		mockRepository,
+		mockClock,
+		time.Hour,
+		time.Hour,
+		tokenRotationInterval,
+	)
+
 	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, token)
 
 	assert.Equal(t, sessionID, authCtx.SessionID)
@@ -289,7 +394,7 @@ func TestSessionManagerValidateReturnsErrUnexpectedErrorWhenUpdaingSessionFails(
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
-	now := time.Now().Unix()
+	now := time.Now()
 
 	session := &core.Session{
 		ID:          sessionID,
@@ -297,9 +402,9 @@ func TestSessionManagerValidateReturnsErrUnexpectedErrorWhenUpdaingSessionFails(
 		ClientIP:    clientIp,
 		UserAgent:   userAgent,
 		HashedToken: "someHash",
-		CreatedAt:   now,
-		LastUsedAt:  now,
-		RotatedAt:   now,
+		CreatedAt:   now.Unix(),
+		LastUsedAt:  now.Unix(),
+		RotatedAt:   now.Unix(),
 	}
 
 	mockRepository := mock_core.NewMockSessionRepository(ctrl)
@@ -313,7 +418,13 @@ func TestSessionManagerValidateReturnsErrUnexpectedErrorWhenUpdaingSessionFails(
 		Return(errors.New("some unexpected error")).
 		Times(1)
 
-	sessionManager := auth.NewSessionManager(mockRepository, time.Hour, time.Hour, time.Hour)
+	mockClock := mock_core.NewMockClock(ctrl)
+	mockClock.EXPECT().
+		Now().
+		Return(now).
+		AnyTimes()
+
+	sessionManager := auth.NewSessionManager(mockRepository, mockClock, time.Hour, time.Hour, time.Hour)
 	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, token)
 
 	assert.Nil(t, authCtx)

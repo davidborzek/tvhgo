@@ -18,16 +18,19 @@ type sessionManager struct {
 	tokenRotationInterval time.Duration
 
 	sessionRepository core.SessionRepository
+	clock             core.Clock
 }
 
 func NewSessionManager(
 	sessionRepository core.SessionRepository,
+	clock core.Clock,
 	inactiveLifetime time.Duration,
 	lifetime time.Duration,
 	tokenRotationInterval time.Duration,
 ) core.SessionManager {
 	return &sessionManager{
 		sessionRepository:     sessionRepository,
+		clock:                 clock,
 		inactiveLifetime:      inactiveLifetime,
 		lifetime:              lifetime,
 		tokenRotationInterval: tokenRotationInterval,
@@ -91,11 +94,21 @@ func (s *sessionManager) Validate(ctx context.Context, token string) (*core.Auth
 	}
 
 	if session == nil {
-		return nil, nil, core.ErrInvalidOrExpiredToken
+		return nil, nil, core.InvalidOrExpiredTokenError{
+			Reason: core.ErrTokenInvalid,
+		}
 	}
 
-	if isExpired(session.CreatedAt, s.lifetime) || isExpired(session.LastUsedAt, s.inactiveLifetime) {
-		return nil, nil, core.ErrInvalidOrExpiredToken
+	if s.isExpired(session.CreatedAt, s.lifetime) {
+		return nil, nil, core.InvalidOrExpiredTokenError{
+			Reason: core.ErrExpiredTokenLifetime,
+		}
+	}
+
+	if s.isExpired(session.LastUsedAt, s.inactiveLifetime) {
+		return nil, nil, core.InvalidOrExpiredTokenError{
+			Reason: core.ErrExpiredInactiveTokenLifetime,
+		}
 	}
 
 	rotatedToken, err := s.rotateToken(session)
@@ -105,7 +118,7 @@ func (s *sessionManager) Validate(ctx context.Context, token string) (*core.Auth
 		return nil, nil, err
 	}
 
-	session.LastUsedAt = time.Now().Unix()
+	session.LastUsedAt = s.clock.Now().Unix()
 
 	if err := s.sessionRepository.Update(ctx, session); err != nil {
 		log.WithError(err).
@@ -125,19 +138,24 @@ func (s *sessionManager) Validate(ctx context.Context, token string) (*core.Auth
 
 // rotateToken rotates the token if necessary.
 func (s *sessionManager) rotateToken(session *core.Session) (rotatedToken *string, err error) {
-	if isExpired(session.RotatedAt, s.tokenRotationInterval) {
+	if s.isExpired(session.RotatedAt, s.tokenRotationInterval) {
 		token, err := generateToken()
 		if err != nil {
 			return nil, core.ErrUnexpectedError
 		}
 
 		session.HashedToken = hashToken(token)
-		session.RotatedAt = time.Now().Unix()
+		session.RotatedAt = s.clock.Now().Unix()
 
 		rotatedToken = &token
 	}
 
 	return
+}
+
+// isExpired checks if a creation date has expired for a given lifetime.
+func (s *sessionManager) isExpired(creation int64, lifetime time.Duration) bool {
+	return time.Unix(creation, 0).Add(lifetime).Before(s.clock.Now())
 }
 
 // Generates a random 256-bit token.
@@ -156,9 +174,4 @@ func generateToken() (string, error) {
 func hashToken(token string) string {
 	hash := sha256.Sum256([]byte(token))
 	return hex.EncodeToString(hash[:])
-}
-
-// isExpired checks if a creation date has expired for a given lifetime.
-func isExpired(creation int64, lifetime time.Duration) bool {
-	return time.Unix(creation, 0).Add(lifetime).Before(time.Now())
 }
