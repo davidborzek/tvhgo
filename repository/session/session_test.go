@@ -163,3 +163,18 @@ func TestDeleteExpired(t *testing.T) {
 	assert.Nil(t, err)
 	assert.Equal(t, int64(2), rows)
 }
+
+func TestUniqueSessionTokenHash(t *testing.T) {
+	session := &core.Session{
+		UserId:      testUser.ID,
+		HashedToken: "someHashedToken",
+		ClientIP:    "127.0.0.1",
+		UserAgent:   "someUserAgent",
+	}
+
+	err := repository.Create(noCtx, session)
+	assert.Nil(t, err)
+
+	err = repository.Create(noCtx, session)
+	assert.Contains(t, err.Error(), "UNIQUE constraint failed")
+}
