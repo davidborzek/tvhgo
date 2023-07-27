@@ -22,3 +22,4 @@ auth:
     maximum_inactive_lifetime: 168h
     maximum_lifetime: 720h
     token_rotation_interval: 30m
+    cleanup_interval: 12h
