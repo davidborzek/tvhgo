@@ -4,6 +4,7 @@ import (
 	"errors"
 	"os"
 	"path"
+	"strings"
 
 	"github.com/caarlos0/env/v9"
 	log "github.com/sirupsen/logrus"
@@ -16,6 +17,8 @@ type (
 		Tvheadend TvheadendConfig `yaml:"tvheadend" envPrefix:"TVHEADEND_"`
 		Auth      AuthConfig      `yaml:"auth" envPrefix:"AUTH_"`
 		Database  DatabaseConfig  `yaml:"database" envPrefix:"DATABASE_"`
+
+		LogLevel string `yaml:"log_level"`
 	}
 )
 
@@ -95,6 +98,10 @@ func Load() (*Config, error) {
 
 	cfg.loadDefaults()
 
+	log.SetLevel(
+		parseLogLevel(cfg.LogLevel),
+	)
+
 	return &cfg, nil
 }
 
@@ -128,4 +135,28 @@ func (c *Config) loadDefaults() {
 	c.Tvheadend.SetDefaults()
 	c.Auth.Session.SetDefaults()
 	c.Database.SetDefaults()
+
+	if c.LogLevel == "" {
+		c.LogLevel = "info"
+	}
+}
+
+func parseLogLevel(level string) log.Level {
+	switch strings.ToLower(level) {
+	case "debug":
+		return log.DebugLevel
+	case "info":
+		return log.InfoLevel
+	case "warning":
+		return log.WarnLevel
+	case "error":
+		return log.ErrorLevel
+	case "fatal":
+		return log.FatalLevel
+	}
+
+	log.WithField("level", level).
+		Warn("invalid log level provided - falling back to 'info'")
+
+	return log.InfoLevel
 }
