@@ -3,6 +3,7 @@ package session
 import (
 	"context"
 	"database/sql"
+	"fmt"
 
 	"github.com/davidborzek/tvhgo/core"
 )
@@ -27,7 +28,7 @@ func (s *sqlRepository) Find(ctx context.Context, hashedToken string) (*core.Ses
 			return nil, nil
 		}
 
-		return nil, err
+		return nil, fmt.Errorf("failed to query session row: %w", err)
 	}
 
 	return session, nil
@@ -36,7 +37,7 @@ func (s *sqlRepository) Find(ctx context.Context, hashedToken string) (*core.Ses
 func (s *sqlRepository) FindByUser(ctx context.Context, userID int64) ([]*core.Session, error) {
 	rows, err := s.db.QueryContext(ctx, queryByUserID, userID)
 	if err != nil {
-		return nil, err
+		return nil, fmt.Errorf("session FindByUser query failed: %w", err)
 	}
 
 	return scanRows(rows)
@@ -56,12 +57,12 @@ func (s *sqlRepository) Create(ctx context.Context, session *core.Session) error
 	)
 
 	if err != nil {
-		return err
+		return fmt.Errorf("failed to exec session insert: %w", err)
 	}
 
 	id, err := res.LastInsertId()
 	if err != nil {
-		return err
+		return fmt.Errorf("failed retrieve last insert id for session: %w", err)
 	}
 
 	session.ID = id
@@ -81,19 +82,33 @@ func (s *sqlRepository) Update(ctx context.Context, session *core.Session) error
 		session.ID,
 	)
 
-	return err
+	if err != nil {
+		return fmt.Errorf("failed to exec session update: %w", err)
+	}
+
+	return nil
 }
 
 func (s *sqlRepository) Delete(ctx context.Context, sessionID int64, userID int64) error {
 	_, err := s.db.ExecContext(ctx, stmtDelete, sessionID, userID)
-	return err
+
+	if err != nil {
+		return fmt.Errorf("failed to exec session delete: %w", err)
+	}
+
+	return nil
 }
 
 func (s *sqlRepository) DeleteExpired(ctx context.Context, expirationDate int64, inactiveExpirationDate int64) (int64, error) {
 	res, err := s.db.ExecContext(ctx, stmtDeleteExpired, expirationDate, inactiveExpirationDate)
 	if err != nil {
-		return 0, err
+		return 0, fmt.Errorf("failed to exec session delete expired: %w", err)
 	}
 
-	return res.RowsAffected()
+	rows, err := res.RowsAffected()
+	if err != nil {
+		return 0, fmt.Errorf("failed get rows affected count for session delete expired: %w", err)
+	}
+
+	return rows, nil
 }
