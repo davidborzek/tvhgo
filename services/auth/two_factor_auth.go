@@ -5,26 +5,26 @@ import (
 	"errors"
 	"fmt"
 
+	"github.com/davidborzek/tvhgo/config"
 	"github.com/davidborzek/tvhgo/core"
 	"github.com/pquerna/otp/totp"
-)
-
-const (
-	twoFactorIssuer = "tvhgo"
 )
 
 type twoFactorAuthService struct {
 	userRepository              core.UserRepository
 	twoFactorSettingsRepository core.TwoFactorSettingsRepository
+	cfg                         *config.TOTPConfig
 }
 
 func NewTwoFactorAuthService(
 	twoFactorSettingsRepository core.TwoFactorSettingsRepository,
 	userRepository core.UserRepository,
+	cfg *config.TOTPConfig,
 ) core.TwoFactorAuthService {
 	return &twoFactorAuthService{
 		twoFactorSettingsRepository: twoFactorSettingsRepository,
 		userRepository:              userRepository,
+		cfg:                         cfg,
 	}
 }
 
@@ -48,7 +48,7 @@ func (s *twoFactorAuthService) Setup(ctx context.Context, userID int64) (string,
 	}
 
 	key, err := totp.Generate(totp.GenerateOpts{
-		Issuer:      twoFactorIssuer,
+		Issuer:      s.cfg.Issuer,
 		AccountName: user.Username,
 	})
 

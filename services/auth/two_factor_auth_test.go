@@ -4,6 +4,7 @@ import (
 	"testing"
 	"time"
 
+	"github.com/davidborzek/tvhgo/config"
 	"github.com/davidborzek/tvhgo/core"
 	mock_core "github.com/davidborzek/tvhgo/mock/core"
 	"github.com/davidborzek/tvhgo/services/auth"
@@ -15,6 +16,10 @@ import (
 const (
 	totpSecret = "VR52N6Y5EK7DAEBUHAPMJ3KSEDWYMCHC"
 )
+
+var cfg = &config.TOTPConfig{
+	Issuer: "tvhgo",
+}
 
 func TestTwoFactorServiceVerify(t *testing.T) {
 	ctrl := gomock.NewController(t)
@@ -39,6 +44,7 @@ func TestTwoFactorServiceVerify(t *testing.T) {
 	twoFactorService := auth.NewTwoFactorAuthService(
 		mockTwoFactorSettingsRepository,
 		mockUserRepository,
+		cfg,
 	)
 
 	err = twoFactorService.Verify(ctx, userID, &code)
@@ -60,6 +66,7 @@ func TestTwoFactorServiceVerifyWhenTwoFactorIsNotEnabled(t *testing.T) {
 	twoFactorService := auth.NewTwoFactorAuthService(
 		mockTwoFactorSettingsRepository,
 		mockUserRepository,
+		cfg,
 	)
 
 	err := twoFactorService.Verify(ctx, userID, nil)
@@ -74,12 +81,15 @@ func TestTwoFactorServiceVerifyReturnsErrTwoFactorRequired(t *testing.T) {
 	mockTwoFactorSettingsRepository := mock_core.NewMockTwoFactorSettingsRepository(ctrl)
 	mockTwoFactorSettingsRepository.EXPECT().
 		Find(ctx, userID).
-		Return(&core.TwoFactorSettings{}, nil).
+		Return(&core.TwoFactorSettings{
+			Enabled: true,
+		}, nil).
 		Times(1)
 
 	twoFactorService := auth.NewTwoFactorAuthService(
 		mockTwoFactorSettingsRepository,
 		mockUserRepository,
+		cfg,
 	)
 
 	err := twoFactorService.Verify(ctx, userID, nil)
@@ -96,13 +106,15 @@ func TestTwoFactorServiceVerifyReturnsErrTwoFactorCodeInvalid(t *testing.T) {
 	mockTwoFactorSettingsRepository.EXPECT().
 		Find(ctx, userID).
 		Return(&core.TwoFactorSettings{
-			Secret: totpSecret,
+			Enabled: true,
+			Secret:  totpSecret,
 		}, nil).
 		Times(1)
 
 	twoFactorService := auth.NewTwoFactorAuthService(
 		mockTwoFactorSettingsRepository,
 		mockUserRepository,
+		cfg,
 	)
 
 	code := "invalid"
