@@ -23,7 +23,7 @@ type router struct {
 	sessions              core.SessionRepository
 	users                 core.UserRepository
 	passwordAuthenticator core.PasswordAuthenticator
-	twoFactorService      core.TwoFactorService
+	twoFactorService      core.TwoFactorAuthService
 }
 
 var corsOpts = cors.Options{
@@ -45,7 +45,7 @@ func New(
 	sessions core.SessionRepository,
 	users core.UserRepository,
 	passwordAuthenticator core.PasswordAuthenticator,
-	twoFactorService core.TwoFactorService,
+	twoFactorService core.TwoFactorAuthService,
 ) *router {
 	return &router{
 		cfg:                   cfg,
@@ -86,7 +86,9 @@ func (s *router) Handler() http.Handler {
 	authenticated.Patch("/user", s.UpdateUser)
 	authenticated.Patch("/user/password", s.UpdateUserPassword)
 
-	authenticated.Post("/2fa", s.Setup2FA)
+	authenticated.Put("/2fa", s.Setup2FA)
+	authenticated.Put("/2fa/enable", s.Enable2FA)
+	authenticated.Delete("/2fa", s.Deactivate2FA)
 
 	authenticated.Get("/sessions", s.GetSessions)
 	authenticated.Delete("/sessions/{id}", s.DeleteSession)

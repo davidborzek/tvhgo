@@ -10,6 +10,7 @@ func scanRow(scanner repository.Scanner, dest *core.TwoFactorSettings) error {
 	return scanner.Scan(
 		&dest.UserID,
 		&dest.Secret,
+		&dest.Enabled,
 		&dest.CreatedAt,
 		&dest.UpdatedAt,
 	)

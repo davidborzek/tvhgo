@@ -11,6 +11,9 @@ var (
 	ErrTokenInvalid                 = errors.New("token invalid")
 
 	ErrInvalidUsernameOrPassword = errors.New("invalid username or password")
+
+	ErrTwoFactorRequired    = errors.New("two factor auth is required")
+	ErrTwoFactorCodeInvalid = errors.New("invalid two factor code provided")
 )
 
 type (
@@ -37,11 +40,14 @@ type (
 
 	// PasswordAuthenticator defines operations to log in users via login and password.
 	PasswordAuthenticator interface {
-		Login(ctx context.Context, login string, username string) (*User, error)
+		Login(ctx context.Context, login string, username string, totp *string) (*User, error)
 	}
 
-	TwoFactorService interface {
+	TwoFactorAuthService interface {
 		Setup(ctx context.Context, userId int64) (string, error)
+		Deactivate(ctx context.Context, userId int64) error
+		Verify(ctx context.Context, userId int64, code *string) error
+		Enable(ctx context.Context, userID int64, code string) error
 	}
 )
 

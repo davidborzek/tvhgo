@@ -63,8 +63,9 @@ func TestFindReturnsNil(t *testing.T) {
 
 func TestCreate(t *testing.T) {
 	settings := &core.TwoFactorSettings{
-		UserID: testUser.ID,
-		Secret: "someSecret",
+		UserID:  testUser.ID,
+		Secret:  "someSecret",
+		Enabled: true,
 	}
 	err := repository.Create(noCtx, settings)
 

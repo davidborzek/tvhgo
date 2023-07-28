@@ -7,6 +7,7 @@ type (
 	TwoFactorSettings struct {
 		UserID    int64
 		Secret    string
+		Enabled   bool
 		CreatedAt int64
 		UpdatedAt int64
 	}
@@ -21,5 +22,7 @@ type (
 
 		// Delete deletes two factor settings.
 		Delete(ctx context.Context, settings *TwoFactorSettings) error
+
+		UpdateEnabled(ctx context.Context, settings *TwoFactorSettings) error
 	}
 )

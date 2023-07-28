@@ -16,8 +16,9 @@ var (
 )
 
 type loginRequest struct {
-	Username string `json:"username"`
-	Password string `json:"password"`
+	Username string  `json:"username"`
+	Password string  `json:"password"`
+	TOTP     *string `json:"totp"`
 }
 
 type loginResponse struct {
@@ -49,6 +50,7 @@ func (s *router) Login(w http.ResponseWriter, r *http.Request) {
 		r.Context(),
 		in.Username,
 		in.Password,
+		in.TOTP,
 	)
 
 	addr := request.RemoteAddr(r)
@@ -59,6 +61,11 @@ func (s *router) Login(w http.ResponseWriter, r *http.Request) {
 				WithField("username", in.Username).
 				Error("login failed: invalid username or password")
 
+			response.Unauthorized(w, err)
+			return
+		}
+
+		if err == core.ErrTwoFactorRequired || err == core.ErrTwoFactorCodeInvalid {
 			response.Unauthorized(w, err)
 			return
 		}
