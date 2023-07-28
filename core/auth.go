@@ -14,6 +14,9 @@ var (
 
 	ErrTwoFactorRequired    = errors.New("two factor auth is required")
 	ErrTwoFactorCodeInvalid = errors.New("invalid two factor code provided")
+
+	ErrTwoFactorAuthAlreadyEnabled = errors.New("two factor auth is already enabled")
+	ErrTwoFactorAuthNotEnabled     = errors.New("two factor auth is not enabled")
 )
 
 type (
@@ -44,10 +47,11 @@ type (
 	}
 
 	TwoFactorAuthService interface {
+		GetSettings(ctx context.Context, userId int64) (*TwoFactorSettings, error)
 		Setup(ctx context.Context, userId int64) (string, error)
 		Deactivate(ctx context.Context, userId int64) error
+		Activate(ctx context.Context, userID int64, code string) error
 		Verify(ctx context.Context, userId int64, code *string) error
-		Enable(ctx context.Context, userID int64, code string) error
 	}
 )
 

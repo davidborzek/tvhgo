@@ -58,3 +58,9 @@ func BadRequestf(w http.ResponseWriter, format string, a ...any) {
 func NotFound(w http.ResponseWriter, err error) {
 	Error(w, err, 404)
 }
+
+// Conflict writes the json encoded error message to the response
+// with 409 conflict status code.
+func Conflict(w http.ResponseWriter, err error) {
+	Error(w, err, 409)
+}

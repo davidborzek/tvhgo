@@ -5,11 +5,11 @@ import "context"
 type (
 	// TwoFactorSettings defines the two factor settings of a user.
 	TwoFactorSettings struct {
-		UserID    int64
-		Secret    string
-		Enabled   bool
-		CreatedAt int64
-		UpdatedAt int64
+		UserID    int64  `json:"-"`
+		Secret    string `json:"-"`
+		Enabled   bool   `json:"enabled"`
+		CreatedAt int64  `json:"createdAt"`
+		UpdatedAt int64  `json:"updatedAt"`
 	}
 
 	// TwoFactorSettingsRepository defines CRUD operations working with TwoFactorSettings.

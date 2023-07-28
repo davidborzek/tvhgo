@@ -293,6 +293,20 @@ func (m *MockTwoFactorAuthService) EXPECT() *MockTwoFactorAuthServiceMockRecorde
 	return m.recorder
 }
 
+// Activate mocks base method.
+func (m *MockTwoFactorAuthService) Activate(arg0 context.Context, arg1 int64, arg2 string) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Activate", arg0, arg1, arg2)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Activate indicates an expected call of Activate.
+func (mr *MockTwoFactorAuthServiceMockRecorder) Activate(arg0, arg1, arg2 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Activate", reflect.TypeOf((*MockTwoFactorAuthService)(nil).Activate), arg0, arg1, arg2)
+}
+
 // Deactivate mocks base method.
 func (m *MockTwoFactorAuthService) Deactivate(arg0 context.Context, arg1 int64) error {
 	m.ctrl.T.Helper()
@@ -307,18 +321,19 @@ func (mr *MockTwoFactorAuthServiceMockRecorder) Deactivate(arg0, arg1 interface{
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Deactivate", reflect.TypeOf((*MockTwoFactorAuthService)(nil).Deactivate), arg0, arg1)
 }
 
-// Enable mocks base method.
-func (m *MockTwoFactorAuthService) Enable(arg0 context.Context, arg1 int64, arg2 string) error {
+// GetSettings mocks base method.
+func (m *MockTwoFactorAuthService) GetSettings(arg0 context.Context, arg1 int64) (*core.TwoFactorSettings, error) {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Enable", arg0, arg1, arg2)
-	ret0, _ := ret[0].(error)
-	return ret0
+	ret := m.ctrl.Call(m, "GetSettings", arg0, arg1)
+	ret0, _ := ret[0].(*core.TwoFactorSettings)
+	ret1, _ := ret[1].(error)
+	return ret0, ret1
 }
 
-// Enable indicates an expected call of Enable.
-func (mr *MockTwoFactorAuthServiceMockRecorder) Enable(arg0, arg1, arg2 interface{}) *gomock.Call {
+// GetSettings indicates an expected call of GetSettings.
+func (mr *MockTwoFactorAuthServiceMockRecorder) GetSettings(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Enable", reflect.TypeOf((*MockTwoFactorAuthService)(nil).Enable), arg0, arg1, arg2)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetSettings", reflect.TypeOf((*MockTwoFactorAuthService)(nil).GetSettings), arg0, arg1)
 }
 
 // Setup mocks base method.

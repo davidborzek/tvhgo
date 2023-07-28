@@ -86,9 +86,10 @@ func (s *router) Handler() http.Handler {
 	authenticated.Patch("/user", s.UpdateUser)
 	authenticated.Patch("/user/password", s.UpdateUserPassword)
 
-	authenticated.Put("/2fa", s.Setup2FA)
-	authenticated.Put("/2fa/enable", s.Enable2FA)
-	authenticated.Delete("/2fa", s.Deactivate2FA)
+	authenticated.Get("/two-factor-auth", s.GetTwoFactorAuthSettings)
+	authenticated.Put("/two-factor-auth/setup", s.SetupTwoFactorAuth)
+	authenticated.Put("/two-factor-auth/activate", s.ActivateTwoFactorAuth)
+	authenticated.Put("/two-factor-auth/deactivate", s.DeactivateTwoFactorAuth)
 
 	authenticated.Get("/sessions", s.GetSessions)
 	authenticated.Delete("/sessions/{id}", s.DeleteSession)
