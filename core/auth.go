@@ -49,7 +49,7 @@ type (
 	TwoFactorAuthService interface {
 		GetSettings(ctx context.Context, userId int64) (*TwoFactorSettings, error)
 		Setup(ctx context.Context, userId int64) (string, error)
-		Deactivate(ctx context.Context, userId int64) error
+		Deactivate(ctx context.Context, userId int64, code string) error
 		Activate(ctx context.Context, userID int64, code string) error
 		Verify(ctx context.Context, userId int64, code *string) error
 	}

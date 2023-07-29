@@ -101,19 +101,19 @@ export const useDeactivateTwoFactorAuth = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   return {
-    deactivateTwoFactorAuth: async (password: string) => {
+    deactivateTwoFactorAuth: async (code: string) => {
       dismissNotification();
       setLoading(true);
 
-      return await deactivateTwoFactorAuth(password)
+      return await deactivateTwoFactorAuth(code)
         .then(() => notifySuccess(t('two_factor_auth_successfully_disabled')))
         .catch((error) => {
           if (
             error instanceof ApiError &&
             error.code === 400 &&
-            error.message === 'confirmation password is invalid'
+            error.message === 'invalid two factor code provided'
           ) {
-            notifyError(t('invalid_current_password'));
+            notifyError(t('invalid_verification_code'));
           } else {
             notifyError(t('unexpected'));
           }

@@ -27,16 +27,16 @@ const TwoFactorAuthDisableModal = ({ visible, onClose, onFinish }: Props) => {
   };
 
   const validationSchema = Yup.object().shape({
-    password: Yup.string().required(t('password_required') || ''),
+    code: Yup.string().required(t('verification_code_required') || ''),
   });
 
   const formik = useFormik({
     initialValues: {
-      password: '',
+      code: '',
     },
     validationSchema,
-    onSubmit: ({ password }) => {
-      deactivateTwoFactorAuth(password).then(() => {
+    onSubmit: ({ code }) => {
+      deactivateTwoFactorAuth(code).then(() => {
         onFinish();
         close();
       });
@@ -58,15 +58,12 @@ const TwoFactorAuthDisableModal = ({ visible, onClose, onFinish }: Props) => {
             info={t('two_factor_auth_disable_info')}
           >
             <Input
-              name="password"
-              label={t('password')}
-              type="password"
-              value={formik.values.password}
+              name="code"
+              label={t('verification_code')}
+              value={formik.values.code}
               onBlur={formik.handleBlur}
               onChange={formik.handleChange}
-              error={
-                formik.touched.password ? formik.errors.password : undefined
-              }
+              error={formik.touched.code ? formik.errors.code : undefined}
               fullWidth
             />
             <Button

@@ -230,9 +230,9 @@ export async function getTwoFactorAuthSettings(): Promise<TwoFactorAuthSettings>
   return response.data;
 }
 
-export async function deactivateTwoFactorAuth(password: string): Promise<void> {
+export async function deactivateTwoFactorAuth(code: string): Promise<void> {
   await client.put(`/two-factor-auth/deactivate`, {
-    password,
+    code,
   });
 }
 

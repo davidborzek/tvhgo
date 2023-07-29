@@ -75,7 +75,7 @@ func (s *twoFactorAuthService) Setup(ctx context.Context, userID int64) (string,
 	return key.URL(), nil
 }
 
-func (s *twoFactorAuthService) Deactivate(ctx context.Context, userID int64) error {
+func (s *twoFactorAuthService) Deactivate(ctx context.Context, userID int64, code string) error {
 	settings, err := s.twoFactorSettingsRepository.Find(ctx, userID)
 	if err != nil {
 		return fmt.Errorf("two factor service failed search for existing settings %w", err)
@@ -83,6 +83,10 @@ func (s *twoFactorAuthService) Deactivate(ctx context.Context, userID int64) err
 
 	if settings == nil {
 		return core.ErrTwoFactorAuthNotEnabled
+	}
+
+	if !totp.Validate(code, settings.Secret) {
+		return core.ErrTwoFactorCodeInvalid
 	}
 
 	if err := s.twoFactorSettingsRepository.Delete(ctx, settings); err != nil {

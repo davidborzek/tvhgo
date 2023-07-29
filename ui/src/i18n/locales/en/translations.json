@@ -94,7 +94,7 @@
   "success": "Success",
   "today": "Today",
   "two_factor_auth": "Two Factor Authentication",
-  "two_factor_auth_disable_info": "Enter your password to disable two factor authentication.",
+  "two_factor_auth_disable_info": "Enter the code from your two-factor authenticator app to disable two factor authentication.",
   "two_factor_auth_info": "Enter the code from your two-factor authenticator app.",
   "two_factor_auth_setup_info": "Enter your password to enable two factor authentication.",
   "two_factor_auth_successfully_disabled": "Two Factor Authentication successfully disabled.",

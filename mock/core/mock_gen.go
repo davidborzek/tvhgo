@@ -308,17 +308,17 @@ func (mr *MockTwoFactorAuthServiceMockRecorder) Activate(arg0, arg1, arg2 interf
 }
 
 // Deactivate mocks base method.
-func (m *MockTwoFactorAuthService) Deactivate(arg0 context.Context, arg1 int64) error {
+func (m *MockTwoFactorAuthService) Deactivate(arg0 context.Context, arg1 int64, arg2 string) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "Deactivate", arg0, arg1)
+	ret := m.ctrl.Call(m, "Deactivate", arg0, arg1, arg2)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
 // Deactivate indicates an expected call of Deactivate.
-func (mr *MockTwoFactorAuthServiceMockRecorder) Deactivate(arg0, arg1 interface{}) *gomock.Call {
+func (mr *MockTwoFactorAuthServiceMockRecorder) Deactivate(arg0, arg1, arg2 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Deactivate", reflect.TypeOf((*MockTwoFactorAuthService)(nil).Deactivate), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Deactivate", reflect.TypeOf((*MockTwoFactorAuthService)(nil).Deactivate), arg0, arg1, arg2)
 }
 
 // GetSettings mocks base method.

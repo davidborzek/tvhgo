@@ -90,7 +90,7 @@
   "success": "Erfolgreich",
   "today": "Heute",
   "two_factor_auth": "Zwei-Faktor-Authentifizierung",
-  "two_factor_auth_disable_info": "Geben Sie Ihr Passwort ein, um die Zwei-Faktor-Authentifizierung zu deaktivieren.",
+  "two_factor_auth_disable_info": "Geben Sie den Code aus Ihrer Zwei-Faktor-Authentifizierungs-App ein, um die Zwei-Faktor-Authentifizierung zu deaktivieren.",
   "two_factor_auth_info": "Geben Sie den Code aus Ihrer Zwei-Faktor-Authentifizierungs-App ein.",
   "two_factor_auth_setup_info": "Geben Sie Ihr Passwort ein, um die Zwei-Faktor-Authentifizierung zu aktivieren.",
   "two_factor_auth_successfully_disabled": "Zwei-Faktor-Authentifizierung erfolgreich deaktiviert.",

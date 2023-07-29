@@ -13,12 +13,16 @@ type twoFactorAuthSetupResponse struct {
 	URL string `json:"url"`
 }
 
-type twoFactorAuthBaseRequest struct {
+type twoFactorAuthSetupRequest struct {
 	Password string `json:"password"`
 }
 
 type twoFactorAuthActivateRequest struct {
-	twoFactorAuthBaseRequest
+	Password string `json:"password"`
+	Code     string `json:"code"`
+}
+
+type twoFactorAuthDeactivateRequest struct {
 	Code string `json:"code"`
 }
 
@@ -29,7 +33,7 @@ func (s *router) SetupTwoFactorAuth(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	var in twoFactorAuthBaseRequest
+	var in twoFactorAuthSetupRequest
 	if err := request.BindJSON(r, &in); err != nil {
 		response.BadRequest(w, err)
 		return
@@ -116,25 +120,20 @@ func (s *router) DeactivateTwoFactorAuth(w http.ResponseWriter, r *http.Request)
 		return
 	}
 
-	var in twoFactorAuthBaseRequest
+	var in twoFactorAuthDeactivateRequest
 	if err := request.BindJSON(r, &in); err != nil {
 		response.BadRequest(w, err)
 		return
 	}
 
-	if err := s.confirmPassword(r.Context(), ctx.UserID, in.Password); err != nil {
-		if err == errTwoFactorConfirmationPasswordInvalid {
-			response.BadRequest(w, err)
-		} else {
-			response.InternalErrorCommon(w)
-		}
-
-		return
-	}
-
-	if err := s.twoFactorService.Deactivate(r.Context(), ctx.UserID); err != nil {
+	if err := s.twoFactorService.Deactivate(r.Context(), ctx.UserID, in.Code); err != nil {
 		if err == core.ErrTwoFactorAuthNotEnabled {
 			response.Conflict(w, err)
+			return
+		}
+
+		if err == core.ErrTwoFactorCodeInvalid {
+			response.BadRequest(w, err)
 			return
 		}
 
