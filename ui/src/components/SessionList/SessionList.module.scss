@@ -1,12 +1,7 @@
 .SessionList {
   display: flex;
   flex-direction: column;
-
-  h2 {
-    margin: 0;
-    margin-bottom: 1rem;
-    font-weight: 500;
-  }
+  gap: 1rem;
 }
 
 .table {

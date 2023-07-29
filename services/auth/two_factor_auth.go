@@ -10,6 +10,7 @@ import (
 	"github.com/pquerna/otp/totp"
 )
 
+// TODO: refactor errors
 type twoFactorAuthService struct {
 	userRepository              core.UserRepository
 	twoFactorSettingsRepository core.TwoFactorSettingsRepository
@@ -29,15 +30,6 @@ func NewTwoFactorAuthService(
 }
 
 func (s *twoFactorAuthService) Setup(ctx context.Context, userID int64) (string, error) {
-	existingSettings, err := s.twoFactorSettingsRepository.Find(ctx, userID)
-	if err != nil {
-		return "", fmt.Errorf("two factor service failed search for existing settings %w", err)
-	}
-
-	if existingSettings != nil {
-		return "", core.ErrTwoFactorAuthAlreadyEnabled
-	}
-
 	user, err := s.userRepository.FindById(ctx, userID)
 	if err != nil {
 		return "", fmt.Errorf("two factor service failed to find user by id %w", err)
@@ -45,6 +37,20 @@ func (s *twoFactorAuthService) Setup(ctx context.Context, userID int64) (string,
 
 	if user == nil {
 		return "", fmt.Errorf("two factor service could not find user with id %d", userID)
+	}
+
+	existingSettings, err := s.twoFactorSettingsRepository.Find(ctx, userID)
+	if err != nil {
+		return "", fmt.Errorf("two factor service failed search for existing settings %w", err)
+	}
+
+	if existingSettings != nil {
+		if existingSettings.Enabled {
+			return "", core.ErrTwoFactorAuthAlreadyEnabled
+		}
+
+		// TODO: this or generate new secret and update database?
+		return buildTotpUrl(s.cfg.Issuer, user.Username, existingSettings.Secret), nil
 	}
 
 	key, err := totp.Generate(totp.GenerateOpts{
@@ -137,8 +143,14 @@ func (s *twoFactorAuthService) GetSettings(ctx context.Context, userID int64) (*
 	}
 
 	if settings == nil {
-		return nil, errors.New("no two factor settings found")
+		return &core.TwoFactorSettings{
+			Enabled: false,
+		}, nil
 	}
 
 	return settings, nil
+}
+
+func buildTotpUrl(issuer string, username string, secret string) string {
+	return fmt.Sprintf("otpauth://totp/%s:%s?algorithm=SHA1&digits=6&issuer=%s&period=30&secret=%s", issuer, username, issuer, secret)
 }

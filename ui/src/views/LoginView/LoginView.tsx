@@ -53,10 +53,7 @@ export default function LoginView() {
   const renderTwoFactorForm = () => {
     return (
       <FormCard onSubmit={twoFactorFormik.handleSubmit}>
-        <FormGroup
-          info={t('two_factor_auth_info')}
-          direction="column"
-        >
+        <FormGroup info={t('two_factor_auth_info')} direction="column">
           <Input
             type="text"
             name="code"

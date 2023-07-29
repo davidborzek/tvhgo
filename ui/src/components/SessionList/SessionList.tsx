@@ -5,6 +5,7 @@ import { useTranslation } from 'react-i18next';
 import Button from '../Button/Button';
 import { Close } from '../../assets';
 import { useLoading } from '../../contexts/LoadingContext';
+import Headline from '../Headline/Headline';
 
 type Props = {
   sessions: Session[];
@@ -56,7 +57,7 @@ const SessionList = (props: Props) => {
 
   return (
     <div className={styles.SessionList}>
-      <h2>{t('sessions')}</h2>
+      <Headline>{t('sessions')}</Headline>
       <div className={styles.tableContainer}>
         <table className={styles.table}>
           <thead>

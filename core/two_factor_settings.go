@@ -8,8 +8,8 @@ type (
 		UserID    int64  `json:"-"`
 		Secret    string `json:"-"`
 		Enabled   bool   `json:"enabled"`
-		CreatedAt int64  `json:"createdAt"`
-		UpdatedAt int64  `json:"updatedAt"`
+		CreatedAt int64  `json:"-"`
+		UpdatedAt int64  `json:"-"`
 	}
 
 	// TwoFactorSettingsRepository defines CRUD operations working with TwoFactorSettings.

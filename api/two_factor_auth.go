@@ -93,6 +93,11 @@ func (s *router) ActivateTwoFactorAuth(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
+		if err == core.ErrTwoFactorCodeInvalid {
+			response.BadRequest(w, err)
+			return
+		}
+
 		log.WithError(err).
 			WithField("userId", ctx.UserID).
 			Error("failed to activate two factor auth")
