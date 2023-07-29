@@ -10,7 +10,10 @@ import (
 	"github.com/pquerna/otp/totp"
 )
 
-// TODO: refactor errors
+var (
+	errTwoFactorServiceUserNotFound = errors.New("two factor service: user not found")
+)
+
 type twoFactorAuthService struct {
 	userRepository              core.UserRepository
 	twoFactorSettingsRepository core.TwoFactorSettingsRepository
@@ -32,16 +35,16 @@ func NewTwoFactorAuthService(
 func (s *twoFactorAuthService) Setup(ctx context.Context, userID int64) (string, error) {
 	user, err := s.userRepository.FindById(ctx, userID)
 	if err != nil {
-		return "", fmt.Errorf("two factor service failed to find user by id %w", err)
+		return "", err
 	}
 
 	if user == nil {
-		return "", fmt.Errorf("two factor service could not find user with id %d", userID)
+		return "", errTwoFactorServiceUserNotFound
 	}
 
 	existingSettings, err := s.twoFactorSettingsRepository.Find(ctx, userID)
 	if err != nil {
-		return "", fmt.Errorf("two factor service failed search for existing settings %w", err)
+		return "", err
 	}
 
 	if existingSettings != nil {
@@ -59,7 +62,7 @@ func (s *twoFactorAuthService) Setup(ctx context.Context, userID int64) (string,
 	})
 
 	if err != nil {
-		return "", fmt.Errorf("two factor service failed to generate totp secret: %w", err)
+		return "", err
 	}
 
 	twoFactorSettings := &core.TwoFactorSettings{
@@ -69,7 +72,7 @@ func (s *twoFactorAuthService) Setup(ctx context.Context, userID int64) (string,
 	}
 
 	if err := s.twoFactorSettingsRepository.Create(ctx, twoFactorSettings); err != nil {
-		return "", fmt.Errorf("two factor service failed persist two factor settings: %w", err)
+		return "", err
 	}
 
 	return key.URL(), nil
@@ -78,7 +81,7 @@ func (s *twoFactorAuthService) Setup(ctx context.Context, userID int64) (string,
 func (s *twoFactorAuthService) Deactivate(ctx context.Context, userID int64, code string) error {
 	settings, err := s.twoFactorSettingsRepository.Find(ctx, userID)
 	if err != nil {
-		return fmt.Errorf("two factor service failed search for existing settings %w", err)
+		return err
 	}
 
 	if settings == nil {
@@ -90,7 +93,7 @@ func (s *twoFactorAuthService) Deactivate(ctx context.Context, userID int64, cod
 	}
 
 	if err := s.twoFactorSettingsRepository.Delete(ctx, settings); err != nil {
-		return fmt.Errorf("failed to delete two factor settings: %w", err)
+		return err
 	}
 
 	return nil
@@ -99,7 +102,7 @@ func (s *twoFactorAuthService) Deactivate(ctx context.Context, userID int64, cod
 func (s *twoFactorAuthService) Verify(ctx context.Context, userID int64, code *string) error {
 	settings, err := s.twoFactorSettingsRepository.Find(ctx, userID)
 	if err != nil {
-		return fmt.Errorf("two factor service failed search for existing settings %w", err)
+		return err
 	}
 
 	if settings == nil || !settings.Enabled {
@@ -120,11 +123,11 @@ func (s *twoFactorAuthService) Verify(ctx context.Context, userID int64, code *s
 func (s *twoFactorAuthService) Activate(ctx context.Context, userID int64, code string) error {
 	settings, err := s.twoFactorSettingsRepository.Find(ctx, userID)
 	if err != nil {
-		return fmt.Errorf("two factor service failed search for existing settings %w", err)
+		return err
 	}
 
 	if settings == nil {
-		return errors.New("no two factor settings found")
+		return core.ErrTwoFactorAuthSetupNotRunning
 	}
 
 	if settings.Enabled {
@@ -143,7 +146,7 @@ func (s *twoFactorAuthService) Activate(ctx context.Context, userID int64, code 
 func (s *twoFactorAuthService) GetSettings(ctx context.Context, userID int64) (*core.TwoFactorSettings, error) {
 	settings, err := s.twoFactorSettingsRepository.Find(ctx, userID)
 	if err != nil {
-		return nil, fmt.Errorf("two factor service failed find settings %w", err)
+		return nil, err
 	}
 
 	if settings == nil {

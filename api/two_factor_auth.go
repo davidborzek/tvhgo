@@ -92,7 +92,7 @@ func (s *router) ActivateTwoFactorAuth(w http.ResponseWriter, r *http.Request) {
 
 	err := s.twoFactorService.Activate(r.Context(), ctx.UserID, in.Code)
 	if err != nil {
-		if err == core.ErrTwoFactorAuthAlreadyEnabled {
+		if err == core.ErrTwoFactorAuthAlreadyEnabled || err == core.ErrTwoFactorAuthSetupNotRunning {
 			response.Conflict(w, err)
 			return
 		}
