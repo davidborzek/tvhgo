@@ -8,6 +8,7 @@ import Error from '../../components/Error/Error';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { usePagination } from '../../hooks/pagination';
 import PaginationControls from '../../components/PaginationControls/PaginationControls';
+import EmptyState from '../../components/EmptyState/EmptyState';
 
 const defaultLimit = 50;
 
@@ -37,6 +38,12 @@ function ChannelListView() {
   }, [events, searchParams]);
 
   const renderChannels = () => {
+    if (events.length === 0) {
+      return (
+        <EmptyState title={t('no_channels')} subtitle={t('no_channels_info')} />
+      );
+    }
+
     return events.map((event) => {
       return (
         <ChannelListItem

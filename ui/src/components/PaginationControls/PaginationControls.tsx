@@ -20,6 +20,10 @@ const PaginationControls = (props: Props) => {
     return next > props.total ? props.total : next;
   };
 
+  if (props.total === 0) {
+    return <></>;
+  }
+
   return (
     <div className={styles.controls}>
       <PaginationControlButton

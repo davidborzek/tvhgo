@@ -15,6 +15,7 @@ import DeleteConfirmationModal from '../../components/DeleteConfirmationModal/De
 import { usePagination } from '../../hooks/pagination';
 import PaginationControls from '../../components/PaginationControls/PaginationControls';
 import { useLoading } from '../../contexts/LoadingContext';
+import EmptyState from '../../components/EmptyState/EmptyState';
 
 const defaultLimit = 50;
 
@@ -75,7 +76,7 @@ function RecordingsView() {
 
   const renderRecordings = () => {
     if (recordings.length === 0) {
-      return <div className={styles.emptyState}>{t('no_recordings')}</div>;
+      return <EmptyState title={t('no_recordings')} />;
     }
 
     return recordings.map((recording) => (

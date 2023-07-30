@@ -10,6 +10,8 @@ import GuideControls from '../../components/Guide/GuideControls/GuideControls';
 import Error from '../../components/Error/Error';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { c } from '../../utils/classNames';
+import EmptyState from '../../components/EmptyState/EmptyState';
+import { useTranslation } from 'react-i18next';
 
 const parseStartDate = (start?: string | null) => {
   if (!start || start === 'today') {
@@ -58,6 +60,7 @@ function GuideView() {
   const navigate = useNavigate();
   const containerRef = useRef<HTMLDivElement>(null);
   const [searchParams, setSearchParams] = useSearchParams();
+  const { t } = useTranslation();
 
   const { events, setStartsAt, setEndsAt, error } = useFetchEpg({
     startsAt: parseStartDate(searchParams.get('day')),
@@ -250,7 +253,11 @@ function GuideView() {
         </div>
       </div>
 
-      <div className={styles.segment}>{renderEventColumns()}</div>
+      {events.length == 0 ? (
+        <EmptyState title={t('no_epg')} />
+      ) : (
+        <div className={styles.segment}>{renderEventColumns()}</div>
+      )}
     </div>
   );
 }
