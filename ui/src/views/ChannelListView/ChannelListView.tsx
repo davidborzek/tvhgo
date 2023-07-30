@@ -71,10 +71,7 @@ function ChannelListView() {
 
   return (
     <div ref={ref} className={styles.container}>
-      <div className={styles.channelList}>
-        <h1>{t('channels')}</h1>
-        {renderChannels()}
-      </div>
+      <div className={styles.channelList}>{renderChannels()}</div>
       <PaginationControls
         onNextPage={nextPage}
         onPreviousPage={previousPage}
