@@ -67,11 +67,12 @@ func TestCreate(t *testing.T) {
 		Secret:  "someSecret",
 		Enabled: true,
 	}
-	err := repository.Create(noCtx, settings)
+	err := repository.Save(noCtx, settings)
 
 	assert.Nil(t, err)
 
 	t.Run("Find", testFind(settings))
+	t.Run("Update", testUpdate(settings))
 	t.Run("Delete", testDelete(settings))
 }
 
@@ -81,6 +82,28 @@ func testFind(created *core.TwoFactorSettings) func(t *testing.T) {
 
 		assert.Nil(t, err)
 		assert.Equal(t, created, settings)
+	}
+}
+
+func testUpdate(created *core.TwoFactorSettings) func(t *testing.T) {
+	return func(t *testing.T) {
+		err := repository.Save(noCtx,
+			&core.TwoFactorSettings{
+				UserID:  created.UserID,
+				Secret:  "newSecret",
+				Enabled: false,
+			},
+		)
+
+		assert.Nil(t, err)
+
+		settings, err := repository.Find(noCtx, created.UserID)
+		assert.Nil(t, err)
+
+		assert.False(t, settings.Enabled)
+		assert.Equal(t, "newSecret", settings.Secret)
+
+		assert.NotEqual(t, 0, settings.UpdatedAt)
 	}
 }
 
