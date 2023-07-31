@@ -174,3 +174,216 @@ func TestGetSettingsReturnsError(t *testing.T) {
 	assert.Nil(t, settings)
 	assert.NotNil(t, err)
 }
+
+func TestGetSettingsReturnsDefaultWhenNoSettingsArePresent(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockUserRepository := mock_core.NewMockUserRepository(ctrl)
+	mockTwoFactorSettingsRepository := mock_core.NewMockTwoFactorSettingsRepository(ctrl)
+
+	mockTwoFactorSettingsRepository.EXPECT().
+		Find(ctx, userID).
+		Return(nil, nil).
+		Times(1)
+
+	twoFactorService := auth.NewTwoFactorAuthService(
+		mockTwoFactorSettingsRepository,
+		mockUserRepository,
+		cfg,
+	)
+
+	settings, err := twoFactorService.GetSettings(ctx, userID)
+	assert.False(t, settings.Enabled)
+	assert.Nil(t, err)
+}
+
+func TestSetupGeneratesAndPersistTOTPSecret(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockUserRepository := mock_core.NewMockUserRepository(ctrl)
+	mockTwoFactorSettingsRepository := mock_core.NewMockTwoFactorSettingsRepository(ctrl)
+
+	mockUserRepository.EXPECT().
+		FindById(ctx, userID).
+		Return(&core.User{
+			ID:       userID,
+			Username: username,
+		}, nil).
+		Times(1)
+
+	mockTwoFactorSettingsRepository.EXPECT().
+		Save(ctx, gomock.Any()).
+		Return(nil).
+		Times(1)
+
+	twoFactorService := auth.NewTwoFactorAuthService(
+		mockTwoFactorSettingsRepository,
+		mockUserRepository,
+		cfg,
+	)
+
+	url, err := twoFactorService.Setup(ctx, userID)
+	assert.Contains(t, url, "otpauth://")
+	assert.Contains(t, url, username)
+	assert.Nil(t, err)
+}
+
+func TestDeactivate(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockUserRepository := mock_core.NewMockUserRepository(ctrl)
+	mockTwoFactorSettingsRepository := mock_core.NewMockTwoFactorSettingsRepository(ctrl)
+
+	settings := &core.TwoFactorSettings{
+		UserID: userID,
+		Secret: totpSecret,
+	}
+
+	mockTwoFactorSettingsRepository.EXPECT().
+		Find(ctx, userID).
+		Return(settings, nil).
+		Times(1)
+
+	mockTwoFactorSettingsRepository.EXPECT().
+		Delete(ctx, settings).
+		Return(nil).
+		Times(1)
+
+	twoFactorService := auth.NewTwoFactorAuthService(
+		mockTwoFactorSettingsRepository,
+		mockUserRepository,
+		cfg,
+	)
+
+	code, err := totp.GenerateCode(totpSecret, time.Now())
+	if err != nil {
+		assert.Nil(t, err)
+		return
+	}
+
+	err = twoFactorService.Deactivate(ctx, userID, code)
+	assert.Nil(t, err)
+}
+
+func TestDeactivateReturnsErrTwoFactorCodeInvalid(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockUserRepository := mock_core.NewMockUserRepository(ctrl)
+	mockTwoFactorSettingsRepository := mock_core.NewMockTwoFactorSettingsRepository(ctrl)
+
+	settings := &core.TwoFactorSettings{
+		UserID: userID,
+		Secret: totpSecret,
+	}
+
+	mockTwoFactorSettingsRepository.EXPECT().
+		Find(ctx, userID).
+		Return(settings, nil).
+		Times(1)
+
+	twoFactorService := auth.NewTwoFactorAuthService(
+		mockTwoFactorSettingsRepository,
+		mockUserRepository,
+		cfg,
+	)
+
+	err := twoFactorService.Deactivate(ctx, userID, "invalid")
+	assert.ErrorIs(t, err, core.ErrTwoFactorCodeInvalid)
+}
+
+func TestActivate(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockUserRepository := mock_core.NewMockUserRepository(ctrl)
+	mockTwoFactorSettingsRepository := mock_core.NewMockTwoFactorSettingsRepository(ctrl)
+
+	settings := &core.TwoFactorSettings{
+		UserID: userID,
+		Secret: totpSecret,
+	}
+
+	mockTwoFactorSettingsRepository.EXPECT().
+		Find(ctx, userID).
+		Return(settings, nil).
+		Times(1)
+
+	mockTwoFactorSettingsRepository.EXPECT().
+		Update(ctx, settings).
+		Return(nil).
+		Times(1)
+
+	twoFactorService := auth.NewTwoFactorAuthService(
+		mockTwoFactorSettingsRepository,
+		mockUserRepository,
+		cfg,
+	)
+
+	code, err := totp.GenerateCode(totpSecret, time.Now())
+	if err != nil {
+		assert.Nil(t, err)
+		return
+	}
+
+	err = twoFactorService.Activate(ctx, userID, code)
+	assert.Nil(t, err)
+}
+
+func TestActivateReturnsErrTwoFactorCodeInvalid(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockUserRepository := mock_core.NewMockUserRepository(ctrl)
+	mockTwoFactorSettingsRepository := mock_core.NewMockTwoFactorSettingsRepository(ctrl)
+
+	settings := &core.TwoFactorSettings{
+		UserID: userID,
+		Secret: totpSecret,
+	}
+
+	mockTwoFactorSettingsRepository.EXPECT().
+		Find(ctx, userID).
+		Return(settings, nil).
+		Times(1)
+
+	twoFactorService := auth.NewTwoFactorAuthService(
+		mockTwoFactorSettingsRepository,
+		mockUserRepository,
+		cfg,
+	)
+
+	err := twoFactorService.Activate(ctx, userID, "invalid")
+	assert.ErrorIs(t, err, core.ErrTwoFactorCodeInvalid)
+}
+
+func TestActivateReturnsErrTwoFactorAuthAlreadyEnabled(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockUserRepository := mock_core.NewMockUserRepository(ctrl)
+	mockTwoFactorSettingsRepository := mock_core.NewMockTwoFactorSettingsRepository(ctrl)
+
+	settings := &core.TwoFactorSettings{
+		UserID:  userID,
+		Secret:  totpSecret,
+		Enabled: true,
+	}
+
+	mockTwoFactorSettingsRepository.EXPECT().
+		Find(ctx, userID).
+		Return(settings, nil).
+		Times(1)
+
+	twoFactorService := auth.NewTwoFactorAuthService(
+		mockTwoFactorSettingsRepository,
+		mockUserRepository,
+		cfg,
+	)
+
+	err := twoFactorService.Activate(ctx, userID, "ignored")
+	assert.ErrorIs(t, err, core.ErrTwoFactorAuthAlreadyEnabled)
+}
