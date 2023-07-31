@@ -7,6 +7,8 @@ import {
   ListResponse,
   Recording,
   Session,
+  TwoFactorAuthSettings,
+  TwoFactorAuthSetupResult,
   UpdateRecording,
   UpdateUser,
   UpdateUserPassword,
@@ -51,7 +53,10 @@ export type GetRecordingsQuery = PaginationSortQuery & {
 };
 
 export class ApiError extends Error {
-  constructor(public readonly code: number, message: string) {
+  constructor(
+    public readonly code: number,
+    message: string
+  ) {
     super(message);
   }
 }
@@ -72,10 +77,11 @@ client.interceptors.response.use(
   }
 );
 
-export async function login(username: string, password: string) {
+export async function login(username: string, password: string, code?: string) {
   await client.post('/login', {
     username,
     password,
+    totp: code,
   });
 }
 
@@ -217,4 +223,37 @@ export async function getSessions(): Promise<Array<Session>> {
 
 export async function deleteSession(id: number): Promise<void> {
   return await client.delete(`/sessions/${id}`);
+}
+
+export async function getTwoFactorAuthSettings(): Promise<TwoFactorAuthSettings> {
+  const response = await client.get<TwoFactorAuthSettings>(`/two-factor-auth`);
+  return response.data;
+}
+
+export async function deactivateTwoFactorAuth(code: string): Promise<void> {
+  await client.put(`/two-factor-auth/deactivate`, {
+    code,
+  });
+}
+
+export async function setupTwoFactorAuth(
+  password: string
+): Promise<TwoFactorAuthSetupResult> {
+  const response = await client.put<TwoFactorAuthSetupResult>(
+    `/two-factor-auth/setup`,
+    {
+      password,
+    }
+  );
+  return response.data;
+}
+
+export async function activateTwoFactorAuth(
+  password: string,
+  code: string
+): Promise<void> {
+  await client.put(`/two-factor-auth/activate`, {
+    password,
+    code,
+  });
 }

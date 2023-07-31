@@ -1,6 +1,5 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { toast } from 'react-toastify';
 import {
   ApiError,
   cancelRecording,
@@ -17,28 +16,18 @@ import {
 } from '../clients/api/api';
 import { Recording, UpdateRecording } from '../clients/api/api.types';
 import { useLoading } from '../contexts/LoadingContext';
+import { useNotification } from './notification';
 
 export const useManageRecordingByEvent = () => {
-  const NOTIFICATION_ID = 'manageRecordingByEvent';
-
-  const notifyError = (message?: string | null) => {
-    toast.error(message, {
-      toastId: NOTIFICATION_ID,
-      updateId: NOTIFICATION_ID,
-    });
-  };
-
-  const notifySuccess = (message?: string | null) => {
-    toast.success(message, {
-      toastId: NOTIFICATION_ID,
-      updateId: NOTIFICATION_ID,
-    });
-  };
+  const { notifyError, notifySuccess, dismissNotification } = useNotification(
+    'manageRecordingByEvent'
+  );
 
   const { t } = useTranslation();
   const [pending, setPending] = useState(false);
 
   const createRecording = async (eventId: number) => {
+    dismissNotification();
     setPending(true);
     return await recordByEvent(eventId)
       .then(() => {
@@ -53,6 +42,7 @@ export const useManageRecordingByEvent = () => {
   };
 
   const _cancelRecording = async (id: string, success?: () => void) => {
+    dismissNotification();
     setPending(true);
     return await cancelRecording(id)
       .then(() => {
@@ -68,6 +58,7 @@ export const useManageRecordingByEvent = () => {
   };
 
   const _stopRecording = async (id: string, success?: () => void) => {
+    dismissNotification();
     setPending(true);
     return await stopRecording(id)
       .then(() => {
@@ -83,6 +74,7 @@ export const useManageRecordingByEvent = () => {
   };
 
   const _removeRecording = async (id: string, success?: () => void) => {
+    dismissNotification();
     setPending(true);
     return await removeRecording(id)
       .then(() => {
@@ -98,6 +90,7 @@ export const useManageRecordingByEvent = () => {
   };
 
   const _updateRecording = async (id: string, opts: UpdateRecording) => {
+    dismissNotification();
     setPending(true);
     return await updateRecording(id, opts)
       .then(() => {
@@ -174,21 +167,8 @@ export const useFetchRecording = () => {
 };
 
 export const useManageRecordings = () => {
-  const NOTIFICATION_ID = 'manageRecordings';
-
-  const notifyError = (message?: string | null) => {
-    toast.error(message, {
-      toastId: NOTIFICATION_ID,
-      updateId: NOTIFICATION_ID,
-    });
-  };
-
-  const notifySuccess = (message?: string | null) => {
-    toast.success(message, {
-      toastId: NOTIFICATION_ID,
-      updateId: NOTIFICATION_ID,
-    });
-  };
+  const { notifyError, notifySuccess, dismissNotification } =
+    useNotification('manageRecordings');
 
   const { t } = useTranslation();
   const [pending, setPending] = useState(false);
@@ -198,6 +178,7 @@ export const useManageRecordings = () => {
     cancelIds: string[],
     success?: () => void
   ) => {
+    dismissNotification();
     setPending(true);
 
     const promises = [];
@@ -223,7 +204,9 @@ export const useManageRecordings = () => {
   };
 
   const _removeRecordings = async (ids: string[], success?: () => void) => {
+    dismissNotification();
     setPending(true);
+
     return await removeRecordings(ids)
       .then(() => {
         notifySuccess(t('recordings_removed'));

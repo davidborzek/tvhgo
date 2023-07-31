@@ -111,3 +111,11 @@ export type Session = {
   createdAt: number;
   lastUsedAt: number;
 };
+
+export type TwoFactorAuthSettings = {
+  enabled: boolean;
+};
+
+export type TwoFactorAuthSetupResult = {
+  url: string;
+};

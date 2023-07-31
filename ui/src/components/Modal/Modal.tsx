@@ -1,14 +1,28 @@
 import styles from './Modal.module.scss';
-import { PropsWithChildren, useRef } from 'react';
+import { PropsWithChildren, useEffect, useRef } from 'react';
 import ModalCloseButton from './ModalCloseButton';
 
 type Props = {
   visible: boolean;
   onClose: () => void;
+  disableBackdropClose?: boolean;
+  maxWidth?: string | number;
 };
 
 export default function Modal(props: PropsWithChildren<Props>) {
   const ref = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      e.key == 'Escape' && props.onClose();
+    };
+
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, []);
 
   return (
     <div
@@ -18,11 +32,11 @@ export default function Modal(props: PropsWithChildren<Props>) {
       }`}
       onClick={(event) => {
         if (event.target === ref.current) {
-          props.onClose();
+          !props.disableBackdropClose && props.onClose();
         }
       }}
     >
-      <div className={styles.modal}>
+      <div className={styles.modal} style={{ maxWidth: props.maxWidth }}>
         <div className={styles.container}>
           <ModalCloseButton onClick={props.onClose} />
           {props.children}

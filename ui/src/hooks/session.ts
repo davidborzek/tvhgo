@@ -1,26 +1,13 @@
-import { toast } from 'react-toastify';
 import { useLoading } from '../contexts/LoadingContext';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ApiError, deleteSession, getSessions } from '../clients/api/api';
 import { useTranslation } from 'react-i18next';
 import { Session } from '../clients/api/api.types';
+import { useNotification } from './notification';
 
 export const useManageSessions = () => {
-  const NOTIFICATION_ID = 'manageSessions';
-
-  const notifyError = (message?: string | null) => {
-    toast.error(message, {
-      toastId: NOTIFICATION_ID,
-      updateId: NOTIFICATION_ID,
-    });
-  };
-
-  const notifySuccess = (message?: string | null) => {
-    toast.success(message, {
-      toastId: NOTIFICATION_ID,
-      updateId: NOTIFICATION_ID,
-    });
-  };
+  const { notifyError, notifySuccess, dismissNotification } =
+    useNotification('manageSessions');
 
   const [error, setError] = useState<string | null>(null);
   const [sessions, setSessions] = useState<Array<Session>>([]);
@@ -42,7 +29,9 @@ export const useManageSessions = () => {
   };
 
   const _revokeSession = async (id: number) => {
+    dismissNotification();
     setIsLoading(true);
+
     return await deleteSession(id)
       .then(() => {
         _getSessions();
@@ -61,10 +50,6 @@ export const useManageSessions = () => {
       })
       .finally(() => setIsLoading(false));
   };
-
-  useEffect(() => {
-    _getSessions();
-  }, []);
 
   return {
     getSessions: _getSessions,

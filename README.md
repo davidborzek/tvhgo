@@ -29,6 +29,7 @@ This is a list of available features.
 - Channel list
 - TV Guide
 - Create and manage recordings
+- Two-Factor-Authentication
 
 ## Installation
 

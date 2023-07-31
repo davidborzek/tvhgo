@@ -134,6 +134,7 @@ func (c *Config) loadDefaults() {
 	c.Server.SetDefaults()
 	c.Tvheadend.SetDefaults()
 	c.Auth.Session.SetDefaults()
+	c.Auth.TOTP.SetDefaults()
 	c.Database.SetDefaults()
 
 	if c.LogLevel == "" {

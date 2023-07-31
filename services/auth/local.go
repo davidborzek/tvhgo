@@ -7,17 +7,22 @@ import (
 	log "github.com/sirupsen/logrus"
 )
 
-func NewLocalPasswordAuthenticator(userRepository core.UserRepository) *localPasswordAuthenticator {
+func NewLocalPasswordAuthenticator(
+	userRepository core.UserRepository,
+	twoFactorService core.TwoFactorAuthService,
+) *localPasswordAuthenticator {
 	return &localPasswordAuthenticator{
-		userRepository: userRepository,
+		userRepository:   userRepository,
+		twoFactorService: twoFactorService,
 	}
 }
 
 type localPasswordAuthenticator struct {
-	userRepository core.UserRepository
+	userRepository   core.UserRepository
+	twoFactorService core.TwoFactorAuthService
 }
 
-func (s *localPasswordAuthenticator) Login(ctx context.Context, login string, password string) (*core.User, error) {
+func (s *localPasswordAuthenticator) Login(ctx context.Context, login string, password string, totp *string) (*core.User, error) {
 	user, err := s.userRepository.FindByUsername(ctx, login)
 	if err != nil {
 		log.WithError(err).
@@ -33,6 +38,10 @@ func (s *localPasswordAuthenticator) Login(ctx context.Context, login string, pa
 
 	if err := ComparePassword(password, user.PasswordHash); err != nil {
 		return nil, core.ErrInvalidUsernameOrPassword
+	}
+
+	if err := s.twoFactorService.Verify(ctx, user.ID, totp); err != nil {
+		return nil, err
 	}
 
 	return user, nil

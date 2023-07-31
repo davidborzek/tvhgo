@@ -2,25 +2,12 @@ import { UpdateUser, UpdateUserPassword } from './../clients/api/api.types';
 import { useTranslation } from 'react-i18next';
 import { useLoading } from './../contexts/LoadingContext';
 import { ApiError, updateUser, updateUserPassword } from '../clients/api/api';
-import { toast } from 'react-toastify';
 import { useAuth } from '../contexts/AuthContext';
+import { useNotification } from './notification';
 
 export const useUpdateUser = () => {
-  const NOTIFICATION_ID = 'manageUser';
-
-  const notifyError = (message?: string | null) => {
-    toast.error(message, {
-      toastId: NOTIFICATION_ID,
-      updateId: NOTIFICATION_ID,
-    });
-  };
-
-  const notifySuccess = (message?: string | null) => {
-    toast.success(message, {
-      toastId: NOTIFICATION_ID,
-      updateId: NOTIFICATION_ID,
-    });
-  };
+  const { notifyError, notifySuccess, dismissNotification } =
+    useNotification('manageUser');
 
   const { setUser } = useAuth();
   const { t } = useTranslation();
@@ -28,7 +15,9 @@ export const useUpdateUser = () => {
   const { setIsLoading } = useLoading();
 
   const update = async (opts: UpdateUser) => {
+    dismissNotification();
     setIsLoading(true);
+
     await updateUser(opts)
       .then((user) => {
         notifySuccess(t('user_updated_successfully'));
@@ -53,28 +42,17 @@ export const useUpdateUser = () => {
 };
 
 export const useUpdateUserPassword = () => {
-  const NOTIFICATION_ID = 'changeUserPassword';
-
-  const notifyError = (message?: string | null) => {
-    toast.error(message, {
-      toastId: NOTIFICATION_ID,
-      updateId: NOTIFICATION_ID,
-    });
-  };
-
-  const notifySuccess = (message?: string | null) => {
-    toast.success(message, {
-      toastId: NOTIFICATION_ID,
-      updateId: NOTIFICATION_ID,
-    });
-  };
+  const { notifyError, notifySuccess, dismissNotification } =
+    useNotification('changeUserPassword');
 
   const { t } = useTranslation();
 
   const { setIsLoading } = useLoading();
 
   const updatePassword = async (opts: UpdateUserPassword) => {
+    dismissNotification();
     setIsLoading(true);
+
     return await updateUserPassword(opts)
       .then(() => {
         notifySuccess(t('password_updated_successfully'));

@@ -2,11 +2,11 @@
   overflow: auto;
   display: flex;
   flex-direction: column;
+  padding: 0 2rem;
 }
 
 .heading {
   display: flex;
-  align-items: center;
   flex-direction: column;
   padding: 2rem 0;
 
@@ -17,7 +17,6 @@
 }
 
 .content {
-  padding: 0 2rem 2rem 2rem;
   gap: 3rem;
   display: flex;
   flex-direction: column;
@@ -25,9 +24,8 @@
 
 .row {
   display: flex;
-  gap: 5rem;
+  flex-direction: column;
   flex-wrap: wrap;
-  justify-content: center;
 }
 
 .section {

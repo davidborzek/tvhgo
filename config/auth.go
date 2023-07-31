@@ -8,6 +8,7 @@ const (
 	defaultSessionMaximumLifetime         = 30 * 24 * time.Hour
 	defaultSessionTokenRotationInterval   = 30 * time.Minute
 	defaultSessionCleanupInterval         = 12 * time.Hour
+	defaultTOTPIssuer                     = "tvhgo"
 )
 
 type (
@@ -20,8 +21,13 @@ type (
 		CleanupInterval         time.Duration `yaml:"cleanup_interval" env:"CLEANUP_INTERVAL"`
 	}
 
+	TOTPConfig struct {
+		Issuer string `yaml:"issuer" env:"ISSUER"`
+	}
+
 	AuthConfig struct {
 		Session SessionConfig `yaml:"session" envPrefix:"SESSION_"`
+		TOTP    TOTPConfig    `yaml:"totp" envPrefix:"TOTP_"`
 	}
 )
 
@@ -40,5 +46,11 @@ func (s *SessionConfig) SetDefaults() {
 	}
 	if s.CleanupInterval == 0 {
 		s.CleanupInterval = defaultSessionCleanupInterval
+	}
+}
+
+func (c *TOTPConfig) SetDefaults() {
+	if c.Issuer == "" {
+		c.Issuer = defaultTOTPIssuer
 	}
 }
