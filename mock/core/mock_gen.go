@@ -431,16 +431,30 @@ func (mr *MockTwoFactorSettingsRepositoryMockRecorder) Find(arg0, arg1 interface
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Find", reflect.TypeOf((*MockTwoFactorSettingsRepository)(nil).Find), arg0, arg1)
 }
 
-// UpdateEnabled mocks base method.
-func (m *MockTwoFactorSettingsRepository) UpdateEnabled(arg0 context.Context, arg1 *core.TwoFactorSettings) error {
+// Save mocks base method.
+func (m *MockTwoFactorSettingsRepository) Save(arg0 context.Context, arg1 *core.TwoFactorSettings) error {
 	m.ctrl.T.Helper()
-	ret := m.ctrl.Call(m, "UpdateEnabled", arg0, arg1)
+	ret := m.ctrl.Call(m, "Save", arg0, arg1)
 	ret0, _ := ret[0].(error)
 	return ret0
 }
 
-// UpdateEnabled indicates an expected call of UpdateEnabled.
-func (mr *MockTwoFactorSettingsRepositoryMockRecorder) UpdateEnabled(arg0, arg1 interface{}) *gomock.Call {
+// Save indicates an expected call of Save.
+func (mr *MockTwoFactorSettingsRepositoryMockRecorder) Save(arg0, arg1 interface{}) *gomock.Call {
 	mr.mock.ctrl.T.Helper()
-	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateEnabled", reflect.TypeOf((*MockTwoFactorSettingsRepository)(nil).UpdateEnabled), arg0, arg1)
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Save", reflect.TypeOf((*MockTwoFactorSettingsRepository)(nil).Save), arg0, arg1)
+}
+
+// Update mocks base method.
+func (m *MockTwoFactorSettingsRepository) Update(arg0 context.Context, arg1 *core.TwoFactorSettings) error {
+	m.ctrl.T.Helper()
+	ret := m.ctrl.Call(m, "Update", arg0, arg1)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// Update indicates an expected call of Update.
+func (mr *MockTwoFactorSettingsRepositoryMockRecorder) Update(arg0, arg1 interface{}) *gomock.Call {
+	mr.mock.ctrl.T.Helper()
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "Update", reflect.TypeOf((*MockTwoFactorSettingsRepository)(nil).Update), arg0, arg1)
 }

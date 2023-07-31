@@ -23,6 +23,8 @@ type (
 		// Delete deletes two factor settings.
 		Delete(ctx context.Context, settings *TwoFactorSettings) error
 
-		UpdateEnabled(ctx context.Context, settings *TwoFactorSettings) error
+		Update(ctx context.Context, settings *TwoFactorSettings) error
+
+		Save(ctx context.Context, settings *TwoFactorSettings) error
 	}
 )

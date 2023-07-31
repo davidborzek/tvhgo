@@ -3,7 +3,6 @@ package auth
 import (
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/davidborzek/tvhgo/config"
 	"github.com/davidborzek/tvhgo/core"
@@ -42,20 +41,6 @@ func (s *twoFactorAuthService) Setup(ctx context.Context, userID int64) (string,
 		return "", errTwoFactorServiceUserNotFound
 	}
 
-	existingSettings, err := s.twoFactorSettingsRepository.Find(ctx, userID)
-	if err != nil {
-		return "", err
-	}
-
-	if existingSettings != nil {
-		if existingSettings.Enabled {
-			return "", core.ErrTwoFactorAuthAlreadyEnabled
-		}
-
-		// TODO: this or generate new secret and update database?
-		return buildTotpUrl(s.cfg.Issuer, user.Username, existingSettings.Secret), nil
-	}
-
 	key, err := totp.Generate(totp.GenerateOpts{
 		Issuer:      s.cfg.Issuer,
 		AccountName: user.Username,
@@ -71,7 +56,7 @@ func (s *twoFactorAuthService) Setup(ctx context.Context, userID int64) (string,
 		Enabled: false,
 	}
 
-	if err := s.twoFactorSettingsRepository.Create(ctx, twoFactorSettings); err != nil {
+	if err := s.twoFactorSettingsRepository.Save(ctx, twoFactorSettings); err != nil {
 		return "", err
 	}
 
@@ -140,7 +125,7 @@ func (s *twoFactorAuthService) Activate(ctx context.Context, userID int64, code 
 
 	settings.Enabled = true
 
-	return s.twoFactorSettingsRepository.UpdateEnabled(ctx, settings)
+	return s.twoFactorSettingsRepository.Update(ctx, settings)
 }
 
 func (s *twoFactorAuthService) GetSettings(ctx context.Context, userID int64) (*core.TwoFactorSettings, error) {
@@ -156,8 +141,4 @@ func (s *twoFactorAuthService) GetSettings(ctx context.Context, userID int64) (*
 	}
 
 	return settings, nil
-}
-
-func buildTotpUrl(issuer string, username string, secret string) string {
-	return fmt.Sprintf("otpauth://totp/%s:%s?algorithm=SHA1&digits=6&issuer=%s&period=30&secret=%s", issuer, username, issuer, secret)
 }

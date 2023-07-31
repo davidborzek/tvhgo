@@ -1,6 +1,7 @@
 package auth_test
 
 import (
+	"errors"
 	"testing"
 	"time"
 
@@ -121,4 +122,55 @@ func TestTwoFactorServiceVerifyReturnsErrTwoFactorCodeInvalid(t *testing.T) {
 
 	err := twoFactorService.Verify(ctx, userID, &code)
 	assert.ErrorIs(t, err, core.ErrTwoFactorCodeInvalid)
+}
+
+func TestGetSettingsReturnsTwoFactorSettings(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockUserRepository := mock_core.NewMockUserRepository(ctrl)
+	mockTwoFactorSettingsRepository := mock_core.NewMockTwoFactorSettingsRepository(ctrl)
+
+	expectedSettings := &core.TwoFactorSettings{
+		Enabled: true,
+		Secret:  totpSecret,
+	}
+
+	mockTwoFactorSettingsRepository.EXPECT().
+		Find(ctx, userID).
+		Return(expectedSettings, nil).
+		Times(1)
+
+	twoFactorService := auth.NewTwoFactorAuthService(
+		mockTwoFactorSettingsRepository,
+		mockUserRepository,
+		cfg,
+	)
+
+	settings, err := twoFactorService.GetSettings(ctx, userID)
+	assert.Equal(t, expectedSettings, settings)
+	assert.Nil(t, err)
+}
+
+func TestGetSettingsReturnsError(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockUserRepository := mock_core.NewMockUserRepository(ctrl)
+	mockTwoFactorSettingsRepository := mock_core.NewMockTwoFactorSettingsRepository(ctrl)
+
+	mockTwoFactorSettingsRepository.EXPECT().
+		Find(ctx, userID).
+		Return(nil, errors.New("some error")).
+		Times(1)
+
+	twoFactorService := auth.NewTwoFactorAuthService(
+		mockTwoFactorSettingsRepository,
+		mockUserRepository,
+		cfg,
+	)
+
+	settings, err := twoFactorService.GetSettings(ctx, userID)
+	assert.Nil(t, settings)
+	assert.NotNil(t, err)
 }

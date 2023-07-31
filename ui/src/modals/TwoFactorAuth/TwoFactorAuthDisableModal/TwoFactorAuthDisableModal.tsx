@@ -27,7 +27,7 @@ const TwoFactorAuthDisableModal = ({ visible, onClose, onFinish }: Props) => {
   };
 
   const validationSchema = Yup.object().shape({
-    code: Yup.string().required(t('verification_code_required') || ''),
+    code: Yup.string().required(t('two_factor_code_required') || ''),
   });
 
   const formik = useFormik({

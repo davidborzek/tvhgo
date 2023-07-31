@@ -26,12 +26,14 @@ updated_at
 )
 `
 
-const stmtDelete = `
-DELETE FROM two_factor_settings WHERE user_id = ?
+const stmtUpdate = `
+UPDATE two_factor_settings SET
+secret = ?,
+enabled = ?,
+updated_at = ?
+WHERE user_id = ?
 `
 
-const stmtUpdateEnabled = `
-UPDATE two_factor_settings SET
-enabled = ?
-WHERE user_id = ?
+const stmtDelete = `
+DELETE FROM two_factor_settings WHERE user_id = ?
 `

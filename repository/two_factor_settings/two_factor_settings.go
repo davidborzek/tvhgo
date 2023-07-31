@@ -3,7 +3,6 @@ package twofactorsettings
 import (
 	"context"
 	"database/sql"
-	"errors"
 	"time"
 
 	"github.com/davidborzek/tvhgo/core"
@@ -57,20 +56,33 @@ func (s *sqlRepository) Delete(ctx context.Context, settings *core.TwoFactorSett
 	return err
 }
 
-func (s *sqlRepository) UpdateEnabled(ctx context.Context, settings *core.TwoFactorSettings) error {
-	res, err := s.db.ExecContext(ctx, stmtUpdateEnabled, settings.Enabled, settings.UserID)
+func (s *sqlRepository) Update(ctx context.Context, settings *core.TwoFactorSettings) error {
+	updatedAt := time.Now().Unix()
+
+	_, err := s.db.ExecContext(ctx, stmtUpdate,
+		settings.Secret,
+		settings.Enabled,
+		updatedAt,
+		settings.UserID,
+	)
+
 	if err != nil {
 		return err
 	}
 
-	rows, err := res.RowsAffected()
+	settings.UpdatedAt = updatedAt
+	return nil
+}
+
+func (s *sqlRepository) Save(ctx context.Context, settings *core.TwoFactorSettings) error {
+	e, err := s.Find(ctx, settings.UserID)
 	if err != nil {
 		return err
 	}
 
-	if rows == 0 {
-		return errors.New("no rows updated")
+	if e == nil {
+		return s.Create(ctx, settings)
 	}
 
-	return err
+	return s.Update(ctx, settings)
 }
