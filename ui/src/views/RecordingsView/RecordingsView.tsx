@@ -51,7 +51,7 @@ function RecordingsView() {
   useEffect(() => {
     const scrollPos = queryParams.get('pos');
 
-    if (recordings.length > 0) {
+    if (recordings && recordings.length > 0) {
       ref.current?.scrollTo(0, parseInt(scrollPos || '0'));
     }
   }, [recordings, queryParams]);
@@ -75,6 +75,10 @@ function RecordingsView() {
   };
 
   const renderRecordings = () => {
+    if (!recordings) {
+      return <></>;
+    }
+
     if (recordings.length === 0) {
       return <EmptyState title={t('no_recordings')} />;
     }
@@ -195,11 +199,12 @@ function RecordingsView() {
             }
             className={styles.selectAll}
             checked={
+              !!recordings &&
               recordings.length > 0 &&
               selectedRecordings.size === recordings.length
             }
             indeterminate={selectedRecordings.size > 0}
-            disabled={recordings.length < 1}
+            disabled={!!recordings && recordings.length < 1}
           />
         </div>
       </div>

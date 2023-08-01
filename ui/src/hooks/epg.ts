@@ -19,7 +19,7 @@ export const useFetchEvents = (q?: GetEpgEventsQuery) => {
 
   const [error, setError] = useState<string | null>(null);
   const [total, setTotal] = useState(0);
-  const [epg, setEpg] = useState<EpgEvent[]>([]);
+  const [epg, setEpg] = useState<EpgEvent[] | null>(null);
 
   useEffect(() => {
     setIsLoading(true);
@@ -44,7 +44,7 @@ export const useFetchEpg = (q?: GetEpgChannelEventsQuery) => {
   const { setIsLoading } = useLoading();
 
   const [error, setError] = useState<string | null>(null);
-  const [epg, setEpg] = useState<EpgChannel[]>([]);
+  const [epg, setEpg] = useState<EpgChannel[] | null>(null);
   const [startsAt, setStartsAt] = useState<number | undefined>(q?.startsAt);
   const [endsAt, setEndsAt] = useState<number | undefined>(q?.endsAt);
 

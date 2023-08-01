@@ -120,7 +120,7 @@ export const useFetchRecordings = (q?: GetRecordingsQuery) => {
   const { setIsLoading } = useLoading();
 
   const [error, setError] = useState<string | null>(null);
-  const [recordings, setRecordings] = useState<Recording[]>([]);
+  const [recordings, setRecordings] = useState<Recording[] | null>(null);
   const [total, setTotal] = useState(0);
 
   const fetch = () => {

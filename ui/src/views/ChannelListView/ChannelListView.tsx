@@ -32,13 +32,17 @@ function ChannelListView() {
   useEffect(() => {
     const scrollPos = searchParams.get('pos');
 
-    if (events.length > 0) {
+    if (events && events.length > 0) {
       ref.current?.scrollTo(0, parseInt(scrollPos || '0'));
     }
   }, [events, searchParams]);
 
   const renderChannels = () => {
-    if (events.length === 0) {
+    if (!events) {
+      return <></>;
+    }
+
+    if (events && events.length === 0) {
       return (
         <EmptyState title={t('no_channels')} subtitle={t('no_channels_info')} />
       );

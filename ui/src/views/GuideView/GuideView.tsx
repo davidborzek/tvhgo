@@ -124,7 +124,7 @@ function GuideView() {
   useEffect(() => {
     const scrollPos = searchParams.get('pos');
 
-    if (events.length > 0) {
+    if (events && events.length > 0) {
       containerRef.current?.scrollTo(0, parseInt(scrollPos || '0'));
     }
   }, [events, searchParams]);
@@ -189,7 +189,7 @@ function GuideView() {
     containerRef.current?.scrollTo(0, 0);
   };
 
-  const filteredEpg = filterEpg(events, searchParams.get('search') || '');
+  const filteredEpg = filterEpg(events || [], searchParams.get('search') || '');
 
   const renderChannels = () => {
     const offset = parseInt(searchParams.get('offset') || '0');
@@ -253,7 +253,9 @@ function GuideView() {
         </div>
       </div>
 
-      {events.length == 0 ? (
+      {!events ? (
+        <></>
+      ) : events.length == 0 ? (
         <EmptyState title={t('no_epg')} />
       ) : (
         <div className={styles.segment}>{renderEventColumns()}</div>
