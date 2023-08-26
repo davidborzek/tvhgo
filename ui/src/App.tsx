@@ -24,6 +24,8 @@ import RecordingDetailView from './views/RecordingDetailView/RecordingDetailView
 import LoadingProvider from './providers/LoadingProvider';
 import SettingsView from './views/SettingsView/SettingsView';
 import ChannelView from './views/ChannelView/ChannelView';
+import GeneralSettingsView from './views/SettingsView/GeneralSettingsView';
+import SecuritySettingsView from './views/SettingsView/SecuritySettingsView';
 
 type AuthenticationCheckerProps = {
   redirect?: string;
@@ -93,7 +95,12 @@ function App() {
                     path="/recordings/:id"
                     element={<RecordingDetailView />}
                   />
-                  <Route path="/settings" element={<SettingsView />} />
+
+                  <Route path="/settings" element={<SettingsView />}>
+                    <Route path="" element={<Navigate to={'general'} />} />
+                    <Route path="general" element={<GeneralSettingsView />} />
+                    <Route path="security" element={<SecuritySettingsView />} />
+                  </Route>
                 </Route>
 
                 <Route path="/logout" element={<Logout />} />

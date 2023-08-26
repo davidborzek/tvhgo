@@ -1,62 +1,30 @@
 import { useTranslation } from 'react-i18next';
-import { useSearchParams } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import styles from './SettingsView.module.scss';
-import Tabs from '../../components/Tabs/Tabs';
-import SecuritySettings from './SecuritySettings';
-import GeneralSettings from './GeneralSettings';
-
-enum TabView {
-  GENERAL = 0,
-  SECURITY = 1,
-}
+import TabNavigation from '../../components/Tabs/TabNavigation';
 
 function SettingsView() {
-  const [searchParams, setSearchParams] = useSearchParams();
-
   const { t } = useTranslation();
-
-  const getActiveTab = () => {
-    const tab = searchParams.get('tab');
-    return tab ? (parseInt(tab) as TabView) : TabView.GENERAL;
-  };
-
-  const setActiveTab = (tab: TabView) => {
-    setSearchParams((prev) => {
-      prev.set('tab', `${tab}`);
-      return prev;
-    });
-  };
-
-  const activeTab = getActiveTab();
-
-  const renderTab = () => {
-    switch (activeTab) {
-      case TabView.GENERAL:
-        return <GeneralSettings />;
-
-      case TabView.SECURITY:
-        return <SecuritySettings />;
-    }
-  };
 
   return (
     <div className={styles.Settings}>
       <div className={styles.heading}>
-        <Tabs
+        <TabNavigation
           tabs={[
             {
-              label: t('general'),
-              active: activeTab === TabView.GENERAL,
+              title: t('general'),
+              to: "/settings/general",
             },
             {
-              label: t('security'),
-              active: activeTab === TabView.SECURITY,
+              title: t('security'),
+              to: "/settings/security",
             },
           ]}
-          onChange={setActiveTab}
         />
       </div>
-      <div className={styles.content}>{renderTab()}</div>
+      <div className={styles.content}>
+        <Outlet />
+      </div>
     </div>
   );
 }

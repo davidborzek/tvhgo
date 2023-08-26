@@ -1,6 +1,6 @@
 .TabItem {
   border-bottom: 1px solid var(--color-border-subtle);
-  padding: 0.5rem;
+  padding: 1rem 0.5rem;
 
   &.active {
     border-bottom: 2px solid var(--color-accent);
@@ -8,11 +8,9 @@
 }
 
 .button {
-  background: transparent;
-  outline: none;
-  border: none;
+  font-size: 0.9rem;
   color: var(--color-text-primary);
-  cursor: pointer;
+  text-decoration: none;
   padding: 0.5rem 1rem;
   border-radius: 5px;
 

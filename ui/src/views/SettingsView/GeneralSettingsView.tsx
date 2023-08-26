@@ -14,7 +14,7 @@ import Form from '../../components/Form/Form';
 import Input from '../../components/Input/Input';
 import Button from '../../components/Button/Button';
 
-const GeneralSettings = () => {
+const GeneralSettingsView = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -161,4 +161,4 @@ const GeneralSettings = () => {
   );
 };
 
-export default GeneralSettings;
+export default GeneralSettingsView;

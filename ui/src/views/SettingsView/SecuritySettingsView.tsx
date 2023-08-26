@@ -18,7 +18,7 @@ import TwoFactorAuthDisableModal from '../../modals/TwoFactorAuth/TwoFactorAuthD
 import TwoFactorAuthSetupModal from '../../modals/TwoFactorAuth/TwoFactorAuthSetupModal/TwoFactorAuthSetupModal';
 import TwoFactorAuthSettingsOverview from '../../components/TwoFactorAuthSettingsOverview/TwoFactorAuthSettingsOverview';
 
-const SecuritySettings = () => {
+const SecuritySettingsView = () => {
   const { t } = useTranslation();
   const { sessions, getSessions, revokeSession } = useManageSessions();
   const { twoFactorAuthSettings, fetchTwoFactorAuthSettings } =
@@ -159,4 +159,4 @@ const SecuritySettings = () => {
   );
 };
 
-export default SecuritySettings;
+export default SecuritySettingsView;
