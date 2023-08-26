@@ -30,6 +30,7 @@ This is a list of available features.
 - TV Guide
 - Create and manage recordings
 - Two-Factor-Authentication
+- Multiple Languages (English/German)
 
 ## Installation
 
@@ -45,7 +46,7 @@ You can more information about the tvhgo configuration in [the wiki](https://git
 
 ![Channels](docs/screenshots/channels.png)
 ![Guide](docs/screenshots/guide.png)
-![Recordings](docs/screenshots/recordings.png)
+![Event](docs/screenshots/event.png)
 
 More screenshots can be found [here](docs/screenshots/).
 
