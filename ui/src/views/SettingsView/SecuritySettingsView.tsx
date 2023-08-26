@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import { useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
 import useFormikErrorFocus from '../../hooks/formik';
@@ -14,25 +14,19 @@ import SessionList from '../../components/SessionList/SessionList';
 import { useTwoFactorAuthSettings } from '../../hooks/2fa';
 import { usePromiseAll } from '../../hooks/async';
 import Headline from '../../components/Headline/Headline';
-import TwoFactorAuthDisableModal from '../../modals/TwoFactorAuth/TwoFactorAuthDisableModal/TwoFactorAuthDisableModal';
-import TwoFactorAuthSetupModal from '../../modals/TwoFactorAuth/TwoFactorAuthSetupModal/TwoFactorAuthSetupModal';
 import TwoFactorAuthSettingsOverview from '../../components/TwoFactorAuthSettingsOverview/TwoFactorAuthSettingsOverview';
+import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 
 const SecuritySettingsView = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const location = useLocation();
   const { sessions, getSessions, revokeSession } = useManageSessions();
   const { twoFactorAuthSettings, fetchTwoFactorAuthSettings } =
     useTwoFactorAuthSettings();
   const { updatePassword } = useUpdateUserPassword();
 
   usePromiseAll([getSessions, fetchTwoFactorAuthSettings]);
-
-  const [disableTwoFactorModalVisible, setDisableTwoFactorModalVisible] =
-    useState(false);
-
-  const [setupTwoFactorModalVisible, setSetupTwoFactorModalVisible] =
-    useState(false);
-
   const currentPasswordRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordRepeatRef = useRef<HTMLInputElement>(null);
@@ -72,20 +66,14 @@ const SecuritySettingsView = () => {
     passwordRepeatRef
   );
 
+  useEffect(() => {
+    if (location.pathname === '/settings/security') {
+      fetchTwoFactorAuthSettings();
+    }
+  }, [location.key]);
+
   return (
     <>
-      <TwoFactorAuthDisableModal
-        onClose={() => setDisableTwoFactorModalVisible(false)}
-        onFinish={() => fetchTwoFactorAuthSettings()}
-        visible={disableTwoFactorModalVisible}
-      />
-      <TwoFactorAuthSetupModal
-        onClose={() => {
-          setSetupTwoFactorModalVisible(false);
-        }}
-        visible={setupTwoFactorModalVisible}
-        onFinish={() => fetchTwoFactorAuthSettings()}
-      />
       <div className={styles.row}>
         <Form
           onSubmit={passwordChangeFormik.handleSubmit}
@@ -148,13 +136,16 @@ const SecuritySettingsView = () => {
       <div className={styles.row}>
         <TwoFactorAuthSettingsOverview
           settings={twoFactorAuthSettings}
-          onDisable={() => setDisableTwoFactorModalVisible(true)}
-          onEnable={() => setSetupTwoFactorModalVisible(true)}
+          onDisable={() =>
+            navigate('/settings/security/two-factor-auth/disable')
+          }
+          onEnable={() => navigate('/settings/security/two-factor-auth/setup')}
         />
       </div>
       <div className={styles.row}>
         <SessionList sessions={sessions} onRevoke={revokeSession} />
       </div>
+      <Outlet />
     </>
   );
 };

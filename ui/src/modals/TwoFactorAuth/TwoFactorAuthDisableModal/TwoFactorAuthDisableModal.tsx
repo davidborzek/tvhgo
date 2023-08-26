@@ -10,20 +10,16 @@ import FormGroup from '../../../components/Form/FormGroup/FormGroup';
 import Input from '../../../components/Input/Input';
 import Modal from '../../../components/Modal/Modal';
 import Form from '../../../components/Form/Form';
+import { useNavigate } from 'react-router-dom';
 
-type Props = {
-  visible: boolean;
-  onClose: () => void;
-  onFinish: () => void;
-};
-
-const TwoFactorAuthDisableModal = ({ visible, onClose, onFinish }: Props) => {
+const TwoFactorAuthDisableModal = () => {
   const { deactivateTwoFactorAuth, loading } = useDeactivateTwoFactorAuth();
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const close = () => {
     formik.resetForm();
-    onClose();
+    navigate('/settings/security');
   };
 
   const validationSchema = Yup.object().shape({
@@ -37,19 +33,13 @@ const TwoFactorAuthDisableModal = ({ visible, onClose, onFinish }: Props) => {
     validationSchema,
     onSubmit: ({ code }) => {
       deactivateTwoFactorAuth(code).then(() => {
-        onFinish();
         close();
       });
     },
   });
 
   return (
-    <Modal
-      onClose={close}
-      visible={visible}
-      maxWidth="30rem"
-      disableBackdropClose
-    >
+    <Modal visible onClose={close} maxWidth="30rem" disableBackdropClose>
       <div className={styles.content}>
         <h3 className={styles.headline}>{t('disable_two_factor_auth')}</h3>
         <Form onSubmit={formik.handleSubmit}>

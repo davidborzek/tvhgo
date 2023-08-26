@@ -26,6 +26,8 @@ import SettingsView from './views/SettingsView/SettingsView';
 import ChannelView from './views/ChannelView/ChannelView';
 import GeneralSettingsView from './views/SettingsView/GeneralSettingsView';
 import SecuritySettingsView from './views/SettingsView/SecuritySettingsView';
+import TwoFactorAuthDisableModal from './modals/TwoFactorAuth/TwoFactorAuthDisableModal/TwoFactorAuthDisableModal';
+import TwoFactorAuthSetupModal from './modals/TwoFactorAuth/TwoFactorAuthSetupModal/TwoFactorAuthSetupModal';
 
 type AuthenticationCheckerProps = {
   redirect?: string;
@@ -99,7 +101,16 @@ function App() {
                   <Route path="/settings" element={<SettingsView />}>
                     <Route path="" element={<Navigate to={'general'} />} />
                     <Route path="general" element={<GeneralSettingsView />} />
-                    <Route path="security" element={<SecuritySettingsView />} />
+                    <Route path="security" element={<SecuritySettingsView />}>
+                      <Route
+                        path="two-factor-auth/disable"
+                        element={<TwoFactorAuthDisableModal />}
+                      />
+                      <Route
+                        path="two-factor-auth/setup"
+                        element={<TwoFactorAuthSetupModal />}
+                      />
+                    </Route>
                   </Route>
                 </Route>
 

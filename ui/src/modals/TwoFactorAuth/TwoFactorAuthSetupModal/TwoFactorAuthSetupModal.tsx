@@ -10,15 +10,11 @@ import styles from './TwoFactorAuthSetupModal.module.scss';
 
 import * as Yup from 'yup';
 import Form from '../../../components/Form/Form';
+import { useNavigate } from 'react-router-dom';
 
-type Props = {
-  visible: boolean;
-  onClose: () => void;
-  onFinish: () => void;
-};
-
-const TwoFactorAuthSetupModal = ({ visible, onClose, onFinish }: Props) => {
+const TwoFactorAuthSetupModal = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
 
   const {
     activateTwoFactorAuth,
@@ -53,17 +49,16 @@ const TwoFactorAuthSetupModal = ({ visible, onClose, onFinish }: Props) => {
     validationSchema: enableSchema,
     onSubmit: ({ code }) => {
       activateTwoFactorAuth(setupFormik.values.password, code).then(() => {
-        onFinish();
         close();
       });
     },
   });
 
   const close = () => {
-    onClose();
     setTwoFactorUrl(null);
     enableFormik.resetForm();
     setupFormik.resetForm();
+    navigate('/settings/security');
   };
 
   const renderEnableTwoFactorForm = () => {
@@ -118,7 +113,7 @@ const TwoFactorAuthSetupModal = ({ visible, onClose, onFinish }: Props) => {
   return (
     <Modal
       onClose={close}
-      visible={visible}
+      visible
       maxWidth="30rem"
       disableBackdropClose
     >
