@@ -10,6 +10,7 @@ import (
 )
 
 func TestLoadRequiredConfigFromEnv(t *testing.T) {
+	defer os.Clearenv()
 	os.Setenv("TVHGO_TVHEADEND_HOST", "localhost")
 	cfg, err := config.Load()
 
@@ -35,6 +36,7 @@ func TestLoadRequiredConfigFromEnv(t *testing.T) {
 }
 
 func TestLoadFailsForNoTvheadendHost(t *testing.T) {
+	defer os.Clearenv()
 	cfg, err := config.Load()
 
 	assert.EqualError(t, err, "tvheadend host is not set")
@@ -42,6 +44,7 @@ func TestLoadFailsForNoTvheadendHost(t *testing.T) {
 }
 
 func TestLoadConfigFromEnv(t *testing.T) {
+	defer os.Clearenv()
 	os.Setenv("TVHGO_TVHEADEND_HOST", "localhost")
 	os.Setenv("TVHGO_TVHEADEND_PORT", "1234")
 	os.Setenv("TVHGO_TVHEADEND_SCHEME", "https")
