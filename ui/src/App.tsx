@@ -28,6 +28,9 @@ import GeneralSettingsView from './views/SettingsView/GeneralSettingsView';
 import SecuritySettingsView from './views/SettingsView/SecuritySettingsView';
 import TwoFactorAuthDisableModal from './modals/TwoFactorAuth/TwoFactorAuthDisableModal/TwoFactorAuthDisableModal';
 import TwoFactorAuthSetupModal from './modals/TwoFactorAuth/TwoFactorAuthSetupModal/TwoFactorAuthSetupModal';
+import EmptyState from './components/EmptyState/EmptyState';
+import ButtonLink from './components/Button/ButtonLink';
+import { useTranslation } from 'react-i18next';
 
 type AuthenticationCheckerProps = {
   redirect?: string;
@@ -74,6 +77,14 @@ function Notification() {
   );
 }
 
+function NotFound() {
+  const {t} = useTranslation();
+
+  return <EmptyState title={t("page_not_found")} subtitle=' '>
+    <ButtonLink label={t("go_back")} href='/channels' />
+  </EmptyState>;
+}
+
 function App() {
   return (
     <ThemeProvider>
@@ -116,6 +127,8 @@ function App() {
 
                 <Route path="/logout" element={<Logout />} />
               </Route>
+
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
         </AuthProvider>
