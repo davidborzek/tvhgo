@@ -7,7 +7,7 @@ import (
 
 	"github.com/alexliesenfeld/health"
 	"github.com/davidborzek/tvhgo/tvheadend"
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 )
 
 type healthRouter struct {

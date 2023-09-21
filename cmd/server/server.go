@@ -20,7 +20,7 @@ import (
 	"github.com/davidborzek/tvhgo/services/streaming"
 	"github.com/davidborzek/tvhgo/tvheadend"
 	"github.com/davidborzek/tvhgo/ui"
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli/v2"
 )
