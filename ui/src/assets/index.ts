@@ -1,17 +1,17 @@
-import { ReactComponent as ArrowRightIcon } from './arrow_right.svg';
-import { ReactComponent as BurgerMenuIcon } from './burger_menu.svg';
-import { ReactComponent as Checkmark } from './checkmark.svg';
-import { ReactComponent as Close } from './close.svg';
-import { ReactComponent as Dash } from './dash.svg';
-import { ReactComponent as GuideIcon } from './guide.svg';
-import { ReactComponent as LargeArrowLeftIcon } from './large_arrow_left.svg';
-import { ReactComponent as LargeArrowRightIcon } from './large_arrow_right.svg';
-import { ReactComponent as LogoutIcon } from './logout.svg';
-import { ReactComponent as RecIcon } from './rec.svg';
-import { ReactComponent as RecordingsIcon } from './recordings.svg';
-import { ReactComponent as SettingsIcon } from './settings.svg';
-import { ReactComponent as TvhgoHorizontalLogo } from './tvhgo_horizontal.svg';
-import { ReactComponent as TvIcon } from './tv.svg';
+import ArrowRightIcon from './arrow_right.svg?react';
+import BurgerMenuIcon from './burger_menu.svg?react';
+import Checkmark from './checkmark.svg?react';
+import Close from './close.svg?react';
+import Dash from './dash.svg?react';
+import GuideIcon from './guide.svg?react';
+import LargeArrowLeftIcon from './large_arrow_left.svg?react';
+import LargeArrowRightIcon from './large_arrow_right.svg?react';
+import LogoutIcon from './logout.svg?react';
+import RecIcon from './rec.svg?react';
+import RecordingsIcon from './recordings.svg?react';
+import SettingsIcon from './settings.svg?react';
+import TvhgoHorizontalLogo from './tvhgo_horizontal.svg?react';
+import TvIcon from './tv.svg?react';
 
 export {
   ArrowRightIcon,
