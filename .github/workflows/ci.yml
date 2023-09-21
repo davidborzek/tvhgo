@@ -1,8 +1,7 @@
-name: Tests
+name: CI
 
 on:
-  workflow_call:
-  push:
+  pull_request:
     branches: [main]
 
 jobs:
@@ -20,3 +19,8 @@ jobs:
 
       - run: go mod download
       - run: go test ./...
+
+  build-ui:
+    uses: ./.github/workflows/build-ui.yml
+    with:
+      upload_artifact: false
