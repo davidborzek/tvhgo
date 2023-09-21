@@ -32,6 +32,15 @@ func NewTwoFactorAuthService(
 }
 
 func (s *twoFactorAuthService) Setup(ctx context.Context, userID int64) (string, error) {
+	settings, err := s.twoFactorSettingsRepository.Find(ctx, userID)
+	if err != nil {
+		return "", err
+	}
+
+	if settings != nil && settings.Enabled {
+		return "", core.ErrTwoFactorAuthAlreadyEnabled
+	}
+
 	user, err := s.userRepository.FindById(ctx, userID)
 	if err != nil {
 		return "", err

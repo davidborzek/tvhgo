@@ -20,6 +20,7 @@
   "description": "Beschreibung",
   "disable": "Deaktivieren",
   "disable_two_factor_auth": "Deaktivieren der Zwei-Faktor-Authentifizierung",
+  "two_factor_auth_already_enabled": "Zwei-Faktor-Authentifizierung ist bereits aktiviert.",
   "display_name": "Name",
   "download": "Download",
   "email": "E-Mail",

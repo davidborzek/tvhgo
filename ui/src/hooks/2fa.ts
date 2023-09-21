@@ -52,6 +52,8 @@ export const useSetupTwoFactorAuth = () => {
             error.message === 'confirmation password is invalid'
           ) {
             notifyError(t('invalid_current_password'));
+          } else if (error.message === 'two factor auth is already enabled') {
+            notifyError(t('two_factor_auth_already_enabled'));
           } else {
             notifyError(t('unexpected'));
           }

@@ -214,6 +214,11 @@ func TestSetupGeneratesAndPersistTOTPSecret(t *testing.T) {
 		Times(1)
 
 	mockTwoFactorSettingsRepository.EXPECT().
+		Find(ctx, userID).
+		Return(nil, nil).
+		Times(1)
+
+	mockTwoFactorSettingsRepository.EXPECT().
 		Save(ctx, gomock.Any()).
 		Return(nil).
 		Times(1)
@@ -228,6 +233,31 @@ func TestSetupGeneratesAndPersistTOTPSecret(t *testing.T) {
 	assert.Contains(t, url, "otpauth://")
 	assert.Contains(t, url, username)
 	assert.Nil(t, err)
+}
+
+func TestSetupReturnsErrTwoFactorAuthAlreadyEnabled(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockUserRepository := mock_core.NewMockUserRepository(ctrl)
+	mockTwoFactorSettingsRepository := mock_core.NewMockTwoFactorSettingsRepository(ctrl)
+
+	mockTwoFactorSettingsRepository.EXPECT().
+		Find(ctx, userID).
+		Return(&core.TwoFactorSettings{
+			Enabled: true,
+		}, nil).
+		Times(1)
+
+	twoFactorService := auth.NewTwoFactorAuthService(
+		mockTwoFactorSettingsRepository,
+		mockUserRepository,
+		cfg,
+	)
+
+	url, err := twoFactorService.Setup(ctx, userID)
+	assert.Empty(t, url)
+	assert.ErrorIs(t, err, core.ErrTwoFactorAuthAlreadyEnabled)
 }
 
 func TestDeactivate(t *testing.T) {
