@@ -82,7 +82,10 @@ func (s *sessionManager) Revoke(ctx context.Context, sessionID int64, userID int
 	return nil
 }
 
-func (s *sessionManager) Validate(ctx context.Context, token string) (*core.AuthContext, *string, error) {
+func (s *sessionManager) Validate(
+	ctx context.Context,
+	token string,
+) (*core.AuthContext, *string, error) {
 	hashedToken := hashToken(token)
 
 	session, err := s.sessionRepository.Find(ctx, hashedToken)

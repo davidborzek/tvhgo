@@ -99,7 +99,11 @@ func (s *sqlRepository) Delete(ctx context.Context, sessionID int64, userID int6
 	return nil
 }
 
-func (s *sqlRepository) DeleteExpired(ctx context.Context, expirationDate int64, inactiveExpirationDate int64) (int64, error) {
+func (s *sqlRepository) DeleteExpired(
+	ctx context.Context,
+	expirationDate int64,
+	inactiveExpirationDate int64,
+) (int64, error) {
 	res, err := s.db.ExecContext(ctx, stmtDeleteExpired, expirationDate, inactiveExpirationDate)
 	if err != nil {
 		return 0, fmt.Errorf("failed to exec session delete expired: %w", err)

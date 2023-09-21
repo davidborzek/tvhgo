@@ -180,7 +180,8 @@ type (
 
 // Validate validates the minimum requirements of GetRecordingsParams.
 func (o *GetRecordingsParams) Validate() error {
-	if o.Status != "" && o.Status != "upcoming" && o.Status != "finished" && o.Status != "failed" && o.Status != "removed" {
+	if o.Status != "" && o.Status != "upcoming" && o.Status != "finished" && o.Status != "failed" &&
+		o.Status != "removed" {
 		return ErrGetRecordingsInvalidStatus
 	}
 	return nil
@@ -328,7 +329,10 @@ func MapTvheadendIdnodeToRecording(idnode tvheadend.Idnode) (*Recording, error) 
 
 // BuildTvheadendDvrUpdateRecordingOpts builds tvheadend.DvrUpdateRecordingOpts from an existing
 // recording idnode and UpdateRecording.
-func BuildTvheadendDvrUpdateRecordingOpts(idnode tvheadend.Idnode, opts UpdateRecording) (*tvheadend.DvrUpdateRecordingOpts, error) {
+func BuildTvheadendDvrUpdateRecordingOpts(
+	idnode tvheadend.Idnode,
+	opts UpdateRecording,
+) (*tvheadend.DvrUpdateRecordingOpts, error) {
 	tvhOpts := tvheadend.DvrUpdateRecordingOpts{
 		UUID: idnode.UUID,
 	}
@@ -382,7 +386,10 @@ func BuildTvheadendDvrUpdateRecordingOpts(idnode tvheadend.Idnode, opts UpdateRe
 
 // mergeDvrUpdateRecordingOptsAndUpdateRecording merges the existing tvheadend.DvrUpdateRecordingOpts
 // with optional UpdateRecording.
-func mergeDvrUpdateRecordingOptsAndUpdateRecording(tvhOpts tvheadend.DvrUpdateRecordingOpts, opts UpdateRecording) tvheadend.DvrUpdateRecordingOpts {
+func mergeDvrUpdateRecordingOptsAndUpdateRecording(
+	tvhOpts tvheadend.DvrUpdateRecordingOpts,
+	opts UpdateRecording,
+) tvheadend.DvrUpdateRecordingOpts {
 	if opts.Comment != nil {
 		tvhOpts.Comment = *opts.Comment
 	}

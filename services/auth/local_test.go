@@ -80,7 +80,9 @@ func TestLocalPasswordAuthenticatorLoginReturnsErrWhenTwoFactorVerifyFails(t *te
 	assert.Nil(t, user)
 }
 
-func TestLocalPasswordAuthenticatorLoginReturnsErrInvalidUsernameOrPasswordWhenUserWasNotFound(t *testing.T) {
+func TestLocalPasswordAuthenticatorLoginReturnsErrInvalidUsernameOrPasswordWhenUserWasNotFound(
+	t *testing.T,
+) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
@@ -118,7 +120,9 @@ func TestLocalPasswordAuthenticatorLoginReturnsErrUnexpectedError(t *testing.T) 
 	assert.Equal(t, core.ErrUnexpectedError, err)
 }
 
-func TestLocalPasswordAuthenticatorLoginReturnsErrInvalidUsernameOrPasswordForInvalidPassword(t *testing.T) {
+func TestLocalPasswordAuthenticatorLoginReturnsErrInvalidUsernameOrPasswordForInvalidPassword(
+	t *testing.T,
+) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 

@@ -159,7 +159,9 @@ func TestSessionManagerValidateReturnsErrInvalidOrExpiredTokenWhenSessionWasNotF
 	})
 }
 
-func TestSessionManagerValidateReturnsErrInvalidOrExpiredTokenWhenSessionLifetimeIsExpired(t *testing.T) {
+func TestSessionManagerValidateReturnsErrInvalidOrExpiredTokenWhenSessionLifetimeIsExpired(
+	t *testing.T,
+) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
@@ -212,7 +214,9 @@ func TestSessionManagerValidateReturnsErrInvalidOrExpiredTokenWhenSessionLifetim
 	})
 }
 
-func TestSessionManagerValidateReturnsErrInvalidOrExpiredTokenWhenSessionInactiveLifetimeIsExpired(t *testing.T) {
+func TestSessionManagerValidateReturnsErrInvalidOrExpiredTokenWhenSessionInactiveLifetimeIsExpired(
+	t *testing.T,
+) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 
@@ -424,7 +428,13 @@ func TestSessionManagerValidateReturnsErrUnexpectedErrorWhenUpdaingSessionFails(
 		Return(now).
 		AnyTimes()
 
-	sessionManager := auth.NewSessionManager(mockRepository, mockClock, time.Hour, time.Hour, time.Hour)
+	sessionManager := auth.NewSessionManager(
+		mockRepository,
+		mockClock,
+		time.Hour,
+		time.Hour,
+		time.Hour,
+	)
 	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, token)
 
 	assert.Nil(t, authCtx)

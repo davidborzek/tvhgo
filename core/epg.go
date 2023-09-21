@@ -89,7 +89,11 @@ type (
 		GetEvent(ctx context.Context, id int64) (*EpgEvent, error)
 
 		// GetRelatedEvents returns a list of epg related events for a given event.
-		GetRelatedEvents(ctx context.Context, eventId int64, params PaginationSortQueryParams) (*EpgEventsResult, error)
+		GetRelatedEvents(
+			ctx context.Context,
+			eventId int64,
+			params PaginationSortQueryParams,
+		) (*EpgEventsResult, error)
 
 		// GetContentTypes returns a list of epg content types.
 		GetContentTypes(ctx context.Context) ([]*EpgContentType, error)
@@ -98,7 +102,9 @@ type (
 
 // MapToTvheadendQuery maps a GetEpgEventsQueryParams model to a tvheadend
 // query model.
-func (p *GetEpgEventsQueryParams) MapToTvheadendQuery(sortKeyMapping map[string]string) (*tvheadend.Query, error) {
+func (p *GetEpgEventsQueryParams) MapToTvheadendQuery(
+	sortKeyMapping map[string]string,
+) (*tvheadend.Query, error) {
 	q := p.PaginationSortQueryParams.MapToTvheadendQuery(sortKeyMapping)
 
 	if p.Title != "" {
@@ -149,7 +155,9 @@ func (p *GetEpgEventsQueryParams) MapToTvheadendQuery(sortKeyMapping map[string]
 
 // MapToTvheadendQuery maps a GetEpgQueryParams model to a tvheadend
 // query model.
-func (p *GetEpgQueryParams) MapToTvheadendQuery(sortKeyMapping map[string]string) (*tvheadend.Query, error) {
+func (p *GetEpgQueryParams) MapToTvheadendQuery(
+	sortKeyMapping map[string]string,
+) (*tvheadend.Query, error) {
 	q := p.SortQueryParams.MapToTvheadendQuery(sortKeyMapping)
 
 	filter := mapTimeRangeToTvheadendFilter(p.StartsAt, p.EndsAt)

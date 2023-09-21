@@ -32,7 +32,10 @@ func (s *sqlRepository) FindByEmail(ctx context.Context, email string) (*core.Us
 	return s.findBy(ctx, queryByEmail, email)
 }
 
-func (s *sqlRepository) Find(ctx context.Context, params core.UserQueryParams) ([]*core.User, error) {
+func (s *sqlRepository) Find(
+	ctx context.Context,
+	params core.UserQueryParams,
+) ([]*core.User, error) {
 	args := []interface{}{}
 	query := queryBase
 	if params.Limit > 0 {
@@ -112,7 +115,11 @@ func (s *sqlRepository) Delete(ctx context.Context, user *core.User) error {
 	return err
 }
 
-func (s *sqlRepository) findBy(ctx context.Context, query string, args ...interface{}) (*core.User, error) {
+func (s *sqlRepository) findBy(
+	ctx context.Context,
+	query string,
+	args ...interface{},
+) (*core.User, error) {
 	row := s.db.QueryRowContext(ctx, query, args...)
 	user := new(core.User)
 	if err := scanRow(row, user); err != nil {

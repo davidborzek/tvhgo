@@ -74,7 +74,10 @@ func (s *service) Create(ctx context.Context, opts core.CreateRecording) error {
 	return nil
 }
 
-func (s *service) GetAll(ctx context.Context, params core.GetRecordingsParams) (*core.RecordingListResult, error) {
+func (s *service) GetAll(
+	ctx context.Context,
+	params core.GetRecordingsParams,
+) (*core.RecordingListResult, error) {
 	q := params.PaginationSortQueryParams.MapToTvheadendQuery(sortKeyMapping)
 
 	var url string

@@ -13,12 +13,12 @@ const (
 
 type (
 	SessionConfig struct {
-		CookieName              string        `yaml:"cookie_name" env:"COOKIE_NAME"`
-		CookieSecure            bool          `yaml:"cookie_secure" env:"COOKIE_SECURE"`
+		CookieName              string        `yaml:"cookie_name"               env:"COOKIE_NAME"`
+		CookieSecure            bool          `yaml:"cookie_secure"             env:"COOKIE_SECURE"`
 		MaximumInactiveLifetime time.Duration `yaml:"maximum_inactive_lifetime" env:"MAXIMUM_INACTIVE_LIFETIME"`
-		MaximumLifetime         time.Duration `yaml:"maximum_lifetime" env:"MAXIMUM_LIFETIME"`
-		TokenRotationInterval   time.Duration `yaml:"token_rotation_interval" env:"TOKEN_ROTATION_INTERVAL"`
-		CleanupInterval         time.Duration `yaml:"cleanup_interval" env:"CLEANUP_INTERVAL"`
+		MaximumLifetime         time.Duration `yaml:"maximum_lifetime"          env:"MAXIMUM_LIFETIME"`
+		TokenRotationInterval   time.Duration `yaml:"token_rotation_interval"   env:"TOKEN_ROTATION_INTERVAL"`
+		CleanupInterval         time.Duration `yaml:"cleanup_interval"          env:"CLEANUP_INTERVAL"`
 	}
 
 	TOTPConfig struct {
@@ -27,7 +27,7 @@ type (
 
 	AuthConfig struct {
 		Session SessionConfig `yaml:"session" envPrefix:"SESSION_"`
-		TOTP    TOTPConfig    `yaml:"totp" envPrefix:"TOTP_"`
+		TOTP    TOTPConfig    `yaml:"totp"    envPrefix:"TOTP_"`
 	}
 )
 

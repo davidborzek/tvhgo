@@ -13,10 +13,10 @@ import (
 
 type (
 	Config struct {
-		Server    ServerConfig    `yaml:"server" envPrefix:"SERVER_"`
+		Server    ServerConfig    `yaml:"server"    envPrefix:"SERVER_"`
 		Tvheadend TvheadendConfig `yaml:"tvheadend" envPrefix:"TVHEADEND_"`
-		Auth      AuthConfig      `yaml:"auth" envPrefix:"AUTH_"`
-		Database  DatabaseConfig  `yaml:"database" envPrefix:"DATABASE_"`
+		Auth      AuthConfig      `yaml:"auth"      envPrefix:"AUTH_"`
+		Database  DatabaseConfig  `yaml:"database"  envPrefix:"DATABASE_"`
 
 		LogLevel string `yaml:"log_level"`
 	}

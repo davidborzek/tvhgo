@@ -29,7 +29,10 @@ func New(tvh tvheadend.Client) core.ChannelService {
 	}
 }
 
-func (s *service) GetAll(ctx context.Context, params core.PaginationSortQueryParams) ([]*core.Channel, error) {
+func (s *service) GetAll(
+	ctx context.Context,
+	params core.PaginationSortQueryParams,
+) ([]*core.Channel, error) {
 	q := params.MapToTvheadendQuery(sortKeyMapping)
 
 	var grid tvheadend.ChannelGrid
