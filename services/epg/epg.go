@@ -40,7 +40,10 @@ func New(tvh tvheadend.Client) core.EpgService {
 	}
 }
 
-func (s *service) GetEvents(ctx context.Context, params core.GetEpgEventsQueryParams) (*core.EpgEventsResult, error) {
+func (s *service) GetEvents(
+	ctx context.Context,
+	params core.GetEpgEventsQueryParams,
+) (*core.EpgEventsResult, error) {
 	q, err := params.MapToTvheadendQuery(getEventsSortKeyMapping)
 
 	if err != nil {
@@ -107,7 +110,10 @@ func (s *service) GetContentTypes(ctx context.Context) ([]*core.EpgContentType, 
 	return contentTypes, nil
 }
 
-func (s *service) GetEpg(ctx context.Context, params core.GetEpgQueryParams) ([]*core.EpgChannel, error) {
+func (s *service) GetEpg(
+	ctx context.Context,
+	params core.GetEpgQueryParams,
+) ([]*core.EpgChannel, error) {
 	q, err := params.MapToTvheadendQuery(getEpgSortKeyMapping)
 	if err != nil {
 		return nil, err
@@ -141,7 +147,11 @@ func (s *service) GetEpg(ctx context.Context, params core.GetEpgQueryParams) ([]
 	return result, nil
 }
 
-func (s *service) GetRelatedEvents(ctx context.Context, eventId int64, params core.PaginationSortQueryParams) (*core.EpgEventsResult, error) {
+func (s *service) GetRelatedEvents(
+	ctx context.Context,
+	eventId int64,
+	params core.PaginationSortQueryParams,
+) (*core.EpgEventsResult, error) {
 	q := params.MapToTvheadendQuery(getEventsSortKeyMapping)
 	q.SetInt("eventId", eventId)
 

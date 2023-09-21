@@ -137,7 +137,10 @@ func (s *twoFactorAuthService) Activate(ctx context.Context, userID int64, code 
 	return s.twoFactorSettingsRepository.Update(ctx, settings)
 }
 
-func (s *twoFactorAuthService) GetSettings(ctx context.Context, userID int64) (*core.TwoFactorSettings, error) {
+func (s *twoFactorAuthService) GetSettings(
+	ctx context.Context,
+	userID int64,
+) (*core.TwoFactorSettings, error) {
 	settings, err := s.twoFactorSettingsRepository.Find(ctx, userID)
 	if err != nil {
 		return nil, err

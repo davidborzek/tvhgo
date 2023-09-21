@@ -22,7 +22,12 @@ type localPasswordAuthenticator struct {
 	twoFactorService core.TwoFactorAuthService
 }
 
-func (s *localPasswordAuthenticator) Login(ctx context.Context, login string, password string, totp *string) (*core.User, error) {
+func (s *localPasswordAuthenticator) Login(
+	ctx context.Context,
+	login string,
+	password string,
+	totp *string,
+) (*core.User, error) {
 	user, err := s.userRepository.FindByUsername(ctx, login)
 	if err != nil {
 		log.WithError(err).

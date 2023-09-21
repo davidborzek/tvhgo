@@ -19,7 +19,11 @@ func New(tvh tvheadend.Client) core.StreamingService {
 	}
 }
 
-func (s *service) GetChannelStream(ctx context.Context, channelNumber int64, profile string) (*http.Response, error) {
+func (s *service) GetChannelStream(
+	ctx context.Context,
+	channelNumber int64,
+	profile string,
+) (*http.Response, error) {
 	q := tvheadend.NewQuery()
 
 	if profile != "" {
@@ -34,7 +38,10 @@ func (s *service) GetChannelStream(ctx context.Context, channelNumber int64, pro
 	return res.Response, nil
 }
 
-func (s *service) GetRecordingStream(ctx context.Context, recordingId string) (*http.Response, error) {
+func (s *service) GetRecordingStream(
+	ctx context.Context,
+	recordingId string,
+) (*http.Response, error) {
 	res, err := s.tvh.Exec(ctx, fmt.Sprintf("/dvrfile/%s", recordingId), nil)
 	if err != nil {
 		return nil, err

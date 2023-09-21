@@ -14,9 +14,9 @@ const (
 
 type (
 	TvheadendConfig struct {
-		Scheme   string `yaml:"scheme" env:"SCHEME"`
-		Host     string `yaml:"host" env:"HOST"`
-		Port     int    `yaml:"port" env:"PORT"`
+		Scheme   string `yaml:"scheme"   env:"SCHEME"`
+		Host     string `yaml:"host"     env:"HOST"`
+		Port     int    `yaml:"port"     env:"PORT"`
 		Username string `yaml:"username" env:"USERNAME"`
 		Password string `yaml:"password" env:"PASSWORD,unset"`
 	}

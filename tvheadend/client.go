@@ -73,7 +73,12 @@ func New(opts ClientOpts) Client {
 	return NewWithClient(opts, httpc)
 }
 
-func (c *client) Exec(ctx context.Context, path string, dst interface{}, query ...Query) (*Response, error) {
+func (c *client) Exec(
+	ctx context.Context,
+	path string,
+	dst interface{},
+	query ...Query,
+) (*Response, error) {
 	u, err := url.JoinPath(c.opts.URL, path)
 	if err != nil {
 		return nil, err

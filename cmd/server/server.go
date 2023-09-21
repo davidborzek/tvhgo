@@ -79,7 +79,11 @@ func start(ctx *cli.Context) error {
 		cfg.Auth.Session.TokenRotationInterval,
 	)
 
-	twoFactorService := auth.NewTwoFactorAuthService(twoFactorSettingsRepository, userRepository, &cfg.Auth.TOTP)
+	twoFactorService := auth.NewTwoFactorAuthService(
+		twoFactorSettingsRepository,
+		userRepository,
+		&cfg.Auth.TOTP,
+	)
 	passwordAuthenticator := auth.NewLocalPasswordAuthenticator(userRepository, twoFactorService)
 
 	channelService := channel.New(tvhClient)

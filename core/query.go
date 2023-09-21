@@ -79,7 +79,10 @@ func (p *PaginationQueryParams) MapToTvheadendQuery() tvheadend.Query {
 	return t
 }
 
-func (p *SortQueryParams) applyTvheadendQueryMapping(sortKeyMapping map[string]string, t *tvheadend.Query) {
+func (p *SortQueryParams) applyTvheadendQueryMapping(
+	sortKeyMapping map[string]string,
+	t *tvheadend.Query,
+) {
 	mappedKey, ok := sortKeyMapping[p.SortKey]
 	if ok {
 		t.SortKey(mappedKey)
@@ -96,7 +99,9 @@ func (p *SortQueryParams) MapToTvheadendQuery(sortKeyMapping map[string]string) 
 	return t
 }
 
-func (p *PaginationSortQueryParams) MapToTvheadendQuery(sortKeyMapping map[string]string) tvheadend.Query {
+func (p *PaginationSortQueryParams) MapToTvheadendQuery(
+	sortKeyMapping map[string]string,
+) tvheadend.Query {
 	t := p.PaginationQueryParams.MapToTvheadendQuery()
 	p.applyTvheadendQueryMapping(sortKeyMapping, &t)
 	return t
