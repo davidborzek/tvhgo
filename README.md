@@ -11,7 +11,7 @@
 <span align="center">
 
 [![Build](https://github.com/davidborzek/tvhgo/actions/workflows/docker.yml/badge.svg)](https://github.com/davidborzek/tvhgo/actions/workflows/docker.yml)
-[![Tests](https://github.com/davidborzek/tvhgo/actions/workflows/tests.yml/badge.svg?branch=main)](https://github.com/davidborzek/tvhgo/actions/workflows/tests.yml)
+[![CI](https://github.com/davidborzek/tvhgo/actions/workflows/ci.yml/badge.svg)](https://github.com/davidborzek/tvhgo/actions/workflows/ci.yml)
 
 </span>
 
