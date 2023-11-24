@@ -10,8 +10,8 @@ import (
 	"github.com/davidborzek/tvhgo/core"
 	mock_core "github.com/davidborzek/tvhgo/mock/core"
 	"github.com/davidborzek/tvhgo/services/auth"
-	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
+	"go.uber.org/mock/gomock"
 )
 
 type eqSessionMatcher struct {
@@ -335,7 +335,7 @@ func TestSessionManagerValidateReturnsAuthContext(t *testing.T) {
 
 	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, token)
 
-	assert.Equal(t, sessionID, authCtx.SessionID)
+	assert.Equal(t, sessionID, *authCtx.SessionID)
 	assert.Equal(t, userID, authCtx.UserID)
 	assert.Nil(t, maybeRotatedToken)
 	assert.Nil(t, err)
@@ -388,7 +388,7 @@ func TestSessionManagerValidateReturnsAuthContextAndRotatesToken(t *testing.T) {
 
 	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, token)
 
-	assert.Equal(t, sessionID, authCtx.SessionID)
+	assert.Equal(t, sessionID, *authCtx.SessionID)
 	assert.Equal(t, userID, authCtx.UserID)
 	assert.NotNil(t, maybeRotatedToken)
 	assert.Nil(t, err)
