@@ -43,7 +43,7 @@ const (
 
 	sessionID int64 = 12345
 
-	token = "someToken"
+	tokenValue = "someToken"
 )
 
 var (
@@ -131,7 +131,7 @@ func TestSessionManagerValidateReturnsErrUnexpectedErrorWhenFindingSessionFails(
 		Times(1)
 
 	sessionManager := auth.NewSessionManager(mockRepository, mock_core.NewMockClock(ctrl), 0, 0, 0)
-	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, token)
+	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, tokenValue)
 
 	assert.Nil(t, authCtx)
 	assert.Nil(t, maybeRotatedToken)
@@ -149,7 +149,7 @@ func TestSessionManagerValidateReturnsErrInvalidOrExpiredTokenWhenSessionWasNotF
 		Times(1)
 
 	sessionManager := auth.NewSessionManager(mockRepository, mock_core.NewMockClock(ctrl), 0, 0, 0)
-	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, token)
+	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, tokenValue)
 
 	assert.Nil(t, authCtx)
 	assert.Nil(t, maybeRotatedToken)
@@ -204,7 +204,7 @@ func TestSessionManagerValidateReturnsErrInvalidOrExpiredTokenWhenSessionLifetim
 		1,
 	)
 
-	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, token)
+	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, tokenValue)
 
 	assert.Nil(t, authCtx)
 	assert.Nil(t, maybeRotatedToken)
@@ -266,7 +266,7 @@ func TestSessionManagerValidateReturnsErrInvalidOrExpiredTokenWhenSessionInactiv
 		1,
 	)
 
-	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, token)
+	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, tokenValue)
 
 	assert.Nil(t, authCtx)
 	assert.Nil(t, maybeRotatedToken)
@@ -333,7 +333,7 @@ func TestSessionManagerValidateReturnsAuthContext(t *testing.T) {
 		tokenRotationInterval,
 	)
 
-	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, token)
+	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, tokenValue)
 
 	assert.Equal(t, sessionID, *authCtx.SessionID)
 	assert.Equal(t, userID, authCtx.UserID)
@@ -386,7 +386,7 @@ func TestSessionManagerValidateReturnsAuthContextAndRotatesToken(t *testing.T) {
 		tokenRotationInterval,
 	)
 
-	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, token)
+	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, tokenValue)
 
 	assert.Equal(t, sessionID, *authCtx.SessionID)
 	assert.Equal(t, userID, authCtx.UserID)
@@ -435,7 +435,7 @@ func TestSessionManagerValidateReturnsErrUnexpectedErrorWhenUpdaingSessionFails(
 		time.Hour,
 		time.Hour,
 	)
-	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, token)
+	authCtx, maybeRotatedToken, err := sessionManager.Validate(ctx, tokenValue)
 
 	assert.Nil(t, authCtx)
 	assert.Nil(t, maybeRotatedToken)
