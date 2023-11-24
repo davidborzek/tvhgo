@@ -108,6 +108,7 @@
   "subtitle": "Subtitle",
   "success": "Success",
   "today": "Today",
+  "token": "Token",
   "two_factor_auth": "Two Factor Authentication",
   "two_factor_auth_already_enabled": "Two Factor Authentication is already enabled.",
   "two_factor_auth_disable_info": "Enter the code from your two-factor authenticator app to disable two factor authentication.",
