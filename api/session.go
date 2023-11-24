@@ -62,7 +62,7 @@ func (s *router) DeleteSession(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if sessionID == ctx.SessionID {
+	if ctx.SessionID != nil && sessionID == *ctx.SessionID {
 		response.BadRequestf(w, "current session cannot be revoked")
 		return
 	}

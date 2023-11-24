@@ -1,12 +1,14 @@
 import axios from 'axios';
 import {
   Channel,
+  CreateTokenResponse,
   EpgChannel,
   EpgEvent,
   ErrorResponse,
   ListResponse,
   Recording,
   Session,
+  Token,
   TwoFactorAuthSettings,
   TwoFactorAuthSetupResult,
   UpdateRecording,
@@ -256,4 +258,18 @@ export async function activateTwoFactorAuth(
     password,
     code,
   });
+}
+
+export async function getTokens(): Promise<Array<Token>> {
+  const response = await client.get<Array<Token>>(`/tokens`);
+  return response.data;
+}
+
+export async function deleteToken(id: number): Promise<void> {
+  await client.delete(`/tokens/${id}`);
+}
+
+export async function createToken(name: string): Promise<CreateTokenResponse> {
+  const response = await client.post<CreateTokenResponse>(`/tokens`, { name });
+  return response.data;
 }

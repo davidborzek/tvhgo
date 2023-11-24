@@ -2,6 +2,7 @@ import ArrowRightIcon from './arrow_right.svg?react';
 import BurgerMenuIcon from './burger_menu.svg?react';
 import Checkmark from './checkmark.svg?react';
 import Close from './close.svg?react';
+import Copy from './copy.svg?react';
 import Dash from './dash.svg?react';
 import GuideIcon from './guide.svg?react';
 import LargeArrowLeftIcon from './large_arrow_left.svg?react';
@@ -18,6 +19,7 @@ export {
   BurgerMenuIcon,
   Checkmark,
   Close,
+  Copy,
   Dash,
   GuideIcon,
   LargeArrowLeftIcon,

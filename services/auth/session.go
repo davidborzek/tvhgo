@@ -2,10 +2,6 @@ package auth
 
 import (
 	"context"
-	"crypto/rand"
-	"crypto/sha256"
-	"encoding/hex"
-	"fmt"
 	"time"
 
 	"github.com/davidborzek/tvhgo/core"
@@ -132,7 +128,7 @@ func (s *sessionManager) Validate(
 	}
 
 	authCtx := core.AuthContext{
-		SessionID: session.ID,
+		SessionID: &session.ID,
 		UserID:    session.UserId,
 	}
 
@@ -159,22 +155,4 @@ func (s *sessionManager) rotateToken(session *core.Session) (rotatedToken *strin
 // isExpired checks if a creation date has expired for a given lifetime.
 func (s *sessionManager) isExpired(creation int64, lifetime time.Duration) bool {
 	return time.Unix(creation, 0).Add(lifetime).Before(s.clock.Now())
-}
-
-// Generates a random 256-bit token.
-func generateToken() (string, error) {
-	randBytes := make([]byte, 32)
-	_, err := rand.Read(randBytes)
-
-	if err != nil {
-		return "", err
-	}
-
-	return fmt.Sprintf("%x", randBytes), nil
-}
-
-// Hashes a token with SHA256.
-func hashToken(token string) string {
-	hash := sha256.Sum256([]byte(token))
-	return hex.EncodeToString(hash[:])
 }

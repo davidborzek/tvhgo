@@ -23,6 +23,8 @@ type router struct {
 	sessions              core.SessionRepository
 	users                 core.UserRepository
 	passwordAuthenticator core.PasswordAuthenticator
+	tokens                core.TokenRepository
+	tokenService          core.TokenService
 	twoFactorService      core.TwoFactorAuthService
 }
 
@@ -45,6 +47,8 @@ func New(
 	sessions core.SessionRepository,
 	users core.UserRepository,
 	passwordAuthenticator core.PasswordAuthenticator,
+	tokens core.TokenRepository,
+	tokenService core.TokenService,
 	twoFactorService core.TwoFactorAuthService,
 ) *router {
 	return &router{
@@ -58,6 +62,8 @@ func New(
 		users:                 users,
 		streaming:             streaming,
 		passwordAuthenticator: passwordAuthenticator,
+		tokens:                tokens,
+		tokenService:          tokenService,
 		twoFactorService:      twoFactorService,
 	}
 }
@@ -93,6 +99,10 @@ func (s *router) Handler() http.Handler {
 
 	authenticated.Get("/sessions", s.GetSessions)
 	authenticated.Delete("/sessions/{id}", s.DeleteSession)
+
+	authenticated.Get("/tokens", s.GetTokens)
+	authenticated.Post("/tokens", s.CreateToken)
+	authenticated.Delete("/tokens/{id}", s.DeleteToken)
 
 	authenticated.Get("/epg", s.GetEpg)
 	authenticated.Get("/epg/events", s.GetEpgEvents)
