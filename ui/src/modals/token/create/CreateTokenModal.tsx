@@ -45,8 +45,8 @@ const CreateTokenModal = () => {
             label={t('token')}
             value={token}
             fullWidth
-            disabled
             showCopyButton
+            selecTextOnFocus
           />
           <Button
             disabled={false}
