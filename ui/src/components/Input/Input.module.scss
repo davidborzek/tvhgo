@@ -15,7 +15,6 @@
   cursor: pointer;
   padding: 0.5rem;
 
-
   svg {
     width: 1.5rem;
     height: 1.5rem;
@@ -49,6 +48,10 @@
   border: 1px solid var(--color-border-subtle);
   background-color: var(--color-bg);
   color: var(--color-text-primary);
+
+  &.ellipsis {
+    text-overflow: ellipsis;
+  }
 
   &.error {
     border-color: var(--color-danger-bg);

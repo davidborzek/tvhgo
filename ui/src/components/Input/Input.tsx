@@ -18,11 +18,12 @@ type Props = {
   className?: string;
   required?: boolean;
   disabled?: boolean;
-  selecTextOnFocus?: boolean;
+  selectTextOnFocus?: boolean;
   error?: string;
   maxWidth?: string | number;
   fullWidth?: boolean;
   showCopyButton?: boolean;
+  ellipsis?: boolean;
 };
 
 function Input(props: Props, ref: React.LegacyRef<HTMLInputElement>) {
@@ -53,6 +54,7 @@ function Input(props: Props, ref: React.LegacyRef<HTMLInputElement>) {
           type={props.type}
           className={c(
             styles.input,
+            props.ellipsis ? styles.ellipsis : '',
             props.disabled ? styles.disabled : '',
             props.error ? styles.error : ''
           )}
@@ -65,7 +67,7 @@ function Input(props: Props, ref: React.LegacyRef<HTMLInputElement>) {
           ref={ref}
           disabled={props.disabled}
           onFocus={(evt) => {
-            if (props.selecTextOnFocus) {
+            if (props.selectTextOnFocus) {
               evt.target.select();
             }
           }}

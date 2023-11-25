@@ -46,7 +46,8 @@ const CreateTokenModal = () => {
             value={token}
             fullWidth
             showCopyButton
-            selecTextOnFocus
+            selectTextOnFocus
+            ellipsis
           />
           <Button
             disabled={false}
