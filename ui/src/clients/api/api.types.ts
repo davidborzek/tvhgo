@@ -119,3 +119,14 @@ export type TwoFactorAuthSettings = {
 export type TwoFactorAuthSetupResult = {
   url: string;
 };
+
+export type Token = {
+  id: number;
+  name: string;
+  createdAt: number;
+  updatedAt: number;
+};
+
+export type CreateTokenResponse = {
+  token: string;
+};

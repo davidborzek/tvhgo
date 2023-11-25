@@ -8,8 +8,8 @@ import (
 	"github.com/davidborzek/tvhgo/core"
 	mock_core "github.com/davidborzek/tvhgo/mock/core"
 	"github.com/davidborzek/tvhgo/services/auth"
-	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
+	"go.uber.org/mock/gomock"
 )
 
 const (

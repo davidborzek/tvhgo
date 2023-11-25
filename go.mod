@@ -1,6 +1,6 @@
 module github.com/davidborzek/tvhgo
 
-go 1.19
+go 1.21
 
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.7
@@ -9,7 +9,6 @@ require (
 	github.com/go-chi/chi/v5 v5.0.10
 	github.com/go-chi/cors v1.2.1
 	github.com/golang-migrate/migrate/v4 v4.16.2
-	github.com/golang/mock v1.6.0
 	github.com/gorilla/schema v1.2.1
 	github.com/pquerna/otp v1.4.0
 	github.com/sirupsen/logrus v1.9.3
@@ -17,6 +16,7 @@ require (
 	github.com/swaggo/http-swagger/v2 v2.0.2
 	github.com/swaggo/swag v1.16.2
 	github.com/urfave/cli/v2 v2.25.7
+	go.uber.org/mock v0.3.0
 	golang.org/x/crypto v0.15.0
 	gopkg.in/yaml.v3 v3.0.1
 )

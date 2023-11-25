@@ -11,8 +11,8 @@ import (
 	mock_tvheadend "github.com/davidborzek/tvhgo/mock/tvheadend"
 	"github.com/davidborzek/tvhgo/services/picon"
 	"github.com/davidborzek/tvhgo/tvheadend"
-	"github.com/golang/mock/gomock"
 	"github.com/stretchr/testify/assert"
+	"go.uber.org/mock/gomock"
 )
 
 func mockClientExecSucceeds(

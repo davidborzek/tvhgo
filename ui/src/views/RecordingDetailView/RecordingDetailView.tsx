@@ -195,7 +195,7 @@ function RecordingDetailView() {
               onBlur={formik.handleBlur}
               disabled={recording.status === 'recording' || pending}
               type="number"
-              selecTextOnFocus
+              selectTextOnFocus
             />
             <Input
               label={t('recording_minutes_after_end')}
@@ -205,7 +205,7 @@ function RecordingDetailView() {
               onBlur={formik.handleBlur}
               type="number"
               disabled={pending}
-              selecTextOnFocus
+              selectTextOnFocus
             />
           </FormGroup>
           <Button type="submit" label={t('save')} disabled={pending} />

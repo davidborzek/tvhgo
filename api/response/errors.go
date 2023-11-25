@@ -64,3 +64,15 @@ func NotFound(w http.ResponseWriter, err error) {
 func Conflict(w http.ResponseWriter, err error) {
 	Error(w, err, 409)
 }
+
+// Forbidden writes the json encoded error message to the response
+// with 403 forbidden error status code.
+func Forbidden(w http.ResponseWriter, err error) {
+	Error(w, err, 403)
+}
+
+// Forbiddenf writes the json encoded error message to the response
+// with 403 forbidden error status code.
+func Forbiddenf(w http.ResponseWriter, format string, a ...any) {
+	Error(w, fmt.Errorf(format, a...), 403)
+}

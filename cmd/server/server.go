@@ -9,6 +9,7 @@ import (
 	"github.com/davidborzek/tvhgo/db"
 	"github.com/davidborzek/tvhgo/health"
 	"github.com/davidborzek/tvhgo/repository/session"
+	"github.com/davidborzek/tvhgo/repository/token"
 	twofactorsettings "github.com/davidborzek/tvhgo/repository/two_factor_settings"
 	"github.com/davidborzek/tvhgo/repository/user"
 	"github.com/davidborzek/tvhgo/services/auth"
@@ -68,7 +69,9 @@ func start(ctx *cli.Context) error {
 
 	userRepository := user.New(dbConn, clock)
 	sessionRepository := session.New(dbConn, clock)
+
 	// TODO clock
+	tokenRepository := token.New(dbConn)
 	twoFactorSettingsRepository := twofactorsettings.New(dbConn)
 
 	sessionManager := auth.NewSessionManager(
@@ -78,6 +81,8 @@ func start(ctx *cli.Context) error {
 		cfg.Auth.Session.MaximumLifetime,
 		cfg.Auth.Session.TokenRotationInterval,
 	)
+
+	tokenService := auth.NewTokenService(tokenRepository)
 
 	twoFactorService := auth.NewTwoFactorAuthService(
 		twoFactorSettingsRepository,
@@ -112,6 +117,8 @@ func start(ctx *cli.Context) error {
 		sessionRepository,
 		userRepository,
 		passwordAuthenticator,
+		tokenRepository,
+		tokenService,
 		twoFactorService,
 	)
 

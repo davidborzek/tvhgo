@@ -1,5 +1,15 @@
 basePath: /api
 definitions:
+  api.createTokenRequest:
+    properties:
+      name:
+        type: string
+    type: object
+  api.tokenResponse:
+    properties:
+      token:
+        type: string
+    type: object
   api.userUpdate:
     properties:
       displayName:
@@ -229,6 +239,17 @@ definitions:
       userAgent:
         type: string
       userId:
+        type: integer
+    type: object
+  core.Token:
+    properties:
+      createdAt:
+        type: integer
+      id:
+        type: integer
+      name:
+        type: string
+      updatedAt:
         type: integer
     type: object
   core.UpdateRecording:
@@ -1112,6 +1133,92 @@ paths:
       summary: Revokes a session
       tags:
       - sessions
+  /tokens:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/core.Token'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Get list of tokens for the current user
+      tags:
+      - tokens
+    post:
+      parameters:
+      - description: Body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/api.createTokenRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.tokenResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Creates an api token
+      tags:
+      - tokens
+  /tokens/{id}:
+    delete:
+      parameters:
+      - description: Token ID
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "403":
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Revokes a token
+      tags:
+      - tokens
   /user:
     get:
       produces:

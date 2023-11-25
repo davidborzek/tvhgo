@@ -1,6 +1,7 @@
 package api
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/davidborzek/tvhgo/api/request"
@@ -27,8 +28,13 @@ func (s *router) Logout(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	if ctx.SessionID == nil {
+		response.Conflict(w, fmt.Errorf("cannot logout token"))
+		return
+	}
+
 	err := s.sessionManager.Revoke(
-		r.Context(), ctx.SessionID, ctx.UserID,
+		r.Context(), *ctx.SessionID, ctx.UserID,
 	)
 
 	if err != nil {

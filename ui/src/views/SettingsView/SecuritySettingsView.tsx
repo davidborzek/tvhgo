@@ -16,17 +16,21 @@ import { usePromiseAll } from '../../hooks/async';
 import Headline from '../../components/Headline/Headline';
 import TwoFactorAuthSettingsOverview from '../../components/TwoFactorAuthSettingsOverview/TwoFactorAuthSettingsOverview';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import TokenList from '../../components/TokenList/TokenList';
+import { useManageTokens } from '../../hooks/token';
 
 const SecuritySettingsView = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const { sessions, getSessions, revokeSession } = useManageSessions();
+  const { tokens, getTokens, revokeToken } = useManageTokens();
   const { twoFactorAuthSettings, fetchTwoFactorAuthSettings } =
     useTwoFactorAuthSettings();
   const { updatePassword } = useUpdateUserPassword();
 
-  usePromiseAll([getSessions, fetchTwoFactorAuthSettings]);
+  usePromiseAll([getSessions, getTokens, fetchTwoFactorAuthSettings]);
+
   const currentPasswordRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordRepeatRef = useRef<HTMLInputElement>(null);
@@ -69,6 +73,7 @@ const SecuritySettingsView = () => {
   useEffect(() => {
     if (location.pathname === '/settings/security') {
       fetchTwoFactorAuthSettings();
+      getTokens();
     }
   }, [location.key]);
 
@@ -144,6 +149,9 @@ const SecuritySettingsView = () => {
       </div>
       <div className={styles.row}>
         <SessionList sessions={sessions} onRevoke={revokeSession} />
+      </div>
+      <div className={styles.row}>
+        <TokenList tokens={tokens} onRevoke={revokeToken} />
       </div>
       <Outlet />
     </>

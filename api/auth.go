@@ -19,32 +19,73 @@ var (
 
 func (router *router) HandleAuthentication(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		token := extractToken(r, router.cfg.Auth.Session.CookieName)
-
-		ctx, rotatedToken, err := router.sessionManager.Validate(r.Context(), token)
-		if err != nil {
-			if errors.As(err, &core.InvalidOrExpiredTokenError{}) {
-				response.Unauthorized(w, err)
-				return
-			}
-
-			response.InternalError(w, err)
+		headerToken := extractTokenFromHeader(r)
+		if headerToken != "" {
+			router.handleTokenAuthorization(r, w, next, headerToken)
 			return
 		}
 
-		if rotatedToken != nil {
-			setSessionCookie(
-				w,
-				router.cfg.Auth.Session.CookieName,
-				*rotatedToken,
-				router.cfg.Auth.Session.CookieSecure,
-			)
+		cookieToken := extractTokenFromCookie(r, router.cfg.Auth.Session.CookieName)
+		if cookieToken == "" {
+			response.Unauthorized(w, core.ErrTokenInvalid)
+			return
 		}
 
-		next.ServeHTTP(w, r.WithContext(
-			request.WithAuthContext(r.Context(), ctx),
-		))
+		router.handleSessionTokenAuthorization(r, w, next, cookieToken)
 	})
+}
+
+func (router *router) handleSessionTokenAuthorization(
+	r *http.Request,
+	w http.ResponseWriter,
+	next http.Handler,
+	token string,
+) {
+	ctx, rotatedToken, err := router.sessionManager.Validate(r.Context(), token)
+	if err != nil {
+		if errors.As(err, &core.InvalidOrExpiredTokenError{}) {
+			response.Unauthorized(w, err)
+			return
+		}
+
+		response.InternalError(w, err)
+		return
+	}
+
+	if rotatedToken != nil {
+		setSessionCookie(
+			w,
+			router.cfg.Auth.Session.CookieName,
+			*rotatedToken,
+			router.cfg.Auth.Session.CookieSecure,
+		)
+	}
+
+	next.ServeHTTP(w, r.WithContext(
+		request.WithAuthContext(r.Context(), ctx),
+	))
+}
+
+func (router *router) handleTokenAuthorization(
+	r *http.Request,
+	w http.ResponseWriter,
+	next http.Handler,
+	token string,
+) {
+	ctx, err := router.tokenService.Validate(r.Context(), token)
+	if err != nil {
+		if errors.As(err, &core.InvalidOrExpiredTokenError{}) {
+			response.Unauthorized(w, err)
+			return
+		}
+
+		response.InternalError(w, err)
+		return
+	}
+
+	next.ServeHTTP(w, r.WithContext(
+		request.WithAuthContext(r.Context(), ctx),
+	))
 }
 
 // Internal implementation to obtain (bearer) token from Authorization header.
@@ -61,16 +102,6 @@ func extractTokenFromCookie(r *http.Request, cookieName string) string {
 	}
 
 	return token.Value
-}
-
-// Internal implementation to obtain token from Authorization header or cookie.
-// Header is prioritized.
-func extractToken(r *http.Request, cookieName string) string {
-	if token := extractTokenFromHeader(r); token != "" {
-		return token
-	}
-
-	return extractTokenFromCookie(r, cookieName)
 }
 
 func (s *router) confirmPassword(ctx context.Context, userID int64, password string) error {

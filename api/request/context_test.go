@@ -10,10 +10,12 @@ import (
 )
 
 func TestWithAuthContextEntrichesAContextWithAuthContext(t *testing.T) {
+	sessionId := int64(2345)
+
 	ctx := context.Background()
 	expectedAuthCtx := core.AuthContext{
 		UserID:    1234,
-		SessionID: 2345,
+		SessionID: &sessionId,
 	}
 
 	newCtx := request.WithAuthContext(ctx, &expectedAuthCtx)

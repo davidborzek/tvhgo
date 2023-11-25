@@ -27,8 +27,10 @@ type (
 
 	// AuthContext represent the authenticated context for a user and a session.
 	AuthContext struct {
-		UserID    int64
-		SessionID int64
+		UserID int64
+
+		// SessionID is the session id for authorizations via session tokens.
+		SessionID *int64
 	}
 
 	// SessionManager defines operations to manage a session of a user.
@@ -53,6 +55,12 @@ type (
 		Deactivate(ctx context.Context, userId int64, code string) error
 		Activate(ctx context.Context, userID int64, code string) error
 		Verify(ctx context.Context, userId int64, code *string) error
+	}
+
+	TokenService interface {
+		Create(ctx context.Context, userID int64, name string) (string, error)
+		Validate(ctx context.Context, token string) (*AuthContext, error)
+		Revoke(ctx context.Context, id int64) error
 	}
 )
 

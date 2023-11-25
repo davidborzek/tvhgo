@@ -31,6 +31,7 @@ import TwoFactorAuthSetupModal from './modals/TwoFactorAuth/TwoFactorAuthSetupMo
 import EmptyState from './components/EmptyState/EmptyState';
 import ButtonLink from './components/Button/ButtonLink';
 import { useTranslation } from 'react-i18next';
+import CreateTokenModal from './modals/token/create/CreateTokenModal';
 
 type AuthenticationCheckerProps = {
   redirect?: string;
@@ -78,11 +79,13 @@ function Notification() {
 }
 
 function NotFound() {
-  const {t} = useTranslation();
+  const { t } = useTranslation();
 
-  return <EmptyState title={t("page_not_found")} subtitle=' '>
-    <ButtonLink label={t("go_back")} href='/channels' />
-  </EmptyState>;
+  return (
+    <EmptyState title={t('page_not_found')} subtitle=" ">
+      <ButtonLink label={t('go_back')} href="/channels" />
+    </EmptyState>
+  );
 }
 
 function App() {
@@ -120,6 +123,10 @@ function App() {
                       <Route
                         path="two-factor-auth/setup"
                         element={<TwoFactorAuthSetupModal />}
+                      />
+                      <Route
+                        path="tokens/create"
+                        element={<CreateTokenModal />}
                       />
                     </Route>
                   </Route>
