@@ -1,10 +1,11 @@
-import React, {
+import {
   PropsWithChildren,
   ReactElement,
   useEffect,
   useState,
 } from 'react';
-import { Theme, ThemeContext } from '../contexts/ThemeContext';
+
+import { Theme, ThemeContext } from '@/contexts/ThemeContext';
 
 const LOCAL_STORAGE_KEY = 'tvhgo_theme';
 

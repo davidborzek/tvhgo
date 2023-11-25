@@ -7,31 +7,31 @@ import {
   Outlet,
 } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import { useAuth } from './contexts/AuthContext';
-import useLogout from './hooks/logout';
-import AuthProvider from './providers/AuthProvider';
-import { ThemeProvider } from './providers/ThemeProvider';
-import LoginView from './views/LoginView/LoginView';
-import { useTheme } from './contexts/ThemeContext';
+import { useAuth } from '@/contexts/AuthContext';
+import useLogout from '@/hooks/logout';
+import AuthProvider from '@/providers/AuthProvider';
+import { ThemeProvider } from '@/providers/ThemeProvider';
+import LoginView from '@/views/LoginView/LoginView';
+import { useTheme } from '@/contexts/ThemeContext';
 
 import 'react-toastify/dist/ReactToastify.css';
-import ChannelListView from './views/ChannelListView/ChannelListView';
-import DashboardView from './views/DashboardView/DashboardView';
-import GuideView from './views/GuideView/GuideView';
-import EventView from './views/EventView/EventView';
-import RecordingsView from './views/RecordingsView/RecordingsView';
-import RecordingDetailView from './views/RecordingDetailView/RecordingDetailView';
-import LoadingProvider from './providers/LoadingProvider';
-import SettingsView from './views/SettingsView/SettingsView';
-import ChannelView from './views/ChannelView/ChannelView';
-import GeneralSettingsView from './views/SettingsView/GeneralSettingsView';
-import SecuritySettingsView from './views/SettingsView/SecuritySettingsView';
-import TwoFactorAuthDisableModal from './modals/TwoFactorAuth/TwoFactorAuthDisableModal/TwoFactorAuthDisableModal';
-import TwoFactorAuthSetupModal from './modals/TwoFactorAuth/TwoFactorAuthSetupModal/TwoFactorAuthSetupModal';
-import EmptyState from './components/EmptyState/EmptyState';
-import ButtonLink from './components/Button/ButtonLink';
+import ChannelListView from '@/views/ChannelListView/ChannelListView';
+import DashboardView from '@/views/DashboardView/DashboardView';
+import GuideView from '@/views/GuideView/GuideView';
+import EventView from '@/views/EventView/EventView';
+import RecordingsView from '@/views/RecordingsView/RecordingsView';
+import RecordingDetailView from '@/views/RecordingDetailView/RecordingDetailView';
+import LoadingProvider from '@/providers/LoadingProvider';
+import SettingsView from '@/views/SettingsView/SettingsView';
+import ChannelView from '@/views/ChannelView/ChannelView';
+import GeneralSettingsView from '@/views/SettingsView/GeneralSettingsView';
+import SecuritySettingsView from '@/views/SettingsView/SecuritySettingsView';
+import TwoFactorAuthDisableModal from '@/modals/TwoFactorAuth/TwoFactorAuthDisableModal/TwoFactorAuthDisableModal';
+import TwoFactorAuthSetupModal from '@/modals/TwoFactorAuth/TwoFactorAuthSetupModal/TwoFactorAuthSetupModal';
+import EmptyState from '@/components/EmptyState/EmptyState';
+import ButtonLink from '@/components/Button/ButtonLink';
 import { useTranslation } from 'react-i18next';
-import CreateTokenModal from './modals/token/create/CreateTokenModal';
+import CreateTokenModal from '@/modals/token/create/CreateTokenModal';
 
 type AuthenticationCheckerProps = {
   redirect?: string;

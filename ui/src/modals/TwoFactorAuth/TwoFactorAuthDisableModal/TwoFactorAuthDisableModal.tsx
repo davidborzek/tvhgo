@@ -1,16 +1,16 @@
 import { useTranslation } from 'react-i18next';
-
-import styles from './TwoFactorAuthDisableModal.module.scss';
-
+import { useNavigate } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
-import { useDeactivateTwoFactorAuth } from '../../../hooks/2fa';
-import Button from '../../../components/Button/Button';
-import FormGroup from '../../../components/Form/FormGroup/FormGroup';
-import Input from '../../../components/Input/Input';
-import Modal from '../../../components/Modal/Modal';
-import Form from '../../../components/Form/Form';
-import { useNavigate } from 'react-router-dom';
+
+import { useDeactivateTwoFactorAuth } from '@/hooks/2fa';
+import Button from '@/components/Button/Button';
+import FormGroup from '@/components/Form/FormGroup/FormGroup';
+import Input from '@/components/Input/Input';
+import Modal from '@/components/Modal/Modal';
+import Form from '@/components/Form/Form';
+
+import styles from './TwoFactorAuthDisableModal.module.scss';
 
 const TwoFactorAuthDisableModal = () => {
   const { deactivateTwoFactorAuth, loading } = useDeactivateTwoFactorAuth();

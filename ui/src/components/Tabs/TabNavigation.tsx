@@ -1,7 +1,7 @@
 import styles from './TabNavigation.module.scss';
-import { c } from '../../utils/classNames';
 import { NavLink } from 'react-router-dom';
 import { useState } from 'react';
+import { c } from '@/utils/classNames';
 
 export type Tab = {
   title: string;

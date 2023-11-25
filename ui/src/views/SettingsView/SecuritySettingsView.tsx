@@ -1,23 +1,24 @@
 import { useFormik } from 'formik';
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useNavigate, useLocation, Outlet } from 'react-router-dom';
 import * as Yup from 'yup';
-import useFormikErrorFocus from '../../hooks/formik';
-import { useUpdateUserPassword } from '../../hooks/user';
-import Input from '../../components/Input/Input';
-import Button from '../../components/Button/Button';
+
+import Button from '@/components/Button/Button';
+import Headline from '@/components/Headline/Headline';
+import Input from '@/components/Input/Input';
+import SessionList from '@/components/SessionList/SessionList';
+import TokenList from '@/components/TokenList/TokenList';
+import TwoFactorAuthSettingsOverview from '@/components/TwoFactorAuthSettingsOverview/TwoFactorAuthSettingsOverview';
+import { useTwoFactorAuthSettings } from '@/hooks/2fa';
+import { usePromiseAll } from '@/hooks/async';
+import useFormikErrorFocus from '@/hooks/formik';
+import { useManageSessions } from '@/hooks/session';
+import { useManageTokens } from '@/hooks/token';
+import { useUpdateUserPassword } from '@/hooks/user';
+import Form from '@/components/Form/Form';
 
 import styles from './SettingsView.module.scss';
-import Form from '../../components/Form/Form';
-import { useManageSessions } from '../../hooks/session';
-import SessionList from '../../components/SessionList/SessionList';
-import { useTwoFactorAuthSettings } from '../../hooks/2fa';
-import { usePromiseAll } from '../../hooks/async';
-import Headline from '../../components/Headline/Headline';
-import TwoFactorAuthSettingsOverview from '../../components/TwoFactorAuthSettingsOverview/TwoFactorAuthSettingsOverview';
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import TokenList from '../../components/TokenList/TokenList';
-import { useManageTokens } from '../../hooks/token';
 
 const SecuritySettingsView = () => {
   const { t } = useTranslation();

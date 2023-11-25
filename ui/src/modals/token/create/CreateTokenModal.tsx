@@ -1,15 +1,16 @@
 import { useNavigate } from 'react-router-dom';
-import Modal from '../../../components/Modal/Modal';
-import * as Yup from 'yup';
-
-import styles from './CreateTokenModal.module.scss';
 import { useTranslation } from 'react-i18next';
 import { useFormik } from 'formik';
-import Form from '../../../components/Form/Form';
-import FormGroup from '../../../components/Form/FormGroup/FormGroup';
-import Input from '../../../components/Input/Input';
-import Button from '../../../components/Button/Button';
-import { useCreateToken } from '../../../hooks/token';
+import * as Yup from 'yup';
+
+import Modal from '@/components/Modal/Modal';
+import Form from '@/components/Form/Form';
+import FormGroup from '@/components/Form/FormGroup/FormGroup';
+import Input from '@/components/Input/Input';
+import Button from '@/components/Button/Button';
+import { useCreateToken } from '@/hooks/token';
+
+import styles from './CreateTokenModal.module.scss';
 
 const CreateTokenModal = () => {
   const { t } = useTranslation();

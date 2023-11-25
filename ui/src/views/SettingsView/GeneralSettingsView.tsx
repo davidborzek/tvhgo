@@ -1,18 +1,19 @@
 import { useTranslation } from 'react-i18next';
-import Dropdown, { Option } from '../../components/Dropdown/Dropdown';
-import i18n from '../../i18n/i18n';
-import { Theme, useTheme } from '../../contexts/ThemeContext';
-import { useUpdateUser } from '../../hooks/user';
 import { useEffect, useRef } from 'react';
 import * as Yup from 'yup';
-import styles from './SettingsView.module.scss';
 import { useFormik } from 'formik';
-import useFormikErrorFocus from '../../hooks/formik';
-import { useAuth } from '../../contexts/AuthContext';
+
+import styles from './SettingsView.module.scss';
+import Button from '@/components/Button/Button';
+import Dropdown, { Option } from '@/components/Dropdown/Dropdown';
+import Input from '@/components/Input/Input';
+import { useAuth } from '@/contexts/AuthContext';
+import { useTheme, Theme } from '@/contexts/ThemeContext';
+import useFormikErrorFocus from '@/hooks/formik';
+import { useUpdateUser } from '@/hooks/user';
+import i18n from '@/i18n/i18n';
 import { useNavigate } from 'react-router-dom';
-import Form from '../../components/Form/Form';
-import Input from '../../components/Input/Input';
-import Button from '../../components/Button/Button';
+import Form from '@/components/Form/Form';
 
 const GeneralSettingsView = () => {
   const { t } = useTranslation();

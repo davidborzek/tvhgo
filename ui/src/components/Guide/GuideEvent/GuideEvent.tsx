@@ -1,6 +1,6 @@
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
-import { c } from '../../../utils/classNames';
+import { c } from '@/utils/classNames';
 import styles from './GuideEvent.module.scss';
 
 type Props = {

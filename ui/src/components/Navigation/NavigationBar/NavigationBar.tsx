@@ -1,9 +1,8 @@
-import React from 'react';
-import { TvhgoHorizontalLogo } from '../../../assets';
+import { TvhgoHorizontalLogo } from '@/assets';
 import NavigationItem from '../NavigationItem/NavigationItem';
-import { INavigationItem } from '../types';
 
 import styles from './NavigationBar.module.scss';
+import { INavigationItem } from '../types';
 
 type Props = {
   items: INavigationItem[];

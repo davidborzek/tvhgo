@@ -13,9 +13,9 @@ import {
   stopRecording,
   stopRecordings,
   updateRecording,
-} from '../clients/api/api';
-import { Recording, UpdateRecording } from '../clients/api/api.types';
-import { useLoading } from '../contexts/LoadingContext';
+} from '@/clients/api/api';
+import { Recording, UpdateRecording } from '@/clients/api/api.types';
+import { useLoading } from '@/contexts/LoadingContext';
 import { useNotification } from './notification';
 
 export const useManageRecordingByEvent = () => {

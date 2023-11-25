@@ -1,11 +1,11 @@
 import UAParser from 'ua-parser-js';
-import { Session } from '../../clients/api/api.types';
 import styles from './SessionList.module.scss';
 import { useTranslation } from 'react-i18next';
+import { Close } from '@/assets';
+import { useLoading } from '@/contexts/LoadingContext';
 import Button from '../Button/Button';
-import { Close } from '../../assets';
-import { useLoading } from '../../contexts/LoadingContext';
 import Headline from '../Headline/Headline';
+import { Session } from '@/clients/api/api.types';
 
 type Props = {
   sessions: Session[];

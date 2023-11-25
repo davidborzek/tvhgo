@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { RecIcon } from '../../../assets';
-import { c } from '../../../utils/classNames';
+import { RecIcon } from '@/assets';
+import { c } from '@/utils/classNames';
 import styles from './EventRecordButton.module.scss';
 
 type Props = {

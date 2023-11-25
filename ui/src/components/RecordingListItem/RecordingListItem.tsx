@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
-import { Recording } from '../../clients/api/api.types';
 import styles from './RecordingListItem.module.scss';
+import { Recording } from '@/clients/api/api.types';
 import Checkbox from '../Checkbox/Checkbox';
 
 type Props = {

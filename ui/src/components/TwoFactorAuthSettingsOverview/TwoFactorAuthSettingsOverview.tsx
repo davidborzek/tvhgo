@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import styles from './TwoFactorAuthSettingsOverview.module.scss';
-import { TwoFactorAuthSettings } from '../../clients/api/api.types';
+import { TwoFactorAuthSettings } from '@/clients/api/api.types';
 import Button from '../Button/Button';
 import Headline from '../Headline/Headline';
 

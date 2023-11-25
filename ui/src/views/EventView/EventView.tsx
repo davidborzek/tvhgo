@@ -1,11 +1,13 @@
 import { useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Error from '../../components/Error/Error';
-import EventChannelInfo from '../../components/Event/EventChannelInfo/EventChannelInfo';
-import EventInfo from '../../components/Event/EventInfo/EventInfo';
-import EventRelated from '../../components/Event/EventRelated/EventRelated';
-import { useFetchEvent } from '../../hooks/epg';
-import { useManageRecordingByEvent } from '../../hooks/recording';
+
+import Error from '@/components/Error/Error';
+import EventChannelInfo from '@/components/Event/EventChannelInfo/EventChannelInfo';
+import EventInfo from '@/components/Event/EventInfo/EventInfo';
+import EventRelated from '@/components/Event/EventRelated/EventRelated';
+import { useFetchEvent } from '@/hooks/epg';
+import { useManageRecordingByEvent } from '@/hooks/recording';
+
 import styles from './EventView.module.scss';
 
 function EventView() {

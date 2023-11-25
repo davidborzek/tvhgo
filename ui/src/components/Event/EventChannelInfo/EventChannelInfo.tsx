@@ -1,4 +1,4 @@
-import Image from '../../Image/Image';
+import Image from '@/components/Image/Image';
 import styles from './EventChannelInfo.module.scss';
 
 type Props = {

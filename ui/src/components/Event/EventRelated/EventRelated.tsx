@@ -1,10 +1,10 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom';
-import { EpgEvent } from '../../../clients/api/api.types';
-import Pair from '../../PairList/Pair/Pair';
-import PairKey from '../../PairList/PairKey/PairKey';
-import PairList from '../../PairList/PairList';
-import PairValue from '../../PairList/PairValue/PairValue';
+import { EpgEvent } from '@/clients/api/api.types';
+import Pair from '@/components/PairList/Pair/Pair';
+import PairKey from '@/components/PairList/PairKey/PairKey';
+import PairList from '@/components/PairList/PairList';
+import PairValue from '@/components/PairList/PairValue/PairValue';
 import styles from './EventRelated.module.scss';
 
 type Props = {

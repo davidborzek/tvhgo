@@ -1,14 +1,15 @@
 import { useEffect, useRef } from 'react';
-import { useFetchEvents } from '../../hooks/epg';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+
+import { useFetchEvents } from '@/hooks/epg';
+import ChannelListItem from '@/components/ChannelListItem/ChannelListItem';
+import Error from '@/components/Error/Error';
+import { usePagination } from '@/hooks/pagination';
+import PaginationControls from '@/components/PaginationControls/PaginationControls';
+import EmptyState from '@/components/EmptyState/EmptyState';
 
 import styles from './ChannelListView.module.scss';
-import { useTranslation } from 'react-i18next';
-import ChannelListItem from '../../components/ChannelListItem/ChannelListItem';
-import Error from '../../components/Error/Error';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { usePagination } from '../../hooks/pagination';
-import PaginationControls from '../../components/PaginationControls/PaginationControls';
-import EmptyState from '../../components/EmptyState/EmptyState';
 
 const defaultLimit = 50;
 

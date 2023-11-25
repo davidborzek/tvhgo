@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { ApiError, getChannel, getEpgEvents } from '../clients/api/api';
-import { Channel, EpgEvent } from '../clients/api/api.types';
-import { useLoading } from '../contexts/LoadingContext';
+import { ApiError, getChannel, getEpgEvents } from '@/clients/api/api';
+import { Channel, EpgEvent } from '@/clients/api/api.types';
+import { useLoading } from '@/contexts/LoadingContext';
 
 export const useFetchChannel = (
   id?: string,

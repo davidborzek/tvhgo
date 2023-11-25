@@ -6,7 +6,8 @@ import {
   useState,
 } from 'react';
 import LoadingBar, { LoadingBarRef } from 'react-top-loading-bar';
-import { LoadingContext } from '../contexts/LoadingContext';
+
+import { LoadingContext } from '@/contexts/LoadingContext';
 
 export default function LoadingProvider({
   children,

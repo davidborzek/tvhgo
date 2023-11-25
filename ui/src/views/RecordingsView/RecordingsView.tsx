@@ -1,21 +1,23 @@
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { RecordingStatus } from '../../clients/api/api';
-import Dropdown from '../../components/Dropdown/Dropdown';
-import Error from '../../components/Error/Error';
-import RecordingListItem from '../../components/RecordingListItem/RecordingListItem';
-import { useFetchRecordings, useManageRecordings } from '../../hooks/recording';
+
+import { RecordingStatus } from '@/clients/api/api';
+import Dropdown from '@/components/Dropdown/Dropdown';
+import Error from '@/components/Error/Error';
+import RecordingListItem from '@/components/RecordingListItem/RecordingListItem';
+import { useFetchRecordings, useManageRecordings } from '@/hooks/recording';
+import Button from '@/components/Button/Button';
+import { c } from '@/utils/classNames';
+import { Recording } from '@/clients/api/api.types';
+import Checkbox from '@/components/Checkbox/Checkbox';
+import DeleteConfirmationModal from '@/components/DeleteConfirmationModal/DeleteConfirmationModal';
+import { usePagination } from '@/hooks/pagination';
+import PaginationControls from '@/components/PaginationControls/PaginationControls';
+import { useLoading } from '@/contexts/LoadingContext';
+import EmptyState from '@/components/EmptyState/EmptyState';
+
 import styles from './RecordingsView.module.scss';
-import Button from '../../components/Button/Button';
-import { c } from '../../utils/classNames';
-import { Recording } from '../../clients/api/api.types';
-import Checkbox from '../../components/Checkbox/Checkbox';
-import DeleteConfirmationModal from '../../components/DeleteConfirmationModal/DeleteConfirmationModal';
-import { usePagination } from '../../hooks/pagination';
-import PaginationControls from '../../components/PaginationControls/PaginationControls';
-import { useLoading } from '../../contexts/LoadingContext';
-import EmptyState from '../../components/EmptyState/EmptyState';
 
 const defaultLimit = 50;
 

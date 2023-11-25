@@ -1,11 +1,11 @@
-import { Token } from '../../clients/api/api.types';
+import { Close } from '@/assets';
+import { Token } from '@/clients/api/api.types';
+import { useLoading } from '@/contexts/LoadingContext';
 import styles from './TokenList.module.scss';
 import { useTranslation } from 'react-i18next';
-import Button from '../Button/Button';
-import { Close } from '../../assets';
-import { useLoading } from '../../contexts/LoadingContext';
-import Headline from '../Headline/Headline';
 import { useNavigate } from 'react-router-dom';
+import Button from '../Button/Button';
+import Headline from '../Headline/Headline';
 
 type Props = {
   tokens: Token[];

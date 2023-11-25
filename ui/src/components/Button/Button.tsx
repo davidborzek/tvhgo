@@ -1,5 +1,5 @@
 import React, { ReactElement } from 'react';
-import { c } from '../../utils/classNames';
+import { c } from '@/utils/classNames';
 
 import styles from './Button.module.scss';
 

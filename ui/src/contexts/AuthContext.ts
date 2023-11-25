@@ -1,5 +1,5 @@
 import { createContext, useContext } from 'react';
-import { UserResponse } from '../clients/api/api.types';
+import { UserResponse } from '@/clients/api/api.types';
 
 export type AuthContextProps = {
   user: UserResponse | null;

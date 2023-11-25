@@ -1,26 +1,28 @@
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import Error from '../../components/Error/Error';
-import Input from '../../components/Input/Input';
+import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
+
+import Error from '@/components/Error/Error';
+import Input from '@/components/Input/Input';
 import {
   useFetchRecording,
   useManageRecordingByEvent,
-} from '../../hooks/recording';
+} from '@/hooks/recording';
+import Button from '@/components/Button/Button';
+import FormGroup from '@/components/Form/FormGroup/FormGroup';
+import EventChannelInfo from '@/components/Event/EventChannelInfo/EventChannelInfo';
+import Form from '@/components/Form/Form';
+import PairList from '@/components/PairList/PairList';
+import Pair from '@/components/PairList/Pair/Pair';
+import PairValue from '@/components/PairList/PairValue/PairValue';
+import PairKey from '@/components/PairList/PairKey/PairKey';
+import DeleteConfirmationModal from '@/components/DeleteConfirmationModal/DeleteConfirmationModal';
+import { getRecordingUrl } from '@/clients/api/api';
+import ButtonLink from '@/components/Button/ButtonLink';
+
 import styles from './RecordingDetailView.module.scss';
-import * as Yup from 'yup';
-import Button from '../../components/Button/Button';
-import { useTranslation } from 'react-i18next';
-import FormGroup from '../../components/Form/FormGroup/FormGroup';
-import EventChannelInfo from '../../components/Event/EventChannelInfo/EventChannelInfo';
-import Form from '../../components/Form/Form';
-import PairList from '../../components/PairList/PairList';
-import Pair from '../../components/PairList/Pair/Pair';
-import PairValue from '../../components/PairList/PairValue/PairValue';
-import PairKey from '../../components/PairList/PairKey/PairKey';
-import DeleteConfirmationModal from '../../components/DeleteConfirmationModal/DeleteConfirmationModal';
-import { getRecordingUrl } from '../../clients/api/api';
-import ButtonLink from '../../components/Button/ButtonLink';
 
 function RecordingDetailView() {
   const { t } = useTranslation();

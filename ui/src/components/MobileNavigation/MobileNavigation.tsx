@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { useLocation, useNavigation } from 'react-router-dom';
-import { BurgerMenuIcon } from '../../assets';
-import { INavigationItem } from '../Navigation/types';
+import { useState } from 'react';
+import { useLocation } from 'react-router-dom';
+import { BurgerMenuIcon } from '@/assets';
+
+import { INavigationItem } from '@/components/Navigation/types';
 
 import styles from './MobileNavigation.module.scss';
 import MobileNavigationItem from './MobileNavigationItem';

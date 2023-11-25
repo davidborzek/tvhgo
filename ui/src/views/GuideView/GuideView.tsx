@@ -1,17 +1,19 @@
-import { useFetchEpg } from '../../hooks/epg';
-import styles from './GuideView.module.scss';
-import moment from 'moment';
-import { useEffect, useRef, useState } from 'react';
-import GuideChannel from '../../components/Guide/GuideChannel/GuideChannel';
-import GuideEventColumn from '../../components/Guide/GuideEventColumn/GuideEventColumn';
-import GuideNavigation from '../../components/Guide/GuideNavigation/GuideNavigation';
-import { EpgChannel } from '../../clients/api/api.types';
-import GuideControls from '../../components/Guide/GuideControls/GuideControls';
-import Error from '../../components/Error/Error';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { c } from '../../utils/classNames';
-import EmptyState from '../../components/EmptyState/EmptyState';
+import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import moment from 'moment';
+
+import { useFetchEpg } from '@/hooks/epg';
+import GuideChannel from '@/components/Guide/GuideChannel/GuideChannel';
+import GuideEventColumn from '@/components/Guide/GuideEventColumn/GuideEventColumn';
+import GuideNavigation from '@/components/Guide/GuideNavigation/GuideNavigation';
+import { EpgChannel } from '@/clients/api/api.types';
+import GuideControls from '@/components/Guide/GuideControls/GuideControls';
+import Error from '@/components/Error/Error';
+import { c } from '@/utils/classNames';
+import EmptyState from '@/components/EmptyState/EmptyState';
+
+import styles from './GuideView.module.scss';
 
 const parseStartDate = (start?: string | null) => {
   if (!start || start === 'today') {

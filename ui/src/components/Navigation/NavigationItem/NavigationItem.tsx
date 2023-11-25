@@ -1,8 +1,8 @@
-import React, { ReactElement } from 'react';
+import { ReactElement } from 'react';
 import { NavLink } from 'react-router-dom';
-import { c } from '../../../utils/classNames';
 
 import styles from './NavigationItem.module.scss';
+import { c } from '@/utils/classNames';
 
 type Props = {
   to: string;

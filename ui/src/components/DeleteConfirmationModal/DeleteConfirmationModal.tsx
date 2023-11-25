@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
-import Button from '../Button/Button';
-import Modal from '../Modal/Modal';
 import styles from './DeleteConfirmationModal.module.scss';
+import Button from '@/components/Button/Button';
+import Modal from '@/components/Modal/Modal';
 
 type Props = {
   title?: string | null | undefined;

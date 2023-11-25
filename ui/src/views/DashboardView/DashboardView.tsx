@@ -1,10 +1,12 @@
 import { useTranslation } from 'react-i18next';
 import { Outlet } from 'react-router-dom';
-import { GuideIcon, RecordingsIcon, SettingsIcon, TvIcon } from '../../assets';
-import MobileNavigation from '../../components/MobileNavigation/MobileNavigation';
-import NavigationBar from '../../components/Navigation/NavigationBar/NavigationBar';
-import { INavigationItem } from '../../components/Navigation/types';
-import { c } from '../../utils/classNames';
+
+import { GuideIcon, RecordingsIcon, SettingsIcon, TvIcon } from '@/assets';
+import MobileNavigation from '@/components/MobileNavigation/MobileNavigation';
+import NavigationBar from '@/components/Navigation/NavigationBar/NavigationBar';
+import { INavigationItem } from '@/components/Navigation/types';
+import { c } from '@/utils/classNames';
+
 import styles from './DashboardView.module.scss';
 
 function DashboardView() {

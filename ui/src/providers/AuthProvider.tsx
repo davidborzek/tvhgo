@@ -1,9 +1,10 @@
 import { PropsWithChildren, ReactElement, useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { getUser, ApiError } from '../clients/api/api';
-import { UserResponse } from '../clients/api/api.types';
-import { AuthContext } from '../contexts/AuthContext';
-import { useNotification } from '../hooks/notification';
+
+import { getUser, ApiError } from '@/clients/api/api';
+import { UserResponse } from '@/clients/api/api.types';
+import { AuthContext } from '@/contexts/AuthContext';
+import { useNotification } from '@/hooks/notification';
 
 export default function AuthProvider({
   children,

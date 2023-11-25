@@ -1,6 +1,5 @@
-import { useNavigate, useNavigation } from 'react-router-dom';
-import { EpgEvent } from '../../../clients/api/api.types';
-import GuideEvent from '../GuideEvent/GuideEvent';
+import { EpgEvent } from '@/clients/api/api.types';
+import GuideEvent from '@/components/Guide/GuideEvent/GuideEvent';
 import styles from './GuideEventColumn.module.scss';
 
 type Props = {

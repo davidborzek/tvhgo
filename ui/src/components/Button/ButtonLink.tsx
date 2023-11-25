@@ -1,4 +1,4 @@
-import { c } from '../../utils/classNames';
+import { c } from '@/utils/classNames';
 import { ButtonStyle, getStyleClass } from './Button';
 import styles from './Button.module.scss';
 

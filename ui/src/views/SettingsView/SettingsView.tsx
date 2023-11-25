@@ -1,7 +1,9 @@
 import { useTranslation } from 'react-i18next';
 import { Outlet } from 'react-router-dom';
+
+import TabNavigation from '@/components/Tabs/TabNavigation';
+
 import styles from './SettingsView.module.scss';
-import TabNavigation from '../../components/Tabs/TabNavigation';
 
 function SettingsView() {
   const { t } = useTranslation();
@@ -13,11 +15,11 @@ function SettingsView() {
           tabs={[
             {
               title: t('general'),
-              to: "/settings/general",
+              to: '/settings/general',
             },
             {
               title: t('security'),
-              to: "/settings/security",
+              to: '/settings/security',
             },
           ]}
         />

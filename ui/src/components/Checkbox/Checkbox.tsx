@@ -1,5 +1,5 @@
-import { Checkmark, Dash } from '../../assets';
-import { c } from '../../utils/classNames';
+import { Checkmark, Dash } from '@/assets';
+import { c } from '@/utils/classNames';
 import styles from './Checkbox.module.scss';
 
 type Props = {

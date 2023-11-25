@@ -1,16 +1,17 @@
+import { useRef } from 'react';
 import { useFormik } from 'formik';
-import useLogin from '../../hooks/login';
 import * as Yup from 'yup';
+import { useTranslation } from 'react-i18next';
+
+import useLogin from '@/hooks/login';
+import Input from '@/components/Input/Input';
+import Button from '@/components/Button/Button';
+import FormCard from '@/components/FormCard/FormCard';
+import useFormikErrorFocus from '@/hooks/formik';
+import LoginFooter from '@/components/LoginFooter/LoginFooter';
+import FormGroup from '@/components/Form/FormGroup/FormGroup';
 
 import styles from './LoginView.module.scss';
-import { useTranslation } from 'react-i18next';
-import Input from '../../components/Input/Input';
-import Button from '../../components/Button/Button';
-import FormCard from '../../components/FormCard/FormCard';
-import { useRef } from 'react';
-import useFormikErrorFocus from '../../hooks/formik';
-import LoginFooter from '../../components/LoginFooter/LoginFooter';
-import FormGroup from '../../components/Form/FormGroup/FormGroup';
 
 const GITHUB_URL = 'https://github.com/davidborzek/tvhgo';
 

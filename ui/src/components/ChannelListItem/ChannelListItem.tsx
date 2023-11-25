@@ -1,8 +1,8 @@
 import styles from './ChannelListItem.module.scss';
 
-import Image from '../Image/Image';
+import Image from '@/components/Image/Image';
 
-import { EpgEvent } from '../../clients/api/api.types';
+import { EpgEvent } from '@/clients/api/api.types';
 import { useTranslation } from 'react-i18next';
 
 type Props = {

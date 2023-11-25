@@ -1,7 +1,7 @@
 import moment from 'moment';
 import { useTranslation } from 'react-i18next';
-import Dropdown, { Option } from '../../Dropdown/Dropdown';
-import Input from '../../Input/Input';
+import Dropdown, { Option } from '@/components/Dropdown/Dropdown';
+import Input from '@/components/Input/Input';
 import styles from './GuideControls.module.scss';
 
 type Props = {

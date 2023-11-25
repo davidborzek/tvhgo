@@ -1,13 +1,14 @@
 import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { useFetchChannel } from '../../hooks/channel';
 import { useEffect, useRef } from 'react';
-import EventChannelInfo from '../../components/Event/EventChannelInfo/EventChannelInfo';
+
+import { useFetchChannel } from '@/hooks/channel';
+import EventChannelInfo from '@/components/Event/EventChannelInfo/EventChannelInfo';
+import GuideEvent from '@/components/Guide/GuideEvent/GuideEvent';
+import { usePagination } from '@/hooks/pagination';
+import PaginationControls from '@/components/PaginationControls/PaginationControls';
+import Error from '@/components/Error/Error';
 
 import styles from './ChannelView.module.scss';
-import GuideEvent from '../../components/Guide/GuideEvent/GuideEvent';
-import { usePagination } from '../../hooks/pagination';
-import PaginationControls from '../../components/PaginationControls/PaginationControls';
-import Error from '../../components/Error/Error';
 
 const defaultLimit = 50;
 
