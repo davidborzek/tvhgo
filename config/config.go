@@ -6,7 +6,7 @@ import (
 	"path"
 	"strings"
 
-	"github.com/caarlos0/env/v9"
+	"github.com/caarlos0/env/v10"
 	log "github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v3"
 )
