@@ -113,8 +113,8 @@ function RecordingDetailView() {
 
   const formik = useFormik({
     initialValues: {
-      startPadding: 0,
-      endPadding: 0,
+      startPadding: recording?.startPadding || 0,
+      endPadding: recording?.endPadding || 0,
     },
     validationSchema,
     onSubmit: ({ endPadding, startPadding }) => {
@@ -127,6 +127,7 @@ function RecordingDetailView() {
         startPadding,
       });
     },
+    enableReinitialize: true,
   });
 
   useEffect(() => {
@@ -134,15 +135,6 @@ function RecordingDetailView() {
       fetch(id);
     }
   }, [id]);
-
-  useEffect(() => {
-    if (recording) {
-      formik.setValues({
-        startPadding: recording.startPadding,
-        endPadding: recording.endPadding,
-      });
-    }
-  }, [recording]);
 
   const renderCancelButton = () => {
     if (
