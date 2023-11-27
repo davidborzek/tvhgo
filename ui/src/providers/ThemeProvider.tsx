@@ -1,9 +1,4 @@
-import {
-  PropsWithChildren,
-  ReactElement,
-  useEffect,
-  useState,
-} from 'react';
+import { PropsWithChildren, ReactElement, useEffect, useState } from 'react';
 
 import { Theme, ThemeContext } from '@/contexts/ThemeContext';
 
