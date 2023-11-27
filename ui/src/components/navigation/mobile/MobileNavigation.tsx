@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import { BurgerMenuIcon } from '@/assets';
 
-import { INavigationItem } from '@/components/navigation/desktop/types';
+import { INavigationItem } from '@/components/navigation/types';
 
 import styles from './MobileNavigation.module.scss';
 import MobileNavigationItem from './MobileNavigationItem';
