@@ -23,3 +23,8 @@ auth:
     maximum_lifetime: 720h
     token_rotation_interval: 30m
     cleanup_interval: 12h
+
+metrics:
+  enabled: true
+  path: /metrics
+  token: <metrics_token>
