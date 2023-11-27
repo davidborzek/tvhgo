@@ -1,7 +1,7 @@
 import { useState } from 'react';
-import { useAuth } from '../contexts/AuthContext';
+import { useAuth } from '@/contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
-import { getUser, login, ApiError } from '../clients/api/api';
+import { getUser, login, ApiError } from '@/clients/api/api';
 import { useNotification } from './notification';
 
 type LoginFunc = (username: string, password: string, code?: string) => void;

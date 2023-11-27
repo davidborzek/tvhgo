@@ -1,13 +1,13 @@
 import { useState } from 'react';
-import { TwoFactorAuthSettings } from '../clients/api/api.types';
-import { useLoading } from '../contexts/LoadingContext';
+import { TwoFactorAuthSettings } from '@/clients/api/api.types';
+import { useLoading } from '@/contexts/LoadingContext';
 import {
   ApiError,
   activateTwoFactorAuth,
   deactivateTwoFactorAuth,
   getTwoFactorAuthSettings,
   setupTwoFactorAuth,
-} from '../clients/api/api';
+} from '@/clients/api/api';
 import { useTranslation } from 'react-i18next';
 import { useNotification } from './notification';
 

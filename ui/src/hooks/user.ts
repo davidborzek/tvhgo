@@ -1,8 +1,8 @@
-import { UpdateUser, UpdateUserPassword } from './../clients/api/api.types';
+import { UpdateUser, UpdateUserPassword } from '@/clients/api/api.types';
 import { useTranslation } from 'react-i18next';
-import { useLoading } from './../contexts/LoadingContext';
-import { ApiError, updateUser, updateUserPassword } from '../clients/api/api';
-import { useAuth } from '../contexts/AuthContext';
+import { useLoading } from '@/contexts/LoadingContext';
+import { ApiError, updateUser, updateUserPassword } from '@/clients/api/api';
+import { useAuth } from '@/contexts/AuthContext';
 import { useNotification } from './notification';
 
 export const useUpdateUser = () => {

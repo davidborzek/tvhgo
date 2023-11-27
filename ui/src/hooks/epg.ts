@@ -8,9 +8,9 @@ import {
   getEpgEvents,
   GetEpgEventsQuery,
   getRelatedEpgEvents,
-} from '../clients/api/api';
-import { EpgChannel, EpgEvent } from '../clients/api/api.types';
-import { useLoading } from '../contexts/LoadingContext';
+} from '@/clients/api/api';
+import { EpgChannel, EpgEvent } from '@/clients/api/api.types';
+import { useLoading } from '@/contexts/LoadingContext';
 
 export const useFetchEvents = (q?: GetEpgEventsQuery) => {
   const { t } = useTranslation();
