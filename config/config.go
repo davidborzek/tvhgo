@@ -17,6 +17,7 @@ type (
 		Tvheadend TvheadendConfig `yaml:"tvheadend" envPrefix:"TVHEADEND_"`
 		Auth      AuthConfig      `yaml:"auth"      envPrefix:"AUTH_"`
 		Database  DatabaseConfig  `yaml:"database"  envPrefix:"DATABASE_"`
+		Metrics   MetricsConfig   `yaml:"metrics"  envPrefix:"METRICS_"`
 
 		LogLevel string `yaml:"log_level"`
 	}
@@ -127,6 +128,10 @@ func (c *Config) validate() error {
 		return err
 	}
 
+	if err := c.Metrics.Validate(); err != nil {
+		return err
+	}
+
 	return nil
 }
 
@@ -136,6 +141,7 @@ func (c *Config) loadDefaults() {
 	c.Auth.Session.SetDefaults()
 	c.Auth.TOTP.SetDefaults()
 	c.Database.SetDefaults()
+	c.Metrics.SetDefaults()
 
 	if c.LogLevel == "" {
 		c.LogLevel = "info"

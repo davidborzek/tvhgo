@@ -245,4 +245,62 @@ type (
 		Comparison string      `json:"comparison,omitempty"`
 		Intsplit   string      `json:"intsplit,omitempty"`
 	}
+
+	Status[T any] struct {
+		Entries    []T   `json:"entries"`
+		TotalCount int64 `json:"totalCount"`
+	}
+
+	ConnectionStatus struct {
+		ID         int    `json:"id"`
+		Server     string `json:"server"`
+		ServerPort int    `json:"server_port"`
+		Peer       string `json:"peer"`
+		PeerPort   int    `json:"peer_port"`
+		Started    int    `json:"started"`
+		Streaming  int    `json:"streaming"`
+		Type       string `json:"type"`
+		User       string `json:"user"`
+	}
+
+	SubscriptionStatus struct {
+		ID       int    `json:"id"`
+		Start    int    `json:"start"`
+		Errors   int    `json:"errors"`
+		State    string `json:"state"`
+		Hostname string `json:"hostname"`
+		Username string `json:"username"`
+		Client   string `json:"client"`
+		Title    string `json:"title"`
+		Channel  string `json:"channel"`
+		Service  string `json:"service"`
+		Pids     []int  `json:"pids"`
+		Profile  string `json:"profile"`
+		In       int    `json:"in"`
+		Out      int    `json:"out"`
+		TotalIn  int    `json:"total_in"`
+		TotalOut int    `json:"total_out"`
+	}
+
+	InputStatus struct {
+		UUID        string `json:"uuid"`
+		Input       string `json:"input"`
+		Stream      string `json:"stream"`
+		Subs        int    `json:"subs"`
+		Weight      int    `json:"weight"`
+		Pids        []int  `json:"pids"`
+		Signal      int    `json:"signal"`
+		SignalScale int    `json:"signal_scale"`
+		Ber         int    `json:"ber"`
+		Snr         int    `json:"snr"`
+		SnrScale    int    `json:"snr_scale"`
+		Unc         int    `json:"unc"`
+		Bps         int    `json:"bps"`
+		Te          int    `json:"te"`
+		Cc          int    `json:"cc"`
+		EcBit       int    `json:"ec_bit"`
+		TcBit       int    `json:"tc_bit"`
+		EcBlock     int    `json:"ec_block"`
+		TcBlock     int    `json:"tc_block"`
+	}
 )

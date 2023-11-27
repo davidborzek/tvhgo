@@ -8,6 +8,7 @@ import (
 	"github.com/davidborzek/tvhgo/config"
 	"github.com/davidborzek/tvhgo/db"
 	"github.com/davidborzek/tvhgo/health"
+	"github.com/davidborzek/tvhgo/metrics"
 	"github.com/davidborzek/tvhgo/repository/session"
 	"github.com/davidborzek/tvhgo/repository/token"
 	twofactorsettings "github.com/davidborzek/tvhgo/repository/two_factor_settings"
@@ -133,6 +134,12 @@ func start(ctx *cli.Context) error {
 
 	r.Mount("/api", apiRouter.Handler())
 	r.Mount("/health", healthRouter.Handler())
+
+	r.HandleFunc(cfg.Metrics.Path, metrics.Handler(
+		cfg.Metrics,
+		metrics.NewTvheadendCollector(tvhClient),
+	))
+
 	r.Mount("/", uiRouter)
 
 	addr := cfg.Server.Addr()
