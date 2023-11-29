@@ -7,7 +7,11 @@ var (
 		Name:  "user",
 		Usage: "Manage users of the tvhgo server",
 		Subcommands: []*cli.Command{
-			addUserCmd,
+			userAddCmd,
+			userListCmd,
+			userDeleteCmd,
+			user2FACmd,
+			tokenCmd,
 		},
 	}
 )

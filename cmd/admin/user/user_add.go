@@ -13,7 +13,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-var addUserCmd = &cli.Command{
+var userAddCmd = &cli.Command{
 	Name:        "add",
 	Usage:       "Add a new user",
 	Description: "You can use the flags to create a user non-interactive.",
@@ -40,7 +40,7 @@ var addUserCmd = &cli.Command{
 			Usage:   "Display name of the new user",
 		},
 	},
-	Action: addUser,
+	Action: userAddAction,
 }
 
 var qs = []*survey.Question{
@@ -68,7 +68,7 @@ var qs = []*survey.Question{
 	},
 }
 
-func addUser(ctx *cli.Context) error {
+func userAddAction(ctx *cli.Context) error {
 	if ctx.IsSet("username") &&
 		ctx.IsSet("password") &&
 		ctx.IsSet("email") &&
