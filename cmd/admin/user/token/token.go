@@ -1,15 +1,15 @@
-package user
+package token
 
 import (
 	"github.com/urfave/cli/v2"
 )
 
-var tokenCmd = &cli.Command{
+var Cmd = &cli.Command{
 	Name:  "token",
 	Usage: "Manage tokens of a user",
 	Subcommands: []*cli.Command{
-		tokenListCmd,
-		tokenGenerateCmd,
-		tokenRevokeCmd,
+		listCmd,
+		generateCmd,
+		revokeCmd,
 	},
 }

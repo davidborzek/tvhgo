@@ -1,10 +1,10 @@
-package user
+package token
 
 import (
 	"errors"
 	"fmt"
 
-	actx "github.com/davidborzek/tvhgo/cmd/admin/context"
+	"github.com/davidborzek/tvhgo/cmd"
 	"github.com/davidborzek/tvhgo/repository/token"
 	"github.com/davidborzek/tvhgo/repository/user"
 	"github.com/davidborzek/tvhgo/services/auth"
@@ -12,7 +12,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-var tokenGenerateCmd = &cli.Command{
+var generateCmd = &cli.Command{
 	Name:  "generate",
 	Usage: "Generate a new token",
 	Flags: []cli.Flag{
@@ -29,11 +29,12 @@ var tokenGenerateCmd = &cli.Command{
 			Required: true,
 		},
 	},
-	Action: tokenGenerateAction,
+	Action: generate,
 }
 
-func tokenGenerateAction(ctx *cli.Context) error {
-	userRepository := user.New(actx.GetDB(), clock.NewClock())
+func generate(ctx *cli.Context) error {
+	_, db := cmd.Init()
+	userRepository := user.New(db, clock.NewClock())
 
 	user, err := userRepository.FindByUsername(ctx.Context, ctx.String("username"))
 	if err != nil {
@@ -44,7 +45,7 @@ func tokenGenerateAction(ctx *cli.Context) error {
 		return errors.New("user not found")
 	}
 
-	tokenRepository := token.New(actx.GetDB())
+	tokenRepository := token.New(db)
 	tokenService := auth.NewTokenService(tokenRepository)
 
 	tokenValue, err := tokenService.Create(ctx.Context, user.ID, ctx.String("name"))

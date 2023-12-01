@@ -1,10 +1,10 @@
-package user
+package twofa
 
 import (
 	"errors"
 	"fmt"
 
-	actx "github.com/davidborzek/tvhgo/cmd/admin/context"
+	"github.com/davidborzek/tvhgo/cmd"
 	"github.com/davidborzek/tvhgo/core"
 	twofactorsettings "github.com/davidborzek/tvhgo/repository/two_factor_settings"
 	"github.com/davidborzek/tvhgo/repository/user"
@@ -12,7 +12,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-var user2FADisableCmd = &cli.Command{
+var disableCmd = &cli.Command{
 	Name:  "disable",
 	Usage: "Disable 2FA for a user.",
 	Flags: []cli.Flag{
@@ -23,11 +23,12 @@ var user2FADisableCmd = &cli.Command{
 			Required: true,
 		},
 	},
-	Action: user2FADisableAction,
+	Action: disable,
 }
 
-func user2FADisableAction(ctx *cli.Context) error {
-	userRepository := user.New(actx.GetDB(), clock.NewClock())
+func disable(ctx *cli.Context) error {
+	_, db := cmd.Init()
+	userRepository := user.New(db, clock.NewClock())
 
 	user, err := userRepository.FindByUsername(ctx.Context, ctx.String("username"))
 	if err != nil {
@@ -38,7 +39,7 @@ func user2FADisableAction(ctx *cli.Context) error {
 		return errors.New("user not found")
 	}
 
-	twoFactorSettingsRepository := twofactorsettings.New(actx.GetDB())
+	twoFactorSettingsRepository := twofactorsettings.New(db)
 
 	err = twoFactorSettingsRepository.Delete(ctx.Context, &core.TwoFactorSettings{
 		UserID: user.ID,

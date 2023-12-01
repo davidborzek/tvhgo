@@ -1,15 +1,15 @@
-package user
+package token
 
 import (
 	"fmt"
 
-	actx "github.com/davidborzek/tvhgo/cmd/admin/context"
+	"github.com/davidborzek/tvhgo/cmd"
 	"github.com/davidborzek/tvhgo/repository/token"
 	"github.com/davidborzek/tvhgo/services/auth"
 	"github.com/urfave/cli/v2"
 )
 
-var tokenRevokeCmd = &cli.Command{
+var revokeCmd = &cli.Command{
 	Name:  "revoke",
 	Usage: "Revokes a token",
 	Flags: []cli.Flag{
@@ -19,11 +19,12 @@ var tokenRevokeCmd = &cli.Command{
 			Required: true,
 		},
 	},
-	Action: tokenRevokeAction,
+	Action: revoke,
 }
 
-func tokenRevokeAction(ctx *cli.Context) error {
-	tokenRepository := token.New(actx.GetDB())
+func revoke(ctx *cli.Context) error {
+	_, db := cmd.Init()
+	tokenRepository := token.New(db)
 	tokenService := auth.NewTokenService(tokenRepository)
 
 	if err := tokenService.Revoke(ctx.Context, ctx.Int64("id")); err != nil {

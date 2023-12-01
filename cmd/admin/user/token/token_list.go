@@ -1,4 +1,4 @@
-package user
+package token
 
 import (
 	"errors"
@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/davidborzek/tvhgo/cmd"
-	actx "github.com/davidborzek/tvhgo/cmd/admin/context"
 	"github.com/davidborzek/tvhgo/core"
 	"github.com/davidborzek/tvhgo/repository/token"
 	"github.com/davidborzek/tvhgo/repository/user"
@@ -14,7 +13,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-var tokenListCmd = &cli.Command{
+var listCmd = &cli.Command{
 	Name:  "list",
 	Usage: "List tokens of a user",
 	Flags: []cli.Flag{
@@ -25,11 +24,12 @@ var tokenListCmd = &cli.Command{
 			Required: true,
 		},
 	},
-	Action: tokenListAction,
+	Action: list,
 }
 
-func tokenListAction(ctx *cli.Context) error {
-	userRepository := user.New(actx.GetDB(), clock.NewClock())
+func list(ctx *cli.Context) error {
+	_, db := cmd.Init()
+	userRepository := user.New(db, clock.NewClock())
 
 	user, err := userRepository.FindByUsername(ctx.Context, ctx.String("username"))
 	if err != nil {
@@ -40,7 +40,7 @@ func tokenListAction(ctx *cli.Context) error {
 		return errors.New("user not found")
 	}
 
-	tokenRepository := token.New(actx.GetDB())
+	tokenRepository := token.New(db)
 	tokens, err := tokenRepository.FindByUser(ctx.Context, user.ID)
 	if err != nil {
 		return err

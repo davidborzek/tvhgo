@@ -5,21 +5,22 @@ import (
 	"time"
 
 	"github.com/davidborzek/tvhgo/cmd"
-	actx "github.com/davidborzek/tvhgo/cmd/admin/context"
 	"github.com/davidborzek/tvhgo/core"
 	"github.com/davidborzek/tvhgo/repository/user"
 	"github.com/davidborzek/tvhgo/services/clock"
 	"github.com/urfave/cli/v2"
 )
 
-var userListCmd = &cli.Command{
+var listCmd = &cli.Command{
 	Name:   "list",
 	Usage:  "List users.",
-	Action: userListAction,
+	Action: list,
 }
 
-func userListAction(ctx *cli.Context) error {
-	userRepository := user.New(actx.GetDB(), clock.NewClock())
+func list(ctx *cli.Context) error {
+	_, db := cmd.Init()
+
+	userRepository := user.New(db, clock.NewClock())
 
 	users, err := userRepository.Find(ctx.Context, core.UserQueryParams{})
 	if err != nil {

@@ -4,13 +4,13 @@ import (
 	"errors"
 	"fmt"
 
-	actx "github.com/davidborzek/tvhgo/cmd/admin/context"
+	"github.com/davidborzek/tvhgo/cmd"
 	"github.com/davidborzek/tvhgo/repository/user"
 	"github.com/davidborzek/tvhgo/services/clock"
 	"github.com/urfave/cli/v2"
 )
 
-var userDeleteCmd = &cli.Command{
+var deleteCmd = &cli.Command{
 	Name:  "delete",
 	Usage: "Deletes a user",
 	Flags: []cli.Flag{
@@ -21,11 +21,12 @@ var userDeleteCmd = &cli.Command{
 			Required: true,
 		},
 	},
-	Action: userDeleteAction,
+	Action: delete,
 }
 
-func userDeleteAction(ctx *cli.Context) error {
-	userRepository := user.New(actx.GetDB(), clock.NewClock())
+func delete(ctx *cli.Context) error {
+	_, db := cmd.Init()
+	userRepository := user.New(db, clock.NewClock())
 
 	user, err := userRepository.FindByUsername(ctx.Context, ctx.String("username"))
 	if err != nil {

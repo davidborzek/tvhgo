@@ -1,9 +1,14 @@
 package cmd
 
 import (
+	"database/sql"
 	"fmt"
+	"log"
 	"os"
 	"text/tabwriter"
+
+	"github.com/davidborzek/tvhgo/config"
+	"github.com/davidborzek/tvhgo/db"
 )
 
 func PrintTable(headers []string, rows [][]any) {
@@ -39,4 +44,20 @@ func MapRows[T any](values []T, mapper func(t T) []any) [][]any {
 		rows = append(rows, mapper(v))
 	}
 	return rows
+}
+
+func Init() (*config.Config, *sql.DB) {
+	cfg, err := config.Load()
+	if err != nil {
+		log.Println("failed to load config:", err)
+		os.Exit(1)
+	}
+
+	dbConn, err := db.Connect(cfg.Database.Path)
+	if err != nil {
+		log.Println("failed create db connection:", err)
+		os.Exit(1)
+	}
+
+	return cfg, dbConn
 }
