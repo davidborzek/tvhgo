@@ -43,11 +43,6 @@ jobs:
             type=semver,pattern={{version}}
             type=semver,pattern={{major}}.{{minor}}
 
-      - name: Debug print docker meta
-        run: |
-            echo "${{ steps.meta.outputs.tags }}"
-            echo "${{ steps.meta.outputs.labels }}"
-
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
         with:
