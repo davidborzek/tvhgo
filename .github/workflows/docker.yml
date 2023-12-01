@@ -60,6 +60,7 @@ jobs:
 
       - name: Build and push Docker image
         uses: docker/build-push-action@v5
+        if: ${{ false }}
         with:
           context: .
           push: true
