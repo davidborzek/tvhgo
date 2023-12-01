@@ -33,9 +33,24 @@ func TestLoadRequiredConfigFromEnv(t *testing.T) {
 	assert.Equal(t, 30*24*time.Hour, cfg.Auth.Session.MaximumLifetime)
 	assert.Equal(t, 30*time.Minute, cfg.Auth.Session.TokenRotationInterval)
 	assert.Equal(t, 12*time.Hour, cfg.Auth.Session.CleanupInterval)
+
+	assert.False(t, cfg.Metrics.Enabled)
+	assert.Equal(t, "/metrics", cfg.Metrics.Path)
+	assert.Empty(t, cfg.Metrics.Token)
 }
 
 func TestLoadFailsForNoTvheadendHost(t *testing.T) {
+	defer os.Clearenv()
+	os.Setenv("TVHGO_TVHEADEND_HOST", "localhost")
+	os.Setenv("TVHGO_METRICS_ENABLED", "true")
+
+	cfg, err := config.Load()
+
+	assert.EqualError(t, err, "metrics token is not set")
+	assert.Nil(t, cfg)
+}
+
+func TestLoadFailsWhenMetricsAreEnabledButNoTokenIsSet(t *testing.T) {
 	defer os.Clearenv()
 	cfg, err := config.Load()
 
@@ -64,6 +79,10 @@ func TestLoadConfigFromEnv(t *testing.T) {
 	os.Setenv("TVHGO_AUTH_SESSION_TOKEN_ROTATION_INTERVAL", "1h")
 	os.Setenv("TVHGO_AUTH_SESSION_CLEANUP_INTERVAL", "5h")
 
+	os.Setenv("TVHGO_METRICS_ENABLED", "true")
+	os.Setenv("TVHGO_METRICS_PATH", "/prometheus")
+	os.Setenv("TVHGO_METRICS_TOKEN", "someMetricsToken")
+
 	cfg, err := config.Load()
 
 	assert.Nil(t, err)
@@ -85,4 +104,8 @@ func TestLoadConfigFromEnv(t *testing.T) {
 	assert.Equal(t, 200*time.Hour, cfg.Auth.Session.MaximumLifetime)
 	assert.Equal(t, 1*time.Hour, cfg.Auth.Session.TokenRotationInterval)
 	assert.Equal(t, 5*time.Hour, cfg.Auth.Session.CleanupInterval)
+
+	assert.True(t, cfg.Metrics.Enabled)
+	assert.Equal(t, "/prometheus", cfg.Metrics.Path)
+	assert.Equal(t, "someMetricsToken", cfg.Metrics.Token)
 }
