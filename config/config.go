@@ -93,11 +93,11 @@ func Load() (*Config, error) {
 		return nil, err
 	}
 
+	cfg.loadDefaults()
+
 	if err := cfg.validate(); err != nil {
 		return nil, err
 	}
-
-	cfg.loadDefaults()
 
 	log.SetLevel(
 		parseLogLevel(cfg.LogLevel),

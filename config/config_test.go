@@ -37,24 +37,27 @@ func TestLoadRequiredConfigFromEnv(t *testing.T) {
 	assert.False(t, cfg.Metrics.Enabled)
 	assert.Equal(t, "/metrics", cfg.Metrics.Path)
 	assert.Empty(t, cfg.Metrics.Token)
+	assert.Equal(t, 8081, cfg.Metrics.Port)
+	assert.Empty(t, cfg.Metrics.Host)
 }
 
 func TestLoadFailsForNoTvheadendHost(t *testing.T) {
 	defer os.Clearenv()
-	os.Setenv("TVHGO_TVHEADEND_HOST", "localhost")
-	os.Setenv("TVHGO_METRICS_ENABLED", "true")
-
-	cfg, err := config.Load()
-
-	assert.EqualError(t, err, "metrics token is not set")
-	assert.Nil(t, cfg)
-}
-
-func TestLoadFailsWhenMetricsAreEnabledButNoTokenIsSet(t *testing.T) {
-	defer os.Clearenv()
 	cfg, err := config.Load()
 
 	assert.EqualError(t, err, "tvheadend host is not set")
+	assert.Nil(t, cfg)
+}
+
+func TestLoadFailsForWhenSamePortForServerAndMetricsIsSet(t *testing.T) {
+	defer os.Clearenv()
+	os.Setenv("TVHGO_TVHEADEND_HOST", "localhost")
+	os.Setenv("TVHGO_SERVER_PORT", "9999")
+	os.Setenv("TVHGO_METRICS_PORT", "9999")
+
+	cfg, err := config.Load()
+
+	assert.EqualError(t, err, "metrics and server port cannot be the same")
 	assert.Nil(t, cfg)
 }
 
@@ -82,6 +85,8 @@ func TestLoadConfigFromEnv(t *testing.T) {
 	os.Setenv("TVHGO_METRICS_ENABLED", "true")
 	os.Setenv("TVHGO_METRICS_PATH", "/prometheus")
 	os.Setenv("TVHGO_METRICS_TOKEN", "someMetricsToken")
+	os.Setenv("TVHGO_METRICS_PORT", "8082")
+	os.Setenv("TVHGO_METRICS_HOST", "0.0.0.0")
 
 	cfg, err := config.Load()
 
@@ -108,4 +113,6 @@ func TestLoadConfigFromEnv(t *testing.T) {
 	assert.True(t, cfg.Metrics.Enabled)
 	assert.Equal(t, "/prometheus", cfg.Metrics.Path)
 	assert.Equal(t, "someMetricsToken", cfg.Metrics.Token)
+	assert.Equal(t, 8082, cfg.Metrics.Port)
+	assert.Equal(t, "0.0.0.0", cfg.Metrics.Host)
 }
