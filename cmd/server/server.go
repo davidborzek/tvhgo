@@ -130,16 +130,16 @@ func start(ctx *cli.Context) error {
 		log.WithError(err).Fatal("failed to create embedded ui router")
 	}
 
+	metricsServer := metrics.NewServer(
+		&cfg.Metrics,
+		metrics.NewTvheadendCollector(tvhClient),
+	)
+	metricsServer.Start()
+
 	r := chi.NewRouter()
 
 	r.Mount("/api", apiRouter.Handler())
 	r.Mount("/health", healthRouter.Handler())
-
-	r.HandleFunc(cfg.Metrics.Path, metrics.Handler(
-		cfg.Metrics,
-		metrics.NewTvheadendCollector(tvhClient),
-	))
-
 	r.Mount("/", uiRouter)
 
 	addr := cfg.Server.Addr()

@@ -93,11 +93,11 @@ func Load() (*Config, error) {
 		return nil, err
 	}
 
+	cfg.loadDefaults()
+
 	if err := cfg.validate(); err != nil {
 		return nil, err
 	}
-
-	cfg.loadDefaults()
 
 	log.SetLevel(
 		parseLogLevel(cfg.LogLevel),
@@ -128,8 +128,8 @@ func (c *Config) validate() error {
 		return err
 	}
 
-	if err := c.Metrics.Validate(); err != nil {
-		return err
+	if c.Server.Port == c.Metrics.Port {
+		return errors.New("metrics and server port cannot be the same")
 	}
 
 	return nil
