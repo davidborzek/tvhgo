@@ -128,8 +128,8 @@ func (c *Config) validate() error {
 		return err
 	}
 
-	if err := c.Metrics.Validate(); err != nil {
-		return err
+	if c.Server.Port == c.Metrics.Port {
+		return errors.New("metrics and server port cannot be the same")
 	}
 
 	return nil
