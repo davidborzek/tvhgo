@@ -1,0 +1,609 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`with status completed > should render recording 1`] = `
+<DocumentFragment>
+  <div
+    class="_RecordingDetailView_8b9d52"
+  >
+    <div
+      class="_modalWrapper_12177b "
+    >
+      <div
+        class="_modal_12177b"
+      >
+        <div
+          class="_container_12177b"
+        >
+          <button
+            class="_button_2ae682"
+          >
+            <svg
+              fill="none"
+              height="800px"
+              viewBox="0 0 24 24"
+              width="800px"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                id="Menu / Close_LG"
+              >
+                <path
+                  d="M21 21L12 12M12 12L3 3M12 12L21.0001 3M12 12L3 21.0001"
+                  id="Vector"
+                  stroke="#000000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </g>
+            </svg>
+          </button>
+          <div
+            class="_content_ee1e54"
+          >
+            <h3
+              class="_headline_ee1e54"
+            >
+              confirm_delete_recording
+            </h3>
+            <button
+              class="_button_a7f9df _red_a7f9df  "
+            >
+              delete
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="_EventChannelInfo_e37c34"
+    >
+      <span
+        class="_channelName_e37c34"
+      >
+        Some Channel
+      </span>
+      <div
+        class="_picon_e37c34"
+      >
+        <div
+          style="width: 100%; height: 100%;"
+        />
+        <img
+          class="_picon_e37c34"
+          src="/api/picon/1"
+          style="display: none;"
+          title="Some Channel"
+        />
+      </div>
+    </div>
+    <h2>
+      Some Title
+    </h2>
+    <div
+      class="_PairList_768617"
+    >
+      <div
+        class="_Pair_2d5b35"
+      >
+        <div
+          class="_PairKey_b66d6a"
+        >
+          subtitle
+        </div>
+        <div
+          class="_PairValue_05cc8e"
+        >
+          Some Subtitle
+        </div>
+      </div>
+      <div
+        class="_Pair_2d5b35"
+      >
+        <div
+          class="_PairKey_b66d6a"
+        >
+          airs
+        </div>
+        <div
+          class="_PairValue_05cc8e"
+        >
+          event_datetime
+        </div>
+      </div>
+      <div
+        class="_Pair_2d5b35"
+      >
+        <div
+          class="_PairKey_b66d6a"
+        >
+          status
+        </div>
+        <div
+          class="_PairValue_05cc8e"
+        >
+          recording_completed
+        </div>
+      </div>
+      <div
+        class="_Pair_2d5b35"
+      >
+        <div
+          class="_PairKey_b66d6a"
+        >
+          description
+        </div>
+        <div
+          class="_PairValue_05cc8e"
+        >
+          Some Description
+        </div>
+      </div>
+    </div>
+    <div
+      class="_actions_8b9d52"
+    >
+      <button
+        class="_button_a7f9df _red_a7f9df  "
+        type="button"
+      >
+        delete_recording
+      </button>
+      <a
+        class="_button_a7f9df  "
+        download=""
+        href="/api/recordings/someID/stream"
+      >
+        download
+      </a>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`with status recording > should render recording 1`] = `
+<DocumentFragment>
+  <div
+    class="_RecordingDetailView_8b9d52"
+  >
+    <div
+      class="_modalWrapper_12177b "
+    >
+      <div
+        class="_modal_12177b"
+      >
+        <div
+          class="_container_12177b"
+        >
+          <button
+            class="_button_2ae682"
+          >
+            <svg
+              fill="none"
+              height="800px"
+              viewBox="0 0 24 24"
+              width="800px"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                id="Menu / Close_LG"
+              >
+                <path
+                  d="M21 21L12 12M12 12L3 3M12 12L21.0001 3M12 12L3 21.0001"
+                  id="Vector"
+                  stroke="#000000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </g>
+            </svg>
+          </button>
+          <div
+            class="_content_ee1e54"
+          >
+            <h3
+              class="_headline_ee1e54"
+            >
+              confirm_stop_recording
+            </h3>
+            <button
+              class="_button_a7f9df _red_a7f9df  "
+            >
+              stop
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="_EventChannelInfo_e37c34"
+    >
+      <span
+        class="_channelName_e37c34"
+      >
+        Some Channel
+      </span>
+      <div
+        class="_picon_e37c34"
+      >
+        <div
+          style="width: 100%; height: 100%;"
+        />
+        <img
+          class="_picon_e37c34"
+          src="/api/picon/1"
+          style="display: none;"
+          title="Some Channel"
+        />
+      </div>
+    </div>
+    <h2>
+      Some Title
+    </h2>
+    <div
+      class="_PairList_768617"
+    >
+      <div
+        class="_Pair_2d5b35"
+      >
+        <div
+          class="_PairKey_b66d6a"
+        >
+          subtitle
+        </div>
+        <div
+          class="_PairValue_05cc8e"
+        >
+          Some Subtitle
+        </div>
+      </div>
+      <div
+        class="_Pair_2d5b35"
+      >
+        <div
+          class="_PairKey_b66d6a"
+        >
+          airs
+        </div>
+        <div
+          class="_PairValue_05cc8e"
+        >
+          event_datetime
+        </div>
+      </div>
+      <div
+        class="_Pair_2d5b35"
+      >
+        <div
+          class="_PairKey_b66d6a"
+        >
+          status
+        </div>
+        <div
+          class="_PairValue_05cc8e"
+        >
+          recording_running
+        </div>
+      </div>
+      <div
+        class="_Pair_2d5b35"
+      >
+        <div
+          class="_PairKey_b66d6a"
+        >
+          description
+        </div>
+        <div
+          class="_PairValue_05cc8e"
+        >
+          Some Description
+        </div>
+      </div>
+    </div>
+    <div
+      class="_actions_8b9d52"
+    >
+      <button
+        class="_button_a7f9df _red_a7f9df  "
+        type="button"
+      >
+        stop_recording
+      </button>
+    </div>
+    <form
+      class="_Form_27c918 _timeForm_8b9d52"
+      style="max-width: 20rem;"
+    >
+      <div
+        class="_FormGroup_d7b0a1"
+      >
+        <span
+          class="_heading_d7b0a1"
+        >
+          recording_time
+        </span>
+        <div
+          class="_content_d7b0a1 _column_d7b0a1"
+        >
+          <div
+            class="_inputContainer_ae92e9 "
+          >
+            <label
+              class="_inputLabel_ae92e9"
+              for="startPadding"
+            >
+              recording_minutes_before_start
+            </label>
+            <div
+              class="_innerContainer_ae92e9"
+            >
+              <input
+                class="_input_ae92e9  _disabled_ae92e9 "
+                disabled=""
+                name="startPadding"
+                type="number"
+                value="3"
+              />
+            </div>
+          </div>
+          <div
+            class="_inputContainer_ae92e9 "
+          >
+            <label
+              class="_inputLabel_ae92e9"
+              for="endPadding"
+            >
+              recording_minutes_after_end
+            </label>
+            <div
+              class="_innerContainer_ae92e9"
+            >
+              <input
+                class="_input_ae92e9   "
+                name="endPadding"
+                type="number"
+                value="2"
+              />
+            </div>
+          </div>
+        </div>
+        <span
+          class="_info_d7b0a1"
+        >
+          recording_duration_padding_info
+        </span>
+      </div>
+      <button
+        class="_button_a7f9df   "
+        type="submit"
+      >
+        save
+      </button>
+    </form>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`with status scheduled > should render recording 1`] = `
+<DocumentFragment>
+  <div
+    class="_RecordingDetailView_8b9d52"
+  >
+    <div
+      class="_modalWrapper_12177b "
+    >
+      <div
+        class="_modal_12177b"
+      >
+        <div
+          class="_container_12177b"
+        >
+          <button
+            class="_button_2ae682"
+          >
+            <svg
+              fill="none"
+              height="800px"
+              viewBox="0 0 24 24"
+              width="800px"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <g
+                id="Menu / Close_LG"
+              >
+                <path
+                  d="M21 21L12 12M12 12L3 3M12 12L21.0001 3M12 12L3 21.0001"
+                  id="Vector"
+                  stroke="#000000"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                />
+              </g>
+            </svg>
+          </button>
+          <div
+            class="_content_ee1e54"
+          >
+            <h3
+              class="_headline_ee1e54"
+            >
+              confirm_cancel_recording
+            </h3>
+            <button
+              class="_button_a7f9df _red_a7f9df  "
+            >
+              cancel
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="_EventChannelInfo_e37c34"
+    >
+      <span
+        class="_channelName_e37c34"
+      >
+        Some Channel
+      </span>
+      <div
+        class="_picon_e37c34"
+      >
+        <div
+          style="width: 100%; height: 100%;"
+        />
+        <img
+          class="_picon_e37c34"
+          src="/api/picon/1"
+          style="display: none;"
+          title="Some Channel"
+        />
+      </div>
+    </div>
+    <h2>
+      Some Title
+    </h2>
+    <div
+      class="_PairList_768617"
+    >
+      <div
+        class="_Pair_2d5b35"
+      >
+        <div
+          class="_PairKey_b66d6a"
+        >
+          subtitle
+        </div>
+        <div
+          class="_PairValue_05cc8e"
+        >
+          Some Subtitle
+        </div>
+      </div>
+      <div
+        class="_Pair_2d5b35"
+      >
+        <div
+          class="_PairKey_b66d6a"
+        >
+          airs
+        </div>
+        <div
+          class="_PairValue_05cc8e"
+        >
+          event_datetime
+        </div>
+      </div>
+      <div
+        class="_Pair_2d5b35"
+      >
+        <div
+          class="_PairKey_b66d6a"
+        >
+          status
+        </div>
+        <div
+          class="_PairValue_05cc8e"
+        >
+          recording_scheduled
+        </div>
+      </div>
+      <div
+        class="_Pair_2d5b35"
+      >
+        <div
+          class="_PairKey_b66d6a"
+        >
+          description
+        </div>
+        <div
+          class="_PairValue_05cc8e"
+        >
+          Some Description
+        </div>
+      </div>
+    </div>
+    <div
+      class="_actions_8b9d52"
+    >
+      <button
+        class="_button_a7f9df _red_a7f9df  "
+        type="button"
+      >
+        cancel_recording
+      </button>
+    </div>
+    <form
+      class="_Form_27c918 _timeForm_8b9d52"
+      style="max-width: 20rem;"
+    >
+      <div
+        class="_FormGroup_d7b0a1"
+      >
+        <span
+          class="_heading_d7b0a1"
+        >
+          recording_time
+        </span>
+        <div
+          class="_content_d7b0a1 _column_d7b0a1"
+        >
+          <div
+            class="_inputContainer_ae92e9 "
+          >
+            <label
+              class="_inputLabel_ae92e9"
+              for="startPadding"
+            >
+              recording_minutes_before_start
+            </label>
+            <div
+              class="_innerContainer_ae92e9"
+            >
+              <input
+                class="_input_ae92e9   "
+                name="startPadding"
+                type="number"
+                value="3"
+              />
+            </div>
+          </div>
+          <div
+            class="_inputContainer_ae92e9 "
+          >
+            <label
+              class="_inputLabel_ae92e9"
+              for="endPadding"
+            >
+              recording_minutes_after_end
+            </label>
+            <div
+              class="_innerContainer_ae92e9"
+            >
+              <input
+                class="_input_ae92e9   "
+                name="endPadding"
+                type="number"
+                value="2"
+              />
+            </div>
+          </div>
+        </div>
+        <span
+          class="_info_d7b0a1"
+        >
+          recording_duration_padding_info
+        </span>
+      </div>
+      <button
+        class="_button_a7f9df   "
+        type="submit"
+      >
+        save
+      </button>
+    </form>
+  </div>
+</DocumentFragment>
+`;
