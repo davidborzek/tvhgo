@@ -101,7 +101,7 @@ function App() {
 
               <Route element={<Authenticated />}>
                 <Route element={<DashboardView />}>
-                  <Route path="/" element={<Navigate to={'/channels'} />} />
+                  <Route path="/" element={<Navigate to={'/channels'} replace />} />
                   <Route path="/channels" element={<ChannelListView />} />
                   <Route path="/channels/:id" element={<ChannelView />} />
                   <Route path="/guide" element={<GuideView />} />
@@ -113,7 +113,7 @@ function App() {
                   />
 
                   <Route path="/settings" element={<SettingsView />}>
-                    <Route path="" element={<Navigate to={'general'} />} />
+                    <Route path="" element={<Navigate to={'general'} replace />} />
                     <Route path="general" element={<GeneralSettingsView />} />
                     <Route path="security" element={<SecuritySettingsView />}>
                       <Route
@@ -130,12 +130,11 @@ function App() {
                       />
                     </Route>
                   </Route>
+                  <Route path="*" element={<NotFound />} />
                 </Route>
 
                 <Route path="/logout" element={<Logout />} />
               </Route>
-
-              <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
         </AuthProvider>
