@@ -23,15 +23,11 @@ function EventRelated({ relatedEvents }: Props) {
   const renderRelatedEvents = () => {
     return relatedEvents.map((event) => {
       return (
-        <PairList>
+        <PairList key={event.id}>
           <Pair>
             <PairKey>{event.channelName}</PairKey>
             <PairValue>
-              <Link
-                className={styles.link}
-                key={event.id}
-                to={`/guide/events/${event.id}`}
-              >
+              <Link className={styles.link} to={`/guide/events/${event.id}`}>
                 {renderTitle(event)}
               </Link>
             </PairValue>

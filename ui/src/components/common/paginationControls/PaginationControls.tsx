@@ -33,6 +33,7 @@ const PaginationControls = (props: Props) => {
           props.onPageChange && props.onPageChange();
         }}
         label={'<<'}
+        testID="first_page"
       />
       <PaginationControlButton
         disabled={props.limit > props.offset}
@@ -41,6 +42,7 @@ const PaginationControls = (props: Props) => {
           props.onPageChange && props.onPageChange();
         }}
         label={'<'}
+        testID="previous_page"
       />
       <span className={styles.page}>
         {t('pagination_info', {
@@ -56,6 +58,7 @@ const PaginationControls = (props: Props) => {
           props.onPageChange && props.onPageChange();
         }}
         label={'>'}
+        testID="next_page"
       />
       <PaginationControlButton
         disabled={props.offset + props.limit > props.total}
@@ -64,6 +67,7 @@ const PaginationControls = (props: Props) => {
           props.onPageChange && props.onPageChange();
         }}
         label={'>>'}
+        testID="last_page"
       />
     </div>
   );

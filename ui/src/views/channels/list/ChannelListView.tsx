@@ -33,7 +33,7 @@ function ChannelListView() {
   useEffect(() => {
     const scrollPos = searchParams.get('pos');
 
-    if (events && events.length > 0) {
+    if (ref.current?.scrollTo && events && events.length > 0) {
       ref.current?.scrollTo(0, parseInt(scrollPos || '0'));
     }
   }, [events, searchParams]);
@@ -52,7 +52,7 @@ function ChannelListView() {
     return events.map((event) => {
       return (
         <ChannelListItem
-          key={event.id}
+          key={event.channelId}
           event={event}
           onClick={(id) => {
             if (ref.current?.scrollTop !== undefined) {
@@ -87,7 +87,7 @@ function ChannelListView() {
             prev.delete('pos');
             return prev;
           });
-          ref.current?.scrollTo(0, 0);
+          ref.current?.scrollTo && ref.current?.scrollTo(0, 0);
         }}
         limit={limit}
         offset={getOffset()}

@@ -1,0 +1,558 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`render empty state 1`] = `
+<DocumentFragment>
+  <div
+    class="_container_0e2490"
+  >
+    <div
+      class="_channelList_0e2490"
+    >
+      <div
+        class="_emptyState_2228c6"
+      >
+        <span
+          class="_title_2228c6"
+        >
+          no_channels
+        </span>
+        <span
+          class="_subtitle_2228c6"
+        >
+          no_channels_info
+        </span>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`render error 1`] = `
+<DocumentFragment>
+  <div
+    class="_Error_2b6812"
+  >
+    some error
+  </div>
+</DocumentFragment>
+`;
+
+exports[`render nothing 1`] = `
+<DocumentFragment>
+  <div
+    class="_container_0e2490"
+  >
+    <div
+      class="_channelList_0e2490"
+    />
+  </div>
+</DocumentFragment>
+`;
+
+exports[`render with multiple pages 1`] = `
+<DocumentFragment>
+  <div
+    class="_container_0e2490"
+  >
+    <div
+      class="_channelList_0e2490"
+    >
+      <div
+        class="_channel_8f5b3b"
+      >
+        <div
+          class="_piconContainer_8f5b3b"
+        >
+          <div
+            class="_picon_8f5b3b"
+          >
+            <div
+              style="width: 100%; height: 100%;"
+            />
+            <img
+              alt=""
+              class="_picon_8f5b3b"
+              src="/api/picon/1"
+              style="display: none;"
+              title="Channel_0"
+            />
+          </div>
+        </div>
+        <div
+          class="_event_8f5b3b"
+        >
+          <span
+            class="_channelName_8f5b3b"
+          >
+            Channel_0
+          </span>
+          <span
+            class="_eventTitle_8f5b3b"
+          >
+            Channel_0 - Title
+          </span>
+          <span
+            class="_eventTitle_8f5b3b"
+          >
+            event_time
+          </span>
+        </div>
+      </div>
+      <div
+        class="_channel_8f5b3b"
+      >
+        <div
+          class="_piconContainer_8f5b3b"
+        >
+          <div
+            class="_picon_8f5b3b"
+          >
+            <div
+              style="width: 100%; height: 100%;"
+            />
+            <img
+              alt=""
+              class="_picon_8f5b3b"
+              src="/api/picon/1"
+              style="display: none;"
+              title="Channel_1"
+            />
+          </div>
+        </div>
+        <div
+          class="_event_8f5b3b"
+        >
+          <span
+            class="_channelName_8f5b3b"
+          >
+            Channel_1
+          </span>
+          <span
+            class="_eventTitle_8f5b3b"
+          >
+            Channel_1 - Title
+          </span>
+          <span
+            class="_eventTitle_8f5b3b"
+          >
+            event_time
+          </span>
+        </div>
+      </div>
+      <div
+        class="_channel_8f5b3b"
+      >
+        <div
+          class="_piconContainer_8f5b3b"
+        >
+          <div
+            class="_picon_8f5b3b"
+          >
+            <div
+              style="width: 100%; height: 100%;"
+            />
+            <img
+              alt=""
+              class="_picon_8f5b3b"
+              src="/api/picon/1"
+              style="display: none;"
+              title="Channel_2"
+            />
+          </div>
+        </div>
+        <div
+          class="_event_8f5b3b"
+        >
+          <span
+            class="_channelName_8f5b3b"
+          >
+            Channel_2
+          </span>
+          <span
+            class="_eventTitle_8f5b3b"
+          >
+            Channel_2 - Title
+          </span>
+          <span
+            class="_eventTitle_8f5b3b"
+          >
+            event_time
+          </span>
+        </div>
+      </div>
+      <div
+        class="_channel_8f5b3b"
+      >
+        <div
+          class="_piconContainer_8f5b3b"
+        >
+          <div
+            class="_picon_8f5b3b"
+          >
+            <div
+              style="width: 100%; height: 100%;"
+            />
+            <img
+              alt=""
+              class="_picon_8f5b3b"
+              src="/api/picon/1"
+              style="display: none;"
+              title="Channel_3"
+            />
+          </div>
+        </div>
+        <div
+          class="_event_8f5b3b"
+        >
+          <span
+            class="_channelName_8f5b3b"
+          >
+            Channel_3
+          </span>
+          <span
+            class="_eventTitle_8f5b3b"
+          >
+            Channel_3 - Title
+          </span>
+          <span
+            class="_eventTitle_8f5b3b"
+          >
+            event_time
+          </span>
+        </div>
+      </div>
+      <div
+        class="_channel_8f5b3b"
+      >
+        <div
+          class="_piconContainer_8f5b3b"
+        >
+          <div
+            class="_picon_8f5b3b"
+          >
+            <div
+              style="width: 100%; height: 100%;"
+            />
+            <img
+              alt=""
+              class="_picon_8f5b3b"
+              src="/api/picon/1"
+              style="display: none;"
+              title="Channel_4"
+            />
+          </div>
+        </div>
+        <div
+          class="_event_8f5b3b"
+        >
+          <span
+            class="_channelName_8f5b3b"
+          >
+            Channel_4
+          </span>
+          <span
+            class="_eventTitle_8f5b3b"
+          >
+            Channel_4 - Title
+          </span>
+          <span
+            class="_eventTitle_8f5b3b"
+          >
+            event_time
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="_controls_f3f6fd"
+    >
+      <button
+        class="_button_09f37a _disabled_09f37a"
+        data-testid="first_page"
+        disabled=""
+      >
+        &lt;&lt;
+      </button>
+      <button
+        class="_button_09f37a _disabled_09f37a"
+        data-testid="previous_page"
+        disabled=""
+      >
+        &lt;
+      </button>
+      <span
+        class="_page_f3f6fd"
+      >
+        pagination_info
+      </span>
+      <button
+        class="_button_09f37a "
+        data-testid="next_page"
+      >
+        &gt;
+      </button>
+      <button
+        class="_button_09f37a "
+        data-testid="last_page"
+      >
+        &gt;&gt;
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`render with one page 1`] = `
+<DocumentFragment>
+  <div
+    class="_container_0e2490"
+  >
+    <div
+      class="_channelList_0e2490"
+    >
+      <div
+        class="_channel_8f5b3b"
+      >
+        <div
+          class="_piconContainer_8f5b3b"
+        >
+          <div
+            class="_picon_8f5b3b"
+          >
+            <div
+              style="width: 100%; height: 100%;"
+            />
+            <img
+              alt=""
+              class="_picon_8f5b3b"
+              src="/api/picon/1"
+              style="display: none;"
+              title="Channel_0"
+            />
+          </div>
+        </div>
+        <div
+          class="_event_8f5b3b"
+        >
+          <span
+            class="_channelName_8f5b3b"
+          >
+            Channel_0
+          </span>
+          <span
+            class="_eventTitle_8f5b3b"
+          >
+            Channel_0 - Title
+          </span>
+          <span
+            class="_eventTitle_8f5b3b"
+          >
+            event_time
+          </span>
+        </div>
+      </div>
+      <div
+        class="_channel_8f5b3b"
+      >
+        <div
+          class="_piconContainer_8f5b3b"
+        >
+          <div
+            class="_picon_8f5b3b"
+          >
+            <div
+              style="width: 100%; height: 100%;"
+            />
+            <img
+              alt=""
+              class="_picon_8f5b3b"
+              src="/api/picon/1"
+              style="display: none;"
+              title="Channel_1"
+            />
+          </div>
+        </div>
+        <div
+          class="_event_8f5b3b"
+        >
+          <span
+            class="_channelName_8f5b3b"
+          >
+            Channel_1
+          </span>
+          <span
+            class="_eventTitle_8f5b3b"
+          >
+            Channel_1 - Title
+          </span>
+          <span
+            class="_eventTitle_8f5b3b"
+          >
+            event_time
+          </span>
+        </div>
+      </div>
+      <div
+        class="_channel_8f5b3b"
+      >
+        <div
+          class="_piconContainer_8f5b3b"
+        >
+          <div
+            class="_picon_8f5b3b"
+          >
+            <div
+              style="width: 100%; height: 100%;"
+            />
+            <img
+              alt=""
+              class="_picon_8f5b3b"
+              src="/api/picon/1"
+              style="display: none;"
+              title="Channel_2"
+            />
+          </div>
+        </div>
+        <div
+          class="_event_8f5b3b"
+        >
+          <span
+            class="_channelName_8f5b3b"
+          >
+            Channel_2
+          </span>
+          <span
+            class="_eventTitle_8f5b3b"
+          >
+            Channel_2 - Title
+          </span>
+          <span
+            class="_eventTitle_8f5b3b"
+          >
+            event_time
+          </span>
+        </div>
+      </div>
+      <div
+        class="_channel_8f5b3b"
+      >
+        <div
+          class="_piconContainer_8f5b3b"
+        >
+          <div
+            class="_picon_8f5b3b"
+          >
+            <div
+              style="width: 100%; height: 100%;"
+            />
+            <img
+              alt=""
+              class="_picon_8f5b3b"
+              src="/api/picon/1"
+              style="display: none;"
+              title="Channel_3"
+            />
+          </div>
+        </div>
+        <div
+          class="_event_8f5b3b"
+        >
+          <span
+            class="_channelName_8f5b3b"
+          >
+            Channel_3
+          </span>
+          <span
+            class="_eventTitle_8f5b3b"
+          >
+            Channel_3 - Title
+          </span>
+          <span
+            class="_eventTitle_8f5b3b"
+          >
+            event_time
+          </span>
+        </div>
+      </div>
+      <div
+        class="_channel_8f5b3b"
+      >
+        <div
+          class="_piconContainer_8f5b3b"
+        >
+          <div
+            class="_picon_8f5b3b"
+          >
+            <div
+              style="width: 100%; height: 100%;"
+            />
+            <img
+              alt=""
+              class="_picon_8f5b3b"
+              src="/api/picon/1"
+              style="display: none;"
+              title="Channel_4"
+            />
+          </div>
+        </div>
+        <div
+          class="_event_8f5b3b"
+        >
+          <span
+            class="_channelName_8f5b3b"
+          >
+            Channel_4
+          </span>
+          <span
+            class="_eventTitle_8f5b3b"
+          >
+            Channel_4 - Title
+          </span>
+          <span
+            class="_eventTitle_8f5b3b"
+          >
+            event_time
+          </span>
+        </div>
+      </div>
+    </div>
+    <div
+      class="_controls_f3f6fd"
+    >
+      <button
+        class="_button_09f37a _disabled_09f37a"
+        data-testid="first_page"
+        disabled=""
+      >
+        &lt;&lt;
+      </button>
+      <button
+        class="_button_09f37a _disabled_09f37a"
+        data-testid="previous_page"
+        disabled=""
+      >
+        &lt;
+      </button>
+      <span
+        class="_page_f3f6fd"
+      >
+        pagination_info
+      </span>
+      <button
+        class="_button_09f37a _disabled_09f37a"
+        data-testid="next_page"
+        disabled=""
+      >
+        &gt;
+      </button>
+      <button
+        class="_button_09f37a _disabled_09f37a"
+        data-testid="last_page"
+        disabled=""
+      >
+        &gt;&gt;
+      </button>
+    </div>
+  </div>
+</DocumentFragment>
+`;
