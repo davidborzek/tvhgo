@@ -18,7 +18,7 @@ require (
 	github.com/swaggo/swag v1.16.2
 	github.com/urfave/cli/v2 v2.26.0
 	go.uber.org/mock v0.3.0
-	golang.org/x/crypto v0.16.0
+	golang.org/x/crypto v0.17.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
