@@ -5,7 +5,7 @@ export type ListResponse<T> = {
 };
 
 export type UserResponse = {
-  id: string;
+  id: number;
   username: string;
   email: string;
   displayName: string;
@@ -105,7 +105,7 @@ export type UpdateUserPassword = {
 
 export type Session = {
   id: number;
-  userId: string;
+  userId: number;
   clientIp: string;
   userAgent: string;
   createdAt: number;
