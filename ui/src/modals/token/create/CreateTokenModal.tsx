@@ -11,6 +11,7 @@ import Button from '@/components/common/button/Button';
 import { useCreateToken } from '@/hooks/token';
 
 import styles from './CreateTokenModal.module.scss';
+import { SecuritySettingsRefreshStates } from '@/views/settings/SecuritySettingsView';
 
 const CreateTokenModal = () => {
   const { t } = useTranslation();
@@ -34,7 +35,9 @@ const CreateTokenModal = () => {
   const close = () => {
     setToken('');
     formik.resetForm();
-    navigate('/settings/security');
+    navigate('/settings/security', {
+      state: SecuritySettingsRefreshStates.TOKEN,
+    });
   };
 
   const renderToken = () => {

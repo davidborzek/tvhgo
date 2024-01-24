@@ -11,6 +11,7 @@ import Modal from '@/components/common/modal/Modal';
 import Form from '@/components/common/form/Form';
 
 import styles from './TwoFactorAuthDisableModal.module.scss';
+import { SecuritySettingsRefreshStates } from '@/views/settings/SecuritySettingsView';
 
 const TwoFactorAuthDisableModal = () => {
   const { deactivateTwoFactorAuth, loading } = useDeactivateTwoFactorAuth();
@@ -19,7 +20,9 @@ const TwoFactorAuthDisableModal = () => {
 
   const close = () => {
     formik.resetForm();
-    navigate('/settings/security');
+    navigate('/settings/security', {
+      state: SecuritySettingsRefreshStates.TWOFA,
+    });
   };
 
   const validationSchema = Yup.object().shape({

@@ -12,6 +12,7 @@ import { useSetupTwoFactorAuth } from '@/hooks/2fa';
 import Form from '@/components/common/form/Form';
 
 import styles from './TwoFactorAuthSetupModal.module.scss';
+import { SecuritySettingsRefreshStates } from '@/views/settings/SecuritySettingsView';
 
 const TwoFactorAuthSetupModal = () => {
   const { t } = useTranslation();
@@ -59,7 +60,9 @@ const TwoFactorAuthSetupModal = () => {
     setTwoFactorUrl(null);
     enableFormik.resetForm();
     setupFormik.resetForm();
-    navigate('/settings/security');
+    navigate('/settings/security', {
+      state: SecuritySettingsRefreshStates.TWOFA,
+    });
   };
 
   const renderEnableTwoFactorForm = () => {
