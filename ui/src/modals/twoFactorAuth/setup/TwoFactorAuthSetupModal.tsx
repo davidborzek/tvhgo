@@ -50,18 +50,18 @@ const TwoFactorAuthSetupModal = () => {
     },
     validationSchema: enableSchema,
     onSubmit: ({ code }) => {
-      activateTwoFactorAuth(setupFormik.values.password, code).then(() => {
-        close();
-      });
+      activateTwoFactorAuth(setupFormik.values.password, code).then(() =>
+        close(true)
+      );
     },
   });
 
-  const close = () => {
+  const close = (refresh = false) => {
     setTwoFactorUrl(null);
     enableFormik.resetForm();
     setupFormik.resetForm();
     navigate('/settings/security', {
-      state: SecuritySettingsRefreshStates.TWOFA,
+      state: refresh ? SecuritySettingsRefreshStates.TWOFA : undefined,
     });
   };
 
@@ -115,7 +115,12 @@ const TwoFactorAuthSetupModal = () => {
   };
 
   return (
-    <Modal onClose={close} visible maxWidth="30rem" disableBackdropClose>
+    <Modal
+      onClose={() => close()}
+      visible
+      maxWidth="30rem"
+      disableBackdropClose
+    >
       <div className={styles.content}>
         <h3 className={styles.headline}>{t('enable_two_factor_auth')}</h3>
         {twoFactorUrl

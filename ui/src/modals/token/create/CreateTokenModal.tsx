@@ -33,10 +33,12 @@ const CreateTokenModal = () => {
   });
 
   const close = () => {
+    const state = token ? SecuritySettingsRefreshStates.TOKEN : undefined;
+
     setToken('');
     formik.resetForm();
     navigate('/settings/security', {
-      state: SecuritySettingsRefreshStates.TOKEN,
+      state,
     });
   };
 
