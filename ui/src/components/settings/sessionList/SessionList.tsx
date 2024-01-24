@@ -85,6 +85,7 @@ const SessionList = (props: Props) => {
                       style="red"
                       onClick={() => props.onRevoke(session.id)}
                       disabled={isLoading}
+                      testID='revoke-session-btn'
                     />
                   </td>
                 </tr>

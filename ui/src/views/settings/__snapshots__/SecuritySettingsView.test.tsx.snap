@@ -1,0 +1,360 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should render 1`] = `
+<DocumentFragment>
+  <div
+    class="_row_65046f"
+  >
+    <form
+      class="_Form_27c918 _section_65046f"
+    >
+      <h2
+        class="_headline_8da35a"
+      >
+        password
+      </h2>
+      <div
+        class="_inputContainer_ae92e9 "
+        style="width: 100%;"
+      >
+        <label
+          class="_inputLabel_ae92e9"
+          for="currentPassword"
+        >
+          current_password
+        </label>
+        <div
+          class="_innerContainer_ae92e9"
+        >
+          <input
+            class="_input_ae92e9   "
+            name="currentPassword"
+            placeholder="current_password"
+            type="password"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="_inputContainer_ae92e9 "
+        style="width: 100%;"
+      >
+        <label
+          class="_inputLabel_ae92e9"
+          for="password"
+        >
+          password
+        </label>
+        <div
+          class="_innerContainer_ae92e9"
+        >
+          <input
+            class="_input_ae92e9   "
+            name="password"
+            placeholder="password"
+            type="password"
+            value=""
+          />
+        </div>
+      </div>
+      <div
+        class="_inputContainer_ae92e9 "
+        style="width: 100%;"
+      >
+        <label
+          class="_inputLabel_ae92e9"
+          for="passwordRepeat"
+        >
+          password_repeat
+        </label>
+        <div
+          class="_innerContainer_ae92e9"
+        >
+          <input
+            class="_input_ae92e9   "
+            name="passwordRepeat"
+            placeholder="password_repeat"
+            type="password"
+            value=""
+          />
+        </div>
+      </div>
+      <div>
+        <button
+          class="_button_a7f9df   "
+          type="submit"
+        >
+          save
+        </button>
+      </div>
+    </form>
+  </div>
+  <div
+    class="_row_65046f"
+  >
+    <div
+      class="_settings_2131bd"
+    >
+      <h2
+        class="_headline_8da35a"
+      >
+        two_factor_auth
+      </h2>
+      <button
+        class="_button_a7f9df _red_a7f9df  "
+      >
+        disable
+      </button>
+    </div>
+  </div>
+  <div
+    class="_row_65046f"
+  >
+    <div
+      class="_SessionList_542de3"
+    >
+      <h2
+        class="_headline_8da35a"
+      >
+        sessions
+      </h2>
+      <div
+        class="_tableContainer_542de3"
+      >
+        <table
+          class="_table_542de3"
+        >
+          <thead>
+            <tr>
+              <th>
+                last_seen
+              </th>
+              <th
+                class="_created_542de3"
+              >
+                created
+              </th>
+              <th
+                class="_ip_542de3"
+              >
+                ip_address
+              </th>
+              <th>
+                browser_and_os
+              </th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                date
+              </td>
+              <td
+                class="_created_542de3"
+              >
+                date
+              </td>
+              <td
+                class="_ip_542de3"
+              >
+                10.0.0.1
+              </td>
+              <td>
+                user_agent_full
+              </td>
+              <td>
+                <button
+                  class="_button_a7f9df _red_a7f9df  "
+                  data-testid="revoke-session-btn"
+                >
+                  <svg
+                    class="_sessionDeleteButton_542de3"
+                    fill="none"
+                    height="800px"
+                    viewBox="0 0 24 24"
+                    width="800px"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      id="Menu / Close_LG"
+                    >
+                      <path
+                        d="M21 21L12 12M12 12L3 3M12 12L21.0001 3M12 12L3 21.0001"
+                        id="Vector"
+                        stroke="#000000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                      />
+                    </g>
+                  </svg>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                date
+              </td>
+              <td
+                class="_created_542de3"
+              >
+                date
+              </td>
+              <td
+                class="_ip_542de3"
+              >
+                10.0.0.2
+              </td>
+              <td>
+                user_agent_full
+              </td>
+              <td>
+                <button
+                  class="_button_a7f9df _red_a7f9df  "
+                  data-testid="revoke-session-btn"
+                >
+                  <svg
+                    class="_sessionDeleteButton_542de3"
+                    fill="none"
+                    height="800px"
+                    viewBox="0 0 24 24"
+                    width="800px"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      id="Menu / Close_LG"
+                    >
+                      <path
+                        d="M21 21L12 12M12 12L3 3M12 12L21.0001 3M12 12L3 21.0001"
+                        id="Vector"
+                        stroke="#000000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                      />
+                    </g>
+                  </svg>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <div
+    class="_row_65046f"
+  >
+    <div
+      class="_TokenList_6bec32"
+    >
+      <h2
+        class="_headline_8da35a"
+      >
+        api_tokens
+      </h2>
+      <div
+        class="_tableContainer_6bec32"
+      >
+        <table
+          class="_table_6bec32"
+        >
+          <thead>
+            <tr>
+              <th>
+                created
+              </th>
+              <th>
+                name
+              </th>
+              <th />
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>
+                date
+              </td>
+              <td>
+                My Token 1
+              </td>
+              <td>
+                <button
+                  class="_button_a7f9df _red_a7f9df  "
+                  data-testid="revoke-token-btn"
+                >
+                  <svg
+                    class="_deleteButton_6bec32"
+                    fill="none"
+                    height="800px"
+                    viewBox="0 0 24 24"
+                    width="800px"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      id="Menu / Close_LG"
+                    >
+                      <path
+                        d="M21 21L12 12M12 12L3 3M12 12L21.0001 3M12 12L3 21.0001"
+                        id="Vector"
+                        stroke="#000000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                      />
+                    </g>
+                  </svg>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td>
+                date
+              </td>
+              <td>
+                My Token 2
+              </td>
+              <td>
+                <button
+                  class="_button_a7f9df _red_a7f9df  "
+                  data-testid="revoke-token-btn"
+                >
+                  <svg
+                    class="_deleteButton_6bec32"
+                    fill="none"
+                    height="800px"
+                    viewBox="0 0 24 24"
+                    width="800px"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <g
+                      id="Menu / Close_LG"
+                    >
+                      <path
+                        d="M21 21L12 12M12 12L3 3M12 12L21.0001 3M12 12L3 21.0001"
+                        id="Vector"
+                        stroke="#000000"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        stroke-width="2"
+                      />
+                    </g>
+                  </svg>
+                </button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div>
+        <button
+          class="_button_a7f9df   "
+        >
+          new_token
+        </button>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

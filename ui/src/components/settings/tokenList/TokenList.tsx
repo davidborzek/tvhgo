@@ -53,6 +53,7 @@ const TokenList = (props: Props) => {
                       style="red"
                       onClick={() => props.onRevoke(token.id)}
                       disabled={isLoading}
+                      testID='revoke-token-btn'
                     />
                   </td>
                 </tr>
