@@ -12,6 +12,7 @@ type Props = {
   name?: string;
   maxWidth?: string | number;
   fullWidth?: boolean;
+  testID?: string;
   onChange?: (option: string) => void;
 };
 
@@ -22,6 +23,7 @@ function Dropdown({
   options,
   value,
   maxWidth,
+  testID,
   onChange,
 }: Props) {
   const renderOptions = () => {
@@ -47,6 +49,7 @@ function Dropdown({
         className={styles.dropdown}
         onChange={(e) => onChange && onChange(e.target.value)}
         style={{ maxWidth, width: fullWidth ? '100%' : 'fit-content' }}
+        data-testid={testID}
       >
         {renderOptions()}
       </select>

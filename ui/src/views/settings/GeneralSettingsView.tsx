@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 
@@ -11,7 +11,7 @@ import { useAuth } from '@/contexts/AuthContext';
 import { useTheme, Theme } from '@/contexts/ThemeContext';
 import useFormikErrorFocus from '@/hooks/formik';
 import { useUpdateUser } from '@/hooks/user';
-import i18n from '@/i18n/i18n';
+import i18n from 'i18next';
 import { useNavigate } from 'react-router-dom';
 import Form from '@/components/common/form/Form';
 
@@ -49,14 +49,15 @@ const GeneralSettingsView = () => {
 
   const userSettingsFormik = useFormik({
     initialValues: {
-      username: '',
-      email: '',
-      displayName: '',
+      username: user?.username || '',
+      email: user?.email || '',
+      displayName: user?.displayName || '',
     },
     validationSchema: userSettingsValidationSchema,
     onSubmit: async ({ username, email, displayName }) => {
       await update({ username, email, displayName });
     },
+    enableReinitialize: true,
   });
 
   useFormikErrorFocus(
@@ -65,16 +66,6 @@ const GeneralSettingsView = () => {
     emailRef,
     displayNameRef
   );
-
-  useEffect(() => {
-    if (user) {
-      userSettingsFormik.setValues({
-        username: user.username,
-        email: user.email,
-        displayName: user.displayName,
-      });
-    }
-  }, [user]);
 
   return (
     <>
@@ -129,7 +120,7 @@ const GeneralSettingsView = () => {
             fullWidth
           />
           <div>
-            <Button type="submit" label={t('save')} />
+            <Button type="submit" label={t('save')} testID="save_user" />
           </div>
         </Form>
       </div>
@@ -141,6 +132,7 @@ const GeneralSettingsView = () => {
             options={themeOptions}
             onChange={(theme) => setTheme(theme as Theme)}
             fullWidth
+            testID="theme_dropdown"
           />
           <Dropdown
             label={t('language')}
@@ -148,12 +140,14 @@ const GeneralSettingsView = () => {
             options={languageOptions}
             onChange={handleChangeLanguage}
             fullWidth
+            testID="language_dropdown"
           />
           <div>
             <Button
               label={t('logout')}
               style="red"
               onClick={() => navigate('/logout')}
+              testID="logout_button"
             />
           </div>
         </div>
