@@ -13,7 +13,7 @@ const updateUserOpts = {
 };
 
 const user = {
-  id: 'someId',
+  id: 1,
   username: 'someUsername',
   email: 'someEmail',
   displayName: 'someName',
