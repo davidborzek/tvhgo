@@ -6,7 +6,9 @@ import { useUpdateUserPassword } from '@/hooks/user';
 import { cleanup, render } from '@testing-library/react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { afterEach, beforeEach, expect, test, vi, describe } from 'vitest';
-import SecuritySettingsView from './SecuritySettingsView';
+import SecuritySettingsView, {
+  SecuritySettingsRefreshStates,
+} from './SecuritySettingsView';
 import { userEvent } from '@testing-library/user-event';
 import { TestIds } from '@/__test__/ids';
 
@@ -70,6 +72,8 @@ const navigateMock = vi.fn();
 const updatePasswordMock = vi.fn();
 const revokeSessionMock = vi.fn();
 const revokeTokenMock = vi.fn();
+const fetchTwoFactorAuthSettingsMock = vi.fn();
+const getTokensMock = vi.fn();
 
 beforeEach(() => {
   vi.mocked(useLocation).mockReturnValue({
@@ -96,13 +100,13 @@ beforeEach(() => {
 
   vi.mocked(useManageTokens).mockReturnValue({
     error: null,
-    getTokens: vi.fn(),
+    getTokens: getTokensMock,
     revokeToken: revokeTokenMock,
     tokens,
   });
 
   vi.mocked(useTwoFactorAuthSettings).mockReturnValue({
-    fetchTwoFactorAuthSettings: vi.fn(),
+    fetchTwoFactorAuthSettings: fetchTwoFactorAuthSettingsMock,
     twoFactorAuthSettings: twoFactorAuthEnabled,
   });
 });
@@ -265,6 +269,37 @@ describe('update password', () => {
   });
 });
 
+describe('twofa settings', () => {
+  test('should open disable twofa modal', async () => {
+    const document = render(<SecuritySettingsView />);
+
+    const disableButton = document.getByTestId(TestIds.TWOFA_DISABLE_BUTTON);
+
+    await userEvent.click(disableButton);
+
+    expect(navigateMock).toHaveBeenCalledWith(
+      '/settings/security/two-factor-auth/disable'
+    );
+  });
+
+  test('should open setup twofa modal', async () => {
+    vi.mocked(useTwoFactorAuthSettings).mockReturnValue({
+      fetchTwoFactorAuthSettings: vi.fn(),
+      twoFactorAuthSettings: twoFactorAuthDisabled,
+    });
+
+    const document = render(<SecuritySettingsView />);
+
+    const disableButton = document.getByTestId(TestIds.TWOFA_DISABLE_BUTTON);
+
+    await userEvent.click(disableButton);
+
+    expect(navigateMock).toHaveBeenCalledWith(
+      '/settings/security/two-factor-auth/setup'
+    );
+  });
+});
+
 test.each(sessions)('should revoke session with id $id', async (session) => {
   const document = render(<SecuritySettingsView />);
 
@@ -289,4 +324,34 @@ test.each(tokens)('should revoke token with id $id', async (token) => {
   await userEvent.click(revokeTokenButtons[tokens.indexOf(token)]);
 
   expect(revokeTokenMock).toBeCalledWith(token.id);
+});
+
+test('should refresh twofa settings on state change', () => {
+  vi.mocked(useLocation).mockReturnValue({
+    hash: '',
+    key: '',
+    pathname: '',
+    search: '',
+    state: SecuritySettingsRefreshStates.TWOFA,
+  });
+
+  const document = render(<SecuritySettingsView />);
+
+  expect(fetchTwoFactorAuthSettingsMock).toHaveBeenCalled();
+  expect(getTokensMock).not.toHaveBeenCalled();
+});
+
+test('should refresh tokens on state change', () => {
+  vi.mocked(useLocation).mockReturnValue({
+    hash: '',
+    key: '',
+    pathname: '',
+    search: '',
+    state: SecuritySettingsRefreshStates.TOKEN,
+  });
+
+  const document = render(<SecuritySettingsView />);
+
+  expect(getTokensMock).toHaveBeenCalled();
+  expect(fetchTwoFactorAuthSettingsMock).not.toHaveBeenCalled();
 });

@@ -102,6 +102,7 @@ exports[`should render 1`] = `
       </h2>
       <button
         class="_button_a7f9df _red_a7f9df  "
+        data-testid="twofa-disable-button"
       >
         disable
       </button>

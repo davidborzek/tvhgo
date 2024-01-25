@@ -9,4 +9,6 @@ export enum TestIds {
   LANGUAGE_DROPDOWN = 'language-dropdown',
   LOGOUT_BUTTON = 'logout-button',
   SAVE_USER_BUTTON = 'save-user-btn',
+  TWOFA_DISABLE_BUTTON = 'twofa-disable-button',
+  TWOFA_ENABLE_BUTTON = 'twofa-disable-button',
 }
