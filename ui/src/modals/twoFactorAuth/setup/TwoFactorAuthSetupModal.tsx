@@ -27,7 +27,7 @@ const TwoFactorAuthSetupModal = () => {
   } = useSetupTwoFactorAuth();
 
   const setupSchema = Yup.object().shape({
-    password: Yup.string().required(t('password_required') || ''),
+    password: Yup.string().required(t('password_required')),
   });
 
   const setupFormik = useFormik({
@@ -41,7 +41,7 @@ const TwoFactorAuthSetupModal = () => {
   });
 
   const enableSchema = Yup.object().shape({
-    code: Yup.string().required(t('two_factor_code_required') || ''),
+    code: Yup.string().required(t('two_factor_code_required')),
   });
 
   const enableFormik = useFormik({

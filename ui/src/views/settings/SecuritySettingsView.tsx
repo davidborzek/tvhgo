@@ -39,13 +39,13 @@ const SecuritySettingsView = () => {
   const passwordRepeatRef = useRef<HTMLInputElement>(null);
 
   const passwordChangeValidationSchema = Yup.object().shape({
-    currentPassword: Yup.string().required(t('input_required') || ''),
+    currentPassword: Yup.string().required(t('input_required')),
     password: Yup.string()
-      .required(t('input_required') || '')
-      .min(8, t('password_min_chars_error') || ''),
+      .required(t('input_required'))
+      .min(8, t('password_min_chars_error')),
     passwordRepeat: Yup.string()
-      .required(t('passwords_do_not_match') || '')
-      .oneOf([Yup.ref('password')], t('passwords_do_not_match') || ''),
+      .required(t('passwords_do_not_match'))
+      .oneOf([Yup.ref('password')], t('passwords_do_not_match')),
   });
 
   const passwordChangeFormik = useFormik({

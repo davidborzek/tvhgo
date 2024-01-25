@@ -26,7 +26,7 @@ const TwoFactorAuthDisableModal = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    code: Yup.string().required(t('two_factor_code_required') || ''),
+    code: Yup.string().required(t('two_factor_code_required')),
   });
 
   const formik = useFormik({

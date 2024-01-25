@@ -23,8 +23,8 @@ export default function LoginView() {
   const passwordRef = useRef<HTMLInputElement>(null);
 
   const loginSchema = Yup.object().shape({
-    username: Yup.string().required(t('username_required') || ''),
-    password: Yup.string().required(t('password_required') || ''),
+    username: Yup.string().required(t('username_required')),
+    password: Yup.string().required(t('password_required')),
   });
 
   const loginFormik = useFormik({

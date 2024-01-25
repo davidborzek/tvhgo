@@ -43,9 +43,9 @@ const GeneralSettingsView = () => {
   const displayNameRef = useRef<HTMLInputElement>(null);
 
   const userSettingsValidationSchema = Yup.object().shape({
-    username: Yup.string().required(t('input_required') || ''),
-    email: Yup.string().required(t('input_required') || ''),
-    displayName: Yup.string().required(t('input_required') || ''),
+    username: Yup.string().required(t('input_required')),
+    email: Yup.string().required(t('input_required')),
+    displayName: Yup.string().required(t('input_required')),
   });
 
   const userSettingsFormik = useFormik({

@@ -19,7 +19,7 @@ const CreateTokenModal = () => {
   const { createToken, setToken, token } = useCreateToken();
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required(t('name_required') || ''),
+    name: Yup.string().required(t('name_required')),
   });
 
   const formik = useFormik({
