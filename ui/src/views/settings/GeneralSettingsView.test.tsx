@@ -57,6 +57,16 @@ test('should render', () => {
   expect(document.asFragment()).toMatchSnapshot();
 });
 
+test('should render render when no user is present', () => {
+  vi.mocked(useAuth).mockReturnValue({
+    setUser: vi.fn(),
+    user: null,
+  });
+
+  const document = render(<GeneralSettingsView />);
+  expect(document.asFragment()).toMatchSnapshot();
+});
+
 test('should update user', async () => {
   const document = render(<GeneralSettingsView />);
 

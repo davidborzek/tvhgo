@@ -150,3 +150,13 @@ exports[`should render 1`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`should render render when no user is present 1`] = `
+<DocumentFragment>
+  <div
+    class="_Error_2b6812"
+  >
+    unexpected
+  </div>
+</DocumentFragment>
+`;

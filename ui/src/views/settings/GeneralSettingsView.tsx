@@ -7,6 +7,7 @@ import styles from './SettingsView.module.scss';
 import Button from '@/components/common/button/Button';
 import Dropdown, { Option } from '@/components/common/dropdown/Dropdown';
 import Input from '@/components/common/input/Input';
+import Error from '@/components/common/error/Error';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTheme, Theme } from '@/contexts/ThemeContext';
 import useFormikErrorFocus from '@/hooks/formik';
@@ -67,6 +68,10 @@ const GeneralSettingsView = () => {
     emailRef,
     displayNameRef
   );
+
+  if (!user) {
+    return <Error message={t('unexpected')} />;
+  }
 
   return (
     <>
