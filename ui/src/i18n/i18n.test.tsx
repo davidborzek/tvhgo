@@ -8,5 +8,5 @@ test('can initialize i18n', async () => {
   await import('./i18n');
 
   expect(i18n.isInitialized).toBeTruthy();
-  expect(t("username")).toEqual("Username");
+  expect(t('username')).toEqual('Username');
 });

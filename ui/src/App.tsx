@@ -101,7 +101,10 @@ function App() {
 
               <Route element={<Authenticated />}>
                 <Route element={<DashboardView />}>
-                  <Route path="/" element={<Navigate to={'/channels'} replace />} />
+                  <Route
+                    path="/"
+                    element={<Navigate to={'/channels'} replace />}
+                  />
                   <Route path="/channels" element={<ChannelListView />} />
                   <Route path="/channels/:id" element={<ChannelView />} />
                   <Route path="/guide" element={<GuideView />} />
@@ -113,7 +116,10 @@ function App() {
                   />
 
                   <Route path="/settings" element={<SettingsView />}>
-                    <Route path="" element={<Navigate to={'general'} replace />} />
+                    <Route
+                      path=""
+                      element={<Navigate to={'general'} replace />}
+                    />
                     <Route path="general" element={<GeneralSettingsView />} />
                     <Route path="security" element={<SecuritySettingsView />}>
                       <Route
