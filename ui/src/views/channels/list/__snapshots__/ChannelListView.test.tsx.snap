@@ -268,14 +268,14 @@ exports[`render with multiple pages 1`] = `
     >
       <button
         class="_button_09f37a _disabled_09f37a"
-        data-testid="first_page"
+        data-testid="pagination-first-page-btn"
         disabled=""
       >
         &lt;&lt;
       </button>
       <button
         class="_button_09f37a _disabled_09f37a"
-        data-testid="previous_page"
+        data-testid="pagination-previous-page-btn"
         disabled=""
       >
         &lt;
@@ -287,13 +287,13 @@ exports[`render with multiple pages 1`] = `
       </span>
       <button
         class="_button_09f37a "
-        data-testid="next_page"
+        data-testid="pagination-next-page-btn"
       >
         &gt;
       </button>
       <button
         class="_button_09f37a "
-        data-testid="last_page"
+        data-testid="pagination-last-page-btn"
       >
         &gt;&gt;
       </button>
@@ -521,14 +521,14 @@ exports[`render with one page 1`] = `
     >
       <button
         class="_button_09f37a _disabled_09f37a"
-        data-testid="first_page"
+        data-testid="pagination-first-page-btn"
         disabled=""
       >
         &lt;&lt;
       </button>
       <button
         class="_button_09f37a _disabled_09f37a"
-        data-testid="previous_page"
+        data-testid="pagination-previous-page-btn"
         disabled=""
       >
         &lt;
@@ -540,14 +540,14 @@ exports[`render with one page 1`] = `
       </span>
       <button
         class="_button_09f37a _disabled_09f37a"
-        data-testid="next_page"
+        data-testid="pagination-next-page-btn"
         disabled=""
       >
         &gt;
       </button>
       <button
         class="_button_09f37a _disabled_09f37a"
-        data-testid="last_page"
+        data-testid="pagination-last-page-btn"
         disabled=""
       >
         &gt;&gt;

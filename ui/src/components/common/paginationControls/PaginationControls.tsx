@@ -1,6 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import PaginationControlButton from './PaginationControlButton';
 import styles from './PaginationControls.module.scss';
+import { TestIds } from '@/__test__/ids';
 
 type Props = {
   onNextPage: () => void;
@@ -33,7 +34,7 @@ const PaginationControls = (props: Props) => {
           props.onPageChange && props.onPageChange();
         }}
         label={'<<'}
-        testID="first_page"
+        testID={TestIds.PAGINATION_FIRST_PAGE}
       />
       <PaginationControlButton
         disabled={props.limit > props.offset}
@@ -42,7 +43,7 @@ const PaginationControls = (props: Props) => {
           props.onPageChange && props.onPageChange();
         }}
         label={'<'}
-        testID="previous_page"
+        testID={TestIds.PAGINATION_PREVIOUS_PAGE}
       />
       <span className={styles.page}>
         {t('pagination_info', {
@@ -58,7 +59,7 @@ const PaginationControls = (props: Props) => {
           props.onPageChange && props.onPageChange();
         }}
         label={'>'}
-        testID="next_page"
+        testID={TestIds.PAGINATION_NEXT_PAGE}
       />
       <PaginationControlButton
         disabled={props.offset + props.limit > props.total}
@@ -67,7 +68,7 @@ const PaginationControls = (props: Props) => {
           props.onPageChange && props.onPageChange();
         }}
         label={'>>'}
-        testID="last_page"
+        testID={TestIds.PAGINATION_LAST_PAGE}
       />
     </div>
   );

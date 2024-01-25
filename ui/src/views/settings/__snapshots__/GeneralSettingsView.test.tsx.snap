@@ -74,7 +74,7 @@ exports[`should render 1`] = `
       <div>
         <button
           class="_button_a7f9df   "
-          data-testid="save_user"
+          data-testid="save-user-btn"
           type="submit"
         >
           save
@@ -98,7 +98,7 @@ exports[`should render 1`] = `
         </label>
         <select
           class="_dropdown_979188"
-          data-testid="theme_dropdown"
+          data-testid="theme-dropdown"
           style="width: 100%;"
         >
           <option
@@ -123,7 +123,7 @@ exports[`should render 1`] = `
         </label>
         <select
           class="_dropdown_979188"
-          data-testid="language_dropdown"
+          data-testid="language-dropdown"
           style="width: 100%;"
         >
           <option
@@ -141,7 +141,7 @@ exports[`should render 1`] = `
       <div>
         <button
           class="_button_a7f9df _red_a7f9df  "
-          data-testid="logout_button"
+          data-testid="logout-button"
         >
           logout
         </button>

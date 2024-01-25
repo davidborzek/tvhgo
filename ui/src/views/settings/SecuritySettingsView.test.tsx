@@ -8,6 +8,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { afterEach, beforeEach, expect, test, vi, describe } from 'vitest';
 import SecuritySettingsView from './SecuritySettingsView';
 import { userEvent } from '@testing-library/user-event';
+import { TestIds } from '@/__test__/ids';
 
 vi.mock('react-router-dom');
 
@@ -267,7 +268,9 @@ describe('update password', () => {
 test.each(sessions)('should revoke session with id $id', async (session) => {
   const document = render(<SecuritySettingsView />);
 
-  const revokeSessionButtons = document.getAllByTestId('revoke-session-btn');
+  const revokeSessionButtons = document.getAllByTestId(
+    TestIds.REVOKE_SESSION_BUTTON
+  );
   expect(revokeSessionButtons).toHaveLength(sessions.length);
 
   await userEvent.click(revokeSessionButtons[sessions.indexOf(session)]);
@@ -278,7 +281,9 @@ test.each(sessions)('should revoke session with id $id', async (session) => {
 test.each(tokens)('should revoke token with id $id', async (token) => {
   const document = render(<SecuritySettingsView />);
 
-  const revokeTokenButtons = document.getAllByTestId('revoke-token-btn');
+  const revokeTokenButtons = document.getAllByTestId(
+    TestIds.REVOKE_TOKEN_BUTTON
+  );
   expect(revokeTokenButtons).toHaveLength(tokens.length);
 
   await userEvent.click(revokeTokenButtons[tokens.indexOf(token)]);

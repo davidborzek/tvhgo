@@ -14,6 +14,7 @@ import { useUpdateUser } from '@/hooks/user';
 import i18n from 'i18next';
 import { useNavigate } from 'react-router-dom';
 import Form from '@/components/common/form/Form';
+import { TestIds } from '@/__test__/ids';
 
 const GeneralSettingsView = () => {
   const { t } = useTranslation();
@@ -120,7 +121,11 @@ const GeneralSettingsView = () => {
             fullWidth
           />
           <div>
-            <Button type="submit" label={t('save')} testID="save_user" />
+            <Button
+              type="submit"
+              label={t('save')}
+              testID={TestIds.SAVE_USER_BUTTON}
+            />
           </div>
         </Form>
       </div>
@@ -132,7 +137,7 @@ const GeneralSettingsView = () => {
             options={themeOptions}
             onChange={(theme) => setTheme(theme as Theme)}
             fullWidth
-            testID="theme_dropdown"
+            testID={TestIds.THEME_DROPDOWN}
           />
           <Dropdown
             label={t('language')}
@@ -140,14 +145,14 @@ const GeneralSettingsView = () => {
             options={languageOptions}
             onChange={handleChangeLanguage}
             fullWidth
-            testID="language_dropdown"
+            testID={TestIds.LANGUAGE_DROPDOWN}
           />
           <div>
             <Button
               label={t('logout')}
               style="red"
               onClick={() => navigate('/logout')}
-              testID="logout_button"
+              testID={TestIds.LOGOUT_BUTTON}
             />
           </div>
         </div>

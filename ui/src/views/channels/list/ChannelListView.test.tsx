@@ -6,6 +6,7 @@ import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import { afterEach, expect, test, vi } from 'vitest';
 import ChannelListView from './ChannelListView';
 import userEvent from '@testing-library/user-event';
+import { TestIds } from '@/__test__/ids';
 
 vi.mock('@/hooks/epg');
 
@@ -120,16 +121,16 @@ test('pagination', async () => {
   const document = render(<ChannelListView />, { wrapper: TestRouter });
   expectUseFetchEvents(1, 0);
 
-  await userEvent.click(document.getByTestId('next_page'));
+  await userEvent.click(document.getByTestId(TestIds.PAGINATION_NEXT_PAGE));
   expectUseFetchEvents(2, 50);
 
-  await userEvent.click(document.getByTestId('previous_page'));
+  await userEvent.click(document.getByTestId(TestIds.PAGINATION_PREVIOUS_PAGE));
   expectUseFetchEvents(3, 0);
 
-  await userEvent.click(document.getByTestId('last_page'));
+  await userEvent.click(document.getByTestId(TestIds.PAGINATION_LAST_PAGE));
   expectUseFetchEvents(4, 200);
 
-  await userEvent.click(document.getByTestId('first_page'));
+  await userEvent.click(document.getByTestId(TestIds.PAGINATION_FIRST_PAGE));
   expectUseFetchEvents(5, 0);
 });
 

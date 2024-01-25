@@ -6,6 +6,7 @@ import { useLoading } from '@/contexts/LoadingContext';
 import { Session } from '@/clients/api/api.types';
 import Headline from '@/components/common/headline/Headline';
 import Button from '@/components/common/button/Button';
+import { TestIds } from '@/__test__/ids';
 
 type Props = {
   sessions: Session[];
@@ -85,7 +86,7 @@ const SessionList = (props: Props) => {
                       style="red"
                       onClick={() => props.onRevoke(session.id)}
                       disabled={isLoading}
-                      testID='revoke-session-btn'
+                      testID={TestIds.REVOKE_SESSION_BUTTON}
                     />
                   </td>
                 </tr>

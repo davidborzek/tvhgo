@@ -8,6 +8,7 @@ import { afterEach, beforeEach, expect, test, vi } from 'vitest';
 import GeneralSettingsView from './GeneralSettingsView';
 import { userEvent } from '@testing-library/user-event';
 import i18n from 'i18next';
+import { TestIds } from '@/__test__/ids';
 
 vi.mock('@/contexts/AuthContext');
 vi.mock('@/contexts/ThemeContext');
@@ -72,7 +73,7 @@ test('should update user', async () => {
   const displayNameInput = document.container.querySelector(
     'input[name=displayName]'
   ) as Element;
-  const saveButton = document.getByTestId('save_user');
+  const saveButton = document.getByTestId(TestIds.SAVE_USER_BUTTON);
 
   await userEvent.clear(usernameInput);
   await userEvent.type(usernameInput, newUsername);
@@ -97,7 +98,7 @@ test('should update user', async () => {
 test('should logout', async () => {
   const document = render(<GeneralSettingsView />);
 
-  const logoutButton = document.getByTestId('logout_button');
+  const logoutButton = document.getByTestId(TestIds.LOGOUT_BUTTON);
   await userEvent.click(logoutButton);
 
   expect(navigateMock).toHaveBeenCalledWith('/logout');
@@ -106,7 +107,7 @@ test('should logout', async () => {
 test('should change theme', async () => {
   const document = render(<GeneralSettingsView />);
 
-  const themeDropdown = document.getByTestId('theme_dropdown');
+  const themeDropdown = document.getByTestId(TestIds.THEME_DROPDOWN);
   await userEvent.selectOptions(themeDropdown, Theme.LIGHT);
 
   expect(setThemeMock).toHaveBeenCalledWith(Theme.LIGHT);
@@ -117,7 +118,7 @@ test('should change language', async () => {
 
   const document = render(<GeneralSettingsView />);
 
-  const languageDropdown = document.getByTestId('language_dropdown');
+  const languageDropdown = document.getByTestId(TestIds.LANGUAGE_DROPDOWN);
   await userEvent.selectOptions(languageDropdown, 'de');
 
   expect(changeLanguageMock).toHaveBeenCalledWith('de', expect.anything());
