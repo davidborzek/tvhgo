@@ -11,19 +11,22 @@ import Modal from '@/components/common/modal/Modal';
 import Form from '@/components/common/form/Form';
 
 import styles from './TwoFactorAuthDisableModal.module.scss';
+import { SecuritySettingsRefreshStates } from '@/views/settings/SecuritySettingsView';
 
 const TwoFactorAuthDisableModal = () => {
   const { deactivateTwoFactorAuth, loading } = useDeactivateTwoFactorAuth();
   const { t } = useTranslation();
   const navigate = useNavigate();
 
-  const close = () => {
+  const close = (refresh = false) => {
     formik.resetForm();
-    navigate('/settings/security');
+    navigate('/settings/security', {
+      state: refresh ? SecuritySettingsRefreshStates.TWOFA : undefined,
+    });
   };
 
   const validationSchema = Yup.object().shape({
-    code: Yup.string().required(t('two_factor_code_required') || ''),
+    code: Yup.string().required(t('two_factor_code_required')),
   });
 
   const formik = useFormik({
@@ -32,14 +35,17 @@ const TwoFactorAuthDisableModal = () => {
     },
     validationSchema,
     onSubmit: ({ code }) => {
-      deactivateTwoFactorAuth(code).then(() => {
-        close();
-      });
+      deactivateTwoFactorAuth(code).then(() => close(true));
     },
   });
 
   return (
-    <Modal visible onClose={close} maxWidth="30rem" disableBackdropClose>
+    <Modal
+      visible
+      onClose={() => close()}
+      maxWidth="30rem"
+      disableBackdropClose
+    >
       <div className={styles.content}>
         <h3 className={styles.headline}>{t('disable_two_factor_auth')}</h3>
         <Form onSubmit={formik.handleSubmit}>

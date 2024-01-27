@@ -8,7 +8,6 @@ import Button from '@/components/common/button/Button';
 import Headline from '@/components/common/headline/Headline';
 import Input from '@/components/common/input/Input';
 import { useTwoFactorAuthSettings } from '@/hooks/2fa';
-import { usePromiseAll } from '@/hooks/async';
 import useFormikErrorFocus from '@/hooks/formik';
 import { useManageSessions } from '@/hooks/session';
 import { useManageTokens } from '@/hooks/token';
@@ -20,30 +19,33 @@ import SessionList from '@/components/settings/sessionList/SessionList';
 import TokenList from '@/components/settings/tokenList/TokenList';
 import TwoFactorAuthSettingsOverview from '@/components/settings/twoFactorAuthSettings/TwoFactorAuthSettingsOverview';
 
+export enum SecuritySettingsRefreshStates {
+  TWOFA = 'refresh_2fa',
+  TOKEN = 'refresh_token',
+}
+
 const SecuritySettingsView = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const location = useLocation();
-  const { sessions, getSessions, revokeSession } = useManageSessions();
+  const { state } = useLocation();
+  const { sessions, revokeSession } = useManageSessions();
   const { tokens, getTokens, revokeToken } = useManageTokens();
   const { twoFactorAuthSettings, fetchTwoFactorAuthSettings } =
     useTwoFactorAuthSettings();
   const { updatePassword } = useUpdateUserPassword();
-
-  usePromiseAll([getSessions, getTokens, fetchTwoFactorAuthSettings]);
 
   const currentPasswordRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordRepeatRef = useRef<HTMLInputElement>(null);
 
   const passwordChangeValidationSchema = Yup.object().shape({
-    currentPassword: Yup.string().required(t('input_required') || ''),
+    currentPassword: Yup.string().required(t('input_required')),
     password: Yup.string()
-      .required(t('input_required') || '')
-      .min(8, t('password_min_chars_error') || ''),
+      .required(t('input_required'))
+      .min(8, t('password_min_chars_error')),
     passwordRepeat: Yup.string()
-      .required(t('passwords_do_not_match') || '')
-      .oneOf([Yup.ref('password')], t('passwords_do_not_match') || ''),
+      .required(t('passwords_do_not_match'))
+      .oneOf([Yup.ref('password')], t('passwords_do_not_match')),
   });
 
   const passwordChangeFormik = useFormik({
@@ -72,11 +74,15 @@ const SecuritySettingsView = () => {
   );
 
   useEffect(() => {
-    if (location.pathname === '/settings/security') {
-      fetchTwoFactorAuthSettings();
-      getTokens();
+    switch (state) {
+      case SecuritySettingsRefreshStates.TWOFA:
+        fetchTwoFactorAuthSettings();
+        break;
+      case SecuritySettingsRefreshStates.TOKEN:
+        getTokens();
+        break;
     }
-  }, [location.key]);
+  }, [state]);
 
   return (
     <>

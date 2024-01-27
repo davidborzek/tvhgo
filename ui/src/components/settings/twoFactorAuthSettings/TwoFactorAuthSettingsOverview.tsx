@@ -3,6 +3,7 @@ import styles from './TwoFactorAuthSettingsOverview.module.scss';
 import { TwoFactorAuthSettings } from '@/clients/api/api.types';
 import Button from '@/components/common/button/Button';
 import Headline from '@/components/common/headline/Headline';
+import { TestIds } from '@/__test__/ids';
 
 type Props = {
   settings: TwoFactorAuthSettings | null;
@@ -21,9 +22,18 @@ const TwoFactorAuthSettingsOverview = ({
     <div className={styles.settings}>
       <Headline>{t('two_factor_auth')}</Headline>
       {settings?.enabled ? (
-        <Button style="red" label={t('disable')} onClick={onDisable} />
+        <Button
+          style="red"
+          label={t('disable')}
+          onClick={onDisable}
+          testID={TestIds.TWOFA_DISABLE_BUTTON}
+        />
       ) : (
-        <Button label={t('enable')} onClick={onEnable} />
+        <Button
+          label={t('enable')}
+          onClick={onEnable}
+          testID={TestIds.TWOFA_ENABLE_BUTTON}
+        />
       )}
     </div>
   );

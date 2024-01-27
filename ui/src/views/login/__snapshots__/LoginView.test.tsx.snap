@@ -1,0 +1,213 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`login > should render 1`] = `
+<DocumentFragment>
+  <div
+    class="_Login_d6adf2"
+  >
+    <div
+      class="_card_fb3893"
+    >
+      <div
+        class="_imageHeader_fb3893"
+      >
+        <img
+          class="_image_fb3893"
+          src="/img/tvhgo.png"
+        />
+      </div>
+      <form
+        class="_form_fb3893"
+      >
+        <div
+          class="_inputContainer_ae92e9 "
+          style="width: 100%;"
+        >
+          <label
+            class="_inputLabel_ae92e9"
+            for="username"
+          >
+            username
+          </label>
+          <div
+            class="_innerContainer_ae92e9"
+          >
+            <input
+              class="_input_ae92e9   "
+              name="username"
+              type="text"
+              value=""
+            />
+          </div>
+        </div>
+        <div
+          class="_inputContainer_ae92e9 "
+          style="width: 100%;"
+        >
+          <label
+            class="_inputLabel_ae92e9"
+            for="password"
+          >
+            password
+          </label>
+          <div
+            class="_innerContainer_ae92e9"
+          >
+            <input
+              class="_input_ae92e9   "
+              name="password"
+              type="password"
+              value=""
+            />
+          </div>
+        </div>
+        <button
+          class="_button_a7f9df   "
+          type="submit"
+        >
+          login
+        </button>
+      </form>
+    </div>
+    <footer
+      class="_footer_223d5a"
+    >
+      <span>
+        made_with
+      </span>
+      <span
+        class="_sep_223d5a"
+      >
+         | 
+      </span>
+      <span>
+        <a
+          class="_link_223d5a"
+          href="https://github.com/davidborzek/tvhgo"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Open Source
+        </a>
+      </span>
+      <span
+        class="_sep_223d5a"
+      >
+         | 
+      </span>
+      <span>
+        <a
+          class="_link_223d5a"
+          href="https://github.com/davidborzek/tvhgo/commit/local"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          local (local)
+        </a>
+      </span>
+    </footer>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`login with totp > should render two factor auth 1`] = `
+<DocumentFragment>
+  <div
+    class="_Login_d6adf2"
+  >
+    <div
+      class="_card_fb3893"
+    >
+      <div
+        class="_imageHeader_fb3893"
+      >
+        <img
+          class="_image_fb3893"
+          src="/img/tvhgo.png"
+        />
+      </div>
+      <form
+        class="_form_fb3893"
+      >
+        <div
+          class="_FormGroup_d7b0a1"
+        >
+          <div
+            class="_content_d7b0a1 _column_d7b0a1"
+          >
+            <div
+              class="_inputContainer_ae92e9 "
+              style="width: 100%;"
+            >
+              <label
+                class="_inputLabel_ae92e9"
+                for="code"
+              >
+                verification_code
+              </label>
+              <div
+                class="_innerContainer_ae92e9"
+              >
+                <input
+                  class="_input_ae92e9   "
+                  name="code"
+                  type="text"
+                  value=""
+                />
+              </div>
+            </div>
+            <button
+              class="_button_a7f9df   "
+              type="submit"
+            >
+              login
+            </button>
+          </div>
+          <span
+            class="_info_d7b0a1"
+          >
+            two_factor_auth_info
+          </span>
+        </div>
+      </form>
+    </div>
+    <footer
+      class="_footer_223d5a"
+    >
+      <span>
+        made_with
+      </span>
+      <span
+        class="_sep_223d5a"
+      >
+         | 
+      </span>
+      <span>
+        <a
+          class="_link_223d5a"
+          href="https://github.com/davidborzek/tvhgo"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          Open Source
+        </a>
+      </span>
+      <span
+        class="_sep_223d5a"
+      >
+         | 
+      </span>
+      <span>
+        <a
+          class="_link_223d5a"
+          href="https://github.com/davidborzek/tvhgo/commit/local"
+          rel="noopener noreferrer"
+          target="_blank"
+        >
+          local (local)
+        </a>
+      </span>
+    </footer>
+  </div>
+</DocumentFragment>
+`;

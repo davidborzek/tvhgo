@@ -11,6 +11,7 @@ import Button from '@/components/common/button/Button';
 import { useCreateToken } from '@/hooks/token';
 
 import styles from './CreateTokenModal.module.scss';
+import { SecuritySettingsRefreshStates } from '@/views/settings/SecuritySettingsView';
 
 const CreateTokenModal = () => {
   const { t } = useTranslation();
@@ -18,7 +19,7 @@ const CreateTokenModal = () => {
   const { createToken, setToken, token } = useCreateToken();
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required(t('name_required') || ''),
+    name: Yup.string().required(t('name_required')),
   });
 
   const formik = useFormik({
@@ -32,9 +33,13 @@ const CreateTokenModal = () => {
   });
 
   const close = () => {
+    const state = token ? SecuritySettingsRefreshStates.TOKEN : undefined;
+
     setToken('');
     formik.resetForm();
-    navigate('/settings/security');
+    navigate('/settings/security', {
+      state,
+    });
   };
 
   const renderToken = () => {

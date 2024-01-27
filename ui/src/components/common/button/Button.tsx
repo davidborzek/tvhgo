@@ -14,6 +14,7 @@ type Props = {
   loadingLabel?: string | null;
   className?: string;
   style?: ButtonStyle;
+  testID?: string;
   onClick?: React.MouseEventHandler<HTMLButtonElement>;
 };
 
@@ -47,6 +48,7 @@ function Button(props: Props) {
         props.className ? props.className : ''
       )}
       onClick={props.onClick}
+      data-testid={props.testID}
     >
       {props.icon}
       {getLabel()}

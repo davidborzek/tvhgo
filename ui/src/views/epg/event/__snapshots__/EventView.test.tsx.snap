@@ -1,0 +1,518 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`should render error 1`] = `
+<DocumentFragment>
+  <div
+    class="_Error_2b6812"
+  >
+    some error
+  </div>
+</DocumentFragment>
+`;
+
+exports[`should render nothing 1`] = `<DocumentFragment />`;
+
+exports[`should render with pending button 1`] = `
+<DocumentFragment>
+  <div
+    class="_Event_6a4861"
+  >
+    <div
+      class="_EventChannelInfo_e37c34"
+    >
+      <span
+        class="_channelName_e37c34"
+      >
+        Some Channel
+      </span>
+      <div
+        class="_picon_e37c34"
+      >
+        <div
+          style="width: 100%; height: 100%;"
+        />
+        <img
+          class="_picon_e37c34"
+          src="/api/picon/1"
+          style="display: none;"
+          title="Some Channel"
+        />
+      </div>
+    </div>
+    <div
+      class="_EventInfo_a6cff5"
+    >
+      <h1>
+        Some Title
+      </h1>
+      <div>
+        <button
+          class="_EventRecordButton_1a746f _pending_1a746f"
+        >
+          <svg
+            class="_icon_1a746f"
+            fill="#000000"
+            height="800px"
+            id="Layer_1"
+            viewBox="0 0 485 485"
+            width="800px"
+            xml:space="preserve"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <g>
+              <path
+                d="M0,0v485h485V0H0z M455,455H30V30h425V455z"
+              />
+              <circle
+                cx="242.5"
+                cy="242.5"
+                r="102.5"
+              />
+            </g>
+          </svg>
+          record
+        </button>
+      </div>
+      <div
+        class="_PairList_768617"
+      >
+        <div
+          class="_Pair_2d5b35"
+        >
+          <div
+            class="_PairKey_b66d6a"
+          >
+            subtitle
+          </div>
+          <div
+            class="_PairValue_05cc8e"
+          >
+            Some Subtitle
+          </div>
+        </div>
+        <div
+          class="_Pair_2d5b35"
+        >
+          <div
+            class="_PairKey_b66d6a"
+          >
+            airs
+          </div>
+          <div
+            class="_PairValue_05cc8e"
+          >
+            event_datetime
+          </div>
+        </div>
+        <div
+          class="_Pair_2d5b35"
+        >
+          <div
+            class="_PairKey_b66d6a"
+          >
+            description
+          </div>
+          <div
+            class="_PairValue_05cc8e"
+          >
+            Some Description
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`should render with recording 1`] = `
+<DocumentFragment>
+  <div
+    class="_Event_6a4861"
+  >
+    <div
+      class="_EventChannelInfo_e37c34"
+    >
+      <span
+        class="_channelName_e37c34"
+      >
+        Some Channel
+      </span>
+      <div
+        class="_picon_e37c34"
+      >
+        <div
+          style="width: 100%; height: 100%;"
+        />
+        <img
+          class="_picon_e37c34"
+          src="/api/picon/1"
+          style="display: none;"
+          title="Some Channel"
+        />
+      </div>
+    </div>
+    <div
+      class="_EventInfo_a6cff5"
+    >
+      <h1>
+        Some Title
+      </h1>
+      <div>
+        <button
+          class="_EventRecordButton_1a746f "
+        >
+          <svg
+            class="_icon_1a746f"
+            fill="#000000"
+            height="800px"
+            id="Layer_1"
+            viewBox="0 0 485 485"
+            width="800px"
+            xml:space="preserve"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <g>
+              <path
+                d="M0,0v485h485V0H0z M455,455H30V30h425V455z"
+              />
+              <circle
+                cx="242.5"
+                cy="242.5"
+                r="102.5"
+              />
+            </g>
+          </svg>
+          modify_recording
+        </button>
+      </div>
+      <div
+        class="_PairList_768617"
+      >
+        <div
+          class="_Pair_2d5b35"
+        >
+          <div
+            class="_PairKey_b66d6a"
+          >
+            subtitle
+          </div>
+          <div
+            class="_PairValue_05cc8e"
+          >
+            Some Subtitle
+          </div>
+        </div>
+        <div
+          class="_Pair_2d5b35"
+        >
+          <div
+            class="_PairKey_b66d6a"
+          >
+            airs
+          </div>
+          <div
+            class="_PairValue_05cc8e"
+          >
+            event_datetime
+          </div>
+        </div>
+        <div
+          class="_Pair_2d5b35"
+        >
+          <div
+            class="_PairKey_b66d6a"
+          >
+            description
+          </div>
+          <div
+            class="_PairValue_05cc8e"
+          >
+            Some Description
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`should render with related events 1`] = `
+<DocumentFragment>
+  <div
+    class="_Event_6a4861"
+  >
+    <div
+      class="_EventChannelInfo_e37c34"
+    >
+      <span
+        class="_channelName_e37c34"
+      >
+        Some Channel
+      </span>
+      <div
+        class="_picon_e37c34"
+      >
+        <div
+          style="width: 100%; height: 100%;"
+        />
+        <img
+          class="_picon_e37c34"
+          src="/api/picon/1"
+          style="display: none;"
+          title="Some Channel"
+        />
+      </div>
+    </div>
+    <div
+      class="_EventInfo_a6cff5"
+    >
+      <h1>
+        Some Title
+      </h1>
+      <div>
+        <button
+          class="_EventRecordButton_1a746f "
+        >
+          <svg
+            class="_icon_1a746f"
+            fill="#000000"
+            height="800px"
+            id="Layer_1"
+            viewBox="0 0 485 485"
+            width="800px"
+            xml:space="preserve"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <g>
+              <path
+                d="M0,0v485h485V0H0z M455,455H30V30h425V455z"
+              />
+              <circle
+                cx="242.5"
+                cy="242.5"
+                r="102.5"
+              />
+            </g>
+          </svg>
+          record
+        </button>
+      </div>
+      <div
+        class="_PairList_768617"
+      >
+        <div
+          class="_Pair_2d5b35"
+        >
+          <div
+            class="_PairKey_b66d6a"
+          >
+            subtitle
+          </div>
+          <div
+            class="_PairValue_05cc8e"
+          >
+            Some Subtitle
+          </div>
+        </div>
+        <div
+          class="_Pair_2d5b35"
+        >
+          <div
+            class="_PairKey_b66d6a"
+          >
+            airs
+          </div>
+          <div
+            class="_PairValue_05cc8e"
+          >
+            event_datetime
+          </div>
+        </div>
+        <div
+          class="_Pair_2d5b35"
+        >
+          <div
+            class="_PairKey_b66d6a"
+          >
+            description
+          </div>
+          <div
+            class="_PairValue_05cc8e"
+          >
+            Some Description
+          </div>
+        </div>
+      </div>
+    </div>
+    <div
+      class="_EventRelated_9241f8"
+    >
+      <h2>
+        related_events
+      </h2>
+      <div
+        class="_PairList_768617"
+      >
+        <div
+          class="_Pair_2d5b35"
+        >
+          <div
+            class="_PairKey_b66d6a"
+          >
+            Some Channel
+          </div>
+          <div
+            class="_PairValue_05cc8e"
+          >
+            <a
+              class="_link_9241f8"
+              href="/guide/events/2"
+            >
+              event_datetime • Some Subtitle 2
+            </a>
+          </div>
+        </div>
+      </div>
+      <div
+        class="_PairList_768617"
+      >
+        <div
+          class="_Pair_2d5b35"
+        >
+          <div
+            class="_PairKey_b66d6a"
+          >
+            Some Channel2
+          </div>
+          <div
+            class="_PairValue_05cc8e"
+          >
+            <a
+              class="_link_9241f8"
+              href="/guide/events/3"
+            >
+              event_datetime • Some Subtitle 3
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
+
+exports[`should render without related events 1`] = `
+<DocumentFragment>
+  <div
+    class="_Event_6a4861"
+  >
+    <div
+      class="_EventChannelInfo_e37c34"
+    >
+      <span
+        class="_channelName_e37c34"
+      >
+        Some Channel
+      </span>
+      <div
+        class="_picon_e37c34"
+      >
+        <div
+          style="width: 100%; height: 100%;"
+        />
+        <img
+          class="_picon_e37c34"
+          src="/api/picon/1"
+          style="display: none;"
+          title="Some Channel"
+        />
+      </div>
+    </div>
+    <div
+      class="_EventInfo_a6cff5"
+    >
+      <h1>
+        Some Title
+      </h1>
+      <div>
+        <button
+          class="_EventRecordButton_1a746f "
+        >
+          <svg
+            class="_icon_1a746f"
+            fill="#000000"
+            height="800px"
+            id="Layer_1"
+            viewBox="0 0 485 485"
+            width="800px"
+            xml:space="preserve"
+            xmlns="http://www.w3.org/2000/svg"
+            xmlns:xlink="http://www.w3.org/1999/xlink"
+          >
+            <g>
+              <path
+                d="M0,0v485h485V0H0z M455,455H30V30h425V455z"
+              />
+              <circle
+                cx="242.5"
+                cy="242.5"
+                r="102.5"
+              />
+            </g>
+          </svg>
+          record
+        </button>
+      </div>
+      <div
+        class="_PairList_768617"
+      >
+        <div
+          class="_Pair_2d5b35"
+        >
+          <div
+            class="_PairKey_b66d6a"
+          >
+            subtitle
+          </div>
+          <div
+            class="_PairValue_05cc8e"
+          >
+            Some Subtitle
+          </div>
+        </div>
+        <div
+          class="_Pair_2d5b35"
+        >
+          <div
+            class="_PairKey_b66d6a"
+          >
+            airs
+          </div>
+          <div
+            class="_PairValue_05cc8e"
+          >
+            event_datetime
+          </div>
+        </div>
+        <div
+          class="_Pair_2d5b35"
+        >
+          <div
+            class="_PairKey_b66d6a"
+          >
+            description
+          </div>
+          <div
+            class="_PairValue_05cc8e"
+          >
+            Some Description
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;

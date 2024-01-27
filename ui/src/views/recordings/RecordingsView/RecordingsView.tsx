@@ -18,6 +18,7 @@ import EmptyState from '@/components/common/emptyState/EmptyState';
 
 import styles from './RecordingsView.module.scss';
 import RecordingListItem from '@/components/recordings/listItem/RecordingListItem';
+import { TestIds } from '@/__test__/ids';
 
 const defaultLimit = 50;
 
@@ -53,7 +54,7 @@ function RecordingsView() {
   useEffect(() => {
     const scrollPos = queryParams.get('pos');
 
-    if (recordings && recordings.length > 0) {
+    if (ref.current?.scrollTo && recordings && recordings.length > 0) {
       ref.current?.scrollTo(0, parseInt(scrollPos || '0'));
     }
   }, [recordings, queryParams]);
@@ -122,7 +123,7 @@ function RecordingsView() {
         .filter((rec) => rec.status !== 'recording')
         .map((rec) => rec.id);
 
-      stopAndCancelRecordings(stopIds, cancelIds, () => {
+      stopAndCancelRecordings(stopIds, cancelIds).then(() => {
         clearSelection();
         setConfirmationModalVisible(false);
         fetch();
@@ -131,14 +132,11 @@ function RecordingsView() {
       return;
     }
 
-    removeRecordings(
-      [...selectedRecordings].map((rec) => rec.id),
-      () => {
-        clearSelection();
-        setConfirmationModalVisible(false);
-        fetch();
-      }
-    );
+    removeRecordings([...selectedRecordings].map((rec) => rec.id)).then(() => {
+      clearSelection();
+      setConfirmationModalVisible(false);
+      fetch();
+    });
   };
 
   return (
@@ -161,6 +159,7 @@ function RecordingsView() {
               status: value,
             });
           }}
+          testID={TestIds.RECORDINGS_STATUS_DROPDOWN}
           options={[
             {
               title: t('upcoming'),
@@ -191,6 +190,7 @@ function RecordingsView() {
               styles.deleteButton,
               selectedRecordings.size > 0 ? styles.deleteButtonVisible : ''
             )}
+            testID={TestIds.DELETE_CANCEL_RECORDINGS_BUTTON}
           />
 
           <Checkbox
@@ -207,6 +207,7 @@ function RecordingsView() {
             }
             indeterminate={selectedRecordings.size > 0}
             disabled={!!recordings && recordings.length < 1}
+            testId={TestIds.SELECT_ALL_RECORDINGS_CHECKBOX}
           />
         </div>
       </div>

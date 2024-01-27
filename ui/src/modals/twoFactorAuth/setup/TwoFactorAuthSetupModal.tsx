@@ -12,6 +12,7 @@ import { useSetupTwoFactorAuth } from '@/hooks/2fa';
 import Form from '@/components/common/form/Form';
 
 import styles from './TwoFactorAuthSetupModal.module.scss';
+import { SecuritySettingsRefreshStates } from '@/views/settings/SecuritySettingsView';
 
 const TwoFactorAuthSetupModal = () => {
   const { t } = useTranslation();
@@ -26,7 +27,7 @@ const TwoFactorAuthSetupModal = () => {
   } = useSetupTwoFactorAuth();
 
   const setupSchema = Yup.object().shape({
-    password: Yup.string().required(t('password_required') || ''),
+    password: Yup.string().required(t('password_required')),
   });
 
   const setupFormik = useFormik({
@@ -40,7 +41,7 @@ const TwoFactorAuthSetupModal = () => {
   });
 
   const enableSchema = Yup.object().shape({
-    code: Yup.string().required(t('two_factor_code_required') || ''),
+    code: Yup.string().required(t('two_factor_code_required')),
   });
 
   const enableFormik = useFormik({
@@ -49,17 +50,19 @@ const TwoFactorAuthSetupModal = () => {
     },
     validationSchema: enableSchema,
     onSubmit: ({ code }) => {
-      activateTwoFactorAuth(setupFormik.values.password, code).then(() => {
-        close();
-      });
+      activateTwoFactorAuth(setupFormik.values.password, code).then(() =>
+        close(true)
+      );
     },
   });
 
-  const close = () => {
+  const close = (refresh = false) => {
     setTwoFactorUrl(null);
     enableFormik.resetForm();
     setupFormik.resetForm();
-    navigate('/settings/security');
+    navigate('/settings/security', {
+      state: refresh ? SecuritySettingsRefreshStates.TWOFA : undefined,
+    });
   };
 
   const renderEnableTwoFactorForm = () => {
@@ -112,7 +115,12 @@ const TwoFactorAuthSetupModal = () => {
   };
 
   return (
-    <Modal onClose={close} visible maxWidth="30rem" disableBackdropClose>
+    <Modal
+      onClose={() => close()}
+      visible
+      maxWidth="30rem"
+      disableBackdropClose
+    >
       <div className={styles.content}>
         <h3 className={styles.headline}>{t('enable_two_factor_auth')}</h3>
         {twoFactorUrl
