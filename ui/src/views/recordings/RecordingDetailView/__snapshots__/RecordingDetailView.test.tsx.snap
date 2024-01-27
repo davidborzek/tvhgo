@@ -48,6 +48,7 @@ exports[`with status completed > should render recording 1`] = `
             </h3>
             <button
               class="_button_a7f9df _red_a7f9df  "
+              data-testid="confirm-delete-btn"
             >
               delete
             </button>
@@ -209,6 +210,7 @@ exports[`with status recording > should render recording 1`] = `
             </h3>
             <button
               class="_button_a7f9df _red_a7f9df  "
+              data-testid="confirm-delete-btn"
             >
               stop
             </button>
@@ -433,6 +435,7 @@ exports[`with status scheduled > should render recording 1`] = `
             </h3>
             <button
               class="_button_a7f9df _red_a7f9df  "
+              data-testid="confirm-delete-btn"
             >
               cancel
             </button>
