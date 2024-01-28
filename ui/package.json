@@ -39,7 +39,7 @@
     "@types/ua-parser-js": "^0.7.36",
     "@vitejs/plugin-react": "^4.0.0",
     "@vitest/coverage-istanbul": "^1.0.1",
-    "jsdom": "^23.0.1",
+    "jsdom": "^24.0.0",
     "prettier": "^3.0.0",
     "sass": "^1.57.1",
     "typescript": "^5.0.0",
