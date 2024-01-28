@@ -35,6 +35,10 @@ func (s *service) GetChannelStream(
 		return nil, err
 	}
 
+	if res.StatusCode >= 400 {
+		return nil, fmt.Errorf("unexpected status code: %d", res.StatusCode)
+	}
+
 	return res.Response, nil
 }
 
@@ -45,6 +49,10 @@ func (s *service) GetRecordingStream(
 	res, err := s.tvh.Exec(ctx, fmt.Sprintf("/dvrfile/%s", recordingId), nil)
 	if err != nil {
 		return nil, err
+	}
+
+	if res.StatusCode >= 400 {
+		return nil, fmt.Errorf("unexpected status code: %d", res.StatusCode)
 	}
 
 	return res.Response, nil
