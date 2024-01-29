@@ -51,3 +51,23 @@ func (s *localPasswordAuthenticator) Login(
 
 	return user, nil
 }
+
+func (s *localPasswordAuthenticator) ConfirmPassword(
+	ctx context.Context,
+	userID int64,
+	password string,
+) error {
+	user, err := s.userRepository.FindById(ctx, userID)
+	if err != nil {
+		log.WithError(err).
+			WithField("userId", userID).
+			Error("failed find user for password confirmation")
+		return core.ErrUnexpectedError
+	}
+
+	if err := ComparePassword(password, user.PasswordHash); err != nil {
+		return core.ErrConfirmationPasswordInvalid
+	}
+
+	return nil
+}

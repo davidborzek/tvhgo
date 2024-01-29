@@ -10,7 +10,8 @@ var (
 	ErrExpiredInactiveTokenLifetime = errors.New("expired inactive token lifetime")
 	ErrTokenInvalid                 = errors.New("token invalid")
 
-	ErrInvalidUsernameOrPassword = errors.New("invalid username or password")
+	ErrInvalidUsernameOrPassword   = errors.New("invalid username or password")
+	ErrConfirmationPasswordInvalid = errors.New("confirmation password is invalid")
 
 	ErrTwoFactorRequired    = errors.New("two factor auth is required")
 	ErrTwoFactorCodeInvalid = errors.New("invalid two factor code provided")
@@ -46,7 +47,11 @@ type (
 
 	// PasswordAuthenticator defines operations to log in users via login and password.
 	PasswordAuthenticator interface {
+		// Login logs in a user via login, password and optional totp code.
 		Login(ctx context.Context, login string, username string, totp *string) (*User, error)
+
+		// ConfirmPassword confirms the password of a user.
+		ConfirmPassword(ctx context.Context, userID int64, password string) error
 	}
 
 	TwoFactorAuthService interface {
