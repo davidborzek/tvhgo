@@ -22,7 +22,9 @@ var (
 )
 
 type (
+	// InvalidOrExpiredTokenError is returned when a token / session is invalid or expired.
 	InvalidOrExpiredTokenError struct {
+		// Reason is the reason why the token is invalid or expired.
 		Reason error
 	}
 
@@ -54,17 +56,33 @@ type (
 		ConfirmPassword(ctx context.Context, userID int64, password string) error
 	}
 
+	// TwoFactorAuthService defines operations to manage two factor auth for a user.
 	TwoFactorAuthService interface {
+		// GetSettings returns the current two factor settings for a user.
 		GetSettings(ctx context.Context, userId int64) (*TwoFactorSettings, error)
+
+		// Setup starts the setup process for two factor auth for a user.
 		Setup(ctx context.Context, userId int64) (string, error)
+
+		// Deactivate deactivates two factor auth for a user.
 		Deactivate(ctx context.Context, userId int64, code string) error
+
+		// Activate activates two factor auth for a user.
 		Activate(ctx context.Context, userID int64, code string) error
+
+		// Verify verifies a two factor code for a user.
 		Verify(ctx context.Context, userId int64, code *string) error
 	}
 
+	// TokenService defines operations to manage tokens for a user.
 	TokenService interface {
+		// Create creates a new token for a user.
 		Create(ctx context.Context, userID int64, name string) (string, error)
+
+		// Validate validates a token.
 		Validate(ctx context.Context, token string) (*AuthContext, error)
+
+		// Revoke revokes a token.
 		Revoke(ctx context.Context, id int64) error
 	}
 )
