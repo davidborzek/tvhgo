@@ -39,8 +39,8 @@ func (s *router) SetupTwoFactorAuth(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := s.confirmPassword(r.Context(), ctx.UserID, in.Password); err != nil {
-		if err == errTwoFactorConfirmationPasswordInvalid {
+	if err := s.passwordAuthenticator.ConfirmPassword(r.Context(), ctx.UserID, in.Password); err != nil {
+		if err == core.ErrConfirmationPasswordInvalid {
 			response.BadRequest(w, err)
 		} else {
 			response.InternalErrorCommon(w)
@@ -80,8 +80,8 @@ func (s *router) ActivateTwoFactorAuth(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err := s.confirmPassword(r.Context(), ctx.UserID, in.Password); err != nil {
-		if err == errTwoFactorConfirmationPasswordInvalid {
+	if err := s.passwordAuthenticator.ConfirmPassword(r.Context(), ctx.UserID, in.Password); err != nil {
+		if err == core.ErrConfirmationPasswordInvalid {
 			response.BadRequest(w, err)
 		} else {
 			response.InternalErrorCommon(w)

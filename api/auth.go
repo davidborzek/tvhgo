@@ -1,7 +1,6 @@
 package api
 
 import (
-	"context"
 	"errors"
 	"net/http"
 	"strings"
@@ -9,12 +8,6 @@ import (
 	"github.com/davidborzek/tvhgo/api/request"
 	"github.com/davidborzek/tvhgo/api/response"
 	"github.com/davidborzek/tvhgo/core"
-	"github.com/davidborzek/tvhgo/services/auth"
-	log "github.com/sirupsen/logrus"
-)
-
-var (
-	errTwoFactorConfirmationPasswordInvalid = errors.New("confirmation password is invalid")
 )
 
 func (router *router) HandleAuthentication(next http.Handler) http.Handler {
@@ -102,20 +95,4 @@ func extractTokenFromCookie(r *http.Request, cookieName string) string {
 	}
 
 	return token.Value
-}
-
-func (s *router) confirmPassword(ctx context.Context, userID int64, password string) error {
-	user, err := s.users.FindById(ctx, userID)
-	if err != nil {
-		log.WithError(err).
-			WithField("userId", userID).
-			Error("failed find user for password confirmation")
-		return err
-	}
-
-	if err := auth.ComparePassword(password, user.PasswordHash); err != nil {
-		return errTwoFactorConfirmationPasswordInvalid
-	}
-
-	return nil
 }
