@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { TwoFactorAuthSettings } from '@/clients/api/api.types';
 import { useLoading } from '@/contexts/LoadingContext';
 import {
@@ -23,6 +23,10 @@ export const useTwoFactorAuthSettings = () => {
       .then(setTwoFactorAuthSettings)
       .finally(() => setIsLoading(false));
   };
+
+  useEffect(() => {
+    fetchTwoFactorAuthSettings();
+  }, []);
 
   return {
     fetchTwoFactorAuthSettings,

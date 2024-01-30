@@ -1,5 +1,5 @@
 import { useLoading } from '@/contexts/LoadingContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { createToken, deleteToken, getTokens } from '@/clients/api/api';
 import { useTranslation } from 'react-i18next';
 import { Token } from '@/clients/api/api.types';
@@ -42,6 +42,10 @@ export const useManageTokens = () => {
       })
       .finally(() => setIsLoading(false));
   };
+
+  useEffect(() => {
+    _getTokens();
+  }, []);
 
   return {
     getTokens: _getTokens,

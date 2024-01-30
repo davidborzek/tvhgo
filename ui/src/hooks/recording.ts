@@ -176,7 +176,6 @@ export const useManageRecordings = () => {
   const stopAndCancelRecordings = async (
     stopIds: string[],
     cancelIds: string[],
-    success?: () => void
   ) => {
     dismissNotification();
     setPending(true);
@@ -193,7 +192,6 @@ export const useManageRecordings = () => {
     return await Promise.all(promises)
       .then(() => {
         notifySuccess(t('recordings_stopped_canceled'));
-        success && success();
       })
       .catch(() => {
         notifyError(t('unexpected'));
@@ -203,14 +201,13 @@ export const useManageRecordings = () => {
       });
   };
 
-  const _removeRecordings = async (ids: string[], success?: () => void) => {
+  const _removeRecordings = async (ids: string[]) => {
     dismissNotification();
     setPending(true);
 
     return await removeRecordings(ids)
       .then(() => {
         notifySuccess(t('recordings_removed'));
-        success && success();
       })
       .catch(() => {
         notifyError(t('unexpected'));

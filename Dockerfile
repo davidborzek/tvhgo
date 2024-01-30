@@ -1,4 +1,4 @@
-FROM golang:1.21.4-alpine3.17 AS build
+FROM golang:1.21.5-alpine3.17 AS build
 RUN apk add --no-cache build-base
 
 ENV CGO_ENABLED=1
@@ -9,7 +9,7 @@ COPY . .
 RUN go mod download
 RUN go build -o tvhgo -tags prod main.go
 
-FROM alpine:3.18 as prod
+FROM alpine:3.19 as prod
 
 COPY --from=build /build/tvhgo /bin/tvhgo
 

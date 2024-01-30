@@ -1,5 +1,5 @@
 import { useLoading } from '@/contexts/LoadingContext';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ApiError, deleteSession, getSessions } from '@/clients/api/api';
 import { useTranslation } from 'react-i18next';
 import { Session } from '@/clients/api/api.types';
@@ -19,9 +19,7 @@ export const useManageSessions = () => {
   const _getSessions = async () => {
     setIsLoading(true);
     return await getSessions()
-      .then((sessions) => {
-        setSessions(sessions);
-      })
+      .then(setSessions)
       .catch(() => {
         setError(t('unexpected'));
       })
@@ -50,6 +48,10 @@ export const useManageSessions = () => {
       })
       .finally(() => setIsLoading(false));
   };
+
+  useEffect(() => {
+    _getSessions();
+  }, []);
 
   return {
     getSessions: _getSessions,

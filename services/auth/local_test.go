@@ -141,3 +141,60 @@ func TestLocalPasswordAuthenticatorLoginReturnsErrInvalidUsernameOrPasswordForIn
 	assert.Nil(t, user)
 	assert.Equal(t, core.ErrInvalidUsernameOrPassword, err)
 }
+
+func TestLocalPasswordAuthenticatorConfirmPasswordSucceeds(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockRepository := mock_core.NewMockUserRepository(ctrl)
+	mockRepository.EXPECT().
+		FindById(ctx, expectedUser.ID).
+		Return(&expectedUser, nil).
+		Times(1)
+
+	mockTwoFactorAuthService := mock_core.NewMockTwoFactorAuthService(ctrl)
+
+	authenticator := auth.NewLocalPasswordAuthenticator(mockRepository, mockTwoFactorAuthService)
+
+	err := authenticator.ConfirmPassword(ctx, expectedUser.ID, password)
+
+	assert.Nil(t, err)
+}
+
+func TestLocalPasswordAuthenticatorConfirmPasswordReturnsErrConfirmationPasswordInvalid(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockRepository := mock_core.NewMockUserRepository(ctrl)
+	mockRepository.EXPECT().
+		FindById(ctx, expectedUser.ID).
+		Return(&expectedUser, nil).
+		Times(1)
+
+	mockTwoFactorAuthService := mock_core.NewMockTwoFactorAuthService(ctrl)
+
+	authenticator := auth.NewLocalPasswordAuthenticator(mockRepository, mockTwoFactorAuthService)
+
+	err := authenticator.ConfirmPassword(ctx, expectedUser.ID, "invalid")
+
+	assert.Equal(t, core.ErrConfirmationPasswordInvalid, err)
+}
+
+func TestLocalPasswordAuthenticatorConfirmPasswordReturnsErrUnexpectedError(t *testing.T) {
+	ctrl := gomock.NewController(t)
+	defer ctrl.Finish()
+
+	mockRepository := mock_core.NewMockUserRepository(ctrl)
+	mockRepository.EXPECT().
+		FindById(ctx, expectedUser.ID).
+		Return(nil, errors.New("some unexpected error")).
+		Times(1)
+
+	mockTwoFactorAuthService := mock_core.NewMockTwoFactorAuthService(ctrl)
+
+	authenticator := auth.NewLocalPasswordAuthenticator(mockRepository, mockTwoFactorAuthService)
+
+	err := authenticator.ConfirmPassword(ctx, expectedUser.ID, password)
+
+	assert.Equal(t, core.ErrUnexpectedError, err)
+}

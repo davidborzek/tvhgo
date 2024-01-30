@@ -1,5 +1,5 @@
 import { useTranslation } from 'react-i18next';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 
@@ -7,13 +7,15 @@ import styles from './SettingsView.module.scss';
 import Button from '@/components/common/button/Button';
 import Dropdown, { Option } from '@/components/common/dropdown/Dropdown';
 import Input from '@/components/common/input/Input';
+import Error from '@/components/common/error/Error';
 import { useAuth } from '@/contexts/AuthContext';
 import { useTheme, Theme } from '@/contexts/ThemeContext';
 import useFormikErrorFocus from '@/hooks/formik';
 import { useUpdateUser } from '@/hooks/user';
-import i18n from '@/i18n/i18n';
+import i18n from 'i18next';
 import { useNavigate } from 'react-router-dom';
 import Form from '@/components/common/form/Form';
+import { TestIds } from '@/__test__/ids';
 
 const GeneralSettingsView = () => {
   const { t } = useTranslation();
@@ -42,21 +44,22 @@ const GeneralSettingsView = () => {
   const displayNameRef = useRef<HTMLInputElement>(null);
 
   const userSettingsValidationSchema = Yup.object().shape({
-    username: Yup.string().required(t('input_required') || ''),
-    email: Yup.string().required(t('input_required') || ''),
-    displayName: Yup.string().required(t('input_required') || ''),
+    username: Yup.string().required(t('input_required')),
+    email: Yup.string().required(t('input_required')),
+    displayName: Yup.string().required(t('input_required')),
   });
 
   const userSettingsFormik = useFormik({
     initialValues: {
-      username: '',
-      email: '',
-      displayName: '',
+      username: user?.username || '',
+      email: user?.email || '',
+      displayName: user?.displayName || '',
     },
     validationSchema: userSettingsValidationSchema,
     onSubmit: async ({ username, email, displayName }) => {
       await update({ username, email, displayName });
     },
+    enableReinitialize: true,
   });
 
   useFormikErrorFocus(
@@ -66,15 +69,9 @@ const GeneralSettingsView = () => {
     displayNameRef
   );
 
-  useEffect(() => {
-    if (user) {
-      userSettingsFormik.setValues({
-        username: user.username,
-        email: user.email,
-        displayName: user.displayName,
-      });
-    }
-  }, [user]);
+  if (!user) {
+    return <Error message={t('unexpected')} />;
+  }
 
   return (
     <>
@@ -129,7 +126,11 @@ const GeneralSettingsView = () => {
             fullWidth
           />
           <div>
-            <Button type="submit" label={t('save')} />
+            <Button
+              type="submit"
+              label={t('save')}
+              testID={TestIds.SAVE_USER_BUTTON}
+            />
           </div>
         </Form>
       </div>
@@ -141,6 +142,7 @@ const GeneralSettingsView = () => {
             options={themeOptions}
             onChange={(theme) => setTheme(theme as Theme)}
             fullWidth
+            testID={TestIds.THEME_DROPDOWN}
           />
           <Dropdown
             label={t('language')}
@@ -148,12 +150,14 @@ const GeneralSettingsView = () => {
             options={languageOptions}
             onChange={handleChangeLanguage}
             fullWidth
+            testID={TestIds.LANGUAGE_DROPDOWN}
           />
           <div>
             <Button
               label={t('logout')}
               style="red"
               onClick={() => navigate('/logout')}
+              testID={TestIds.LOGOUT_BUTTON}
             />
           </div>
         </div>

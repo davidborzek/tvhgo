@@ -17,6 +17,7 @@ type (
 		Tvheadend TvheadendConfig `yaml:"tvheadend" envPrefix:"TVHEADEND_"`
 		Auth      AuthConfig      `yaml:"auth"      envPrefix:"AUTH_"`
 		Database  DatabaseConfig  `yaml:"database"  envPrefix:"DATABASE_"`
+		Metrics   MetricsConfig   `yaml:"metrics"  envPrefix:"METRICS_"`
 
 		LogLevel string `yaml:"log_level"`
 	}
@@ -92,11 +93,11 @@ func Load() (*Config, error) {
 		return nil, err
 	}
 
+	cfg.loadDefaults()
+
 	if err := cfg.validate(); err != nil {
 		return nil, err
 	}
-
-	cfg.loadDefaults()
 
 	log.SetLevel(
 		parseLogLevel(cfg.LogLevel),
@@ -127,6 +128,10 @@ func (c *Config) validate() error {
 		return err
 	}
 
+	if c.Server.Port == c.Metrics.Port {
+		return errors.New("metrics and server port cannot be the same")
+	}
+
 	return nil
 }
 
@@ -136,6 +141,7 @@ func (c *Config) loadDefaults() {
 	c.Auth.Session.SetDefaults()
 	c.Auth.TOTP.SetDefaults()
 	c.Database.SetDefaults()
+	c.Metrics.SetDefaults()
 
 	if c.LogLevel == "" {
 		c.LogLevel = "info"

@@ -41,6 +41,9 @@ jobs:
         run: |
           echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
+      - name: Test ui
+        run: yarn test
+
       - name: Build ui
         env:
           VERSION: ${{ inputs.version }}
@@ -49,7 +52,7 @@ jobs:
 
       - name: Upload build artifact
         if: ${{ inputs.upload_artifact }}
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: tvhgo-ui-${{ github.sha }}
           path: ./ui/dist

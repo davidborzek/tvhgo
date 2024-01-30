@@ -6,6 +6,7 @@ import { useTranslation } from 'react-i18next';
 import { useNavigate } from 'react-router-dom';
 import Headline from '@/components/common/headline/Headline';
 import Button from '@/components/common/button/Button';
+import { TestIds } from '@/__test__/ids';
 
 type Props = {
   tokens: Token[];
@@ -53,6 +54,7 @@ const TokenList = (props: Props) => {
                       style="red"
                       onClick={() => props.onRevoke(token.id)}
                       disabled={isLoading}
+                      testID={TestIds.REVOKE_TOKEN_BUTTON}
                     />
                   </td>
                 </tr>

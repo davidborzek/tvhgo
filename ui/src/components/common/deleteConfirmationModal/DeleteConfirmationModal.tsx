@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import styles from './DeleteConfirmationModal.module.scss';
 import Button from '@/components/common/button/Button';
 import Modal from '@/components/common/modal/Modal';
+import { TestIds } from '@/__test__/ids';
 
 type Props = {
   title?: string | null | undefined;
@@ -31,6 +32,7 @@ const DeleteConfirmationModal = ({
           label={buttonTitle || t('delete')}
           style="red"
           onClick={onConfirm}
+          testID={TestIds.CONFIRM_DELETE_BUTTON}
         />
       </div>
     </Modal>

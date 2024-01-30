@@ -2,6 +2,7 @@ import { useTranslation } from 'react-i18next';
 import styles from './RecordingListItem.module.scss';
 import { Recording } from '@/clients/api/api.types';
 import Checkbox from '@/components/common/checkbox/Checkbox';
+import { TestIds } from '@/__test__/ids';
 
 type Props = {
   recording: Recording;
@@ -48,6 +49,7 @@ function RecordingListItem({
       <Checkbox
         onChange={(checked) => onSelection(checked)}
         checked={selected}
+        testId={TestIds.SELECT_RECORDING_CHECKBOX}
       />
     </div>
   );
