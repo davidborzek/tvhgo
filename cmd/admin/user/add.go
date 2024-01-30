@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/AlecAivazis/survey/v2"
-	actx "github.com/davidborzek/tvhgo/cmd/admin/context"
+	"github.com/davidborzek/tvhgo/cmd"
 	"github.com/davidborzek/tvhgo/core"
 	"github.com/davidborzek/tvhgo/repository/user"
 	"github.com/davidborzek/tvhgo/services/auth"
@@ -13,7 +13,7 @@ import (
 	"github.com/urfave/cli/v2"
 )
 
-var addUserCmd = &cli.Command{
+var addCmd = &cli.Command{
 	Name:        "add",
 	Usage:       "Add a new user",
 	Description: "You can use the flags to create a user non-interactive.",
@@ -40,7 +40,7 @@ var addUserCmd = &cli.Command{
 			Usage:   "Display name of the new user",
 		},
 	},
-	Action: addUser,
+	Action: add,
 }
 
 var qs = []*survey.Question{
@@ -68,7 +68,7 @@ var qs = []*survey.Question{
 	},
 }
 
-func addUser(ctx *cli.Context) error {
+func add(ctx *cli.Context) error {
 	if ctx.IsSet("username") &&
 		ctx.IsSet("password") &&
 		ctx.IsSet("email") &&
@@ -106,7 +106,8 @@ func addUser(ctx *cli.Context) error {
 }
 
 func createUser(username, password, email, displayName string) error {
-	userRepository := user.New(actx.GetDB(), clock.NewClock())
+	_, db := cmd.Init()
+	userRepository := user.New(db, clock.NewClock())
 
 	hash, err := auth.HashPassword(password)
 	if err != nil {

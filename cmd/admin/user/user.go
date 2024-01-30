@@ -1,13 +1,21 @@
 package user
 
-import "github.com/urfave/cli/v2"
+import (
+	"github.com/davidborzek/tvhgo/cmd/admin/user/token"
+	twofa "github.com/davidborzek/tvhgo/cmd/admin/user/twofa"
+	"github.com/urfave/cli/v2"
+)
 
 var (
 	Cmd = &cli.Command{
 		Name:  "user",
 		Usage: "Manage users of the tvhgo server",
 		Subcommands: []*cli.Command{
-			addUserCmd,
+			addCmd,
+			listCmd,
+			deleteCmd,
+			twofa.Cmd,
+			token.Cmd,
 		},
 	}
 )
