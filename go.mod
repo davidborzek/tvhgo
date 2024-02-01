@@ -15,7 +15,7 @@ require (
 	github.com/sirupsen/logrus v1.9.3
 	github.com/stretchr/testify v1.8.4
 	github.com/swaggo/http-swagger/v2 v2.0.2
-	github.com/swaggo/swag v1.16.2
+	github.com/swaggo/swag v1.16.3
 	github.com/urfave/cli/v2 v2.27.1
 	go.uber.org/mock v0.4.0
 	golang.org/x/crypto v0.18.0
