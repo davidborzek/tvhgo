@@ -23,8 +23,9 @@ import (
 	"github.com/davidborzek/tvhgo/tvheadend"
 	"github.com/davidborzek/tvhgo/ui"
 	"github.com/go-chi/chi/v5"
-	log "github.com/sirupsen/logrus"
 	"github.com/urfave/cli/v2"
+
+	"github.com/rs/zerolog/log"
 )
 
 var Cmd = &cli.Command{
@@ -34,28 +35,23 @@ var Cmd = &cli.Command{
 }
 
 func start(ctx *cli.Context) error {
-	log.SetFormatter(&log.TextFormatter{
-		FullTimestamp: true,
-		PadLevelText:  true,
-	})
-
-	log.WithField("pid", os.Getpid()).
-		Info("tvhgo started")
+	config.InitDefaultLogger()
 
 	cfg, err := config.Load()
 	if err != nil {
-		log.WithError(err).Fatal("failed to start tvhgo")
+		log.Fatal().Err(err).Msg("failed to load config")
 	}
+
+	cfg.Log.SetupLogger()
+
+	log.Info().Int("pid", os.Getpid()).Msg("tvhgo started")
 
 	dbConn, err := db.Connect(cfg.Database.Path)
 	if err != nil {
-		log.WithError(err).
-			WithField("db", cfg.Database.Path).
-			Fatal("failed to create database connection")
+		log.Fatal().Err(err).Msg("failed to connect to database")
 	}
 
-	log.WithField("db", cfg.Database.Path).
-		Info("database connection established")
+	log.Info().Str("db", cfg.Database.Path).Msg("database connection established")
 
 	clock := clock.NewClock()
 
@@ -127,7 +123,7 @@ func start(ctx *cli.Context) error {
 
 	uiRouter, err := ui.NewRouter()
 	if err != nil {
-		log.WithError(err).Fatal("failed to create embedded ui router")
+		log.Fatal().Err(err).Msg("failed to create embedded ui router")
 	}
 
 	metricsServer := metrics.NewServer(
@@ -143,11 +139,10 @@ func start(ctx *cli.Context) error {
 	r.Mount("/", uiRouter)
 
 	addr := cfg.Server.Addr()
-	log.WithField("addr", addr).
-		Info("starting the http server")
+	log.Info().Str("addr", addr).Msg("starting the http server")
 
 	if err := http.ListenAndServe(addr, r); err != nil {
-		log.WithError(err).Fatal("failed to start http server")
+		log.Fatal().Err(err).Msg("failed to start http server")
 	}
 
 	return nil

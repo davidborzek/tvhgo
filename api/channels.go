@@ -7,7 +7,7 @@ import (
 	"github.com/davidborzek/tvhgo/api/response"
 	"github.com/davidborzek/tvhgo/core"
 	"github.com/go-chi/chi/v5"
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog/log"
 )
 
 // GetChannels godoc
@@ -41,8 +41,8 @@ func (s *router) GetChannels(w http.ResponseWriter, r *http.Request) {
 
 	channels, err := s.channels.GetAll(r.Context(), q)
 	if err != nil {
-		log.WithError(err).
-			Error("failed to get channels")
+		log.Error().Err(err).Msg("failed to get channels")
+
 		response.InternalErrorCommon(w)
 		return
 	}
@@ -74,8 +74,9 @@ func (s *router) GetChannel(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		log.WithError(err).
-			Error("failed to get channel")
+		log.Error().Str("id", id).
+			Err(err).Msg("failed to get channel")
+
 		response.InternalErrorCommon(w)
 		return
 	}

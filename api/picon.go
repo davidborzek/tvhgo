@@ -8,7 +8,7 @@ import (
 	"github.com/davidborzek/tvhgo/api/response"
 	"github.com/davidborzek/tvhgo/core"
 	"github.com/go-chi/chi/v5"
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog/log"
 )
 
 // GetPicon godoc
@@ -38,8 +38,9 @@ func (s *router) GetPicon(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		log.WithError(err).
-			Error("failed to get picon")
+		log.Error().Int("id", id).
+			Err(err).Msg("failed to get picon")
+
 		response.InternalErrorCommon(w)
 		return
 	}

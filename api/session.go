@@ -5,7 +5,7 @@ import (
 
 	"github.com/davidborzek/tvhgo/api/request"
 	"github.com/davidborzek/tvhgo/api/response"
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog/log"
 )
 
 // GetSessions godoc
@@ -28,8 +28,7 @@ func (s *router) GetSessions(w http.ResponseWriter, r *http.Request) {
 
 	sessions, err := s.sessions.FindByUser(r.Context(), ctx.UserID)
 	if err != nil {
-		log.WithError(err).
-			Error("failed to get sessions")
+		log.Error().Err(err).Msg("failed to get sessions")
 
 		response.InternalErrorCommon(w)
 		return
@@ -68,8 +67,9 @@ func (s *router) DeleteSession(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := s.sessionManager.Revoke(r.Context(), sessionID, ctx.UserID); err != nil {
-		log.WithError(err).
-			Error("failed to delete session")
+		log.Error().Int64("id", sessionID).
+			Err(err).Msg("failed to revoke session")
+
 		response.InternalErrorCommon(w)
 		return
 	}

@@ -4,7 +4,7 @@ import (
 	"context"
 
 	"github.com/davidborzek/tvhgo/core"
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog/log"
 )
 
 func NewLocalPasswordAuthenticator(
@@ -30,9 +30,8 @@ func (s *localPasswordAuthenticator) Login(
 ) (*core.User, error) {
 	user, err := s.userRepository.FindByUsername(ctx, login)
 	if err != nil {
-		log.WithError(err).
-			WithField("user", login).
-			Error("cloud not get user")
+		log.Error().Str("user", login).
+			Err(err).Msg("failed to get user")
 
 		return nil, core.ErrUnexpectedError
 	}
@@ -59,9 +58,9 @@ func (s *localPasswordAuthenticator) ConfirmPassword(
 ) error {
 	user, err := s.userRepository.FindById(ctx, userID)
 	if err != nil {
-		log.WithError(err).
-			WithField("userId", userID).
-			Error("failed find user for password confirmation")
+		log.Error().Int64("userId", userID).
+			Err(err).Msg("failed to find user for password confirmation")
+
 		return core.ErrUnexpectedError
 	}
 

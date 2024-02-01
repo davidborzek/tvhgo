@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/davidborzek/tvhgo/core"
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog/log"
 )
 
 type sessionCleaner struct {
@@ -33,8 +33,9 @@ func NewSessionCleaner(
 }
 
 func (s *sessionCleaner) Start() {
-	log.WithField("interval", s.interval).
-		Info("starting session cleaner")
+	log.Info().Dur("interval", s.interval).
+		Msg("starting session cleaner")
+
 	ticker := time.NewTicker(s.interval)
 
 	s.RunNow()
@@ -42,7 +43,7 @@ func (s *sessionCleaner) Start() {
 	go func() {
 		for {
 			<-ticker.C
-			log.Debug("running scheduled session cleanup")
+			log.Debug().Msg("running scheduled session cleanup")
 			s.RunNow()
 		}
 	}()
@@ -59,8 +60,9 @@ func (s *sessionCleaner) RunNow() {
 	)
 
 	if err != nil {
-		log.WithError(err).Error("failed to cleanup expired sessions")
+		log.Error().Err(err).Msg("failed to cleanup expired sessions")
+
 	} else if rows > 0 {
-		log.WithField("sessions", rows).Debug("cleaned up expired sessions")
+		log.Debug().Int64("sessions", rows).Msg("cleaned up expired sessions")
 	}
 }

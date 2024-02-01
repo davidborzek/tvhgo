@@ -7,7 +7,7 @@ import (
 	"github.com/davidborzek/tvhgo/api/response"
 	"github.com/davidborzek/tvhgo/core"
 	"github.com/go-chi/chi/v5"
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog/log"
 )
 
 // GetRecordings godoc
@@ -42,8 +42,7 @@ func (s *router) GetRecordings(w http.ResponseWriter, r *http.Request) {
 
 	recordings, err := s.recordings.GetAll(r.Context(), q)
 	if err != nil {
-		log.WithError(err).
-			Error("failed to get recordings")
+		log.Error().Err(err).Msg("failed to get recordings")
 
 		response.InternalErrorCommon(w)
 		return
@@ -76,9 +75,8 @@ func (s *router) GetRecording(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		log.WithError(err).
-			WithField("id", id).
-			Error("failed to get recording")
+		log.Error().Str("id", id).
+			Err(err).Msg("failed to get recording")
 
 		response.InternalErrorCommon(w)
 		return
@@ -114,8 +112,7 @@ func (s *router) CreateRecording(w http.ResponseWriter, r *http.Request) {
 
 	err := s.recordings.Create(r.Context(), in)
 	if err != nil {
-		log.WithError(err).
-			Error("failed to create recording")
+		log.Error().Err(err).Msg("failed to create recording")
 
 		response.InternalErrorCommon(w)
 		return
@@ -151,8 +148,8 @@ func (s *router) CreateRecordingByEvent(w http.ResponseWriter, r *http.Request) 
 
 	err := s.recordings.CreateByEvent(r.Context(), in)
 	if err != nil {
-		log.WithError(err).
-			Error("failed to create recording by event")
+
+		log.Error().Err(err).Msg("failed to create recording by event")
 
 		response.InternalErrorCommon(w)
 		return
@@ -177,9 +174,8 @@ func (s *router) StopRecording(w http.ResponseWriter, r *http.Request) {
 
 	err := s.recordings.Stop(r.Context(), id)
 	if err != nil {
-		log.WithError(err).
-			WithField("id", id).
-			Error("failed to stop recording")
+		log.Error().Str("id", id).
+			Err(err).Msg("failed to stop recording")
 
 		response.InternalErrorCommon(w)
 		return
@@ -211,9 +207,8 @@ func (s *router) BatchStopRecordings(w http.ResponseWriter, r *http.Request) {
 
 	err := s.recordings.BatchStop(r.Context(), ids)
 	if err != nil {
-		log.WithError(err).
-			WithField("ids", ids).
-			Error("failed to stop recordings")
+		log.Error().Interface("ids", ids).
+			Err(err).Msg("failed to stop recordings")
 
 		response.InternalErrorCommon(w)
 		return
@@ -238,9 +233,8 @@ func (s *router) CancelRecording(w http.ResponseWriter, r *http.Request) {
 
 	err := s.recordings.Cancel(r.Context(), id)
 	if err != nil {
-		log.WithError(err).
-			WithField("id", id).
-			Error("failed to cancel recording")
+		log.Error().Str("id", id).
+			Err(err).Msg("failed to cancel recording")
 
 		response.InternalErrorCommon(w)
 		return
@@ -272,9 +266,8 @@ func (s *router) BatchCancelRecordings(w http.ResponseWriter, r *http.Request) {
 
 	err := s.recordings.BatchCancel(r.Context(), ids)
 	if err != nil {
-		log.WithError(err).
-			WithField("ids", ids).
-			Error("failed to cancel recordings")
+		log.Error().Interface("ids", ids).
+			Err(err).Msg("failed to cancel recordings")
 
 		response.InternalErrorCommon(w)
 		return
@@ -299,9 +292,8 @@ func (s *router) RemoveRecording(w http.ResponseWriter, r *http.Request) {
 
 	err := s.recordings.Remove(r.Context(), id)
 	if err != nil {
-		log.WithError(err).
-			WithField("id", id).
-			Error("failed to remove recording")
+		log.Error().Str("id", id).
+			Err(err).Msg("failed to remove recording")
 
 		response.InternalErrorCommon(w)
 		return
@@ -333,9 +325,8 @@ func (s *router) BatchRemoveRecordings(w http.ResponseWriter, r *http.Request) {
 
 	err := s.recordings.BatchRemove(r.Context(), ids)
 	if err != nil {
-		log.WithError(err).
-			WithField("ids", ids).
-			Error("failed to remove recordings")
+		log.Error().Interface("ids", ids).
+			Err(err).Msg("failed to remove recordings")
 
 		response.InternalErrorCommon(w)
 		return
@@ -373,10 +364,8 @@ func (s *router) MoveRecording(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err != nil {
-		log.WithError(err).
-			WithField("id", id).
-			WithField("destination", dest).
-			Error("failed to move recording")
+		log.Error().Str("id", id).Str("destination", dest).
+			Err(err).Msg("failed to move recording")
 
 		response.InternalErrorCommon(w)
 		return
@@ -414,9 +403,8 @@ func (s *router) UpdateRecording(w http.ResponseWriter, r *http.Request) {
 
 	err := s.recordings.UpdateRecording(r.Context(), id, in)
 	if err != nil {
-		log.WithError(err).
-			WithField("id", id).
-			Error("failed to update recording")
+		log.Error().Str("id", id).
+			Err(err).Msg("failed to update recording")
 
 		response.InternalErrorCommon(w)
 		return

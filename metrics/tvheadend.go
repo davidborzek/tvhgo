@@ -7,7 +7,7 @@ import (
 
 	"github.com/davidborzek/tvhgo/tvheadend"
 	"github.com/prometheus/client_golang/prometheus"
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog/log"
 )
 
 type TvheadendCollector struct {
@@ -45,14 +45,15 @@ func (c *TvheadendCollector) connectionsMetrics(
 	var connections tvheadend.Status[tvheadend.ConnectionStatus]
 	res, err := c.client.Exec(ctx, "/api/status/connections", &connections)
 	if err != nil {
-		log.WithError(err).
-			Error("failed to collect tvheadend connections metrics")
+		log.Error().Err(err).Msg("failed to collect tvheadend connections metrics")
+
 		return
 	}
 
 	if res.StatusCode >= 400 {
-		log.WithField("status", res.StatusCode).
-			Error("tvheadend connections metrics request failed with erroneous status code")
+		log.Error().Int("status", res.StatusCode).
+			Msg("tvheadend connections metrics request failed with erroneous status code")
+
 		return
 	}
 
@@ -88,14 +89,15 @@ func (c *TvheadendCollector) subscriptionMetrics(
 	var subscriptions tvheadend.Status[tvheadend.SubscriptionStatus]
 	res, err := c.client.Exec(ctx, "/api/status/subscriptions", &subscriptions)
 	if err != nil {
-		log.WithError(err).
-			Error("failed to collect tvheadend subscriptions metrics")
+		log.Error().Err(err).Msg("failed to collect tvheadend subscriptions metrics")
+
 		return
 	}
 
 	if res.StatusCode >= 400 {
-		log.WithField("status", res.StatusCode).
-			Error("tvheadend subscriptions metrics request failed with erroneous status code")
+		log.Error().Int("status", res.StatusCode).
+			Msg("tvheadend subscriptions metrics request failed with erroneous status code")
+
 		return
 	}
 
@@ -164,14 +166,15 @@ func (c *TvheadendCollector) inputsMetrics(
 	var inputs tvheadend.Status[tvheadend.InputStatus]
 	res, err := c.client.Exec(ctx, "/api/status/inputs", &inputs)
 	if err != nil {
-		log.WithError(err).
-			Error("failed to collect tvheadend inputs metrics")
+		log.Error().Err(err).Msg("failed to collect tvheadend inputs metrics")
+
 		return
 	}
 
 	if res.StatusCode >= 400 {
-		log.WithField("status", res.StatusCode).
-			Error("tvheadend inputs metrics request failed with erroneous status code")
+		log.Error().Int("status", res.StatusCode).
+			Msg("tvheadend subscriptions inputs request failed with erroneous status code")
+
 		return
 	}
 

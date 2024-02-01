@@ -7,7 +7,7 @@ import (
 	"github.com/davidborzek/tvhgo/api/request"
 	"github.com/davidborzek/tvhgo/api/response"
 	"github.com/davidborzek/tvhgo/core"
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog/log"
 )
 
 var (
@@ -57,9 +57,11 @@ func (s *router) Login(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		if err == core.ErrInvalidUsernameOrPassword {
-			log.WithField("ip", addr).
-				WithField("username", in.Username).
-				Error("login failed: invalid username or password")
+			// TODO: This won't work for json logging
+			log.Error().
+				Str("ip", addr).
+				Str("username", in.Username).
+				Msg("login failed: invalid username or password")
 
 			response.Unauthorized(w, err)
 			return

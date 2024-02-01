@@ -5,7 +5,7 @@ import (
 
 	"github.com/davidborzek/tvhgo/api/request"
 	"github.com/davidborzek/tvhgo/api/response"
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog/log"
 )
 
 type tokenResponse struct {
@@ -36,8 +36,7 @@ func (s *router) GetTokens(w http.ResponseWriter, r *http.Request) {
 
 	tokens, err := s.tokens.FindByUser(r.Context(), ctx.UserID)
 	if err != nil {
-		log.WithError(err).
-			Error("failed to get tokens")
+		log.Error().Err(err).Msg("failed to get tokens")
 
 		response.InternalErrorCommon(w)
 		return
@@ -83,8 +82,7 @@ func (s *router) CreateToken(w http.ResponseWriter, r *http.Request) {
 
 	token, err := s.tokenService.Create(r.Context(), ctx.UserID, in.Name)
 	if err != nil {
-		log.WithError(err).
-			Error("failed to create token")
+		log.Error().Err(err).Msg("failed to create tokens")
 
 		response.InternalErrorCommon(w)
 		return
@@ -124,8 +122,9 @@ func (s *router) DeleteToken(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := s.tokenService.Revoke(r.Context(), tokenID); err != nil {
-		log.WithError(err).
-			Error("failed to delete token")
+		log.Error().Int64("id", tokenID).
+			Err(err).Msg("failed to get tokens")
+
 		response.InternalErrorCommon(w)
 		return
 	}
