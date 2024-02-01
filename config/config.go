@@ -4,10 +4,8 @@ import (
 	"errors"
 	"os"
 	"path"
-	"strings"
 
 	"github.com/caarlos0/env/v10"
-	log "github.com/sirupsen/logrus"
 	"gopkg.in/yaml.v3"
 )
 
@@ -18,8 +16,7 @@ type (
 		Auth      AuthConfig      `yaml:"auth"      envPrefix:"AUTH_"`
 		Database  DatabaseConfig  `yaml:"database"  envPrefix:"DATABASE_"`
 		Metrics   MetricsConfig   `yaml:"metrics"  envPrefix:"METRICS_"`
-
-		LogLevel string `yaml:"log_level"`
+		Log       LogConfig       `yaml:"log" envPrefix:"LOG_"`
 	}
 )
 
@@ -99,10 +96,6 @@ func Load() (*Config, error) {
 		return nil, err
 	}
 
-	log.SetLevel(
-		parseLogLevel(cfg.LogLevel),
-	)
-
 	return &cfg, nil
 }
 
@@ -111,9 +104,6 @@ func loadFromFile(cfgPath string, cfg *Config) error {
 	if cfgPath == "" {
 		return nil
 	}
-
-	log.WithField("path", cfgPath).
-		Info("loading config from file")
 
 	cfgFile, err := os.ReadFile(cfgPath)
 	if err != nil {
@@ -142,28 +132,5 @@ func (c *Config) loadDefaults() {
 	c.Auth.TOTP.SetDefaults()
 	c.Database.SetDefaults()
 	c.Metrics.SetDefaults()
-
-	if c.LogLevel == "" {
-		c.LogLevel = "info"
-	}
-}
-
-func parseLogLevel(level string) log.Level {
-	switch strings.ToLower(level) {
-	case "debug":
-		return log.DebugLevel
-	case "info":
-		return log.InfoLevel
-	case "warning":
-		return log.WarnLevel
-	case "error":
-		return log.ErrorLevel
-	case "fatal":
-		return log.FatalLevel
-	}
-
-	log.WithField("level", level).
-		Warn("invalid log level provided - falling back to 'info'")
-
-	return log.InfoLevel
+	c.Log.SetDefaults()
 }

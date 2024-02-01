@@ -6,7 +6,7 @@ import (
 	"github.com/davidborzek/tvhgo/api/request"
 	"github.com/davidborzek/tvhgo/api/response"
 	"github.com/davidborzek/tvhgo/core"
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog/log"
 )
 
 // GetEpgEvents godoc
@@ -49,8 +49,8 @@ func (s *router) GetEpgEvents(w http.ResponseWriter, r *http.Request) {
 
 	events, err := s.epg.GetEvents(r.Context(), q)
 	if err != nil {
-		log.WithError(err).
-			Error("failed to get epg events")
+		log.Error().Err(err).Msg("failed to get epg events")
+
 		response.InternalErrorCommon(w)
 		return
 	}
@@ -88,8 +88,8 @@ func (s *router) GetEpg(w http.ResponseWriter, r *http.Request) {
 
 	events, err := s.epg.GetEpg(r.Context(), q)
 	if err != nil {
-		log.WithError(err).
-			Error("failed to get epg events")
+		log.Error().Err(err).Msg("failed to get epg")
+
 		response.InternalErrorCommon(w)
 		return
 	}
@@ -125,9 +125,8 @@ func (s *router) GetEpgEvent(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		log.WithError(err).
-			WithField("id", id).
-			Error("failed to get epg event")
+		log.Error().Int64("id", id).
+			Err(err).Msg("failed to get epg event")
 
 		response.InternalErrorCommon(w)
 		return
@@ -173,8 +172,8 @@ func (s *router) GetRelatedEpgEvents(w http.ResponseWriter, r *http.Request) {
 
 	events, err := s.epg.GetRelatedEvents(r.Context(), id, q)
 	if err != nil {
-		log.WithError(err).
-			Error("failed to get epg events")
+		log.Error().Err(err).Msg("failed to get related epg events")
+
 		response.InternalErrorCommon(w)
 		return
 	}
@@ -197,8 +196,8 @@ func (s *router) GetRelatedEpgEvents(w http.ResponseWriter, r *http.Request) {
 func (s *router) GetEpgContentTypes(w http.ResponseWriter, r *http.Request) {
 	contentTypes, err := s.epg.GetContentTypes(r.Context())
 	if err != nil {
-		log.WithError(err).
-			Error("failed to get epg content types")
+		log.Error().Err(err).Msg("failed to get epg content types")
+
 		response.InternalErrorCommon(w)
 		return
 	}

@@ -2,7 +2,7 @@ package admin
 
 import (
 	"github.com/davidborzek/tvhgo/cmd/admin/user"
-	"github.com/sirupsen/logrus"
+	"github.com/rs/zerolog"
 	"github.com/urfave/cli/v2"
 )
 
@@ -18,6 +18,6 @@ var (
 )
 
 func before(_c *cli.Context) error {
-	logrus.SetLevel(logrus.FatalLevel)
+	zerolog.SetGlobalLevel(zerolog.Disabled)
 	return nil
 }

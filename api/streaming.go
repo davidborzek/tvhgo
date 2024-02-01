@@ -9,7 +9,7 @@ import (
 	"github.com/davidborzek/tvhgo/api/request"
 	"github.com/davidborzek/tvhgo/api/response"
 	"github.com/go-chi/chi/v5"
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog/log"
 )
 
 // StreamChannel godoc
@@ -36,9 +36,9 @@ func (s *router) StreamChannel(w http.ResponseWriter, r *http.Request) {
 
 	res, err := s.streaming.GetChannelStream(context.Background(), number, profile)
 	if err != nil {
-		log.WithError(err).
-			WithField("channel", number).
-			Error("failed to get channel stream")
+		log.Error().Int64("channel", number).
+			Err(err).Msg("failed to get channel stream")
+
 		response.InternalErrorCommon(w)
 		return
 	}
@@ -48,9 +48,9 @@ func (s *router) StreamChannel(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		log.WithError(err).
-			WithField("channel", number).
-			Error("unexpected error occurred during streaming the channel")
+		log.Error().Int64("channel", number).
+			Err(err).Msg("unexpected error occurred during streaming the channel")
+
 	}
 }
 
@@ -70,9 +70,9 @@ func (s *router) StreamRecording(w http.ResponseWriter, r *http.Request) {
 
 	res, err := s.streaming.GetRecordingStream(context.Background(), id)
 	if err != nil {
-		log.WithError(err).
-			WithField("id", id).
-			Error("failed to get recording stream")
+		log.Error().Str("id", id).
+			Err(err).Msg("failed to get recording stream")
+
 		response.InternalErrorCommon(w)
 		return
 	}
@@ -82,8 +82,7 @@ func (s *router) StreamRecording(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		log.WithError(err).
-			WithField("recording", id).
-			Error("unexpected error occurred during streaming the recording")
+		log.Error().Str("id", id).
+			Err(err).Msg("unexpected error occurred during streaming the recording")
 	}
 }

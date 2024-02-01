@@ -8,7 +8,7 @@ import (
 	"fmt"
 
 	"github.com/davidborzek/tvhgo/core"
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog/log"
 )
 
 type tokenService struct {
@@ -24,8 +24,8 @@ func NewTokenService(tokenRepository core.TokenRepository) core.TokenService {
 func (s *tokenService) Create(ctx context.Context, userID int64, name string) (string, error) {
 	token, err := generateToken()
 	if err != nil {
-		log.WithError(err).
-			Error("could not generate session token")
+		log.Error().Err(err).Int64("user", userID).
+			Msg("could not generate token")
 
 		return "", core.ErrUnexpectedError
 	}
@@ -38,9 +38,8 @@ func (s *tokenService) Create(ctx context.Context, userID int64, name string) (s
 	}
 
 	if err := s.tokenRepository.Create(ctx, tokenEntity); err != nil {
-		log.WithError(err).
-			WithField("user", userID).
-			Error("could not persist token")
+		log.Error().Err(err).Int64("user", userID).
+			Msg("could not persist token")
 
 		return "", core.ErrUnexpectedError
 	}
@@ -51,8 +50,8 @@ func (s *tokenService) Create(ctx context.Context, userID int64, name string) (s
 func (s *tokenService) Revoke(ctx context.Context, id int64) error {
 	err := s.tokenRepository.Delete(ctx, &core.Token{ID: id})
 	if err != nil {
-		log.WithError(err).
-			Error("could not delete token")
+		log.Error().Err(err).Int64("token", id).
+			Msg("could not revoke token")
 
 		return core.ErrUnexpectedError
 	}
@@ -66,8 +65,8 @@ func (s *tokenService) Validate(
 	hashedToken := hashToken(token)
 	tokenEntity, err := s.tokenRepository.FindByToken(ctx, hashedToken)
 	if err != nil {
-		log.WithError(err).
-			Error("could not get session")
+		log.Error().Err(err).
+			Msg("could not get token")
 
 		return nil, core.ErrUnexpectedError
 	}

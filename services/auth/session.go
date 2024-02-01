@@ -5,7 +5,7 @@ import (
 	"time"
 
 	"github.com/davidborzek/tvhgo/core"
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog/log"
 )
 
 type sessionManager struct {
@@ -41,8 +41,7 @@ func (s *sessionManager) Create(
 ) (string, error) {
 	token, err := generateToken()
 	if err != nil {
-		log.WithError(err).
-			Error("could not generate session token")
+		log.Error().Err(err).Msg("could not generate session token")
 
 		return "", core.ErrUnexpectedError
 	}
@@ -56,9 +55,8 @@ func (s *sessionManager) Create(
 	}
 
 	if err := s.sessionRepository.Create(ctx, session); err != nil {
-		log.WithError(err).
-			WithField("user", userId).
-			Error("could not persist session")
+		log.Error().Err(err).Int64("user", userId).
+			Msg("could not persist session")
 
 		return "", core.ErrUnexpectedError
 	}
@@ -69,9 +67,8 @@ func (s *sessionManager) Create(
 func (s *sessionManager) Revoke(ctx context.Context, sessionID int64, userID int64) error {
 	err := s.sessionRepository.Delete(ctx, sessionID, userID)
 	if err != nil {
-		log.WithError(err).
-			WithField("session", sessionID).
-			Error("could not delete session")
+		log.Error().Err(err).Int64("session", sessionID).
+			Msg("could not delete session")
 
 		return core.ErrUnexpectedError
 	}
@@ -86,8 +83,7 @@ func (s *sessionManager) Validate(
 
 	session, err := s.sessionRepository.Find(ctx, hashedToken)
 	if err != nil {
-		log.WithError(err).
-			Error("could not get session")
+		log.Error().Err(err).Msg("could not get session")
 
 		return nil, nil, core.ErrUnexpectedError
 	}
@@ -112,17 +108,16 @@ func (s *sessionManager) Validate(
 
 	rotatedToken, err := s.rotateToken(session)
 	if err != nil {
-		log.WithError(err).
-			Error("could not rotate token")
+		log.Error().Err(err).Msg("could not rotate token")
+
 		return nil, nil, err
 	}
 
 	session.LastUsedAt = s.clock.Now().Unix()
 
 	if err := s.sessionRepository.Update(ctx, session); err != nil {
-		log.WithError(err).
-			WithField("session", session.ID).
-			Error("could not update session")
+		log.Error().Err(err).Int64("session", session.ID).
+			Msg("could not update session")
 
 		return nil, nil, core.ErrUnexpectedError
 	}

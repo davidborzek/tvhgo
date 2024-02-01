@@ -1,9 +1,11 @@
 ---
-log_level: info
-
 server:
   host: 127.0.0.1
   port: 8080
+
+log:
+  level: info
+  format: console
 
 tvheadend:
   scheme: http

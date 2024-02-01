@@ -39,6 +39,9 @@ func TestLoadRequiredConfigFromEnv(t *testing.T) {
 	assert.Empty(t, cfg.Metrics.Token)
 	assert.Equal(t, 8081, cfg.Metrics.Port)
 	assert.Empty(t, cfg.Metrics.Host)
+
+	assert.Equal(t, "console", cfg.Log.Format)
+	assert.Equal(t, "info", cfg.Log.Level)
 }
 
 func TestLoadFailsForNoTvheadendHost(t *testing.T) {
@@ -88,6 +91,9 @@ func TestLoadConfigFromEnv(t *testing.T) {
 	os.Setenv("TVHGO_METRICS_PORT", "8082")
 	os.Setenv("TVHGO_METRICS_HOST", "0.0.0.0")
 
+	os.Setenv("TVHGO_LOG_FORMAT", "json")
+	os.Setenv("TVHGO_LOG_LEVEL", "debug")
+
 	cfg, err := config.Load()
 
 	assert.Nil(t, err)
@@ -115,4 +121,7 @@ func TestLoadConfigFromEnv(t *testing.T) {
 	assert.Equal(t, "someMetricsToken", cfg.Metrics.Token)
 	assert.Equal(t, 8082, cfg.Metrics.Port)
 	assert.Equal(t, "0.0.0.0", cfg.Metrics.Host)
+
+	assert.Equal(t, "json", cfg.Log.Format)
+	assert.Equal(t, "debug", cfg.Log.Level)
 }

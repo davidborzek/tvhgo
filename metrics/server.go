@@ -9,7 +9,7 @@ import (
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/prometheus/client_golang/prometheus"
 	"github.com/prometheus/client_golang/prometheus/promhttp"
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog/log"
 )
 
 type server struct {
@@ -38,12 +38,12 @@ func (s *server) Start() {
 	r.Handle("/metrics", promhttp.Handler())
 
 	addr := s.cfg.Addr()
-	log.WithField("addr", addr).
-		Info("starting the metrics http server")
+	log.Info().Str("addr", addr).
+		Msg("starting the metrics http server")
 
 	go func() {
 		if err := http.ListenAndServe(addr, r); err != nil {
-			log.WithError(err).Fatal("failed to start metrics http server")
+			log.Fatal().Err(err).Msg("failed to start metrics http server")
 		}
 	}()
 }

@@ -6,7 +6,7 @@ import (
 	"github.com/davidborzek/tvhgo/api/request"
 	"github.com/davidborzek/tvhgo/api/response"
 	"github.com/davidborzek/tvhgo/core"
-	log "github.com/sirupsen/logrus"
+	"github.com/rs/zerolog/log"
 )
 
 type twoFactorAuthSetupResponse struct {
@@ -56,9 +56,8 @@ func (s *router) SetupTwoFactorAuth(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		log.WithError(err).
-			WithField("userId", ctx.UserID).
-			Error("failed to setup two factor auth")
+		log.Error().Int64("id", ctx.UserID).
+			Err(err).Msg("failed to setup two factor auth")
 
 		response.InternalErrorCommon(w)
 		return
@@ -103,9 +102,8 @@ func (s *router) ActivateTwoFactorAuth(w http.ResponseWriter, r *http.Request) {
 			return
 		}
 
-		log.WithError(err).
-			WithField("userId", ctx.UserID).
-			Error("failed to activate two factor auth")
+		log.Error().Int64("id", ctx.UserID).
+			Err(err).Msg("failed to activate two factor auth")
 
 		response.InternalError(w, err)
 		return
@@ -138,9 +136,8 @@ func (s *router) DeactivateTwoFactorAuth(w http.ResponseWriter, r *http.Request)
 			return
 		}
 
-		log.WithError(err).
-			WithField("userId", ctx.UserID).
-			Error("failed to deactivate two factor auth")
+		log.Error().Int64("id", ctx.UserID).
+			Err(err).Msg("failed to deactivate two factor auth")
 
 		response.InternalErrorCommon(w)
 		return
@@ -158,9 +155,8 @@ func (s *router) GetTwoFactorAuthSettings(w http.ResponseWriter, r *http.Request
 
 	settings, err := s.twoFactorService.GetSettings(r.Context(), ctx.UserID)
 	if err != nil {
-		log.WithError(err).
-			WithField("userId", ctx.UserID).
-			Error("failed to get two factor auth settings")
+		log.Error().Int64("id", ctx.UserID).
+			Err(err).Msg("failed to get two factor auth settings")
 
 		response.InternalErrorCommon(w)
 		return
