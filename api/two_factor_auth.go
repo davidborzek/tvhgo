@@ -26,6 +26,19 @@ type twoFactorAuthDeactivateRequest struct {
 	Code string `json:"code"`
 }
 
+// SetupTwoFactorAuth godoc
+//
+//	@Summary	Starts the two factor auth setup for the current user
+//	@Tags		two-factor-auth
+//	@Param		body	body	twoFactorAuthSetupRequest	true	"Body"
+//	@Produce	json
+//	@Success	200	{object}	twoFactorAuthSetupResponse
+//	@Failure	400	{object}	response.ErrorResponse
+//	@Failure	401	{object}	response.ErrorResponse
+//	@Failure	409	{object}	response.ErrorResponse
+//	@Failure	500	{object}	response.ErrorResponse
+//	@Security	JWT
+//	@Router		/two-factor-auth/setup [put]
 func (s *router) SetupTwoFactorAuth(w http.ResponseWriter, r *http.Request) {
 	ctx, ok := request.GetAuthContext(r.Context())
 	if !ok {
@@ -66,6 +79,19 @@ func (s *router) SetupTwoFactorAuth(w http.ResponseWriter, r *http.Request) {
 	response.JSON(w, twoFactorAuthSetupResponse{URL: url}, 200)
 }
 
+// ActivateTwoFactorAuth godoc
+//
+//	@Summary	Activates two factor auth for the current user
+//	@Tags		two-factor-auth
+//	@Param		body	body	twoFactorAuthActivateRequest true	"Body"
+//	@Produce	json
+//	@Success	204
+//	@Failure	400	{object}	response.ErrorResponse
+//	@Failure	401	{object}	response.ErrorResponse
+//	@Failure	409	{object}	response.ErrorResponse
+//	@Failure	500	{object}	response.ErrorResponse
+//	@Security	JWT
+//	@Router		/two-factor-auth/activate [put]
 func (s *router) ActivateTwoFactorAuth(w http.ResponseWriter, r *http.Request) {
 	ctx, ok := request.GetAuthContext(r.Context())
 	if !ok {
@@ -112,6 +138,19 @@ func (s *router) ActivateTwoFactorAuth(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(204)
 }
 
+// DeactivateTwoFactorAuth godoc
+//
+//	@Summary	Deactivates two factor auth for the current user
+//	@Tags		two-factor-auth
+//	@Param		body	body	twoFactorAuthDeactivateRequest true	"Body"
+//	@Produce	json
+//	@Success	204
+//	@Failure	400	{object}	response.ErrorResponse
+//	@Failure	401	{object}	response.ErrorResponse
+//	@Failure	409	{object}	response.ErrorResponse
+//	@Failure	500	{object}	response.ErrorResponse
+//	@Security	JWT
+//	@Router		/two-factor-auth/deactivate [put]
 func (s *router) DeactivateTwoFactorAuth(w http.ResponseWriter, r *http.Request) {
 	ctx, ok := request.GetAuthContext(r.Context())
 	if !ok {
@@ -146,6 +185,17 @@ func (s *router) DeactivateTwoFactorAuth(w http.ResponseWriter, r *http.Request)
 	w.WriteHeader(204)
 }
 
+// GetTwoFactorAuthSettings godoc
+//
+//	@Summary	Get the two factor auth settings for the current user
+//	@Tags		two-factor-auth
+//
+//	@Produce	json
+//	@Success	200	{array}		core.TwoFactorSettings
+//	@Failure	401	{object}	response.ErrorResponse
+//	@Failure	500	{object}	response.ErrorResponse
+//	@Security	JWT
+//	@Router		/two-factor-auth [get]
 func (s *router) GetTwoFactorAuthSettings(w http.ResponseWriter, r *http.Request) {
 	ctx, ok := request.GetAuthContext(r.Context())
 	if !ok {

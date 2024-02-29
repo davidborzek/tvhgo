@@ -10,6 +10,28 @@ definitions:
       token:
         type: string
     type: object
+  api.twoFactorAuthActivateRequest:
+    properties:
+      code:
+        type: string
+      password:
+        type: string
+    type: object
+  api.twoFactorAuthDeactivateRequest:
+    properties:
+      code:
+        type: string
+    type: object
+  api.twoFactorAuthSetupRequest:
+    properties:
+      password:
+        type: string
+    type: object
+  api.twoFactorAuthSetupResponse:
+    properties:
+      url:
+        type: string
+    type: object
   api.userUpdate:
     properties:
       displayName:
@@ -251,6 +273,11 @@ definitions:
         type: string
       updatedAt:
         type: integer
+    type: object
+  core.TwoFactorSettings:
+    properties:
+      enabled:
+        type: boolean
     type: object
   core.UpdateRecording:
     properties:
@@ -1219,6 +1246,137 @@ paths:
       summary: Revokes a token
       tags:
       - tokens
+  /two-factor-auth:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/core.TwoFactorSettings'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Get the two factor auth settings for the current user
+      tags:
+      - two-factor-auth
+  /two-factor-auth/activate:
+    put:
+      parameters:
+      - description: Body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/api.twoFactorAuthActivateRequest'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Activates two factor auth for the current user
+      tags:
+      - two-factor-auth
+  /two-factor-auth/deactivate:
+    put:
+      parameters:
+      - description: Body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/api.twoFactorAuthDeactivateRequest'
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Deactivates two factor auth for the current user
+      tags:
+      - two-factor-auth
+  /two-factor-auth/setup:
+    put:
+      parameters:
+      - description: Body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/api.twoFactorAuthSetupRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/api.twoFactorAuthSetupResponse'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "409":
+          description: Conflict
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Starts the two factor auth setup for the current user
+      tags:
+      - two-factor-auth
   /user:
     get:
       produces:
