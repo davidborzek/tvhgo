@@ -19,6 +19,7 @@ import (
 //	@Param		offset		query	int		false	"Offset"
 //	@Param		sort_key	query	string	false	"Sort key"
 //	@Param		sort_dir	query	string	false	"Sort direction"
+//	@Param		name	query	string	false	"Channel name (search query)"
 //
 //	@Produce	json
 //	@Success	200	{array}		core.Channel
@@ -28,7 +29,7 @@ import (
 //	@Security	JWT
 //	@Router		/channels [get]
 func (s *router) GetChannels(w http.ResponseWriter, r *http.Request) {
-	var q core.PaginationSortQueryParams
+	var q core.GetChannelsParams
 	if err := request.BindQuery(r, &q); err != nil {
 		response.BadRequest(w, err)
 		return

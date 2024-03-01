@@ -32,6 +32,7 @@ import { useTranslation } from 'react-i18next';
 import CreateTokenModal from '@/modals/token/create/CreateTokenModal';
 import ChannelListView from '@/views/channels/list/ChannelListView';
 import ChannelView from '@/views/channels/detail/ChannelView';
+import RecordingCreateView from './views/recordings/create/RecordingCreateView';
 
 type AuthenticationCheckerProps = {
   redirect?: string;
@@ -113,6 +114,10 @@ function App() {
                   <Route
                     path="/recordings/:id"
                     element={<RecordingDetailView />}
+                  />
+                  <Route
+                    path="/recordings/create"
+                    element={<RecordingCreateView />}
                   />
 
                   <Route path="/settings" element={<SettingsView />}>

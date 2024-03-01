@@ -31,12 +31,15 @@ func New(tvh tvheadend.Client) core.ChannelService {
 
 func (s *service) GetAll(
 	ctx context.Context,
-	params core.PaginationSortQueryParams,
+	params core.GetChannelsParams,
 ) ([]*core.Channel, error) {
-	q := params.MapToTvheadendQuery(sortKeyMapping)
+	q, err := params.MapToTvheadendQuery(sortKeyMapping)
+	if err != nil {
+		return nil, err
+	}
 
 	var grid tvheadend.ChannelGrid
-	res, err := s.tvh.Exec(ctx, "/api/channel/grid", &grid, q)
+	res, err := s.tvh.Exec(ctx, "/api/channel/grid", &grid, *q)
 	if err != nil {
 		return nil, err
 	}

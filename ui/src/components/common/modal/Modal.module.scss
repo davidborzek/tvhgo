@@ -23,6 +23,7 @@ div.modal {
   -webkit-user-select: text;
   -moz-user-select: text;
   user-select: text;
+  max-height: 80%;
 }
 
 .visible {
@@ -35,6 +36,7 @@ div.modal {
     height: 100%;
     // TODO: this should be refactored
     max-width: 100% !important;
+    max-height: 100%;
   }
 }
 
@@ -48,4 +50,5 @@ div.modal {
   display: flex;
   flex-direction: column;
   padding: 0 2.5rem 2.5rem 2.5rem;
+  overflow: hidden;
 }

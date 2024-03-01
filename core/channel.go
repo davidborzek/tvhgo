@@ -24,15 +24,45 @@ type (
 		PiconID int    `json:"piconId"`
 	}
 
+	GetChannelsParams struct {
+		PaginationSortQueryParams
+		// Name of a channel.
+		Name string `schema:"status"`
+	}
+
 	// ChannelService provides access to channel
 	// resources from the tvheadend server.
 	ChannelService interface {
 		// GetAll returns a list of channels.
-		GetAll(ctx context.Context, params PaginationSortQueryParams) ([]*Channel, error)
+		// TODO: return ListResult with limit, offset, ...
+		GetAll(ctx context.Context, params GetChannelsParams) ([]*Channel, error)
 		// Get returns a channel by id.
 		Get(ctx context.Context, id string) (*Channel, error)
 	}
 )
+
+func (p *GetChannelsParams) MapToTvheadendQuery(
+	sortKeyMapping map[string]string,
+) (*tvheadend.Query, error) {
+	q := p.PaginationSortQueryParams.MapToTvheadendQuery(sortKeyMapping)
+
+	if p.Name != "" {
+		err := q.Filter([]tvheadend.FilterQuery{
+			{
+				Field:      "name",
+				Type:       "string",
+				Value:      p.Name,
+				Comparison: "eq",
+			},
+		})
+
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	return &q, nil
+}
 
 func MapTvheadendIconUrlToPiconID(iconUrl string) int {
 	split := strings.Split(iconUrl, "/")

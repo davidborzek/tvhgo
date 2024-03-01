@@ -1,0 +1,21 @@
+.channels {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  overflow: auto;
+}
+
+.headline {
+  font-size: 1.5rem;
+  text-align: center;
+  max-width: 30rem;
+}
+
+.channel {
+  padding: 0.5rem;
+  cursor: pointer;
+
+  &.selected {
+    background-color: red;
+  }
+}

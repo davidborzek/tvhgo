@@ -54,6 +54,10 @@ export type GetRecordingsQuery = PaginationSortQuery & {
   status?: RecordingStatus;
 };
 
+export type GetChannelsQuery = PaginationSortQuery & {
+  name?: string;
+};
+
 export class ApiError extends Error {
   constructor(
     public readonly code: number,
@@ -134,6 +138,15 @@ export async function getEpg(
 
 export async function getChannel(id: string): Promise<Channel> {
   const response = await client.get<Channel>(`/channels/${id}`);
+  return response.data;
+}
+
+export async function getChannels(
+  q?: GetChannelsQuery
+): Promise<Array<Channel>> {
+  const response = await client.get<Array<Channel>>(`/channels`, {
+    params: q,
+  });
   return response.data;
 }
 
