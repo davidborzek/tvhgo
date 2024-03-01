@@ -19,7 +19,7 @@ import (
 //	@Param		offset		query	int		false	"Offset"
 //	@Param		sort_key	query	string	false	"Sort key"
 //	@Param		sort_dir	query	string	false	"Sort direction"
-//	@Param		name	query	string	false	"Channel name (search query)"
+//	@Param		name		query	string	false	"Channel name (search query)"
 //
 //	@Produce	json
 //	@Success	200	{array}		core.Channel

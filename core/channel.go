@@ -27,7 +27,7 @@ type (
 	GetChannelsParams struct {
 		PaginationSortQueryParams
 		// Name of a channel.
-		Name string `schema:"status"`
+		Name string `schema:"name"`
 	}
 
 	// ChannelService provides access to channel
