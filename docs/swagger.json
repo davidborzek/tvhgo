@@ -46,6 +46,12 @@
                         "description": "Sort direction",
                         "name": "sort_dir",
                         "in": "query"
+                    },
+                    {
+                        "type": "string",
+                        "description": "Channel name (search query)",
+                        "name": "name",
+                        "in": "query"
                     }
                 ],
                 "responses": {

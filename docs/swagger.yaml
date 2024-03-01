@@ -361,6 +361,10 @@ paths:
         in: query
         name: sort_dir
         type: string
+      - description: Channel name (search query)
+        in: query
+        name: name
+        type: string
       produces:
       - application/json
       responses:

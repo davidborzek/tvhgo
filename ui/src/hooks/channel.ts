@@ -65,14 +65,14 @@ export const useGetChannels = (name?: string) => {
   const { setIsLoading } = useLoading();
 
   const [error, setError] = useState<string | null>(null);
-  const [channels, setChannels] = useState<Array<Channel>>();
+  const [channels, setChannels] = useState<Array<Channel>>([]);
 
   const fetch = async () => {
     setIsLoading(true);
 
-    return getChannels({ name })
+    return getChannels({ name, sort_key: 'name' })
       .then(setChannels)
-      .catch((err) => {
+      .catch(() => {
         setError(t('unexpected'));
       })
       .finally(() => {

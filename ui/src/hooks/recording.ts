@@ -4,6 +4,7 @@ import {
   ApiError,
   cancelRecording,
   cancelRecordings,
+  createRecording,
   getRecording,
   getRecordings,
   GetRecordingsQuery,
@@ -14,7 +15,11 @@ import {
   stopRecordings,
   updateRecording,
 } from '@/clients/api/api';
-import { Recording, UpdateRecording } from '@/clients/api/api.types';
+import {
+  CreateRecordingOpts,
+  Recording,
+  UpdateRecording,
+} from '@/clients/api/api.types';
 import { useLoading } from '@/contexts/LoadingContext';
 import { useNotification } from './notification';
 
@@ -222,4 +227,27 @@ export const useManageRecordings = () => {
     removeRecordings: _removeRecordings,
     pending,
   };
+};
+
+export const useCreateRecording = () => {
+  const { notifyError, notifySuccess, dismissNotification } =
+    useNotification('createRecording');
+
+  const { t } = useTranslation();
+  const [pending, setPending] = useState(false);
+
+  const _createRecording = async (opts: CreateRecordingOpts) => {
+    dismissNotification();
+    setPending(true);
+
+    createRecording(opts)
+      .catch((error) => {
+        notifyError(t('unexpected'));
+      })
+      .finally(() => {
+        setPending(false);
+      });
+  };
+
+  return { createRecording: _createRecording, pending };
 };

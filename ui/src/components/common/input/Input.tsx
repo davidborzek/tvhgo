@@ -13,8 +13,10 @@ type Props = {
   label?: string | null;
   placeholder?: string | null;
   value?: string | number;
+  defaultValue?: string | number;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   onBlur?: React.FocusEventHandler<HTMLInputElement>;
+  onClick?: React.MouseEventHandler<HTMLInputElement>;
   className?: string;
   required?: boolean;
   disabled?: boolean;
@@ -24,6 +26,7 @@ type Props = {
   fullWidth?: boolean;
   showCopyButton?: boolean;
   ellipsis?: boolean;
+  hideCarret?: boolean;
 };
 
 function Input(props: Props, ref: React.LegacyRef<HTMLInputElement>) {
@@ -56,11 +59,14 @@ function Input(props: Props, ref: React.LegacyRef<HTMLInputElement>) {
             styles.input,
             props.ellipsis ? styles.ellipsis : '',
             props.disabled ? styles.disabled : '',
-            props.error ? styles.error : ''
+            props.error ? styles.error : '',
+            props.onClick ? styles.clickable : '',
+            props.hideCarret ? styles.hideCarret : ''
           )}
           name={props.name}
           placeholder={props.placeholder || undefined}
           value={props.value}
+          defaultValue={props.defaultValue}
           onChange={props.onChange}
           onBlur={props.onBlur}
           required={props.required}
@@ -71,6 +77,7 @@ function Input(props: Props, ref: React.LegacyRef<HTMLInputElement>) {
               evt.target.select();
             }
           }}
+          onClick={props.onClick}
         />
         {props.showCopyButton ? (
           <span

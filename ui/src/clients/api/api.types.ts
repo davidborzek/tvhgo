@@ -130,3 +130,14 @@ export type Token = {
 export type CreateTokenResponse = {
   token: string;
 };
+
+export type CreateRecordingOpts = {
+  title: string;
+  extraText: string;
+  startsAt: number;
+  endsAt: number;
+  channelId: string;
+  startPadding: number;
+  endPadding: number;
+  comment: string;
+};

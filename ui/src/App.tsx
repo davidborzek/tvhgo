@@ -33,6 +33,7 @@ import CreateTokenModal from '@/modals/token/create/CreateTokenModal';
 import ChannelListView from '@/views/channels/list/ChannelListView';
 import ChannelView from '@/views/channels/detail/ChannelView';
 import RecordingCreateView from './views/recordings/create/RecordingCreateView';
+import ChannelSelectModal from './components/channels/selectModal/ChannelSelectModal';
 
 type AuthenticationCheckerProps = {
   redirect?: string;
@@ -118,7 +119,12 @@ function App() {
                   <Route
                     path="/recordings/create"
                     element={<RecordingCreateView />}
-                  />
+                  >
+                    <Route
+                      path="select-channel"
+                      element={<ChannelSelectModal />}
+                    />
+                  </Route>
 
                   <Route path="/settings" element={<SettingsView />}>
                     <Route

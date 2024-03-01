@@ -3,37 +3,56 @@ import Modal from '@/components/common/modal/Modal';
 import styles from './ChannelSelectModal.module.scss';
 import { useTranslation } from 'react-i18next';
 import { Channel } from '@/clients/api/api.types';
-import { c } from '@/utils/classNames';
+import { useRef, useState } from 'react';
+import { useGetChannels } from '@/hooks/channel';
+import { useNavigate } from 'react-router-dom';
+import { useDebounce } from '@/hooks/debounce';
 
-type Props = {
-  channels: Channel[];
-  visible: boolean;
-  onClose: () => void;
-  onSelect: (channel: Channel) => void;
-};
-
-const ChannelSelectModal = ({
-  channels,
-  onClose,
-  onSelect,
-  visible,
-}: Props) => {
+const ChannelSelectModal = () => {
+  const ref = useRef<HTMLDivElement>(null);
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
+  const [searchValue, setSearchValue] = useState('');
+  const { channels, error } = useGetChannels(useDebounce(searchValue));
+
+  const handleClose = (ch?: Channel) => {
+    navigate('/recordings/create', { state: { channel: ch } });
+
+    setSearchValue('');
+    if (ref.current) {
+      ref.current.scrollTop = 0;
+    }
+  };
 
   const renderChannel = (channel: Channel) => {
     return (
-      <div className={styles.channel} onClick={() => onSelect(channel)}>
-        <img src="picon" />
+      <div className={styles.channel} onClick={() => handleClose(channel)}>
+        <div className={styles.piconContainer}>
+          <img className={styles.picon} src={`/api/picon/${channel.piconId}`} />
+        </div>
         <span>{channel.name}</span>
       </div>
     );
   };
 
   return (
-    <Modal onClose={onClose} visible={visible}>
+    <Modal
+      onClose={() => {
+        handleClose();
+      }}
+      visible
+    >
       <h3 className={styles.headline}>{t('select_channel')}</h3>
-      <Input placeholder={t('search')} />
-      <div className={styles.channels}>{channels.map(renderChannel)}</div>
+      <Input
+        value={searchValue}
+        onChange={(e) => setSearchValue(e.target.value)}
+        placeholder={t('search')}
+        fullWidth
+      />
+      <div ref={ref} className={styles.channels}>
+        {channels.map(renderChannel)}
+      </div>
     </Modal>
   );
 };

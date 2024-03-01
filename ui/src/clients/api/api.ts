@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
   Channel,
+  CreateRecordingOpts,
   CreateTokenResponse,
   EpgChannel,
   EpgEvent,
@@ -285,4 +286,10 @@ export async function deleteToken(id: number): Promise<void> {
 export async function createToken(name: string): Promise<CreateTokenResponse> {
   const response = await client.post<CreateTokenResponse>(`/tokens`, { name });
   return response.data;
+}
+
+export async function createRecording(
+  opts: CreateRecordingOpts
+): Promise<void> {
+  await client.post(`/recordings`, opts);
 }
