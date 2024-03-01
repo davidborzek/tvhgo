@@ -121,12 +121,8 @@ const TwoFactorAuthSetupModal = () => {
       maxWidth="30rem"
       disableBackdropClose
     >
-      <div className={styles.content}>
-        <h3 className={styles.headline}>{t('enable_two_factor_auth')}</h3>
-        {twoFactorUrl
-          ? renderEnableTwoFactorForm()
-          : renderSetupTwoFactorForm()}
-      </div>
+      <h3 className={styles.headline}>{t('enable_two_factor_auth')}</h3>
+      {twoFactorUrl ? renderEnableTwoFactorForm() : renderSetupTwoFactorForm()}
     </Modal>
   );
 };

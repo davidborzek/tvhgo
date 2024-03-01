@@ -38,10 +38,10 @@ export default function Modal(props: PropsWithChildren<Props>) {
       onClick={handleClose}
     >
       <div className={styles.modal} style={{ maxWidth: props.maxWidth }}>
-        <div className={styles.container}>
+        <div className={styles.header}>
           <ModalCloseButton onClick={props.onClose} />
-          {props.children}
         </div>
+        <div className={styles.content}>{props.children}</div>
       </div>
     </div>
   );

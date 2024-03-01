@@ -6,13 +6,13 @@ exports[`with status completed > should render recording 1`] = `
     class="_RecordingDetailView_8b9d52"
   >
     <div
-      class="_modalWrapper_12177b "
+      class="_wrapper_12177b"
     >
       <div
         class="_modal_12177b"
       >
         <div
-          class="_container_12177b"
+          class="_header_12177b"
         >
           <button
             class="_button_2ae682"
@@ -38,21 +38,21 @@ exports[`with status completed > should render recording 1`] = `
               </g>
             </svg>
           </button>
-          <div
-            class="_content_ee1e54"
+        </div>
+        <div
+          class="_content_12177b"
+        >
+          <h3
+            class="_headline_ee1e54"
           >
-            <h3
-              class="_headline_ee1e54"
-            >
-              confirm_delete_recording
-            </h3>
-            <button
-              class="_button_a7f9df _red_a7f9df  "
-              data-testid="confirm-delete-btn"
-            >
-              delete
-            </button>
-          </div>
+            confirm_delete_recording
+          </h3>
+          <button
+            class="_button_a7f9df _red_a7f9df  "
+            data-testid="confirm-delete-btn"
+          >
+            delete
+          </button>
         </div>
       </div>
     </div>
@@ -168,13 +168,13 @@ exports[`with status recording > should render recording 1`] = `
     class="_RecordingDetailView_8b9d52"
   >
     <div
-      class="_modalWrapper_12177b "
+      class="_wrapper_12177b"
     >
       <div
         class="_modal_12177b"
       >
         <div
-          class="_container_12177b"
+          class="_header_12177b"
         >
           <button
             class="_button_2ae682"
@@ -200,21 +200,21 @@ exports[`with status recording > should render recording 1`] = `
               </g>
             </svg>
           </button>
-          <div
-            class="_content_ee1e54"
+        </div>
+        <div
+          class="_content_12177b"
+        >
+          <h3
+            class="_headline_ee1e54"
           >
-            <h3
-              class="_headline_ee1e54"
-            >
-              confirm_stop_recording
-            </h3>
-            <button
-              class="_button_a7f9df _red_a7f9df  "
-              data-testid="confirm-delete-btn"
-            >
-              stop
-            </button>
-          </div>
+            confirm_stop_recording
+          </h3>
+          <button
+            class="_button_a7f9df _red_a7f9df  "
+            data-testid="confirm-delete-btn"
+          >
+            stop
+          </button>
         </div>
       </div>
     </div>
@@ -393,13 +393,13 @@ exports[`with status scheduled > should render recording 1`] = `
     class="_RecordingDetailView_8b9d52"
   >
     <div
-      class="_modalWrapper_12177b "
+      class="_wrapper_12177b"
     >
       <div
         class="_modal_12177b"
       >
         <div
-          class="_container_12177b"
+          class="_header_12177b"
         >
           <button
             class="_button_2ae682"
@@ -425,21 +425,21 @@ exports[`with status scheduled > should render recording 1`] = `
               </g>
             </svg>
           </button>
-          <div
-            class="_content_ee1e54"
+        </div>
+        <div
+          class="_content_12177b"
+        >
+          <h3
+            class="_headline_ee1e54"
           >
-            <h3
-              class="_headline_ee1e54"
-            >
-              confirm_cancel_recording
-            </h3>
-            <button
-              class="_button_a7f9df _red_a7f9df  "
-              data-testid="confirm-delete-btn"
-            >
-              cancel
-            </button>
-          </div>
+            confirm_cancel_recording
+          </h3>
+          <button
+            class="_button_a7f9df _red_a7f9df  "
+            data-testid="confirm-delete-btn"
+          >
+            cancel
+          </button>
         </div>
       </div>
     </div>

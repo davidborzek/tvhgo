@@ -175,7 +175,7 @@ export const useManageRecordings = () => {
 
   const stopAndCancelRecordings = async (
     stopIds: string[],
-    cancelIds: string[],
+    cancelIds: string[]
   ) => {
     dismissNotification();
     setPending(true);
