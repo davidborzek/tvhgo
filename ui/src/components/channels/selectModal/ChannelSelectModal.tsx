@@ -27,7 +27,11 @@ const ChannelSelectModal = () => {
 
   const renderChannel = (channel: Channel) => {
     return (
-      <div className={styles.channel} onClick={() => handleClose(channel)}>
+      <div
+        key={channel.id}
+        className={styles.channel}
+        onClick={() => handleClose(channel)}
+      >
         <div className={styles.piconContainer}>
           <img className={styles.picon} src={`/api/picon/${channel.piconId}`} />
         </div>
