@@ -4,16 +4,31 @@ import FormGroup from '@/components/common/form/FormGroup/FormGroup';
 import Input from '@/components/common/input/Input';
 import { useTranslation } from 'react-i18next';
 import { Outlet, useLocation, useNavigate } from 'react-router-dom';
+import * as Yup from 'yup';
 
 import styles from './RecordingCreateView.module.scss';
 import { useCreateRecording } from '@/hooks/recording';
 import { useFormik } from 'formik';
+import { useNotification } from '@/hooks/notification';
 
 const RecordingCreateView = () => {
   const { t } = useTranslation();
   const { state } = useLocation();
   const navigate = useNavigate();
   const { createRecording, pending } = useCreateRecording();
+
+  const { notifyError, dismissNotification } = useNotification(
+    'formikCreateRecording'
+  );
+
+  const validationSchema = Yup.object().shape({
+    title: Yup.string().required(t('title_required')),
+    channel: Yup.string().required(t('channel_required')),
+    startsAt: Yup.date().required(t('starts_at_required')),
+    endsAt: Yup.date().required(t('ends_at_required')),
+    startPadding: Yup.number(),
+    endPadding: Yup.number(),
+  });
 
   const formik = useFormik({
     initialValues: {
@@ -24,7 +39,11 @@ const RecordingCreateView = () => {
       endPadding: 0,
       startsAt: '',
       endsAt: '',
+      channel: (state?.channel?.name as string) || '',
     },
+    validateOnChange: false,
+    validateOnBlur: false,
+    validationSchema,
     onSubmit: (opts) => {
       createRecording({
         title: opts.title,
@@ -35,15 +54,26 @@ const RecordingCreateView = () => {
         startPadding: opts.startPadding,
         endPadding: opts.endPadding,
         comment: opts.comment,
-      });
+      }).then(() => navigate('/recordings'));
     },
     enableReinitialize: true,
   });
 
   return (
     <div className={styles.root}>
-      <h1>New recording</h1>
-      <Form className={styles.form} onSubmit={formik.handleSubmit}>
+      <h1>{t('create_recording')}</h1>
+      <Form
+        className={styles.form}
+        onSubmit={(e) => {
+          if (Object.keys(formik.errors).length > 0) {
+            notifyError(Object.values(formik.errors)[0]);
+          } else {
+            dismissNotification();
+          }
+
+          formik.handleSubmit(e);
+        }}
+      >
         <FormGroup>
           <FormGroup direction="column">
             <Input
@@ -75,11 +105,14 @@ const RecordingCreateView = () => {
             />
             <Input
               label={t('channel')}
+              name="channel"
               value={state?.channel?.name}
               onClick={() => navigate('select-channel')}
+              onBlur={formik.handleBlur}
               disabled={pending}
               hideCarret
               fullWidth
+              readonly
             />
           </FormGroup>
 

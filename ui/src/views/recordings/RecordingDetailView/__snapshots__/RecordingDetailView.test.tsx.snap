@@ -341,7 +341,7 @@ exports[`with status recording > should render recording 1`] = `
               class="_innerContainer_ae92e9"
             >
               <input
-                class="_input_ae92e9  _disabled_ae92e9 "
+                class="_input_ae92e9  _disabled_ae92e9   "
                 disabled=""
                 name="startPadding"
                 type="number"
@@ -362,7 +362,7 @@ exports[`with status recording > should render recording 1`] = `
               class="_innerContainer_ae92e9"
             >
               <input
-                class="_input_ae92e9   "
+                class="_input_ae92e9     "
                 name="endPadding"
                 type="number"
                 value="2"
@@ -566,7 +566,7 @@ exports[`with status scheduled > should render recording 1`] = `
               class="_innerContainer_ae92e9"
             >
               <input
-                class="_input_ae92e9   "
+                class="_input_ae92e9     "
                 name="startPadding"
                 type="number"
                 value="3"
@@ -586,7 +586,7 @@ exports[`with status scheduled > should render recording 1`] = `
               class="_innerContainer_ae92e9"
             >
               <input
-                class="_input_ae92e9   "
+                class="_input_ae92e9     "
                 name="endPadding"
                 type="number"
                 value="2"

@@ -120,33 +120,42 @@ exports[`should render multiple pages: status=failed 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -421,33 +430,42 @@ exports[`should render multiple pages: status=finished 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -722,33 +740,42 @@ exports[`should render multiple pages: status=null 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -1023,33 +1050,42 @@ exports[`should render multiple pages: status=removed 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -1324,33 +1360,42 @@ exports[`should render multiple pages: status=upcoming 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -1625,33 +1670,42 @@ exports[`should render single page: status=failed 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -1928,33 +1982,42 @@ exports[`should render single page: status=finished 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -2231,33 +2294,42 @@ exports[`should render single page: status=null 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -2534,33 +2606,42 @@ exports[`should render single page: status=removed 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -2837,33 +2918,42 @@ exports[`should render single page: status=upcoming 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -3140,33 +3230,42 @@ exports[`should render with no recordings: status=failed 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -3266,33 +3365,42 @@ exports[`should render with no recordings: status=finished 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -3392,33 +3500,42 @@ exports[`should render with no recordings: status=null 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -3518,33 +3635,42 @@ exports[`should render with no recordings: status=removed 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -3644,33 +3770,42 @@ exports[`should render with no recordings: status=upcoming 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"

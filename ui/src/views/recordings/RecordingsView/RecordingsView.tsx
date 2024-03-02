@@ -19,6 +19,7 @@ import EmptyState from '@/components/common/emptyState/EmptyState';
 import styles from './RecordingsView.module.scss';
 import RecordingListItem from '@/components/recordings/listItem/RecordingListItem';
 import { TestIds } from '@/__test__/ids';
+import ButtonLink from '@/components/common/button/ButtonLink';
 
 const defaultLimit = 50;
 
@@ -151,34 +152,38 @@ function RecordingsView() {
       />
 
       <div className={styles.header}>
-        <Dropdown
-          value={getStatus()}
-          onChange={(value) => {
-            clearSelection();
-            setQueryParams({
-              status: value,
-            });
-          }}
-          testID={TestIds.RECORDINGS_STATUS_DROPDOWN}
-          options={[
-            {
-              title: t('upcoming'),
-              value: 'upcoming',
-            },
-            {
-              title: t('finished'),
-              value: 'finished',
-            },
-            {
-              title: t('failed'),
-              value: 'failed',
-            },
-            {
-              title: t('removed'),
-              value: 'removed',
-            },
-          ]}
-        />
+        <div className={styles.leftActions}>
+          <Dropdown
+            value={getStatus()}
+            onChange={(value) => {
+              clearSelection();
+              setQueryParams({
+                status: value,
+              });
+            }}
+            testID={TestIds.RECORDINGS_STATUS_DROPDOWN}
+            options={[
+              {
+                title: t('upcoming'),
+                value: 'upcoming',
+              },
+              {
+                title: t('finished'),
+                value: 'finished',
+              },
+              {
+                title: t('failed'),
+                value: 'failed',
+              },
+              {
+                title: t('removed'),
+                value: 'removed',
+              },
+            ]}
+          />
+
+          <Button label={t('add')} onClick={() => navigate('create')} />
+        </div>
 
         <div className={styles.actions}>
           <Button

@@ -133,11 +133,11 @@ export type CreateTokenResponse = {
 
 export type CreateRecordingOpts = {
   title: string;
-  extraText: string;
+  extraText?: string;
   startsAt: number;
   endsAt: number;
   channelId: string;
-  startPadding: number;
-  endPadding: number;
-  comment: string;
+  startPadding?: number;
+  endPadding?: number;
+  comment?: string;
 };

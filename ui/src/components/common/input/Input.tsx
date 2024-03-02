@@ -27,6 +27,7 @@ type Props = {
   showCopyButton?: boolean;
   ellipsis?: boolean;
   hideCarret?: boolean;
+  readonly?: boolean;
 };
 
 function Input(props: Props, ref: React.LegacyRef<HTMLInputElement>) {
@@ -78,6 +79,7 @@ function Input(props: Props, ref: React.LegacyRef<HTMLInputElement>) {
             }
           }}
           onClick={props.onClick}
+          readOnly={props.readonly}
         />
         {props.showCopyButton ? (
           <span
