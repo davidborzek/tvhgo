@@ -46,31 +46,26 @@ const TwoFactorAuthDisableModal = () => {
       maxWidth="30rem"
       disableBackdropClose
     >
-      <div className={styles.content}>
-        <h3 className={styles.headline}>{t('disable_two_factor_auth')}</h3>
-        <Form onSubmit={formik.handleSubmit}>
-          <FormGroup
-            direction="column"
-            info={t('two_factor_auth_disable_info')}
-          >
-            <Input
-              name="code"
-              label={t('verification_code')}
-              value={formik.values.code}
-              onBlur={formik.handleBlur}
-              onChange={formik.handleChange}
-              error={formik.touched.code ? formik.errors.code : undefined}
-              fullWidth
-            />
-            <Button
-              disabled={loading}
-              label={t('disable')}
-              style="red"
-              type="submit"
-            />
-          </FormGroup>
-        </Form>
-      </div>
+      <h3 className={styles.headline}>{t('disable_two_factor_auth')}</h3>
+      <Form onSubmit={formik.handleSubmit}>
+        <FormGroup direction="column" info={t('two_factor_auth_disable_info')}>
+          <Input
+            name="code"
+            label={t('verification_code')}
+            value={formik.values.code}
+            onBlur={formik.handleBlur}
+            onChange={formik.handleChange}
+            error={formik.touched.code ? formik.errors.code : undefined}
+            fullWidth
+          />
+          <Button
+            disabled={loading}
+            label={t('disable')}
+            style="red"
+            type="submit"
+          />
+        </FormGroup>
+      </Form>
     </Modal>
   );
 };

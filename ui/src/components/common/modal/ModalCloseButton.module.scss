@@ -2,14 +2,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  position: absolute;
   padding: 0.5rem;
   background-color: transparent;
   border: none;
   outline: none;
   cursor: pointer;
-  top: 1rem;
-  right: 1rem;
+  margin: 1rem 1rem 0 0;
 
   svg {
     width: 1.5rem;

@@ -87,10 +87,8 @@ const CreateTokenModal = () => {
 
   return (
     <Modal disableBackdropClose visible onClose={close} maxWidth="30rem">
-      <div className={styles.content}>
-        <h3 className={styles.headline}>{t('api_tokens')}</h3>
-        {token ? renderToken() : renderForm()}
-      </div>
+      <h3 className={styles.headline}>{t('api_tokens')}</h3>
+      {token ? renderToken() : renderForm()}
     </Modal>
   );
 };

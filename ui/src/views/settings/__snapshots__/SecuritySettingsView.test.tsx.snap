@@ -27,7 +27,7 @@ exports[`should render 1`] = `
           class="_innerContainer_ae92e9"
         >
           <input
-            class="_input_ae92e9   "
+            class="_input_ae92e9     "
             name="currentPassword"
             placeholder="current_password"
             type="password"
@@ -49,7 +49,7 @@ exports[`should render 1`] = `
           class="_innerContainer_ae92e9"
         >
           <input
-            class="_input_ae92e9   "
+            class="_input_ae92e9     "
             name="password"
             placeholder="password"
             type="password"
@@ -71,7 +71,7 @@ exports[`should render 1`] = `
           class="_innerContainer_ae92e9"
         >
           <input
-            class="_input_ae92e9   "
+            class="_input_ae92e9     "
             name="passwordRepeat"
             placeholder="password_repeat"
             type="password"

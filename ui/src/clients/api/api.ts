@@ -1,6 +1,7 @@
 import axios from 'axios';
 import {
   Channel,
+  CreateRecordingOpts,
   CreateTokenResponse,
   EpgChannel,
   EpgEvent,
@@ -52,6 +53,10 @@ export type RecordingStatus = 'upcoming' | 'finished' | 'failed' | 'removed';
 
 export type GetRecordingsQuery = PaginationSortQuery & {
   status?: RecordingStatus;
+};
+
+export type GetChannelsQuery = PaginationSortQuery & {
+  name?: string;
 };
 
 export class ApiError extends Error {
@@ -134,6 +139,15 @@ export async function getEpg(
 
 export async function getChannel(id: string): Promise<Channel> {
   const response = await client.get<Channel>(`/channels/${id}`);
+  return response.data;
+}
+
+export async function getChannels(
+  q?: GetChannelsQuery
+): Promise<Array<Channel>> {
+  const response = await client.get<Array<Channel>>(`/channels`, {
+    params: q,
+  });
   return response.data;
 }
 
@@ -272,4 +286,10 @@ export async function deleteToken(id: number): Promise<void> {
 export async function createToken(name: string): Promise<CreateTokenResponse> {
   const response = await client.post<CreateTokenResponse>(`/tokens`, { name });
   return response.data;
+}
+
+export async function createRecording(
+  opts: CreateRecordingOpts
+): Promise<void> {
+  await client.post(`/recordings`, opts);
 }

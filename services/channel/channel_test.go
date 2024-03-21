@@ -60,7 +60,7 @@ func TestGetAllReturnsError(t *testing.T) {
 		Times(1)
 
 	service := channel.New(mockClient)
-	res, err := service.GetAll(ctx, core.PaginationSortQueryParams{})
+	res, err := service.GetAll(ctx, core.GetChannelsParams{})
 
 	assert.Nil(t, res)
 	assert.EqualError(t, err, "error")
@@ -77,7 +77,7 @@ func TestGetAllReturnsRequestFailedError(t *testing.T) {
 		Times(1)
 
 	service := channel.New(mockClient)
-	res, err := service.GetAll(ctx, core.PaginationSortQueryParams{})
+	res, err := service.GetAll(ctx, core.GetChannelsParams{})
 
 	assert.Nil(t, res)
 	assert.Equal(t, err, channel.ErrRequestFailed)
@@ -92,6 +92,14 @@ func TestGetAll(t *testing.T) {
 	tvhq.Start(5)
 	tvhq.SortKey("name")
 	tvhq.SortDir("asc")
+	tvhq.Filter([]tvheadend.FilterQuery{
+		{
+			Field:      "name",
+			Type:       "string",
+			Value:      "someChannel",
+			Comparison: "eq",
+		},
+	})
 
 	mockClient := mock_tvheadend.NewMockClient(ctrl)
 	mockClient.EXPECT().
@@ -101,11 +109,12 @@ func TestGetAll(t *testing.T) {
 
 	service := channel.New(mockClient)
 
-	q := core.PaginationSortQueryParams{}
+	q := core.GetChannelsParams{}
 	q.Limit = 10
 	q.Offset = 5
 	q.SortDirection = "asc"
 	q.SortKey = "name"
+	q.Name = "someChannel"
 
 	channels, err := service.GetAll(ctx, q)
 

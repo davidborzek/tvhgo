@@ -65,4 +65,12 @@
     outline: var(--color-accent) solid 2px;
     outline-offset: 2px;
   }
+
+  &.clickable {
+    cursor: pointer;
+  }
+
+  &.hideCarret {
+    caret-color: transparent;
+  }
 }

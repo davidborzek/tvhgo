@@ -22,7 +22,7 @@ exports[`should render 1`] = `
           class="_innerContainer_ae92e9"
         >
           <input
-            class="_input_ae92e9   "
+            class="_input_ae92e9     "
             name="username"
             placeholder="username"
             value="someUsername"
@@ -43,7 +43,7 @@ exports[`should render 1`] = `
           class="_innerContainer_ae92e9"
         >
           <input
-            class="_input_ae92e9   "
+            class="_input_ae92e9     "
             name="email"
             placeholder="email"
             value="some@email.com"
@@ -64,7 +64,7 @@ exports[`should render 1`] = `
           class="_innerContainer_ae92e9"
         >
           <input
-            class="_input_ae92e9   "
+            class="_input_ae92e9     "
             name="displayName"
             placeholder="display_name"
             value="Some User"

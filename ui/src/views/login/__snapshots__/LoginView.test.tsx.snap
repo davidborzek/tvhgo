@@ -33,7 +33,7 @@ exports[`login > should render 1`] = `
             class="_innerContainer_ae92e9"
           >
             <input
-              class="_input_ae92e9   "
+              class="_input_ae92e9     "
               name="username"
               type="text"
               value=""
@@ -54,7 +54,7 @@ exports[`login > should render 1`] = `
             class="_innerContainer_ae92e9"
           >
             <input
-              class="_input_ae92e9   "
+              class="_input_ae92e9     "
               name="password"
               type="password"
               value=""
@@ -149,7 +149,7 @@ exports[`login with totp > should render two factor auth 1`] = `
                 class="_innerContainer_ae92e9"
               >
                 <input
-                  class="_input_ae92e9   "
+                  class="_input_ae92e9     "
                   name="code"
                   type="text"
                   value=""

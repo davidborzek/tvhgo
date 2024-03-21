@@ -66,13 +66,13 @@ exports[`should render multiple pages: status=failed 1`] = `
     class="_Recordings_58c8e0"
   >
     <div
-      class="_modalWrapper_12177b "
+      class="_wrapper_12177b"
     >
       <div
         class="_modal_12177b"
       >
         <div
-          class="_container_12177b"
+          class="_header_12177b"
         >
           <button
             class="_button_2ae682"
@@ -98,21 +98,21 @@ exports[`should render multiple pages: status=failed 1`] = `
               </g>
             </svg>
           </button>
-          <div
-            class="_content_ee1e54"
+        </div>
+        <div
+          class="_content_12177b"
+        >
+          <h3
+            class="_headline_ee1e54"
           >
-            <h3
-              class="_headline_ee1e54"
-            >
-              confirm_delete_recordings
-            </h3>
-            <button
-              class="_button_a7f9df _red_a7f9df  "
-              data-testid="confirm-delete-btn"
-            >
-              delete
-            </button>
-          </div>
+            confirm_delete_recordings
+          </h3>
+          <button
+            class="_button_a7f9df _red_a7f9df  "
+            data-testid="confirm-delete-btn"
+          >
+            delete
+          </button>
         </div>
       </div>
     </div>
@@ -120,33 +120,42 @@ exports[`should render multiple pages: status=failed 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -367,13 +376,13 @@ exports[`should render multiple pages: status=finished 1`] = `
     class="_Recordings_58c8e0"
   >
     <div
-      class="_modalWrapper_12177b "
+      class="_wrapper_12177b"
     >
       <div
         class="_modal_12177b"
       >
         <div
-          class="_container_12177b"
+          class="_header_12177b"
         >
           <button
             class="_button_2ae682"
@@ -399,21 +408,21 @@ exports[`should render multiple pages: status=finished 1`] = `
               </g>
             </svg>
           </button>
-          <div
-            class="_content_ee1e54"
+        </div>
+        <div
+          class="_content_12177b"
+        >
+          <h3
+            class="_headline_ee1e54"
           >
-            <h3
-              class="_headline_ee1e54"
-            >
-              confirm_delete_recordings
-            </h3>
-            <button
-              class="_button_a7f9df _red_a7f9df  "
-              data-testid="confirm-delete-btn"
-            >
-              delete
-            </button>
-          </div>
+            confirm_delete_recordings
+          </h3>
+          <button
+            class="_button_a7f9df _red_a7f9df  "
+            data-testid="confirm-delete-btn"
+          >
+            delete
+          </button>
         </div>
       </div>
     </div>
@@ -421,33 +430,42 @@ exports[`should render multiple pages: status=finished 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -668,13 +686,13 @@ exports[`should render multiple pages: status=null 1`] = `
     class="_Recordings_58c8e0"
   >
     <div
-      class="_modalWrapper_12177b "
+      class="_wrapper_12177b"
     >
       <div
         class="_modal_12177b"
       >
         <div
-          class="_container_12177b"
+          class="_header_12177b"
         >
           <button
             class="_button_2ae682"
@@ -700,21 +718,21 @@ exports[`should render multiple pages: status=null 1`] = `
               </g>
             </svg>
           </button>
-          <div
-            class="_content_ee1e54"
+        </div>
+        <div
+          class="_content_12177b"
+        >
+          <h3
+            class="_headline_ee1e54"
           >
-            <h3
-              class="_headline_ee1e54"
-            >
-              confirm_cancel_recordings
-            </h3>
-            <button
-              class="_button_a7f9df _red_a7f9df  "
-              data-testid="confirm-delete-btn"
-            >
-              cancel
-            </button>
-          </div>
+            confirm_cancel_recordings
+          </h3>
+          <button
+            class="_button_a7f9df _red_a7f9df  "
+            data-testid="confirm-delete-btn"
+          >
+            cancel
+          </button>
         </div>
       </div>
     </div>
@@ -722,33 +740,42 @@ exports[`should render multiple pages: status=null 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -969,13 +996,13 @@ exports[`should render multiple pages: status=removed 1`] = `
     class="_Recordings_58c8e0"
   >
     <div
-      class="_modalWrapper_12177b "
+      class="_wrapper_12177b"
     >
       <div
         class="_modal_12177b"
       >
         <div
-          class="_container_12177b"
+          class="_header_12177b"
         >
           <button
             class="_button_2ae682"
@@ -1001,21 +1028,21 @@ exports[`should render multiple pages: status=removed 1`] = `
               </g>
             </svg>
           </button>
-          <div
-            class="_content_ee1e54"
+        </div>
+        <div
+          class="_content_12177b"
+        >
+          <h3
+            class="_headline_ee1e54"
           >
-            <h3
-              class="_headline_ee1e54"
-            >
-              confirm_delete_recordings
-            </h3>
-            <button
-              class="_button_a7f9df _red_a7f9df  "
-              data-testid="confirm-delete-btn"
-            >
-              delete
-            </button>
-          </div>
+            confirm_delete_recordings
+          </h3>
+          <button
+            class="_button_a7f9df _red_a7f9df  "
+            data-testid="confirm-delete-btn"
+          >
+            delete
+          </button>
         </div>
       </div>
     </div>
@@ -1023,33 +1050,42 @@ exports[`should render multiple pages: status=removed 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -1270,13 +1306,13 @@ exports[`should render multiple pages: status=upcoming 1`] = `
     class="_Recordings_58c8e0"
   >
     <div
-      class="_modalWrapper_12177b "
+      class="_wrapper_12177b"
     >
       <div
         class="_modal_12177b"
       >
         <div
-          class="_container_12177b"
+          class="_header_12177b"
         >
           <button
             class="_button_2ae682"
@@ -1302,21 +1338,21 @@ exports[`should render multiple pages: status=upcoming 1`] = `
               </g>
             </svg>
           </button>
-          <div
-            class="_content_ee1e54"
+        </div>
+        <div
+          class="_content_12177b"
+        >
+          <h3
+            class="_headline_ee1e54"
           >
-            <h3
-              class="_headline_ee1e54"
-            >
-              confirm_cancel_recordings
-            </h3>
-            <button
-              class="_button_a7f9df _red_a7f9df  "
-              data-testid="confirm-delete-btn"
-            >
-              cancel
-            </button>
-          </div>
+            confirm_cancel_recordings
+          </h3>
+          <button
+            class="_button_a7f9df _red_a7f9df  "
+            data-testid="confirm-delete-btn"
+          >
+            cancel
+          </button>
         </div>
       </div>
     </div>
@@ -1324,33 +1360,42 @@ exports[`should render multiple pages: status=upcoming 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -1571,13 +1616,13 @@ exports[`should render single page: status=failed 1`] = `
     class="_Recordings_58c8e0"
   >
     <div
-      class="_modalWrapper_12177b "
+      class="_wrapper_12177b"
     >
       <div
         class="_modal_12177b"
       >
         <div
-          class="_container_12177b"
+          class="_header_12177b"
         >
           <button
             class="_button_2ae682"
@@ -1603,21 +1648,21 @@ exports[`should render single page: status=failed 1`] = `
               </g>
             </svg>
           </button>
-          <div
-            class="_content_ee1e54"
+        </div>
+        <div
+          class="_content_12177b"
+        >
+          <h3
+            class="_headline_ee1e54"
           >
-            <h3
-              class="_headline_ee1e54"
-            >
-              confirm_delete_recordings
-            </h3>
-            <button
-              class="_button_a7f9df _red_a7f9df  "
-              data-testid="confirm-delete-btn"
-            >
-              delete
-            </button>
-          </div>
+            confirm_delete_recordings
+          </h3>
+          <button
+            class="_button_a7f9df _red_a7f9df  "
+            data-testid="confirm-delete-btn"
+          >
+            delete
+          </button>
         </div>
       </div>
     </div>
@@ -1625,33 +1670,42 @@ exports[`should render single page: status=failed 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -1874,13 +1928,13 @@ exports[`should render single page: status=finished 1`] = `
     class="_Recordings_58c8e0"
   >
     <div
-      class="_modalWrapper_12177b "
+      class="_wrapper_12177b"
     >
       <div
         class="_modal_12177b"
       >
         <div
-          class="_container_12177b"
+          class="_header_12177b"
         >
           <button
             class="_button_2ae682"
@@ -1906,21 +1960,21 @@ exports[`should render single page: status=finished 1`] = `
               </g>
             </svg>
           </button>
-          <div
-            class="_content_ee1e54"
+        </div>
+        <div
+          class="_content_12177b"
+        >
+          <h3
+            class="_headline_ee1e54"
           >
-            <h3
-              class="_headline_ee1e54"
-            >
-              confirm_delete_recordings
-            </h3>
-            <button
-              class="_button_a7f9df _red_a7f9df  "
-              data-testid="confirm-delete-btn"
-            >
-              delete
-            </button>
-          </div>
+            confirm_delete_recordings
+          </h3>
+          <button
+            class="_button_a7f9df _red_a7f9df  "
+            data-testid="confirm-delete-btn"
+          >
+            delete
+          </button>
         </div>
       </div>
     </div>
@@ -1928,33 +1982,42 @@ exports[`should render single page: status=finished 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -2177,13 +2240,13 @@ exports[`should render single page: status=null 1`] = `
     class="_Recordings_58c8e0"
   >
     <div
-      class="_modalWrapper_12177b "
+      class="_wrapper_12177b"
     >
       <div
         class="_modal_12177b"
       >
         <div
-          class="_container_12177b"
+          class="_header_12177b"
         >
           <button
             class="_button_2ae682"
@@ -2209,21 +2272,21 @@ exports[`should render single page: status=null 1`] = `
               </g>
             </svg>
           </button>
-          <div
-            class="_content_ee1e54"
+        </div>
+        <div
+          class="_content_12177b"
+        >
+          <h3
+            class="_headline_ee1e54"
           >
-            <h3
-              class="_headline_ee1e54"
-            >
-              confirm_cancel_recordings
-            </h3>
-            <button
-              class="_button_a7f9df _red_a7f9df  "
-              data-testid="confirm-delete-btn"
-            >
-              cancel
-            </button>
-          </div>
+            confirm_cancel_recordings
+          </h3>
+          <button
+            class="_button_a7f9df _red_a7f9df  "
+            data-testid="confirm-delete-btn"
+          >
+            cancel
+          </button>
         </div>
       </div>
     </div>
@@ -2231,33 +2294,42 @@ exports[`should render single page: status=null 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -2480,13 +2552,13 @@ exports[`should render single page: status=removed 1`] = `
     class="_Recordings_58c8e0"
   >
     <div
-      class="_modalWrapper_12177b "
+      class="_wrapper_12177b"
     >
       <div
         class="_modal_12177b"
       >
         <div
-          class="_container_12177b"
+          class="_header_12177b"
         >
           <button
             class="_button_2ae682"
@@ -2512,21 +2584,21 @@ exports[`should render single page: status=removed 1`] = `
               </g>
             </svg>
           </button>
-          <div
-            class="_content_ee1e54"
+        </div>
+        <div
+          class="_content_12177b"
+        >
+          <h3
+            class="_headline_ee1e54"
           >
-            <h3
-              class="_headline_ee1e54"
-            >
-              confirm_delete_recordings
-            </h3>
-            <button
-              class="_button_a7f9df _red_a7f9df  "
-              data-testid="confirm-delete-btn"
-            >
-              delete
-            </button>
-          </div>
+            confirm_delete_recordings
+          </h3>
+          <button
+            class="_button_a7f9df _red_a7f9df  "
+            data-testid="confirm-delete-btn"
+          >
+            delete
+          </button>
         </div>
       </div>
     </div>
@@ -2534,33 +2606,42 @@ exports[`should render single page: status=removed 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -2783,13 +2864,13 @@ exports[`should render single page: status=upcoming 1`] = `
     class="_Recordings_58c8e0"
   >
     <div
-      class="_modalWrapper_12177b "
+      class="_wrapper_12177b"
     >
       <div
         class="_modal_12177b"
       >
         <div
-          class="_container_12177b"
+          class="_header_12177b"
         >
           <button
             class="_button_2ae682"
@@ -2815,21 +2896,21 @@ exports[`should render single page: status=upcoming 1`] = `
               </g>
             </svg>
           </button>
-          <div
-            class="_content_ee1e54"
+        </div>
+        <div
+          class="_content_12177b"
+        >
+          <h3
+            class="_headline_ee1e54"
           >
-            <h3
-              class="_headline_ee1e54"
-            >
-              confirm_cancel_recordings
-            </h3>
-            <button
-              class="_button_a7f9df _red_a7f9df  "
-              data-testid="confirm-delete-btn"
-            >
-              cancel
-            </button>
-          </div>
+            confirm_cancel_recordings
+          </h3>
+          <button
+            class="_button_a7f9df _red_a7f9df  "
+            data-testid="confirm-delete-btn"
+          >
+            cancel
+          </button>
         </div>
       </div>
     </div>
@@ -2837,33 +2918,42 @@ exports[`should render single page: status=upcoming 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -3086,13 +3176,13 @@ exports[`should render with no recordings: status=failed 1`] = `
     class="_Recordings_58c8e0"
   >
     <div
-      class="_modalWrapper_12177b "
+      class="_wrapper_12177b"
     >
       <div
         class="_modal_12177b"
       >
         <div
-          class="_container_12177b"
+          class="_header_12177b"
         >
           <button
             class="_button_2ae682"
@@ -3118,21 +3208,21 @@ exports[`should render with no recordings: status=failed 1`] = `
               </g>
             </svg>
           </button>
-          <div
-            class="_content_ee1e54"
+        </div>
+        <div
+          class="_content_12177b"
+        >
+          <h3
+            class="_headline_ee1e54"
           >
-            <h3
-              class="_headline_ee1e54"
-            >
-              confirm_delete_recordings
-            </h3>
-            <button
-              class="_button_a7f9df _red_a7f9df  "
-              data-testid="confirm-delete-btn"
-            >
-              delete
-            </button>
-          </div>
+            confirm_delete_recordings
+          </h3>
+          <button
+            class="_button_a7f9df _red_a7f9df  "
+            data-testid="confirm-delete-btn"
+          >
+            delete
+          </button>
         </div>
       </div>
     </div>
@@ -3140,33 +3230,42 @@ exports[`should render with no recordings: status=failed 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -3212,13 +3311,13 @@ exports[`should render with no recordings: status=finished 1`] = `
     class="_Recordings_58c8e0"
   >
     <div
-      class="_modalWrapper_12177b "
+      class="_wrapper_12177b"
     >
       <div
         class="_modal_12177b"
       >
         <div
-          class="_container_12177b"
+          class="_header_12177b"
         >
           <button
             class="_button_2ae682"
@@ -3244,21 +3343,21 @@ exports[`should render with no recordings: status=finished 1`] = `
               </g>
             </svg>
           </button>
-          <div
-            class="_content_ee1e54"
+        </div>
+        <div
+          class="_content_12177b"
+        >
+          <h3
+            class="_headline_ee1e54"
           >
-            <h3
-              class="_headline_ee1e54"
-            >
-              confirm_delete_recordings
-            </h3>
-            <button
-              class="_button_a7f9df _red_a7f9df  "
-              data-testid="confirm-delete-btn"
-            >
-              delete
-            </button>
-          </div>
+            confirm_delete_recordings
+          </h3>
+          <button
+            class="_button_a7f9df _red_a7f9df  "
+            data-testid="confirm-delete-btn"
+          >
+            delete
+          </button>
         </div>
       </div>
     </div>
@@ -3266,33 +3365,42 @@ exports[`should render with no recordings: status=finished 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -3338,13 +3446,13 @@ exports[`should render with no recordings: status=null 1`] = `
     class="_Recordings_58c8e0"
   >
     <div
-      class="_modalWrapper_12177b "
+      class="_wrapper_12177b"
     >
       <div
         class="_modal_12177b"
       >
         <div
-          class="_container_12177b"
+          class="_header_12177b"
         >
           <button
             class="_button_2ae682"
@@ -3370,21 +3478,21 @@ exports[`should render with no recordings: status=null 1`] = `
               </g>
             </svg>
           </button>
-          <div
-            class="_content_ee1e54"
+        </div>
+        <div
+          class="_content_12177b"
+        >
+          <h3
+            class="_headline_ee1e54"
           >
-            <h3
-              class="_headline_ee1e54"
-            >
-              confirm_cancel_recordings
-            </h3>
-            <button
-              class="_button_a7f9df _red_a7f9df  "
-              data-testid="confirm-delete-btn"
-            >
-              cancel
-            </button>
-          </div>
+            confirm_cancel_recordings
+          </h3>
+          <button
+            class="_button_a7f9df _red_a7f9df  "
+            data-testid="confirm-delete-btn"
+          >
+            cancel
+          </button>
         </div>
       </div>
     </div>
@@ -3392,33 +3500,42 @@ exports[`should render with no recordings: status=null 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -3464,13 +3581,13 @@ exports[`should render with no recordings: status=removed 1`] = `
     class="_Recordings_58c8e0"
   >
     <div
-      class="_modalWrapper_12177b "
+      class="_wrapper_12177b"
     >
       <div
         class="_modal_12177b"
       >
         <div
-          class="_container_12177b"
+          class="_header_12177b"
         >
           <button
             class="_button_2ae682"
@@ -3496,21 +3613,21 @@ exports[`should render with no recordings: status=removed 1`] = `
               </g>
             </svg>
           </button>
-          <div
-            class="_content_ee1e54"
+        </div>
+        <div
+          class="_content_12177b"
+        >
+          <h3
+            class="_headline_ee1e54"
           >
-            <h3
-              class="_headline_ee1e54"
-            >
-              confirm_delete_recordings
-            </h3>
-            <button
-              class="_button_a7f9df _red_a7f9df  "
-              data-testid="confirm-delete-btn"
-            >
-              delete
-            </button>
-          </div>
+            confirm_delete_recordings
+          </h3>
+          <button
+            class="_button_a7f9df _red_a7f9df  "
+            data-testid="confirm-delete-btn"
+          >
+            delete
+          </button>
         </div>
       </div>
     </div>
@@ -3518,33 +3635,42 @@ exports[`should render with no recordings: status=removed 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"
@@ -3590,13 +3716,13 @@ exports[`should render with no recordings: status=upcoming 1`] = `
     class="_Recordings_58c8e0"
   >
     <div
-      class="_modalWrapper_12177b "
+      class="_wrapper_12177b"
     >
       <div
         class="_modal_12177b"
       >
         <div
-          class="_container_12177b"
+          class="_header_12177b"
         >
           <button
             class="_button_2ae682"
@@ -3622,21 +3748,21 @@ exports[`should render with no recordings: status=upcoming 1`] = `
               </g>
             </svg>
           </button>
-          <div
-            class="_content_ee1e54"
+        </div>
+        <div
+          class="_content_12177b"
+        >
+          <h3
+            class="_headline_ee1e54"
           >
-            <h3
-              class="_headline_ee1e54"
-            >
-              confirm_cancel_recordings
-            </h3>
-            <button
-              class="_button_a7f9df _red_a7f9df  "
-              data-testid="confirm-delete-btn"
-            >
-              cancel
-            </button>
-          </div>
+            confirm_cancel_recordings
+          </h3>
+          <button
+            class="_button_a7f9df _red_a7f9df  "
+            data-testid="confirm-delete-btn"
+          >
+            cancel
+          </button>
         </div>
       </div>
     </div>
@@ -3644,33 +3770,42 @@ exports[`should render with no recordings: status=upcoming 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_leftActions_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
-          >
-            finished
-          </option>
-          <option
-            value="failed"
-          >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <button
+          class="_button_a7f9df   "
+        >
+          add
+        </button>
       </div>
       <div
         class="_actions_58c8e0"

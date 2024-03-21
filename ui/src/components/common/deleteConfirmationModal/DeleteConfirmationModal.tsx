@@ -25,16 +25,14 @@ const DeleteConfirmationModal = ({
 
   return (
     <Modal onClose={onClose} visible={visible}>
-      <div className={styles.content}>
-        {title ? <h3 className={styles.headline}>{title}</h3> : <></>}
-        <Button
-          disabled={pending}
-          label={buttonTitle || t('delete')}
-          style="red"
-          onClick={onConfirm}
-          testID={TestIds.CONFIRM_DELETE_BUTTON}
-        />
-      </div>
+      {title ? <h3 className={styles.headline}>{title}</h3> : <></>}
+      <Button
+        disabled={pending}
+        label={buttonTitle || t('delete')}
+        style="red"
+        onClick={onConfirm}
+        testID={TestIds.CONFIRM_DELETE_BUTTON}
+      />
     </Modal>
   );
 };

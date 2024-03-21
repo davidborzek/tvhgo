@@ -36,6 +36,12 @@ const RecordingsView = lazy(
 const RecordingDetailView = lazy(
   () => import('@/views/recordings/RecordingDetailView/RecordingDetailView')
 );
+const RecordingCreateView = lazy(
+  () => import('@/views/recordings/create/RecordingCreateView')
+);
+const ChannelSelectModal = lazy(
+  () => import('@/components/channels/selectModal/ChannelSelectModal')
+);
 
 const SettingsView = lazy(() => import('@/views/settings/SettingsView'));
 const GeneralSettingsView = lazy(
@@ -188,6 +194,23 @@ function App() {
                       </Suspense>
                     }
                   />
+                  <Route
+                    path="/recordings/create"
+                    element={
+                      <Suspense>
+                        <RecordingCreateView />
+                      </Suspense>
+                    }
+                  >
+                    <Route
+                      path="select-channel"
+                      element={
+                        <Suspense>
+                          <ChannelSelectModal />
+                        </Suspense>
+                      }
+                    />
+                  </Route>
 
                   <Route
                     path="/settings"
