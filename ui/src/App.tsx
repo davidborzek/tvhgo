@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { Suspense, lazy, useEffect } from 'react';
 import {
   BrowserRouter,
   Routes,
@@ -11,29 +11,55 @@ import { useAuth } from '@/contexts/AuthContext';
 import useLogout from '@/hooks/logout';
 import AuthProvider from '@/providers/AuthProvider';
 import { ThemeProvider } from '@/providers/ThemeProvider';
-import LoginView from '@/views/login/LoginView';
 import { useTheme } from '@/contexts/ThemeContext';
 
 import 'react-toastify/dist/ReactToastify.css';
-import DashboardView from '@/views/dashboard/DashboardView';
-import GuideView from '@/views/epg/guide/GuideView';
-import EventView from '@/views/epg/event/EventView';
-import RecordingsView from '@/views/recordings/RecordingsView/RecordingsView';
-import RecordingDetailView from '@/views/recordings/RecordingDetailView/RecordingDetailView';
 import LoadingProvider from '@/providers/LoadingProvider';
-import SettingsView from '@/views/settings/SettingsView';
-import GeneralSettingsView from '@/views/settings/GeneralSettingsView';
-import SecuritySettingsView from '@/views/settings/SecuritySettingsView';
-import TwoFactorAuthDisableModal from '@/modals/twoFactorAuth/disable/TwoFactorAuthDisableModal';
-import TwoFactorAuthSetupModal from '@/modals/twoFactorAuth/setup/TwoFactorAuthSetupModal';
 import EmptyState from '@/components/common/emptyState/EmptyState';
 import ButtonLink from '@/components/common/button/ButtonLink';
 import { useTranslation } from 'react-i18next';
-import CreateTokenModal from '@/modals/token/create/CreateTokenModal';
-import ChannelListView from '@/views/channels/list/ChannelListView';
-import ChannelView from '@/views/channels/detail/ChannelView';
-import RecordingCreateView from './views/recordings/create/RecordingCreateView';
-import ChannelSelectModal from './components/channels/selectModal/ChannelSelectModal';
+
+const LoginView = lazy(() => import('@/views/login/LoginView'));
+const DashboardView = lazy(() => import('@/views/dashboard/DashboardView'));
+
+const ChannelListView = lazy(
+  () => import('@/views/channels/list/ChannelListView')
+);
+const ChannelView = lazy(() => import('@/views/channels/detail/ChannelView'));
+
+const GuideView = lazy(() => import('@/views/epg/guide/GuideView'));
+const EventView = lazy(() => import('@/views/epg/event/EventView'));
+
+const RecordingsView = lazy(
+  () => import('@/views/recordings/RecordingsView/RecordingsView')
+);
+const RecordingDetailView = lazy(
+  () => import('@/views/recordings/RecordingDetailView/RecordingDetailView')
+);
+const RecordingCreateView = lazy(
+  () => import('@/views/recordings/create/RecordingCreateView')
+);
+const ChannelSelectModal = lazy(
+  () => import('@/components/channels/selectModal/ChannelSelectModal')
+);
+
+const SettingsView = lazy(() => import('@/views/settings/SettingsView'));
+const GeneralSettingsView = lazy(
+  () => import('@/views/settings/GeneralSettingsView')
+);
+const SecuritySettingsView = lazy(
+  () => import('@/views/settings/SecuritySettingsView')
+);
+
+const TwoFactorAuthDisableModal = lazy(
+  () => import('@/modals/twoFactorAuth/disable/TwoFactorAuthDisableModal')
+);
+const TwoFactorAuthSetupModal = lazy(
+  () => import('@/modals/twoFactorAuth/setup/TwoFactorAuthSetupModal')
+);
+const CreateTokenModal = lazy(
+  () => import('@/modals/token/create/CreateTokenModal')
+);
 
 type AuthenticationCheckerProps = {
   redirect?: string;
@@ -98,52 +124,145 @@ function App() {
           <BrowserRouter>
             <Routes>
               <Route element={<Unauthenticated />}>
-                <Route path="/login" element={<LoginView />} />
+                <Route
+                  path="/login"
+                  element={
+                    <Suspense>
+                      <LoginView />
+                    </Suspense>
+                  }
+                />
               </Route>
 
               <Route element={<Authenticated />}>
-                <Route element={<DashboardView />}>
+                <Route
+                  element={
+                    <Suspense>
+                      <DashboardView />
+                    </Suspense>
+                  }
+                >
                   <Route
                     path="/"
                     element={<Navigate to={'/channels'} replace />}
                   />
-                  <Route path="/channels" element={<ChannelListView />} />
-                  <Route path="/channels/:id" element={<ChannelView />} />
-                  <Route path="/guide" element={<GuideView />} />
-                  <Route path="/guide/events/:id" element={<EventView />} />
-                  <Route path="/recordings" element={<RecordingsView />} />
+                  <Route
+                    path="/channels"
+                    element={
+                      <Suspense>
+                        <ChannelListView />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="/channels/:id"
+                    element={
+                      <Suspense>
+                        <ChannelView />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="/guide"
+                    element={
+                      <Suspense>
+                        <GuideView />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="/guide/events/:id"
+                    element={
+                      <Suspense>
+                        <EventView />
+                      </Suspense>
+                    }
+                  />
+                  <Route
+                    path="/recordings"
+                    element={
+                      <Suspense>
+                        <RecordingsView />
+                      </Suspense>
+                    }
+                  />
                   <Route
                     path="/recordings/:id"
-                    element={<RecordingDetailView />}
+                    element={
+                      <Suspense>
+                        <RecordingDetailView />
+                      </Suspense>
+                    }
                   />
                   <Route
                     path="/recordings/create"
-                    element={<RecordingCreateView />}
+                    element={
+                      <Suspense>
+                        <RecordingCreateView />
+                      </Suspense>
+                    }
                   >
                     <Route
                       path="select-channel"
-                      element={<ChannelSelectModal />}
+                      element={
+                        <Suspense>
+                          <ChannelSelectModal />
+                        </Suspense>
+                      }
                     />
                   </Route>
 
-                  <Route path="/settings" element={<SettingsView />}>
+                  <Route
+                    path="/settings"
+                    element={
+                      <Suspense>
+                        <SettingsView />
+                      </Suspense>
+                    }
+                  >
                     <Route
                       path=""
                       element={<Navigate to={'general'} replace />}
                     />
-                    <Route path="general" element={<GeneralSettingsView />} />
-                    <Route path="security" element={<SecuritySettingsView />}>
+                    <Route
+                      path="general"
+                      element={
+                        <Suspense>
+                          <GeneralSettingsView />
+                        </Suspense>
+                      }
+                    />
+                    <Route
+                      path="security"
+                      element={
+                        <Suspense>
+                          <SecuritySettingsView />
+                        </Suspense>
+                      }
+                    >
                       <Route
                         path="two-factor-auth/disable"
-                        element={<TwoFactorAuthDisableModal />}
+                        element={
+                          <Suspense>
+                            <TwoFactorAuthDisableModal />
+                          </Suspense>
+                        }
                       />
                       <Route
                         path="two-factor-auth/setup"
-                        element={<TwoFactorAuthSetupModal />}
+                        element={
+                          <Suspense>
+                            <TwoFactorAuthSetupModal />
+                          </Suspense>
+                        }
                       />
                       <Route
                         path="tokens/create"
-                        element={<CreateTokenModal />}
+                        element={
+                          <Suspense>
+                            <CreateTokenModal />
+                          </Suspense>
+                        }
                       />
                     </Route>
                   </Route>
