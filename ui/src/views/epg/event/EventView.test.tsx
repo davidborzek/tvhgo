@@ -1,15 +1,22 @@
 import { EpgEvent } from '@/clients/api/api.types';
-import { useFetchEvent } from '@/hooks/epg';
 import { useManageRecordingByEvent } from '@/hooks/recording';
 import { cleanup, render } from '@testing-library/react';
 import { PropsWithChildren } from 'react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
-import { afterEach, expect, test, vi } from 'vitest';
-import EventView from './EventView';
+import {
+  MemoryRouter,
+  Route,
+  Routes,
+  useLoaderData,
+  useNavigate,
+  useRevalidator,
+} from 'react-router-dom';
+import { afterEach, beforeEach, expect, test, vi } from 'vitest';
+import { Component as EventView } from './EventView';
 import userEvent from '@testing-library/user-event';
 
 vi.mock('@/hooks/epg');
 vi.mock('@/hooks/recording');
+vi.mock('react-router-dom');
 
 const EVENT_ID = 1;
 const RECORDING_ID = 'someRecordingID';
@@ -72,139 +79,76 @@ const relatedEvents: EpgEvent[] = [
   },
 ];
 
+const navigateMock = vi.fn();
+const revalidateMock = vi.fn();
+
+beforeEach(() => {
+  vi.mocked(useNavigate).mockReturnValue(navigateMock);
+  vi.mocked(useRevalidator).mockReturnValue({
+    revalidate: revalidateMock,
+    state: 'idle',
+  });
+});
+
 afterEach(() => {
   vi.resetAllMocks();
   cleanup();
 });
 
 test('should render without related events', () => {
-  const fetchMock = vi.fn();
-  vi.mocked(useFetchEvent).mockReturnValue({
-    fetch: fetchMock,
-    error: null,
-    event: buildEvent(),
-    relatedEvents: [],
-  });
+  vi.mocked(useLoaderData).mockReturnValue([buildEvent(), []]);
 
   vi.mocked(useManageRecordingByEvent).mockReturnValue({
     pending: false,
     createRecording: async () => {},
   } as any);
 
-  const document = render(<EventView />, { wrapper: TestRouter });
+  const document = render(<EventView />);
 
   expect(document.asFragment()).toMatchSnapshot();
-  expect(fetchMock).toHaveBeenNthCalledWith(1, EVENT_ID);
 });
 
 test('should render with recording', () => {
-  const fetchMock = vi.fn();
-  vi.mocked(useFetchEvent).mockReturnValue({
-    fetch: fetchMock,
-    error: null,
-    event: buildEvent(RECORDING_ID),
-    relatedEvents: [],
-  });
+  vi.mocked(useLoaderData).mockReturnValue([buildEvent(RECORDING_ID), []]);
 
   vi.mocked(useManageRecordingByEvent).mockReturnValue({
     pending: false,
     createRecording: async () => {},
   } as any);
 
-  const document = render(<EventView />, { wrapper: TestRouter });
+  const document = render(<EventView />);
 
   expect(document.asFragment()).toMatchSnapshot();
-  expect(fetchMock).toHaveBeenNthCalledWith(1, EVENT_ID);
 });
 
 test('should render with pending button', () => {
-  const fetchMock = vi.fn();
-  vi.mocked(useFetchEvent).mockReturnValue({
-    fetch: fetchMock,
-    error: null,
-    event: buildEvent(),
-    relatedEvents: [],
-  });
+  vi.mocked(useLoaderData).mockReturnValue([buildEvent(), []]);
 
   vi.mocked(useManageRecordingByEvent).mockReturnValue({
     pending: true,
     createRecording: async () => {},
   } as any);
 
-  const document = render(<EventView />, { wrapper: TestRouter });
+  const document = render(<EventView />);
 
   expect(document.asFragment()).toMatchSnapshot();
-  expect(fetchMock).toHaveBeenNthCalledWith(1, EVENT_ID);
 });
 
 test('should render with related events', () => {
-  const fetchMock = vi.fn();
-  vi.mocked(useFetchEvent).mockReturnValue({
-    fetch: fetchMock,
-    error: null,
-    event: buildEvent(),
-    relatedEvents,
-  });
+  vi.mocked(useLoaderData).mockReturnValue([buildEvent(), relatedEvents]);
 
   vi.mocked(useManageRecordingByEvent).mockReturnValue({
     pending: false,
     createRecording: async () => {},
   } as any);
 
-  const document = render(<EventView />, { wrapper: TestRouter });
+  const document = render(<EventView />);
 
   expect(document.asFragment()).toMatchSnapshot();
-  expect(fetchMock).toHaveBeenNthCalledWith(1, EVENT_ID);
-});
-
-test('should render error', () => {
-  const fetchMock = vi.fn();
-  vi.mocked(useFetchEvent).mockReturnValue({
-    fetch: fetchMock,
-    error: 'some error',
-    event: undefined,
-    relatedEvents: [],
-  });
-
-  vi.mocked(useManageRecordingByEvent).mockReturnValue({
-    pending: false,
-    createRecording: async () => {},
-  } as any);
-
-  const document = render(<EventView />, { wrapper: TestRouter });
-
-  expect(document.asFragment()).toMatchSnapshot();
-  expect(fetchMock).toHaveBeenNthCalledWith(1, EVENT_ID);
-});
-
-test('should render nothing', () => {
-  const fetchMock = vi.fn();
-  vi.mocked(useFetchEvent).mockReturnValue({
-    fetch: fetchMock,
-    error: null,
-    event: undefined,
-    relatedEvents: [],
-  });
-
-  vi.mocked(useManageRecordingByEvent).mockReturnValue({
-    pending: false,
-    createRecording: async () => {},
-  } as any);
-
-  const document = render(<EventView />, { wrapper: TestRouter });
-
-  expect(document.asFragment()).toMatchSnapshot();
-  expect(fetchMock).toHaveBeenNthCalledWith(1, EVENT_ID);
 });
 
 test('should create recording', async () => {
-  const fetchMock = vi.fn();
-  vi.mocked(useFetchEvent).mockReturnValue({
-    fetch: fetchMock,
-    error: null,
-    event: buildEvent(),
-    relatedEvents: [],
-  });
+  vi.mocked(useLoaderData).mockReturnValue([buildEvent(), []]);
 
   const createRecordingMock = vi.fn();
   vi.mocked(useManageRecordingByEvent).mockReturnValue({
@@ -212,41 +156,22 @@ test('should create recording', async () => {
     createRecording: createRecordingMock,
   } as any);
 
-  const document = render(<EventView />, { wrapper: TestRouter });
+  const document = render(<EventView />);
 
   await userEvent.click(document.getByText('record'));
   expect(createRecordingMock).toHaveBeenNthCalledWith(1, EVENT_ID);
 });
 
 test('should navigate to recording', async () => {
-  vi.mocked(useFetchEvent).mockReturnValue({
-    fetch: async () => {},
-    error: null,
-    event: buildEvent(RECORDING_ID),
-    relatedEvents: [],
-  });
+  vi.mocked(useLoaderData).mockReturnValue([buildEvent(RECORDING_ID), []]);
 
   vi.mocked(useManageRecordingByEvent).mockReturnValue({
     pending: false,
     createRecording: async () => {},
   } as any);
 
-  const document = render(<EventView />, { wrapper: TestRouter });
+  const document = render(<EventView />);
   await userEvent.click(document.getByText('modify_recording'));
 
-  expect(document.getByText('expect_recording_here')).toBeInTheDocument();
+  expect(navigateMock).toHaveBeenCalledWith(`/recordings/${RECORDING_ID}`)
 });
-
-const TestRouter = ({ children }: PropsWithChildren) => {
-  return (
-    <MemoryRouter initialEntries={[`/guide/events/${EVENT_ID}`]}>
-      <Routes>
-        <Route path="/guide/events/:id" element={children} />
-        <Route
-          path={`/recordings/${RECORDING_ID}`}
-          element={<span>expect_recording_here</span>}
-        />
-      </Routes>
-    </MemoryRouter>
-  );
-};

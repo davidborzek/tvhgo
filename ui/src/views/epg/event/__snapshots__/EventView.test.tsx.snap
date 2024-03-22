@@ -1,17 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`should render error 1`] = `
-<DocumentFragment>
-  <div
-    class="_Error_2b6812"
-  >
-    some error
-  </div>
-</DocumentFragment>
-`;
-
-exports[`should render nothing 1`] = `<DocumentFragment />`;
-
 exports[`should render with pending button 1`] = `
 <DocumentFragment>
   <div
@@ -160,7 +148,7 @@ exports[`should render with recording 1`] = `
       </h1>
       <div>
         <button
-          class="_EventRecordButton_1a746f "
+          class="_EventRecordButton_1a746f"
         >
           <svg
             class="_icon_1a746f"
@@ -273,7 +261,7 @@ exports[`should render with related events 1`] = `
       </h1>
       <div>
         <button
-          class="_EventRecordButton_1a746f "
+          class="_EventRecordButton_1a746f"
         >
           <svg
             class="_icon_1a746f"
@@ -366,14 +354,7 @@ exports[`should render with related events 1`] = `
           </div>
           <div
             class="_PairValue_05cc8e"
-          >
-            <a
-              class="_link_9241f8"
-              href="/guide/events/2"
-            >
-              event_datetime • Some Subtitle 2
-            </a>
-          </div>
+          />
         </div>
       </div>
       <div
@@ -389,14 +370,7 @@ exports[`should render with related events 1`] = `
           </div>
           <div
             class="_PairValue_05cc8e"
-          >
-            <a
-              class="_link_9241f8"
-              href="/guide/events/3"
-            >
-              event_datetime • Some Subtitle 3
-            </a>
-          </div>
+          />
         </div>
       </div>
     </div>
@@ -439,7 +413,7 @@ exports[`should render without related events 1`] = `
       </h1>
       <div>
         <button
-          class="_EventRecordButton_1a746f "
+          class="_EventRecordButton_1a746f"
         >
           <svg
             class="_icon_1a746f"
