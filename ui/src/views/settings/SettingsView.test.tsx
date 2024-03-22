@@ -1,6 +1,6 @@
 import { cleanup, render } from '@testing-library/react';
 import { afterEach, expect, test, vi } from 'vitest';
-import SettingsView from './SettingsView';
+import { Component as SettingsView } from './SettingsView';
 import { BrowserRouter } from 'react-router-dom';
 
 afterEach(() => {

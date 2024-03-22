@@ -31,8 +31,6 @@ export enum SecuritySettingsRefreshStates {
 }
 
 export async function loader() {
-  console.log("LOOOG");
-  
   return Promise.all([getTwoFactorAuthSettings(), getSessions(), getTokens()]);
 }
 

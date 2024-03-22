@@ -12,20 +12,20 @@ exports[`should render 1`] = `
         class="_Tabs_593fdd"
       >
         <div
-          class="_TabItem_593fdd "
+          class="_TabItem_593fdd"
         >
           <a
-            class="_button_593fdd "
+            class="_button_593fdd"
             href="/settings/general"
           >
             general
           </a>
         </div>
         <div
-          class="_TabItem_593fdd "
+          class="_TabItem_593fdd"
         >
           <a
-            class="_button_593fdd "
+            class="_button_593fdd"
             href="/settings/security"
           >
             security

@@ -9,7 +9,7 @@ exports[`should render 1`] = `
       class="_Form_27c918 _section_65046f"
     >
       <div
-        class="_inputContainer_ae92e9 "
+        class="_inputContainer_ae92e9"
         style="width: 100%;"
       >
         <label
@@ -22,7 +22,7 @@ exports[`should render 1`] = `
           class="_innerContainer_ae92e9"
         >
           <input
-            class="_input_ae92e9   "
+            class="_input_ae92e9"
             name="username"
             placeholder="username"
             value="someUsername"
@@ -30,7 +30,7 @@ exports[`should render 1`] = `
         </div>
       </div>
       <div
-        class="_inputContainer_ae92e9 "
+        class="_inputContainer_ae92e9"
         style="width: 100%;"
       >
         <label
@@ -43,7 +43,7 @@ exports[`should render 1`] = `
           class="_innerContainer_ae92e9"
         >
           <input
-            class="_input_ae92e9   "
+            class="_input_ae92e9"
             name="email"
             placeholder="email"
             value="some@email.com"
@@ -51,7 +51,7 @@ exports[`should render 1`] = `
         </div>
       </div>
       <div
-        class="_inputContainer_ae92e9 "
+        class="_inputContainer_ae92e9"
         style="width: 100%;"
       >
         <label
@@ -64,7 +64,7 @@ exports[`should render 1`] = `
           class="_innerContainer_ae92e9"
         >
           <input
-            class="_input_ae92e9   "
+            class="_input_ae92e9"
             name="displayName"
             placeholder="display_name"
             value="Some User"
@@ -73,7 +73,7 @@ exports[`should render 1`] = `
       </div>
       <div>
         <button
-          class="_button_a7f9df   "
+          class="_button_a7f9df"
           data-testid="save-user-btn"
           type="submit"
         >
@@ -140,7 +140,7 @@ exports[`should render 1`] = `
       </div>
       <div>
         <button
-          class="_button_a7f9df _red_a7f9df  "
+          class="_button_a7f9df _red_a7f9df"
           data-testid="logout-button"
         >
           logout
