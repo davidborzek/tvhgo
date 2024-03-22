@@ -1,12 +1,17 @@
 import { Session, Token, TwoFactorAuthSettings } from '@/clients/api/api.types';
-import { useTwoFactorAuthSettings } from '@/hooks/2fa';
 import { useManageSessions } from '@/hooks/session';
 import { useManageTokens } from '@/hooks/token';
 import { useUpdateUserPassword } from '@/hooks/user';
 import { cleanup, render } from '@testing-library/react';
-import { useLocation, useNavigate } from 'react-router-dom';
+import {
+  useLoaderData,
+  useLocation,
+  useNavigate,
+  useRevalidator,
+} from 'react-router-dom';
 import { afterEach, beforeEach, expect, test, vi, describe } from 'vitest';
-import SecuritySettingsView, {
+import {
+  Component as SecuritySettingsView,
   SecuritySettingsRefreshStates,
 } from './SecuritySettingsView';
 import { userEvent } from '@testing-library/user-event';
@@ -72,8 +77,7 @@ const navigateMock = vi.fn();
 const updatePasswordMock = vi.fn();
 const revokeSessionMock = vi.fn();
 const revokeTokenMock = vi.fn();
-const fetchTwoFactorAuthSettingsMock = vi.fn();
-const getTokensMock = vi.fn();
+const revalidateMock = vi.fn();
 
 beforeEach(() => {
   vi.mocked(useLocation).mockReturnValue({
@@ -85,6 +89,10 @@ beforeEach(() => {
   });
 
   vi.mocked(useNavigate).mockReturnValue(navigateMock);
+  vi.mocked(useRevalidator).mockReturnValue({
+    state: 'idle',
+    revalidate: revalidateMock,
+  });
 
   vi.mocked(useUpdateUserPassword).mockReturnValue({
     updatePassword: updatePasswordMock,
@@ -92,23 +100,18 @@ beforeEach(() => {
   updatePasswordMock.mockResolvedValue(true);
 
   vi.mocked(useManageSessions).mockReturnValue({
-    error: null,
-    getSessions: vi.fn(),
     revokeSession: revokeSessionMock,
-    sessions,
   });
 
   vi.mocked(useManageTokens).mockReturnValue({
-    error: null,
-    getTokens: getTokensMock,
     revokeToken: revokeTokenMock,
-    tokens,
   });
 
-  vi.mocked(useTwoFactorAuthSettings).mockReturnValue({
-    fetchTwoFactorAuthSettings: fetchTwoFactorAuthSettingsMock,
-    twoFactorAuthSettings: twoFactorAuthEnabled,
-  });
+  vi.mocked(useLoaderData).mockReturnValue([
+    twoFactorAuthEnabled,
+    sessions,
+    tokens,
+  ]);
 });
 
 test('should render', () => {
@@ -283,10 +286,11 @@ describe('twofa settings', () => {
   });
 
   test('should open setup twofa modal', async () => {
-    vi.mocked(useTwoFactorAuthSettings).mockReturnValue({
-      fetchTwoFactorAuthSettings: vi.fn(),
-      twoFactorAuthSettings: twoFactorAuthDisabled,
-    });
+    vi.mocked(useLoaderData).mockReturnValue([
+      twoFactorAuthDisabled,
+      sessions,
+      tokens,
+    ]);
 
     const document = render(<SecuritySettingsView />);
 
@@ -335,10 +339,9 @@ test('should refresh twofa settings on state change', () => {
     state: SecuritySettingsRefreshStates.TWOFA,
   });
 
-  const document = render(<SecuritySettingsView />);
+  render(<SecuritySettingsView />);
 
-  expect(fetchTwoFactorAuthSettingsMock).toHaveBeenCalled();
-  expect(getTokensMock).not.toHaveBeenCalled();
+  expect(revalidateMock).toHaveBeenCalled();
 });
 
 test('should refresh tokens on state change', () => {
@@ -350,8 +353,7 @@ test('should refresh tokens on state change', () => {
     state: SecuritySettingsRefreshStates.TOKEN,
   });
 
-  const document = render(<SecuritySettingsView />);
+  render(<SecuritySettingsView />);
 
-  expect(getTokensMock).toHaveBeenCalled();
-  expect(fetchTwoFactorAuthSettingsMock).not.toHaveBeenCalled();
+  expect(revalidateMock).toHaveBeenCalled();
 });

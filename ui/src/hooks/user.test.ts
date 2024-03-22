@@ -1,7 +1,6 @@
 import { describe, vi, it, afterEach, expect, beforeEach, test } from 'vitest';
 import { renderHook } from '@testing-library/react';
 import { useUpdateUser } from './user';
-import { useLoading } from '@/contexts/LoadingContext';
 import { ApiError, updateUser } from '@/clients/api/api';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotification } from './notification';
@@ -21,7 +20,6 @@ const user = {
   updatedAt: 0,
 };
 
-vi.mock('@/contexts/LoadingContext');
 vi.mock('@/clients/api/api', async () => {
   const actual = await vi.importActual<any>('@/clients/api/api');
   return {
@@ -33,18 +31,12 @@ vi.mock('@/contexts/AuthContext');
 vi.mock('@/hooks/notification');
 
 describe('useUpdateUser', () => {
-  const setIsLoadingMock = vi.fn();
   const setUserMock = vi.fn();
   const notifyErrorMock = vi.fn();
   const notifySuccessMock = vi.fn();
   const dismissNotificationMock = vi.fn();
 
   beforeEach(() => {
-    vi.mocked(useLoading).mockReturnValue({
-      setIsLoading: setIsLoadingMock,
-      isLoading: false,
-    });
-
     vi.mocked(useAuth).mockReturnValue({ setUser: setUserMock, user: null });
 
     vi.mocked(useNotification).mockReturnValue({
@@ -68,10 +60,6 @@ describe('useUpdateUser', () => {
     expect(useNotification).toHaveBeenNthCalledWith(1, 'manageUser');
 
     expect(dismissNotificationMock).toHaveBeenCalledOnce();
-
-    expect(setIsLoadingMock).toHaveBeenCalledTimes(2);
-    expect(setIsLoadingMock).toHaveBeenCalledWith(true);
-    expect(setIsLoadingMock).toHaveBeenCalledWith(false);
 
     expect(updateUser).toHaveBeenCalledOnce();
     expect(updateUser).toHaveBeenCalledWith(updateUserOpts);
@@ -103,10 +91,6 @@ describe('useUpdateUser', () => {
       expect(useNotification).toHaveBeenNthCalledWith(1, 'manageUser');
 
       expect(dismissNotificationMock).toHaveBeenCalledOnce();
-
-      expect(setIsLoadingMock).toHaveBeenCalledTimes(2);
-      expect(setIsLoadingMock).toHaveBeenCalledWith(true);
-      expect(setIsLoadingMock).toHaveBeenCalledWith(false);
 
       expect(updateUser).toHaveBeenCalledOnce();
       expect(updateUser).toHaveBeenCalledWith(updateUserOpts);

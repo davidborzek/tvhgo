@@ -14,7 +14,7 @@ import Form from '@/components/common/form/Form';
 import styles from './TwoFactorAuthSetupModal.module.scss';
 import { SecuritySettingsRefreshStates } from '@/views/settings/SecuritySettingsView';
 
-const TwoFactorAuthSetupModal = () => {
+export const Component = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
 
@@ -131,4 +131,4 @@ const TwoFactorAuthSetupModal = () => {
   );
 };
 
-export default TwoFactorAuthSetupModal;
+Component.displayName = 'TwoFactorAuthSetupModal';

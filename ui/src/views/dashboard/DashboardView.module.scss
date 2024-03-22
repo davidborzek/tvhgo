@@ -1,14 +1,7 @@
 .root {
-  display: grid;
-  grid-template-rows: 3rem 1fr;
-  grid-template-areas:
-    'mobilenav'
-    'main';
+  display: flex;
   height: 100vh;
-}
-
-.mobileNavBar {
-  grid-area: mobilenav;
+  width: 100%;
 }
 
 .desktopNavBar {
@@ -17,25 +10,33 @@
 
 .main {
   position: relative;
-  grid-area: main;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  flex: 1 1 0%;
+  width: 0;
+  min-width: 0;
+  margin-top: 3rem;
 }
 
 @media screen and (min-width: 700px) {
-  .root.desktop {
-    grid-template-columns: 12rem 1fr;
-    grid-template-rows: 1fr;
-    grid-template-areas: 'sidebar main';
-  }
-
   .desktopNavBar {
     display: block;
-    grid-area: sidebar;
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 12rem;
+    height: 100%;
+    z-index: 100;
   }
 
   .mobileNavBar {
     display: none;
   }
+
+  .main {
+    margin-left: 12rem;
+    margin-top: 0;
+  }
+}
+
+.loading {
+  opacity: 0.5;
 }

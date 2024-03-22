@@ -1,7 +1,5 @@
 .Recordings {
   padding: 0 2rem 2rem 2rem;
-  overflow: auto;
-  height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -11,7 +9,7 @@
   justify-content: space-between;
   padding: 2rem 0;
   position: sticky;
-  top: 0;
+  top: 3rem;
   background-color: var(--color-bg);
   z-index: 1;
 }
@@ -41,4 +39,11 @@
   flex-direction: column;
   gap: 1rem;
   margin-bottom: 2rem;
+}
+
+
+@media screen and (min-width: 700px) {
+  .header {
+    top: 0;
+  }
 }

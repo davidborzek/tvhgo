@@ -1,7 +1,7 @@
 import { cleanup, render } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import { afterEach, expect, vi, test, describe } from 'vitest';
-import LoginView from './LoginView';
+import { Component as LoginView } from './LoginView';
 import useLogin from '@/hooks/login';
 import userEvent from '@testing-library/user-event';
 

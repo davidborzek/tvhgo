@@ -1,65 +1,5 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`should render error: status=failed 1`] = `
-<DocumentFragment>
-  <div
-    class="_Error_2b6812"
-  >
-    some error occurred
-  </div>
-</DocumentFragment>
-`;
-
-exports[`should render error: status=finished 1`] = `
-<DocumentFragment>
-  <div
-    class="_Error_2b6812"
-  >
-    some error occurred
-  </div>
-</DocumentFragment>
-`;
-
-exports[`should render error: status=null 1`] = `
-<DocumentFragment>
-  <div
-    class="_Error_2b6812"
-  >
-    some error occurred
-  </div>
-</DocumentFragment>
-`;
-
-exports[`should render error: status=removed 1`] = `
-<DocumentFragment>
-  <div
-    class="_Error_2b6812"
-  >
-    some error occurred
-  </div>
-</DocumentFragment>
-`;
-
-exports[`should render error: status=upcoming 1`] = `
-<DocumentFragment>
-  <div
-    class="_Error_2b6812"
-  >
-    some error occurred
-  </div>
-</DocumentFragment>
-`;
-
-exports[`should render loading: status=failed 1`] = `<DocumentFragment />`;
-
-exports[`should render loading: status=finished 1`] = `<DocumentFragment />`;
-
-exports[`should render loading: status=null 1`] = `<DocumentFragment />`;
-
-exports[`should render loading: status=removed 1`] = `<DocumentFragment />`;
-
-exports[`should render loading: status=upcoming 1`] = `<DocumentFragment />`;
-
 exports[`should render multiple pages: status=failed 1`] = `
 <DocumentFragment>
   <div
@@ -107,7 +47,7 @@ exports[`should render multiple pages: status=failed 1`] = `
               confirm_delete_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df  "
+              class="_button_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               delete
@@ -152,13 +92,13 @@ exports[`should render multiple pages: status=failed 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df  _deleteButton_58c8e0 "
+          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
         </button>
         <div
-          class="_container_f0b037 _selectAll_58c8e0  "
+          class="_container_f0b037 _selectAll_58c8e0"
         >
           <input
             class="_checkbox_f0b037"
@@ -192,7 +132,7 @@ exports[`should render multiple pages: status=failed 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -222,7 +162,7 @@ exports[`should render multiple pages: status=failed 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -252,7 +192,7 @@ exports[`should render multiple pages: status=failed 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -282,7 +222,7 @@ exports[`should render multiple pages: status=failed 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -312,7 +252,7 @@ exports[`should render multiple pages: status=failed 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -345,13 +285,13 @@ exports[`should render multiple pages: status=failed 1`] = `
         pagination_info
       </span>
       <button
-        class="_button_09f37a "
+        class="_button_09f37a"
         data-testid="pagination-next-page-btn"
       >
         &gt;
       </button>
       <button
-        class="_button_09f37a "
+        class="_button_09f37a"
         data-testid="pagination-last-page-btn"
       >
         &gt;&gt;
@@ -408,7 +348,7 @@ exports[`should render multiple pages: status=finished 1`] = `
               confirm_delete_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df  "
+              class="_button_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               delete
@@ -453,13 +393,13 @@ exports[`should render multiple pages: status=finished 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df  _deleteButton_58c8e0 "
+          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
         </button>
         <div
-          class="_container_f0b037 _selectAll_58c8e0  "
+          class="_container_f0b037 _selectAll_58c8e0"
         >
           <input
             class="_checkbox_f0b037"
@@ -493,7 +433,7 @@ exports[`should render multiple pages: status=finished 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -523,7 +463,7 @@ exports[`should render multiple pages: status=finished 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -553,7 +493,7 @@ exports[`should render multiple pages: status=finished 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -583,7 +523,7 @@ exports[`should render multiple pages: status=finished 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -613,7 +553,7 @@ exports[`should render multiple pages: status=finished 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -646,13 +586,13 @@ exports[`should render multiple pages: status=finished 1`] = `
         pagination_info
       </span>
       <button
-        class="_button_09f37a "
+        class="_button_09f37a"
         data-testid="pagination-next-page-btn"
       >
         &gt;
       </button>
       <button
-        class="_button_09f37a "
+        class="_button_09f37a"
         data-testid="pagination-last-page-btn"
       >
         &gt;&gt;
@@ -709,7 +649,7 @@ exports[`should render multiple pages: status=null 1`] = `
               confirm_cancel_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df  "
+              class="_button_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               cancel
@@ -754,13 +694,13 @@ exports[`should render multiple pages: status=null 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df  _deleteButton_58c8e0 "
+          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           cancel
         </button>
         <div
-          class="_container_f0b037 _selectAll_58c8e0  "
+          class="_container_f0b037 _selectAll_58c8e0"
         >
           <input
             class="_checkbox_f0b037"
@@ -794,7 +734,7 @@ exports[`should render multiple pages: status=null 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -824,7 +764,7 @@ exports[`should render multiple pages: status=null 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -854,7 +794,7 @@ exports[`should render multiple pages: status=null 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -884,7 +824,7 @@ exports[`should render multiple pages: status=null 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -914,7 +854,7 @@ exports[`should render multiple pages: status=null 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -947,13 +887,13 @@ exports[`should render multiple pages: status=null 1`] = `
         pagination_info
       </span>
       <button
-        class="_button_09f37a "
+        class="_button_09f37a"
         data-testid="pagination-next-page-btn"
       >
         &gt;
       </button>
       <button
-        class="_button_09f37a "
+        class="_button_09f37a"
         data-testid="pagination-last-page-btn"
       >
         &gt;&gt;
@@ -1010,7 +950,7 @@ exports[`should render multiple pages: status=removed 1`] = `
               confirm_delete_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df  "
+              class="_button_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               delete
@@ -1055,13 +995,13 @@ exports[`should render multiple pages: status=removed 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df  _deleteButton_58c8e0 "
+          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
         </button>
         <div
-          class="_container_f0b037 _selectAll_58c8e0  "
+          class="_container_f0b037 _selectAll_58c8e0"
         >
           <input
             class="_checkbox_f0b037"
@@ -1095,7 +1035,7 @@ exports[`should render multiple pages: status=removed 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -1125,7 +1065,7 @@ exports[`should render multiple pages: status=removed 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -1155,7 +1095,7 @@ exports[`should render multiple pages: status=removed 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -1185,7 +1125,7 @@ exports[`should render multiple pages: status=removed 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -1215,7 +1155,7 @@ exports[`should render multiple pages: status=removed 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -1248,13 +1188,13 @@ exports[`should render multiple pages: status=removed 1`] = `
         pagination_info
       </span>
       <button
-        class="_button_09f37a "
+        class="_button_09f37a"
         data-testid="pagination-next-page-btn"
       >
         &gt;
       </button>
       <button
-        class="_button_09f37a "
+        class="_button_09f37a"
         data-testid="pagination-last-page-btn"
       >
         &gt;&gt;
@@ -1311,7 +1251,7 @@ exports[`should render multiple pages: status=upcoming 1`] = `
               confirm_cancel_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df  "
+              class="_button_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               cancel
@@ -1356,13 +1296,13 @@ exports[`should render multiple pages: status=upcoming 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df  _deleteButton_58c8e0 "
+          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           cancel
         </button>
         <div
-          class="_container_f0b037 _selectAll_58c8e0  "
+          class="_container_f0b037 _selectAll_58c8e0"
         >
           <input
             class="_checkbox_f0b037"
@@ -1396,7 +1336,7 @@ exports[`should render multiple pages: status=upcoming 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -1426,7 +1366,7 @@ exports[`should render multiple pages: status=upcoming 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -1456,7 +1396,7 @@ exports[`should render multiple pages: status=upcoming 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -1486,7 +1426,7 @@ exports[`should render multiple pages: status=upcoming 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -1516,7 +1456,7 @@ exports[`should render multiple pages: status=upcoming 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -1549,13 +1489,13 @@ exports[`should render multiple pages: status=upcoming 1`] = `
         pagination_info
       </span>
       <button
-        class="_button_09f37a "
+        class="_button_09f37a"
         data-testid="pagination-next-page-btn"
       >
         &gt;
       </button>
       <button
-        class="_button_09f37a "
+        class="_button_09f37a"
         data-testid="pagination-last-page-btn"
       >
         &gt;&gt;
@@ -1612,7 +1552,7 @@ exports[`should render single page: status=failed 1`] = `
               confirm_delete_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df  "
+              class="_button_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               delete
@@ -1657,13 +1597,13 @@ exports[`should render single page: status=failed 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df  _deleteButton_58c8e0 "
+          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
         </button>
         <div
-          class="_container_f0b037 _selectAll_58c8e0  "
+          class="_container_f0b037 _selectAll_58c8e0"
         >
           <input
             class="_checkbox_f0b037"
@@ -1697,7 +1637,7 @@ exports[`should render single page: status=failed 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -1727,7 +1667,7 @@ exports[`should render single page: status=failed 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -1757,7 +1697,7 @@ exports[`should render single page: status=failed 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -1787,7 +1727,7 @@ exports[`should render single page: status=failed 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -1817,7 +1757,7 @@ exports[`should render single page: status=failed 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -1915,7 +1855,7 @@ exports[`should render single page: status=finished 1`] = `
               confirm_delete_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df  "
+              class="_button_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               delete
@@ -1960,13 +1900,13 @@ exports[`should render single page: status=finished 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df  _deleteButton_58c8e0 "
+          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
         </button>
         <div
-          class="_container_f0b037 _selectAll_58c8e0  "
+          class="_container_f0b037 _selectAll_58c8e0"
         >
           <input
             class="_checkbox_f0b037"
@@ -2000,7 +1940,7 @@ exports[`should render single page: status=finished 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -2030,7 +1970,7 @@ exports[`should render single page: status=finished 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -2060,7 +2000,7 @@ exports[`should render single page: status=finished 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -2090,7 +2030,7 @@ exports[`should render single page: status=finished 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -2120,7 +2060,7 @@ exports[`should render single page: status=finished 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -2218,7 +2158,7 @@ exports[`should render single page: status=null 1`] = `
               confirm_cancel_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df  "
+              class="_button_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               cancel
@@ -2263,13 +2203,13 @@ exports[`should render single page: status=null 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df  _deleteButton_58c8e0 "
+          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           cancel
         </button>
         <div
-          class="_container_f0b037 _selectAll_58c8e0  "
+          class="_container_f0b037 _selectAll_58c8e0"
         >
           <input
             class="_checkbox_f0b037"
@@ -2303,7 +2243,7 @@ exports[`should render single page: status=null 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -2333,7 +2273,7 @@ exports[`should render single page: status=null 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -2363,7 +2303,7 @@ exports[`should render single page: status=null 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -2393,7 +2333,7 @@ exports[`should render single page: status=null 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -2423,7 +2363,7 @@ exports[`should render single page: status=null 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -2521,7 +2461,7 @@ exports[`should render single page: status=removed 1`] = `
               confirm_delete_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df  "
+              class="_button_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               delete
@@ -2566,13 +2506,13 @@ exports[`should render single page: status=removed 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df  _deleteButton_58c8e0 "
+          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
         </button>
         <div
-          class="_container_f0b037 _selectAll_58c8e0  "
+          class="_container_f0b037 _selectAll_58c8e0"
         >
           <input
             class="_checkbox_f0b037"
@@ -2606,7 +2546,7 @@ exports[`should render single page: status=removed 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -2636,7 +2576,7 @@ exports[`should render single page: status=removed 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -2666,7 +2606,7 @@ exports[`should render single page: status=removed 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -2696,7 +2636,7 @@ exports[`should render single page: status=removed 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -2726,7 +2666,7 @@ exports[`should render single page: status=removed 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -2824,7 +2764,7 @@ exports[`should render single page: status=upcoming 1`] = `
               confirm_cancel_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df  "
+              class="_button_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               cancel
@@ -2869,13 +2809,13 @@ exports[`should render single page: status=upcoming 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df  _deleteButton_58c8e0 "
+          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           cancel
         </button>
         <div
-          class="_container_f0b037 _selectAll_58c8e0  "
+          class="_container_f0b037 _selectAll_58c8e0"
         >
           <input
             class="_checkbox_f0b037"
@@ -2909,7 +2849,7 @@ exports[`should render single page: status=upcoming 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -2939,7 +2879,7 @@ exports[`should render single page: status=upcoming 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -2969,7 +2909,7 @@ exports[`should render single page: status=upcoming 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -2999,7 +2939,7 @@ exports[`should render single page: status=upcoming 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -3029,7 +2969,7 @@ exports[`should render single page: status=upcoming 1`] = `
           </div>
         </div>
         <div
-          class="_container_f0b037  "
+          class="_container_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -3127,7 +3067,7 @@ exports[`should render with no recordings: status=failed 1`] = `
               confirm_delete_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df  "
+              class="_button_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               delete
@@ -3172,13 +3112,13 @@ exports[`should render with no recordings: status=failed 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df  _deleteButton_58c8e0 "
+          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
         </button>
         <div
-          class="_container_f0b037 _selectAll_58c8e0  _disabled_f0b037"
+          class="_container_f0b037 _selectAll_58c8e0 _disabled_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -3253,7 +3193,7 @@ exports[`should render with no recordings: status=finished 1`] = `
               confirm_delete_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df  "
+              class="_button_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               delete
@@ -3298,13 +3238,13 @@ exports[`should render with no recordings: status=finished 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df  _deleteButton_58c8e0 "
+          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
         </button>
         <div
-          class="_container_f0b037 _selectAll_58c8e0  _disabled_f0b037"
+          class="_container_f0b037 _selectAll_58c8e0 _disabled_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -3379,7 +3319,7 @@ exports[`should render with no recordings: status=null 1`] = `
               confirm_cancel_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df  "
+              class="_button_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               cancel
@@ -3424,13 +3364,13 @@ exports[`should render with no recordings: status=null 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df  _deleteButton_58c8e0 "
+          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           cancel
         </button>
         <div
-          class="_container_f0b037 _selectAll_58c8e0  _disabled_f0b037"
+          class="_container_f0b037 _selectAll_58c8e0 _disabled_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -3505,7 +3445,7 @@ exports[`should render with no recordings: status=removed 1`] = `
               confirm_delete_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df  "
+              class="_button_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               delete
@@ -3550,13 +3490,13 @@ exports[`should render with no recordings: status=removed 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df  _deleteButton_58c8e0 "
+          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
         </button>
         <div
-          class="_container_f0b037 _selectAll_58c8e0  _disabled_f0b037"
+          class="_container_f0b037 _selectAll_58c8e0 _disabled_f0b037"
         >
           <input
             class="_checkbox_f0b037"
@@ -3631,7 +3571,7 @@ exports[`should render with no recordings: status=upcoming 1`] = `
               confirm_cancel_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df  "
+              class="_button_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               cancel
@@ -3676,13 +3616,13 @@ exports[`should render with no recordings: status=upcoming 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df  _deleteButton_58c8e0 "
+          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           cancel
         </button>
         <div
-          class="_container_f0b037 _selectAll_58c8e0  _disabled_f0b037"
+          class="_container_f0b037 _selectAll_58c8e0 _disabled_f0b037"
         >
           <input
             class="_checkbox_f0b037"

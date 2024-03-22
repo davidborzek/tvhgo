@@ -1,19 +1,23 @@
-import { useEffect, useRef, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import {
+  LoaderFunctionArgs,
+  useLoaderData,
+  useNavigate,
+  useRevalidator,
+  useSearchParams,
+} from 'react-router-dom';
 
-import { RecordingStatus } from '@/clients/api/api';
+import { RecordingStatus, getRecordings } from '@/clients/api/api';
 import Dropdown from '@/components/common/dropdown/Dropdown';
-import Error from '@/components/common/error/Error';
-import { useFetchRecordings, useManageRecordings } from '@/hooks/recording';
+import { useManageRecordings } from '@/hooks/recording';
 import Button from '@/components/common/button/Button';
 import { c } from '@/utils/classNames';
-import { Recording } from '@/clients/api/api.types';
+import { ListResponse, Recording } from '@/clients/api/api.types';
 import Checkbox from '@/components/common/checkbox/Checkbox';
 import DeleteConfirmationModal from '@/components/common/deleteConfirmationModal/DeleteConfirmationModal';
 import { usePagination } from '@/hooks/pagination';
 import PaginationControls from '@/components/common/paginationControls/PaginationControls';
-import { useLoading } from '@/contexts/LoadingContext';
 import EmptyState from '@/components/common/emptyState/EmptyState';
 
 import styles from './RecordingsView.module.scss';
@@ -22,11 +26,21 @@ import { TestIds } from '@/__test__/ids';
 
 const defaultLimit = 50;
 
-function RecordingsView() {
-  const ref = useRef<HTMLDivElement>(null);
+export async function loader({ request }: LoaderFunctionArgs) {
+  const query = new URL(request.url).searchParams;
+
+  return getRecordings({
+    status: (query.get('status') as RecordingStatus) || 'upcoming',
+    sort_key: 'starts_at',
+    limit: defaultLimit,
+    offset: parseInt(query.get('offset')!!) || 0,
+  });
+}
+
+export function Component() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { isLoading } = useLoading();
+  const revalidator = useRevalidator()
   const [queryParams, setQueryParams] = useSearchParams();
   const [selectedRecordings, setSelectedRecordings] = useState<Set<Recording>>(
     new Set()
@@ -44,28 +58,7 @@ function RecordingsView() {
   const getStatus = () =>
     (queryParams.get('status') as RecordingStatus) || 'upcoming';
 
-  const { recordings, error, fetch, total } = useFetchRecordings({
-    status: getStatus(),
-    sort_key: 'startsAt',
-    limit,
-    offset: getOffset(),
-  });
-
-  useEffect(() => {
-    const scrollPos = queryParams.get('pos');
-
-    if (ref.current?.scrollTo && recordings && recordings.length > 0) {
-      ref.current?.scrollTo(0, parseInt(scrollPos || '0'));
-    }
-  }, [recordings, queryParams]);
-
-  if (isLoading) {
-    return <></>;
-  }
-
-  if (error) {
-    return <Error message={error} />;
-  }
+  const {entries, total} = useLoaderData() as ListResponse<Recording>;
 
   const getDeleteOrCancelButtonLabel = () => {
     return getStatus() === 'upcoming' ? t('cancel') : t('delete');
@@ -78,28 +71,16 @@ function RecordingsView() {
   };
 
   const renderRecordings = () => {
-    if (!recordings) {
-      return <></>;
-    }
-
-    if (recordings.length === 0) {
+    if (entries.length === 0) {
       return <EmptyState title={t('no_recordings')} />;
     }
 
-    return recordings.map((recording) => (
+    return entries.map((recording) => (
       <RecordingListItem
         key={recording.id}
         recording={recording}
         onClick={() => {
-          if (ref.current?.scrollTop !== undefined) {
-            const pos = Math.floor(ref.current?.scrollTop);
-            setQueryParams((prev) => {
-              prev.set('pos', `${Math.floor(pos)}`);
-              return prev;
-            });
-          }
-
-          navigate(`/recordings/${recording.id}`, { preventScrollReset: true });
+          navigate(`/recordings/${recording.id}`);
         }}
         onSelection={(selected) => {
           setSelectedRecordings((prv) =>
@@ -126,7 +107,7 @@ function RecordingsView() {
       stopAndCancelRecordings(stopIds, cancelIds).then(() => {
         clearSelection();
         setConfirmationModalVisible(false);
-        fetch();
+        revalidator.revalidate()
       });
 
       return;
@@ -135,12 +116,12 @@ function RecordingsView() {
     removeRecordings([...selectedRecordings].map((rec) => rec.id)).then(() => {
       clearSelection();
       setConfirmationModalVisible(false);
-      fetch();
+       revalidator.revalidate()
     });
   };
 
   return (
-    <div ref={ref} className={styles.Recordings}>
+    <div className={styles.Recordings}>
       <DeleteConfirmationModal
         visible={confirmationModalVisible}
         onClose={() => setConfirmationModalVisible(false)}
@@ -196,17 +177,16 @@ function RecordingsView() {
           <Checkbox
             onChange={(checked) =>
               checked
-                ? setSelectedRecordings(new Set(recordings))
+                ? setSelectedRecordings(new Set(entries))
                 : clearSelection()
             }
             className={styles.selectAll}
             checked={
-              !!recordings &&
-              recordings.length > 0 &&
-              selectedRecordings.size === recordings.length
+              entries.length > 0 &&
+              selectedRecordings.size === entries.length
             }
             indeterminate={selectedRecordings.size > 0}
-            disabled={!!recordings && recordings.length < 1}
+            disabled={entries.length < 1}
             testId={TestIds.SELECT_ALL_RECORDINGS_CHECKBOX}
           />
         </div>
@@ -218,11 +198,6 @@ function RecordingsView() {
         onFirstPage={firstPage}
         onLastPage={() => lastPage(total)}
         onPageChange={() => {
-          setQueryParams((prev) => {
-            prev.delete('pos');
-            return prev;
-          });
-          ref.current?.scrollTo(0, 0);
           clearSelection();
         }}
         limit={limit}
@@ -233,4 +208,4 @@ function RecordingsView() {
   );
 }
 
-export default RecordingsView;
+Component.displayName = 'RecordingsView';

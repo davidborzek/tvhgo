@@ -1,39 +1,22 @@
-import { useLoading } from '@/contexts/LoadingContext';
-import { useEffect, useState } from 'react';
-import { ApiError, deleteSession, getSessions } from '@/clients/api/api';
+import { ApiError, deleteSession } from '@/clients/api/api';
 import { useTranslation } from 'react-i18next';
-import { Session } from '@/clients/api/api.types';
 import { useNotification } from './notification';
+import { useRevalidator } from 'react-router-dom';
 
 export const useManageSessions = () => {
   const { notifyError, notifySuccess, dismissNotification } =
     useNotification('manageSessions');
-
-  const [error, setError] = useState<string | null>(null);
-  const [sessions, setSessions] = useState<Array<Session>>([]);
+  const revalidator = useRevalidator();
 
   const { t } = useTranslation();
 
-  const { setIsLoading } = useLoading();
-
-  const _getSessions = async () => {
-    setIsLoading(true);
-    return await getSessions()
-      .then(setSessions)
-      .catch(() => {
-        setError(t('unexpected'));
-      })
-      .finally(() => setIsLoading(false));
-  };
-
   const _revokeSession = async (id: number) => {
     dismissNotification();
-    setIsLoading(true);
 
     return await deleteSession(id)
       .then(() => {
-        _getSessions();
         notifySuccess(t('session_revoked'));
+        revalidator.revalidate();
       })
       .catch((error) => {
         if (
@@ -46,17 +29,9 @@ export const useManageSessions = () => {
           notifyError(t('unexpected'));
         }
       })
-      .finally(() => setIsLoading(false));
   };
 
-  useEffect(() => {
-    _getSessions();
-  }, []);
-
   return {
-    getSessions: _getSessions,
     revokeSession: _revokeSession,
-    sessions,
-    error,
   };
 };

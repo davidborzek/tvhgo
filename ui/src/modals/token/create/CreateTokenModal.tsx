@@ -13,7 +13,7 @@ import { useCreateToken } from '@/hooks/token';
 import styles from './CreateTokenModal.module.scss';
 import { SecuritySettingsRefreshStates } from '@/views/settings/SecuritySettingsView';
 
-const CreateTokenModal = () => {
+export const Component = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const { createToken, setToken, token } = useCreateToken();
@@ -95,4 +95,4 @@ const CreateTokenModal = () => {
   );
 };
 
-export default CreateTokenModal;
+Component.displayName = 'CreateTokenModal';

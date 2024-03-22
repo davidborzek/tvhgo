@@ -1,14 +1,14 @@
 import { EpgEvent } from '@/clients/api/api.types';
-import { useFetchEvents } from '@/hooks/epg';
 import { cleanup, render } from '@testing-library/react';
-import { PropsWithChildren } from 'react';
-import { MemoryRouter, Routes, Route } from 'react-router-dom';
-import { afterEach, expect, test, vi } from 'vitest';
-import ChannelListView from './ChannelListView';
+import { useLoaderData, useNavigate, useSearchParams } from 'react-router-dom';
+import { afterEach, beforeEach, expect, test, vi, describe } from 'vitest';
+import { Component as ChannelListView } from './ChannelListView';
 import userEvent from '@testing-library/user-event';
 import { TestIds } from '@/__test__/ids';
+import { usePagination } from '@/hooks/pagination';
 
-vi.mock('@/hooks/epg');
+vi.mock('react-router-dom');
+vi.mock('@/hooks/pagination');
 
 const buildChannel = (id: string, name: string): EpgEvent => {
   return {
@@ -36,119 +36,137 @@ const buildChannels = (count: number): EpgEvent[] => {
   );
 };
 
+const navigateMock = vi.fn();
+const setQueryParamsMock = vi.fn();
+const nextPageMock = vi.fn();
+const previousPageMock = vi.fn();
+const getOffsetMock = vi.fn();
+const firstPageMock = vi.fn();
+const lastPageMock = vi.fn();
+
+beforeEach(() => {
+  vi.mocked(useSearchParams).mockReturnValue([
+    new URLSearchParams(),
+    setQueryParamsMock,
+  ]);
+  vi.mocked(useNavigate).mockReturnValue(navigateMock);
+  vi.mocked(usePagination).mockReturnValue({
+    firstPage: firstPageMock,
+    getOffset: getOffsetMock,
+    lastPage: lastPageMock,
+    limit: 50,
+    nextPage: nextPageMock,
+    previousPage: previousPageMock,
+    setLimit: vi.fn(),
+  });
+});
+
 afterEach(() => {
   vi.resetAllMocks();
   cleanup();
 });
 
 test('render empty state', () => {
-  vi.mocked(useFetchEvents).mockReturnValue({
-    error: null,
-    events: [],
+  vi.mocked(useLoaderData).mockReturnValue({
+    entries: [],
+    offset: 0,
     total: 0,
   });
+  getOffsetMock.mockReturnValue(0);
 
-  const document = render(<ChannelListView />, { wrapper: TestRouter });
+  const document = render(<ChannelListView />);
+
   expect(document.asFragment()).toMatchSnapshot();
-
-  expectUseFetchEvents(1, 0);
-});
-
-test('render nothing', () => {
-  vi.mocked(useFetchEvents).mockReturnValue({
-    error: null,
-    events: null,
-    total: 0,
-  });
-
-  const document = render(<ChannelListView />, { wrapper: TestRouter });
-  expect(document.asFragment()).toMatchSnapshot();
-
-  expectUseFetchEvents(1, 0);
-});
-
-test('render error', () => {
-  vi.mocked(useFetchEvents).mockReturnValue({
-    error: 'some error',
-    events: null,
-    total: 0,
-  });
-
-  const document = render(<ChannelListView />, { wrapper: TestRouter });
-  expect(document.asFragment()).toMatchSnapshot();
-
-  expectUseFetchEvents(1, 0);
 });
 
 test('render with one page', () => {
   const channels = buildChannels(5);
-  vi.mocked(useFetchEvents).mockReturnValue({
-    error: null,
-    events: channels,
+  vi.mocked(useLoaderData).mockReturnValue({
+    entries: channels,
+    offset: 0,
     total: channels.length,
   });
+  getOffsetMock.mockReturnValue(0);
 
-  const document = render(<ChannelListView />, { wrapper: TestRouter });
+  const document = render(<ChannelListView />);
 
   expect(document.asFragment()).toMatchSnapshot();
-
-  expectUseFetchEvents(1, 0);
 });
 
 test('render with multiple pages', () => {
   const channels = buildChannels(5);
-  vi.mocked(useFetchEvents).mockReturnValue({
-    error: null,
-    events: channels,
+  vi.mocked(useLoaderData).mockReturnValue({
+    entries: channels,
+    offset: 0,
     total: 100,
   });
+  getOffsetMock.mockReturnValue(0);
 
-  const document = render(<ChannelListView />, { wrapper: TestRouter });
+  const document = render(<ChannelListView />);
 
   expect(document.asFragment()).toMatchSnapshot();
-
-  expectUseFetchEvents(1, 0);
 });
 
-test('pagination', async () => {
-  const channels = buildChannels(5);
-  vi.mocked(useFetchEvents).mockReturnValue({
-    error: null,
-    events: channels,
-    total: 200,
+describe('pagination', () => {
+  test('go next page', async () => {
+    const channels = buildChannels(5);
+    vi.mocked(useLoaderData).mockReturnValue({
+      entries: channels,
+      offset: 0,
+      total: 200,
+    });
+    getOffsetMock.mockReturnValue(0);
+
+    const document = render(<ChannelListView />);
+
+    await userEvent.click(document.getByTestId(TestIds.PAGINATION_NEXT_PAGE));
+    expect(nextPageMock).toHaveBeenCalled();
   });
 
-  const document = render(<ChannelListView />, { wrapper: TestRouter });
-  expectUseFetchEvents(1, 0);
+  test('go previous', async () => {
+    const channels = buildChannels(5);
+    vi.mocked(useLoaderData).mockReturnValue({
+      entries: channels,
+      offset: 50,
+      total: 200,
+    });
+    getOffsetMock.mockReturnValue(50);
 
-  await userEvent.click(document.getByTestId(TestIds.PAGINATION_NEXT_PAGE));
-  expectUseFetchEvents(2, 50);
+    const document = render(<ChannelListView />);
 
-  await userEvent.click(document.getByTestId(TestIds.PAGINATION_PREVIOUS_PAGE));
-  expectUseFetchEvents(3, 0);
+    await userEvent.click(
+      document.getByTestId(TestIds.PAGINATION_PREVIOUS_PAGE)
+    );
+    expect(previousPageMock).toHaveBeenCalled();
+  });
 
-  await userEvent.click(document.getByTestId(TestIds.PAGINATION_LAST_PAGE));
-  expectUseFetchEvents(4, 200);
+  test('go last', async () => {
+    const channels = buildChannels(5);
+    vi.mocked(useLoaderData).mockReturnValue({
+      entries: channels,
+      offset: 0,
+      total: 200,
+    });
+    getOffsetMock.mockReturnValue(0);
 
-  await userEvent.click(document.getByTestId(TestIds.PAGINATION_FIRST_PAGE));
-  expectUseFetchEvents(5, 0);
+    const document = render(<ChannelListView />);
+
+    await userEvent.click(document.getByTestId(TestIds.PAGINATION_LAST_PAGE));
+    expect(lastPageMock).toHaveBeenCalled();
+  });
+
+  test('go first', async () => {
+    const channels = buildChannels(5);
+    vi.mocked(useLoaderData).mockReturnValue({
+      entries: channels,
+      offset: 200,
+      total: 200,
+    });
+    getOffsetMock.mockReturnValue(200);
+
+    const document = render(<ChannelListView />);
+
+    await userEvent.click(document.getByTestId(TestIds.PAGINATION_FIRST_PAGE));
+    expect(firstPageMock).toHaveBeenCalled();
+  });
 });
-
-const expectUseFetchEvents = (n: number, offset: number) =>
-  expect(useFetchEvents).toHaveBeenNthCalledWith(n, {
-    nowPlaying: true,
-    limit: 50,
-    offset,
-    sort_key: 'channelNumber',
-    sort_dir: 'asc',
-  });
-
-const TestRouter = ({ children }: PropsWithChildren) => {
-  return (
-    <MemoryRouter initialEntries={[`/channels`]}>
-      <Routes>
-        <Route path="/channels" element={children} />
-      </Routes>
-    </MemoryRouter>
-  );
-};

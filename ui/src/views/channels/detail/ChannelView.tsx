@@ -1,18 +1,42 @@
-import { useNavigate, useParams, useSearchParams } from 'react-router-dom';
-import { useEffect, useRef } from 'react';
+import {
+  LoaderFunctionArgs,
+  useLoaderData,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from 'react-router-dom';
+import { useRef } from 'react';
 
-import { useFetchChannel } from '@/hooks/channel';
 import EventChannelInfo from '@/components/epg/event/channelInfo/EventChannelInfo';
 import { usePagination } from '@/hooks/pagination';
 import PaginationControls from '@/components/common/paginationControls/PaginationControls';
-import Error from '@/components/common/error/Error';
 
 import styles from './ChannelView.module.scss';
 import GuideEvent from '@/components/epg/guide/event/GuideEvent';
+import { getChannel, getEpgEvents } from '@/clients/api/api';
+import { Channel, EpgEvent, ListResponse } from '@/clients/api/api.types';
 
 const defaultLimit = 50;
 
-const ChannelView = () => {
+export async function loader({ request, params }: LoaderFunctionArgs) {
+  if (!params.id) {
+    return;
+  }
+
+  const query = new URL(request.url).searchParams;
+
+  const channel = getChannel(params.id);
+
+  const events = getEpgEvents({
+    channel: params.id,
+    limit: defaultLimit,
+    offset: parseInt(query.get('offset') || '0') || 0,
+  });
+
+  return Promise.all([channel, events]);
+}
+
+export const Component = () => {
   const ref = useRef<HTMLDivElement>(null);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -21,27 +45,7 @@ const ChannelView = () => {
   const { limit, nextPage, previousPage, getOffset, firstPage, lastPage } =
     usePagination(defaultLimit, searchParams, setSearchParams);
 
-  const { channel, events, total, error } = useFetchChannel(
-    id,
-    getOffset(),
-    limit
-  );
-
-  useEffect(() => {
-    const scrollPos = searchParams.get('pos');
-
-    if (events.length > 0) {
-      ref.current?.scrollTo(0, parseInt(scrollPos || '0'));
-    }
-  }, [events, searchParams]);
-
-  if (error) {
-    return <Error message={error} />;
-  }
-
-  if (!channel) {
-    return <></>;
-  }
+  const [channel, {entries, total}] = useLoaderData() as [Channel, ListResponse<EpgEvent>]
 
   return (
     <div ref={ref} className={styles.channel}>
@@ -52,7 +56,7 @@ const ChannelView = () => {
         />
       </div>
       <div className={styles.events}>
-        {events.map((event) => (
+        {entries.map((event) => (
           <GuideEvent
             eventId={event.id}
             title={event.title}
@@ -61,17 +65,7 @@ const ChannelView = () => {
             endsAt={event.endsAt}
             startsAt={event.startsAt}
             onClick={(id) => {
-              if (ref.current?.scrollTop !== undefined) {
-                const pos = Math.floor(ref.current?.scrollTop);
-                setSearchParams((prev) => {
-                  prev.set('pos', `${Math.floor(pos)}`);
-                  return prev;
-                });
-              }
-
-              navigate(`/guide/events/${id}`, {
-                preventScrollReset: true,
-              });
+              navigate(`/guide/events/${id}`);
             }}
             dvrState={event.dvrState}
             showProgress
@@ -84,13 +78,6 @@ const ChannelView = () => {
         onPreviousPage={previousPage}
         onFirstPage={firstPage}
         onLastPage={() => lastPage(total)}
-        onPageChange={() => {
-          setSearchParams((prev) => {
-            prev.delete('pos');
-            return prev;
-          });
-          ref.current?.scrollTo(0, 0);
-        }}
         limit={limit}
         offset={getOffset()}
         total={total}
@@ -99,4 +86,4 @@ const ChannelView = () => {
   );
 };
 
-export default ChannelView;
+Component.displayName = 'ChannelView';

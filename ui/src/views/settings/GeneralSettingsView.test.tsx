@@ -5,7 +5,7 @@ import { useUpdateUser } from '@/hooks/user';
 import { cleanup, render } from '@testing-library/react';
 import { useNavigate } from 'react-router-dom';
 import { afterEach, beforeEach, expect, test, vi } from 'vitest';
-import GeneralSettingsView from './GeneralSettingsView';
+import {Component as GeneralSettingsView} from './GeneralSettingsView';
 import { userEvent } from '@testing-library/user-event';
 import i18n from 'i18next';
 import { TestIds } from '@/__test__/ids';

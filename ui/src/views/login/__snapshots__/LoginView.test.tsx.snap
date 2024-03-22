@@ -20,7 +20,7 @@ exports[`login > should render 1`] = `
         class="_form_fb3893"
       >
         <div
-          class="_inputContainer_ae92e9 "
+          class="_inputContainer_ae92e9"
           style="width: 100%;"
         >
           <label
@@ -33,7 +33,7 @@ exports[`login > should render 1`] = `
             class="_innerContainer_ae92e9"
           >
             <input
-              class="_input_ae92e9   "
+              class="_input_ae92e9"
               name="username"
               type="text"
               value=""
@@ -41,7 +41,7 @@ exports[`login > should render 1`] = `
           </div>
         </div>
         <div
-          class="_inputContainer_ae92e9 "
+          class="_inputContainer_ae92e9"
           style="width: 100%;"
         >
           <label
@@ -54,7 +54,7 @@ exports[`login > should render 1`] = `
             class="_innerContainer_ae92e9"
           >
             <input
-              class="_input_ae92e9   "
+              class="_input_ae92e9"
               name="password"
               type="password"
               value=""
@@ -62,7 +62,7 @@ exports[`login > should render 1`] = `
           </div>
         </div>
         <button
-          class="_button_a7f9df   "
+          class="_button_a7f9df"
           type="submit"
         >
           login
@@ -136,7 +136,7 @@ exports[`login with totp > should render two factor auth 1`] = `
             class="_content_d7b0a1 _column_d7b0a1"
           >
             <div
-              class="_inputContainer_ae92e9 "
+              class="_inputContainer_ae92e9"
               style="width: 100%;"
             >
               <label
@@ -149,7 +149,7 @@ exports[`login with totp > should render two factor auth 1`] = `
                 class="_innerContainer_ae92e9"
               >
                 <input
-                  class="_input_ae92e9   "
+                  class="_input_ae92e9"
                   name="code"
                   type="text"
                   value=""
@@ -157,7 +157,7 @@ exports[`login with totp > should render two factor auth 1`] = `
               </div>
             </div>
             <button
-              class="_button_a7f9df   "
+              class="_button_a7f9df"
               type="submit"
             >
               login

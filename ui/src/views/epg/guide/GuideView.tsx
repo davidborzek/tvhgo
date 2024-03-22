@@ -1,11 +1,14 @@
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import {
+  LoaderFunctionArgs,
+  useLoaderData,
+  useNavigate,
+  useSearchParams,
+} from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import moment from 'moment';
 
-import { useFetchEpg } from '@/hooks/epg';
 import { EpgChannel } from '@/clients/api/api.types';
-import Error from '@/components/common/error/Error';
 import { c } from '@/utils/classNames';
 import EmptyState from '@/components/common/emptyState/EmptyState';
 
@@ -14,6 +17,7 @@ import GuideChannel from '@/components/epg/guide/channel/GuideChannel';
 import GuideControls from '@/components/epg/guide/controls/GuideControls';
 import GuideEventColumn from '@/components/epg/guide/eventColumn/GuideEventColumn';
 import GuideNavigation from '@/components/epg/guide/navigation/GuideNavigation';
+import { getEpg } from '@/clients/api/api';
 
 const parseStartDate = (start?: string | null) => {
   if (!start || start === 'today') {
@@ -58,24 +62,24 @@ function filterEpg(epg: EpgChannel[], search: string) {
   );
 }
 
-function GuideView() {
-  const navigate = useNavigate();
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [searchParams, setSearchParams] = useSearchParams();
-  const { t } = useTranslation();
+export async function loader({ request }: LoaderFunctionArgs) {
+  const query = new URL(request.url).searchParams;
+  const day = query.get('day');
 
-  const { events, setStartsAt, setEndsAt, error } = useFetchEpg({
-    startsAt: parseStartDate(searchParams.get('day')),
-    endsAt: calculateEndDate(searchParams.get('day')),
+  return getEpg({
+    startsAt: parseStartDate(day),
+    endsAt: calculateEndDate(day),
     sort_key: 'channelNumber',
     limit: 100,
   });
+}
 
-  const setDate = (start?: number, end?: number) => {
-    setStartsAt(start);
-    setEndsAt(end);
-    containerRef.current?.scrollTo(0, 0);
-  };
+export function Component() {
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const { t } = useTranslation();
+
+  const events = useLoaderData() as Array<EpgChannel>;
 
   const [limit, _setLimit] = useState(5);
 
@@ -123,27 +127,8 @@ function GuideView() {
     };
   }, []);
 
-  useEffect(() => {
-    const scrollPos = searchParams.get('pos');
-
-    if (events && events.length > 0) {
-      containerRef.current?.scrollTo(0, parseInt(scrollPos || '0'));
-    }
-  }, [events, searchParams]);
-
   const handleEventClick = (id: number) => {
-    if (containerRef.current?.scrollTop !== undefined) {
-      const pos = Math.floor(containerRef.current?.scrollTop);
-
-      setSearchParams((prev) => {
-        prev.set('pos', `${Math.floor(pos)}`);
-        return prev;
-      });
-    }
-
-    navigate(`/guide/events/${id}`, {
-      preventScrollReset: true,
-    });
+    navigate(`/guide/events/${id}`);
   };
 
   const handleNextPageClick = () => {
@@ -177,8 +162,6 @@ function GuideView() {
       prev.set('day', day);
       return prev;
     });
-
-    setDate(parseStartDate(day), calculateEndDate(day));
   };
 
   const handleSearch = (search: string) => {
@@ -187,8 +170,6 @@ function GuideView() {
       prev.set('offset', '0');
       return prev;
     });
-
-    containerRef.current?.scrollTo(0, 0);
   };
 
   const filteredEpg = filterEpg(events || [], searchParams.get('search') || '');
@@ -221,10 +202,6 @@ function GuideView() {
       ));
   };
 
-  if (error) {
-    return <Error message={error} />;
-  }
-
   const renderNavigation = () => {
     if (filteredEpg.length == 0) {
       return <></>;
@@ -239,7 +216,7 @@ function GuideView() {
   };
 
   return (
-    <div className={styles.container} ref={containerRef}>
+    <div className={styles.container}>
       <div className={styles.header}>
         <div className={styles.bar}>
           <GuideControls
@@ -266,4 +243,4 @@ function GuideView() {
   );
 }
 
-export default GuideView;
+Component.displayName = 'GuideView';

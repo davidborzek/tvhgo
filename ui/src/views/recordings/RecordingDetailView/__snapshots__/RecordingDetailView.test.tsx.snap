@@ -47,7 +47,7 @@ exports[`with status completed > should render recording 1`] = `
               confirm_delete_recording
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df  "
+              class="_button_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               delete
@@ -145,13 +145,13 @@ exports[`with status completed > should render recording 1`] = `
       class="_actions_8b9d52"
     >
       <button
-        class="_button_a7f9df _red_a7f9df  "
+        class="_button_a7f9df _red_a7f9df"
         type="button"
       >
         delete_recording
       </button>
       <a
-        class="_button_a7f9df  "
+        class="_button_a7f9df"
         download=""
         href="/api/recordings/someID/stream"
       >
@@ -209,7 +209,7 @@ exports[`with status recording > should render recording 1`] = `
               confirm_stop_recording
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df  "
+              class="_button_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               stop
@@ -307,7 +307,7 @@ exports[`with status recording > should render recording 1`] = `
       class="_actions_8b9d52"
     >
       <button
-        class="_button_a7f9df _red_a7f9df  "
+        class="_button_a7f9df _red_a7f9df"
         type="button"
       >
         stop_recording
@@ -329,7 +329,7 @@ exports[`with status recording > should render recording 1`] = `
           class="_content_d7b0a1 _column_d7b0a1"
         >
           <div
-            class="_inputContainer_ae92e9 "
+            class="_inputContainer_ae92e9"
           >
             <label
               class="_inputLabel_ae92e9"
@@ -341,7 +341,7 @@ exports[`with status recording > should render recording 1`] = `
               class="_innerContainer_ae92e9"
             >
               <input
-                class="_input_ae92e9  _disabled_ae92e9 "
+                class="_input_ae92e9 _disabled_ae92e9"
                 disabled=""
                 name="startPadding"
                 type="number"
@@ -350,7 +350,7 @@ exports[`with status recording > should render recording 1`] = `
             </div>
           </div>
           <div
-            class="_inputContainer_ae92e9 "
+            class="_inputContainer_ae92e9"
           >
             <label
               class="_inputLabel_ae92e9"
@@ -362,7 +362,7 @@ exports[`with status recording > should render recording 1`] = `
               class="_innerContainer_ae92e9"
             >
               <input
-                class="_input_ae92e9   "
+                class="_input_ae92e9"
                 name="endPadding"
                 type="number"
                 value="2"
@@ -377,7 +377,7 @@ exports[`with status recording > should render recording 1`] = `
         </span>
       </div>
       <button
-        class="_button_a7f9df   "
+        class="_button_a7f9df"
         type="submit"
       >
         save
@@ -434,7 +434,7 @@ exports[`with status scheduled > should render recording 1`] = `
               confirm_cancel_recording
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df  "
+              class="_button_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               cancel
@@ -532,7 +532,7 @@ exports[`with status scheduled > should render recording 1`] = `
       class="_actions_8b9d52"
     >
       <button
-        class="_button_a7f9df _red_a7f9df  "
+        class="_button_a7f9df _red_a7f9df"
         type="button"
       >
         cancel_recording
@@ -554,7 +554,7 @@ exports[`with status scheduled > should render recording 1`] = `
           class="_content_d7b0a1 _column_d7b0a1"
         >
           <div
-            class="_inputContainer_ae92e9 "
+            class="_inputContainer_ae92e9"
           >
             <label
               class="_inputLabel_ae92e9"
@@ -566,7 +566,7 @@ exports[`with status scheduled > should render recording 1`] = `
               class="_innerContainer_ae92e9"
             >
               <input
-                class="_input_ae92e9   "
+                class="_input_ae92e9"
                 name="startPadding"
                 type="number"
                 value="3"
@@ -574,7 +574,7 @@ exports[`with status scheduled > should render recording 1`] = `
             </div>
           </div>
           <div
-            class="_inputContainer_ae92e9 "
+            class="_inputContainer_ae92e9"
           >
             <label
               class="_inputLabel_ae92e9"
@@ -586,7 +586,7 @@ exports[`with status scheduled > should render recording 1`] = `
               class="_innerContainer_ae92e9"
             >
               <input
-                class="_input_ae92e9   "
+                class="_input_ae92e9"
                 name="endPadding"
                 type="number"
                 value="2"
@@ -601,7 +601,7 @@ exports[`with status scheduled > should render recording 1`] = `
         </span>
       </div>
       <button
-        class="_button_a7f9df   "
+        class="_button_a7f9df"
         type="submit"
       >
         save

@@ -5,7 +5,7 @@ import TabNavigation from '@/components/common/tabs/TabNavigation';
 
 import styles from './SettingsView.module.scss';
 
-function SettingsView() {
+export function Component() {
   const { t } = useTranslation();
 
   return (
@@ -31,4 +31,4 @@ function SettingsView() {
   );
 }
 
-export default SettingsView;
+Component.displayName = 'SettingsView';
