@@ -37,7 +37,6 @@ export async function loader({ params }: LoaderFunctionArgs) {
 
 export function Component() {
   const { t } = useTranslation();
-  const { id } = useParams();
   const navigate = useNavigate();
 
   const recording = useLoaderData() as Recording;
@@ -140,12 +139,6 @@ export function Component() {
     },
     enableReinitialize: true,
   });
-
-  useEffect(() => {
-    if (id) {
-      fetch(id);
-    }
-  }, [id]);
 
   const renderCancelButton = () => {
     if (
