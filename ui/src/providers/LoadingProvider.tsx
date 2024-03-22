@@ -8,10 +8,10 @@ import {
 import LoadingBar, { LoadingBarRef } from 'react-top-loading-bar';
 
 import { LoadingContext } from '@/contexts/LoadingContext';
+import { Outlet, useNavigation } from 'react-router-dom';
 
-export default function LoadingProvider({
-  children,
-}: PropsWithChildren<unknown>): ReactElement {
+export default function LoadingProvider(): ReactElement {
+  const { state } = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
 
   const ref = useRef<LoadingBarRef>(null);
@@ -19,6 +19,14 @@ export default function LoadingProvider({
   useEffect(() => {
     isLoading ? ref.current?.continuousStart() : ref.current?.complete();
   }, [isLoading]);
+
+  useEffect(() => {
+    console.log(state);
+    
+    state === 'loading'
+      ? ref.current?.continuousStart()
+      : ref.current?.complete();
+  }, [state]);
 
   return (
     <LoadingContext.Provider
@@ -28,7 +36,7 @@ export default function LoadingProvider({
       }}
     >
       <LoadingBar ref={ref} color="#00FFFF" />
-      {children}
+      <Outlet />
     </LoadingContext.Provider>
   );
 }

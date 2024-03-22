@@ -1,38 +1,12 @@
-import { useEffect, useState } from 'react';
-import { TwoFactorAuthSettings } from '@/clients/api/api.types';
-import { useLoading } from '@/contexts/LoadingContext';
+import { useState } from 'react';
 import {
   ApiError,
   activateTwoFactorAuth,
   deactivateTwoFactorAuth,
-  getTwoFactorAuthSettings,
   setupTwoFactorAuth,
 } from '@/clients/api/api';
 import { useTranslation } from 'react-i18next';
 import { useNotification } from './notification';
-
-export const useTwoFactorAuthSettings = () => {
-  const [twoFactorAuthSettings, setTwoFactorAuthSettings] =
-    useState<TwoFactorAuthSettings | null>(null);
-
-  const { setIsLoading } = useLoading();
-
-  const fetchTwoFactorAuthSettings = async () => {
-    setIsLoading(true);
-    return await getTwoFactorAuthSettings()
-      .then(setTwoFactorAuthSettings)
-      .finally(() => setIsLoading(false));
-  };
-
-  useEffect(() => {
-    fetchTwoFactorAuthSettings();
-  }, []);
-
-  return {
-    fetchTwoFactorAuthSettings,
-    twoFactorAuthSettings,
-  };
-};
 
 export const useSetupTwoFactorAuth = () => {
   const { notifyError, notifySuccess, dismissNotification } =

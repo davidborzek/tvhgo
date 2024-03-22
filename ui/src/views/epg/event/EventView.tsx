@@ -1,31 +1,42 @@
-import { useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import {
+  LoaderFunctionArgs,
+  useLoaderData,
+  useNavigate,
+  useRevalidator,
+} from 'react-router-dom';
 
-import Error from '@/components/common/error/Error';
 import EventChannelInfo from '@/components/epg/event/channelInfo/EventChannelInfo';
 import EventInfo from '@/components/epg/event/info/EventInfo';
 import EventRelated from '@/components/epg/event/related/EventRelated';
-import { useFetchEvent } from '@/hooks/epg';
 import { useManageRecordingByEvent } from '@/hooks/recording';
 
 import styles from './EventView.module.scss';
+import { getEpgEvent, getRelatedEpgEvents } from '@/clients/api/api';
+import { EpgEvent } from '@/clients/api/api.types';
 
-function EventView() {
+export async function loader({ params }: LoaderFunctionArgs) {
+  if (!params.id) {
+    return;
+  }
+
+  const id = parseInt(params.id);
+  if (!id) {
+    return;
+  }
+
+  const [event, related] = await Promise.all([
+    getEpgEvent(id),
+    getRelatedEpgEvents(id),
+  ]);
+
+  return [event, related.entries.filter((r) => r.id !== id)];
+}
+
+export function Component() {
   const navigate = useNavigate();
-  const params = useParams();
-  const { fetch, error, event, relatedEvents } = useFetchEvent();
+  const revalidator = useRevalidator();
   const { createRecording, pending } = useManageRecordingByEvent();
-
-  const fetchEvent = () => {
-    const id = params['id'];
-    if (id) {
-      fetch(parseInt(id));
-    }
-  };
-
-  useEffect(() => {
-    fetchEvent();
-  }, [params]);
+  const [event, relatedEvents] = useLoaderData() as [EpgEvent, Array<EpgEvent>];
 
   const handleOnRecord = async () => {
     if (!event) {
@@ -38,16 +49,8 @@ function EventView() {
     }
 
     await createRecording(event.id);
-    fetchEvent();
+    revalidator.revalidate();
   };
-
-  if (error) {
-    return <Error message={error} />;
-  }
-
-  if (!event) {
-    return <></>;
-  }
 
   return (
     <div className={styles.Event}>
@@ -65,4 +68,4 @@ function EventView() {
   );
 }
 
-export default EventView;
+Component.displayName = 'EventView';

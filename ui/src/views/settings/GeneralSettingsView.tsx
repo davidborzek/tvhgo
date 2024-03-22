@@ -17,7 +17,7 @@ import { useNavigate } from 'react-router-dom';
 import Form from '@/components/common/form/Form';
 import { TestIds } from '@/__test__/ids';
 
-const GeneralSettingsView = () => {
+export const Component = () => {
   const { t } = useTranslation();
   const { user } = useAuth();
   const navigate = useNavigate();
@@ -166,4 +166,4 @@ const GeneralSettingsView = () => {
   );
 };
 
-export default GeneralSettingsView;
+Component.displayName =  "GeneralSettingsView";

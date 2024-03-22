@@ -1,10 +1,12 @@
-import { Suspense, lazy, useEffect } from 'react';
+import { useEffect } from 'react';
 import {
-  BrowserRouter,
-  Routes,
   Route,
   Navigate,
   Outlet,
+  createBrowserRouter,
+  createRoutesFromElements,
+  RouterProvider,
+  useRouteError,
 } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { useAuth } from '@/contexts/AuthContext';
@@ -18,42 +20,8 @@ import LoadingProvider from '@/providers/LoadingProvider';
 import EmptyState from '@/components/common/emptyState/EmptyState';
 import ButtonLink from '@/components/common/button/ButtonLink';
 import { useTranslation } from 'react-i18next';
-
-const LoginView = lazy(() => import('@/views/login/LoginView'));
-const DashboardView = lazy(() => import('@/views/dashboard/DashboardView'));
-
-const ChannelListView = lazy(
-  () => import('@/views/channels/list/ChannelListView')
-);
-const ChannelView = lazy(() => import('@/views/channels/detail/ChannelView'));
-
-const GuideView = lazy(() => import('@/views/epg/guide/GuideView'));
-const EventView = lazy(() => import('@/views/epg/event/EventView'));
-
-const RecordingsView = lazy(
-  () => import('@/views/recordings/RecordingsView/RecordingsView')
-);
-const RecordingDetailView = lazy(
-  () => import('@/views/recordings/RecordingDetailView/RecordingDetailView')
-);
-
-const SettingsView = lazy(() => import('@/views/settings/SettingsView'));
-const GeneralSettingsView = lazy(
-  () => import('@/views/settings/GeneralSettingsView')
-);
-const SecuritySettingsView = lazy(
-  () => import('@/views/settings/SecuritySettingsView')
-);
-
-const TwoFactorAuthDisableModal = lazy(
-  () => import('@/modals/twoFactorAuth/disable/TwoFactorAuthDisableModal')
-);
-const TwoFactorAuthSetupModal = lazy(
-  () => import('@/modals/twoFactorAuth/setup/TwoFactorAuthSetupModal')
-);
-const CreateTokenModal = lazy(
-  () => import('@/modals/token/create/CreateTokenModal')
-);
+import Error from './components/common/error/Error';
+import { ApiError } from './clients/api/api';
 
 type AuthenticationCheckerProps = {
   redirect?: string;
@@ -110,148 +78,133 @@ function NotFound() {
   );
 }
 
-function App() {
-  return (
-    <ThemeProvider>
-      <LoadingProvider>
-        <AuthProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route element={<Unauthenticated />}>
-                <Route
-                  path="/login"
-                  element={
-                    <Suspense>
-                      <LoginView />
-                    </Suspense>
-                  }
-                />
-              </Route>
+function ErrorBoundary() {
+  const { t } = useTranslation();
+  const error = useRouteError();
 
-              <Route element={<Authenticated />}>
-                <Route
-                  element={
-                    <Suspense>
-                      <DashboardView />
-                    </Suspense>
+  const getText = () => {
+    if (error instanceof ApiError) {
+      switch (error.code) {
+        case 404:
+          return t('not_found');
+      }
+    }
+
+    return t('unexpected');
+  };
+
+  return <Error message={getText()} />;
+}
+
+function App() {
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route element={<LoadingProvider />}>
+        <Route element={<Unauthenticated />}>
+          <Route path="/login" lazy={() => import('@/views/login/LoginView')} />
+        </Route>
+
+        <Route element={<Authenticated />}>
+          <Route lazy={() => import('@/views/dashboard/DashboardView')}>
+            <Route errorElement={<ErrorBoundary />}>
+              <Route path="/" element={<Navigate to={'/channels'} replace />} />
+              <Route
+                path="/channels"
+                lazy={() => import('@/views/channels/list/ChannelListView')}
+              />
+              <Route
+                path="/channels/:id"
+                lazy={() => import('@/views/channels/detail/ChannelView')}
+              />
+              <Route
+                path="/guide"
+                lazy={() => import('@/views/epg/guide/GuideView')}
+                shouldRevalidate={({ currentUrl, nextUrl }) => {
+                  for (const [key, val] of currentUrl.searchParams) {
+                    // We don't want to revalidate when only some query params changes.
+                    if (key === 'offset' || key == 'search') {
+                      continue;
+                    }
+
+                    if (val != nextUrl.searchParams.get(key)) {
+                      return true;
+                    }
                   }
+
+                  return false;
+                }}
+              />
+              <Route
+                path="/guide/events/:id"
+                lazy={() => import('@/views/epg/event/EventView')}
+              />
+              <Route
+                path="/recordings"
+                lazy={() =>
+                  import('@/views/recordings/RecordingsView/RecordingsView')
+                }
+              />
+              <Route
+                path="/recordings/:id"
+                lazy={() =>
+                  import(
+                    '@/views/recordings/RecordingDetailView/RecordingDetailView'
+                  )
+                }
+              />
+
+              <Route
+                path="/settings"
+                lazy={() => import('@/views/settings/SettingsView')}
+              >
+                <Route path="" element={<Navigate to={'general'} replace />} />
+                <Route
+                  path="general"
+                  lazy={() => import('@/views/settings/GeneralSettingsView')}
+                />
+                <Route
+                  path="security"
+                  lazy={() => import('@/views/settings/SecuritySettingsView')}
                 >
                   <Route
-                    path="/"
-                    element={<Navigate to={'/channels'} replace />}
-                  />
-                  <Route
-                    path="/channels"
-                    element={
-                      <Suspense>
-                        <ChannelListView />
-                      </Suspense>
+                    path="two-factor-auth/disable"
+                    lazy={() =>
+                      import(
+                        '@/modals/twoFactorAuth/disable/TwoFactorAuthDisableModal'
+                      )
                     }
                   />
                   <Route
-                    path="/channels/:id"
-                    element={
-                      <Suspense>
-                        <ChannelView />
-                      </Suspense>
+                    path="two-factor-auth/setup"
+                    lazy={() =>
+                      import(
+                        '@/modals/twoFactorAuth/setup/TwoFactorAuthSetupModal'
+                      )
                     }
                   />
                   <Route
-                    path="/guide"
-                    element={
-                      <Suspense>
-                        <GuideView />
-                      </Suspense>
+                    path="tokens/create"
+                    lazy={() =>
+                      import('@/modals/token/create/CreateTokenModal')
                     }
                   />
-                  <Route
-                    path="/guide/events/:id"
-                    element={
-                      <Suspense>
-                        <EventView />
-                      </Suspense>
-                    }
-                  />
-                  <Route
-                    path="/recordings"
-                    element={
-                      <Suspense>
-                        <RecordingsView />
-                      </Suspense>
-                    }
-                  />
-                  <Route
-                    path="/recordings/:id"
-                    element={
-                      <Suspense>
-                        <RecordingDetailView />
-                      </Suspense>
-                    }
-                  />
-
-                  <Route
-                    path="/settings"
-                    element={
-                      <Suspense>
-                        <SettingsView />
-                      </Suspense>
-                    }
-                  >
-                    <Route
-                      path=""
-                      element={<Navigate to={'general'} replace />}
-                    />
-                    <Route
-                      path="general"
-                      element={
-                        <Suspense>
-                          <GeneralSettingsView />
-                        </Suspense>
-                      }
-                    />
-                    <Route
-                      path="security"
-                      element={
-                        <Suspense>
-                          <SecuritySettingsView />
-                        </Suspense>
-                      }
-                    >
-                      <Route
-                        path="two-factor-auth/disable"
-                        element={
-                          <Suspense>
-                            <TwoFactorAuthDisableModal />
-                          </Suspense>
-                        }
-                      />
-                      <Route
-                        path="two-factor-auth/setup"
-                        element={
-                          <Suspense>
-                            <TwoFactorAuthSetupModal />
-                          </Suspense>
-                        }
-                      />
-                      <Route
-                        path="tokens/create"
-                        element={
-                          <Suspense>
-                            <CreateTokenModal />
-                          </Suspense>
-                        }
-                      />
-                    </Route>
-                  </Route>
-                  <Route path="*" element={<NotFound />} />
                 </Route>
-
-                <Route path="/logout" element={<Logout />} />
               </Route>
-            </Routes>
-          </BrowserRouter>
-        </AuthProvider>
-      </LoadingProvider>
+              <Route path="*" element={<NotFound />} />
+            </Route>
+          </Route>
+
+          <Route path="/logout" element={<Logout />} />
+        </Route>
+      </Route>
+    )
+  );
+
+  return (
+    <ThemeProvider>
+      <AuthProvider>
+        <RouterProvider router={router} />
+      </AuthProvider>
       <Notification />
     </ThemeProvider>
   );

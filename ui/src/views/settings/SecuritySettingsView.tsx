@@ -1,13 +1,12 @@
 import { useFormik } from 'formik';
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useLocation, Outlet } from 'react-router-dom';
+import { useNavigate, useLocation, Outlet, useLoaderData, useRevalidator } from 'react-router-dom';
 import * as Yup from 'yup';
 
 import Button from '@/components/common/button/Button';
 import Headline from '@/components/common/headline/Headline';
 import Input from '@/components/common/input/Input';
-import { useTwoFactorAuthSettings } from '@/hooks/2fa';
 import useFormikErrorFocus from '@/hooks/formik';
 import { useManageSessions } from '@/hooks/session';
 import { useManageTokens } from '@/hooks/token';
@@ -18,21 +17,35 @@ import styles from './SettingsView.module.scss';
 import SessionList from '@/components/settings/sessionList/SessionList';
 import TokenList from '@/components/settings/tokenList/TokenList';
 import TwoFactorAuthSettingsOverview from '@/components/settings/twoFactorAuthSettings/TwoFactorAuthSettingsOverview';
+import {
+  getSessions,
+  getTokens,
+  getTwoFactorAuthSettings,
+} from '@/clients/api/api';
+import { Token, TwoFactorAuthSettings } from '@/clients/api/api.types';
+import { Session } from '@/clients/api/api.types';
 
 export enum SecuritySettingsRefreshStates {
   TWOFA = 'refresh_2fa',
   TOKEN = 'refresh_token',
 }
 
-const SecuritySettingsView = () => {
+export async function loader() {
+  console.log("LOOOG");
+  
+  return Promise.all([getTwoFactorAuthSettings(), getSessions(), getTokens()]);
+}
+
+export const Component = () => {
   const { t } = useTranslation();
+  const revalidator = useRevalidator();
   const navigate = useNavigate();
   const { state } = useLocation();
-  const { sessions, revokeSession } = useManageSessions();
-  const { tokens, getTokens, revokeToken } = useManageTokens();
-  const { twoFactorAuthSettings, fetchTwoFactorAuthSettings } =
-    useTwoFactorAuthSettings();
+  const { revokeSession } = useManageSessions();
+  const { revokeToken } = useManageTokens();
   const { updatePassword } = useUpdateUserPassword();
+
+  const [twoFactorAuthSettings, sessions, tokens] = useLoaderData() as [TwoFactorAuthSettings, Array<Session>, Array<Token>]
 
   const currentPasswordRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);
@@ -76,10 +89,10 @@ const SecuritySettingsView = () => {
   useEffect(() => {
     switch (state) {
       case SecuritySettingsRefreshStates.TWOFA:
-        fetchTwoFactorAuthSettings();
+        revalidator.revalidate();
         break;
       case SecuritySettingsRefreshStates.TOKEN:
-        getTokens();
+        revalidator.revalidate();
         break;
     }
   }, [state]);
@@ -165,4 +178,4 @@ const SecuritySettingsView = () => {
   );
 };
 
-export default SecuritySettingsView;
+Component.displayName = 'SecuritySettingsView';

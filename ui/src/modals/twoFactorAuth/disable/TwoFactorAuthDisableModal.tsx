@@ -13,7 +13,7 @@ import Form from '@/components/common/form/Form';
 import styles from './TwoFactorAuthDisableModal.module.scss';
 import { SecuritySettingsRefreshStates } from '@/views/settings/SecuritySettingsView';
 
-const TwoFactorAuthDisableModal = () => {
+export const Component = () => {
   const { deactivateTwoFactorAuth, loading } = useDeactivateTwoFactorAuth();
   const { t } = useTranslation();
   const navigate = useNavigate();
@@ -75,4 +75,4 @@ const TwoFactorAuthDisableModal = () => {
   );
 };
 
-export default TwoFactorAuthDisableModal;
+Component.displayName = 'TwoFactorAuthDisableModal';

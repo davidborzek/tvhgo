@@ -1,15 +1,16 @@
 import { useFormik } from 'formik';
 import { useEffect, useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import {
+  LoaderFunctionArgs,
+  useLoaderData,
+  useNavigate,
+  useParams,
+} from 'react-router-dom';
 import * as Yup from 'yup';
 import { useTranslation } from 'react-i18next';
 
-import Error from '@/components/common/error/Error';
 import Input from '@/components/common/input/Input';
-import {
-  useFetchRecording,
-  useManageRecordingByEvent,
-} from '@/hooks/recording';
+import { useManageRecordingByEvent } from '@/hooks/recording';
 import Button from '@/components/common/button/Button';
 import FormGroup from '@/components/common/form/FormGroup/FormGroup';
 import EventChannelInfo from '@/components/epg/event/channelInfo/EventChannelInfo';
@@ -19,17 +20,27 @@ import Pair from '@/components/common/pairList/Pair/Pair';
 import PairValue from '@/components/common/pairList/PairValue/PairValue';
 import PairKey from '@/components/common/pairList/PairKey/PairKey';
 import DeleteConfirmationModal from '@/components/common/deleteConfirmationModal/DeleteConfirmationModal';
-import { getRecordingUrl } from '@/clients/api/api';
+import { getRecording, getRecordingUrl } from '@/clients/api/api';
 import ButtonLink from '@/components/common/button/ButtonLink';
 
 import styles from './RecordingDetailView.module.scss';
+import { Recording } from '@/clients/api/api.types';
 
-function RecordingDetailView() {
+export async function loader({ params }: LoaderFunctionArgs) {
+  const { id } = params;
+  if (!id) {
+    return;
+  }
+
+  return getRecording(id);
+}
+
+export function Component() {
   const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
 
-  const { recording, error, fetch } = useFetchRecording();
+  const recording = useLoaderData() as Recording;
   const {
     cancelRecording,
     stopRecording,
@@ -208,14 +219,6 @@ function RecordingDetailView() {
     }
   };
 
-  if (error) {
-    return <Error message={error} />;
-  }
-
-  if (!recording) {
-    return <></>;
-  }
-
   return (
     <div className={styles.RecordingDetailView}>
       <DeleteConfirmationModal
@@ -261,4 +264,4 @@ function RecordingDetailView() {
   );
 }
 
-export default RecordingDetailView;
+Component.displayName = 'RecordingDetailView';

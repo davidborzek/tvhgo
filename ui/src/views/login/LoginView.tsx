@@ -15,7 +15,7 @@ import styles from './LoginView.module.scss';
 
 const GITHUB_URL = 'https://github.com/davidborzek/tvhgo';
 
-export default function LoginView() {
+export function Component() {
   const { t } = useTranslation();
   const { login, loading, twoFactorRequired } = useLogin();
 
@@ -134,3 +134,5 @@ export default function LoginView() {
     </div>
   );
 }
+
+Component.displayName = 'LoginView';

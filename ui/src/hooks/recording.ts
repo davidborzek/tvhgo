@@ -1,12 +1,8 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  ApiError,
   cancelRecording,
   cancelRecordings,
-  getRecording,
-  getRecordings,
-  GetRecordingsQuery,
   recordByEvent,
   removeRecording,
   removeRecordings,
@@ -14,8 +10,7 @@ import {
   stopRecordings,
   updateRecording,
 } from '@/clients/api/api';
-import { Recording, UpdateRecording } from '@/clients/api/api.types';
-import { useLoading } from '@/contexts/LoadingContext';
+import { UpdateRecording } from '@/clients/api/api.types';
 import { useNotification } from './notification';
 
 export const useManageRecordingByEvent = () => {
@@ -114,58 +109,6 @@ export const useManageRecordingByEvent = () => {
   };
 };
 
-export const useFetchRecordings = (q?: GetRecordingsQuery) => {
-  const { t } = useTranslation();
-
-  const { setIsLoading } = useLoading();
-
-  const [error, setError] = useState<string | null>(null);
-  const [recordings, setRecordings] = useState<Recording[] | null>(null);
-  const [total, setTotal] = useState(0);
-
-  const fetch = () => {
-    setIsLoading(true);
-    setRecordings([]);
-    getRecordings(q)
-      .then((result) => {
-        setRecordings(result.entries);
-        setTotal(result.total);
-      })
-      .catch(() => setError(t('unexpected')))
-      .finally(() => setIsLoading(false));
-  };
-
-  useEffect(() => {
-    fetch();
-  }, [q?.status, q?.limit, q?.offset]);
-
-  return { recordings, error, fetch, total };
-};
-
-export const useFetchRecording = () => {
-  const { t } = useTranslation();
-  const { setIsLoading } = useLoading();
-
-  const [error, setError] = useState<string | null>(null);
-  const [recording, setRecording] = useState<Recording>();
-
-  const fetch = async (id: string) => {
-    setIsLoading(true);
-    getRecording(id)
-      .then(setRecording)
-      .catch((error) => {
-        if (error instanceof ApiError && error.code === 404) {
-          setError(t('not_found'));
-        } else {
-          setError(t('unexpected'));
-        }
-      })
-      .finally(() => setIsLoading(false));
-  };
-
-  return { error, recording, fetch };
-};
-
 export const useManageRecordings = () => {
   const { notifyError, notifySuccess, dismissNotification } =
     useNotification('manageRecordings');
@@ -175,7 +118,7 @@ export const useManageRecordings = () => {
 
   const stopAndCancelRecordings = async (
     stopIds: string[],
-    cancelIds: string[],
+    cancelIds: string[]
   ) => {
     dismissNotification();
     setPending(true);
