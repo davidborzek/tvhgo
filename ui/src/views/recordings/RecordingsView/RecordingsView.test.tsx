@@ -1,9 +1,14 @@
-import { useFetchRecordings, useManageRecordings } from '@/hooks/recording';
+import { useManageRecordings } from '@/hooks/recording';
 import { render, cleanup } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import {
+  useLoaderData,
+  useNavigate,
+  useRevalidator,
+  useSearchParams,
+} from 'react-router-dom';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
-import RecordingsView from './RecordingsView';
+import { Component as RecordingsView } from './RecordingsView';
 import { useLoading } from '@/contexts/LoadingContext';
 import { Recording } from '@/clients/api/api.types';
 import { TestIds } from '@/__test__/ids';
@@ -14,7 +19,6 @@ vi.mock('react-router-dom');
 
 const navigateMock = vi.fn();
 const stopAndCancelRecordingsMock = vi.fn();
-const fetchMock = vi.fn();
 const removeRecordingsMock = vi.fn();
 const setQueryParamsMock = vi.fn();
 
@@ -30,13 +34,6 @@ beforeEach(() => {
     stopAndCancelRecordings: stopAndCancelRecordingsMock,
   });
 
-  vi.mocked(useFetchRecordings).mockReturnValue({
-    recordings: [],
-    error: null,
-    fetch: fetchMock,
-    total: 0,
-  });
-
   vi.mocked(useSearchParams).mockReturnValue([
     new URLSearchParams(),
     setQueryParamsMock,
@@ -45,6 +42,11 @@ beforeEach(() => {
 
   vi.mocked(stopAndCancelRecordingsMock).mockResolvedValue(null);
   vi.mocked(removeRecordingsMock).mockResolvedValue(null);
+
+  vi.mocked(useRevalidator).mockReturnValue({
+    state: 'idle',
+    revalidate: vi.fn(),
+  });
 });
 
 afterEach(() => {
@@ -59,71 +61,18 @@ test.each([
   ['failed', 'failed'],
   ['removed', 'removed'],
 ])(
-  'should render error: status=%s',
-  (status: string | null, expectedStatus: string) => {
-    mockStatus(status);
-    vi.mocked(useFetchRecordings).mockReturnValue({
-      recordings: [],
-      error: 'some error occurred',
-      fetch: vi.fn(),
-      total: 0,
-    });
-
-    const document = render(<RecordingsView />);
-    expect(document.asFragment()).toMatchSnapshot();
-    expect(useFetchRecordings).toHaveBeenCalledWith({
-      status: expectedStatus,
-      sort_key: 'startsAt',
-      limit: 50,
-      offset: 0,
-    });
-  }
-);
-
-test.each([
-  [null, 'upcoming'],
-  ['upcoming', 'upcoming'],
-  ['finished', 'finished'],
-  ['failed', 'failed'],
-  ['removed', 'removed'],
-])(
-  'should render loading: status=%s',
-  (status: string | null, expectedStatus: string) => {
-    mockStatus(status);
-    vi.mocked(useLoading).mockReturnValue({
-      isLoading: true,
-      setIsLoading: vi.fn(),
-    });
-
-    const document = render(<RecordingsView />);
-    expect(document.asFragment()).toMatchSnapshot();
-    expect(useFetchRecordings).toHaveBeenCalledWith({
-      status: expectedStatus,
-      sort_key: 'startsAt',
-      limit: 50,
-      offset: 0,
-    });
-  }
-);
-
-test.each([
-  [null, 'upcoming'],
-  ['upcoming', 'upcoming'],
-  ['finished', 'finished'],
-  ['failed', 'failed'],
-  ['removed', 'removed'],
-])(
   'should render with no recordings: status=%s',
   (status: string | null, expectedStatus: string) => {
     mockStatus(status);
-    const document = render(<RecordingsView />);
-    expect(document.asFragment()).toMatchSnapshot();
-    expect(useFetchRecordings).toHaveBeenCalledWith({
-      status: expectedStatus,
-      sort_key: 'startsAt',
-      limit: 50,
+
+    vi.mocked(useLoaderData).mockReturnValue({
+      entries: [],
+      total: 0,
       offset: 0,
     });
+
+    const document = render(<RecordingsView />);
+    expect(document.asFragment()).toMatchSnapshot();
   }
 );
 
@@ -139,21 +88,14 @@ test.each([
     mockStatus(status);
     const recordings = buildRecordings(expectedStatus, 5);
 
-    vi.mocked(useFetchRecordings).mockReturnValue({
-      recordings,
-      error: null,
-      fetch: vi.fn(),
+    vi.mocked(useLoaderData).mockReturnValue({
+      entries: recordings,
       total: 10,
+      offset: 0,
     });
 
     const document = render(<RecordingsView />);
     expect(document.asFragment()).toMatchSnapshot();
-    expect(useFetchRecordings).toHaveBeenCalledWith({
-      status: expectedStatus,
-      sort_key: 'startsAt',
-      limit: 50,
-      offset: 0,
-    });
   }
 );
 
@@ -169,21 +111,14 @@ test.each([
     mockStatus(status);
     const recordings = buildRecordings(expectedStatus, 5);
 
-    vi.mocked(useFetchRecordings).mockReturnValue({
-      recordings,
-      error: null,
-      fetch: vi.fn(),
+    vi.mocked(useLoaderData).mockReturnValue({
+      entries: recordings,
       total: 150,
+      offset: 0,
     });
 
     const document = render(<RecordingsView />);
     expect(document.asFragment()).toMatchSnapshot();
-    expect(useFetchRecordings).toHaveBeenCalledWith({
-      status: expectedStatus,
-      sort_key: 'startsAt',
-      limit: 50,
-      offset: 0,
-    });
   }
 );
 
@@ -193,11 +128,10 @@ describe('cancel recordings', () => {
     // Set first recording to recording state.
     recordings[0].status = 'recording';
 
-    vi.mocked(useFetchRecordings).mockReturnValue({
-      recordings,
-      error: null,
-      fetch: fetchMock,
+    vi.mocked(useLoaderData).mockReturnValue({
+      entries: recordings,
       total: 150,
+      offset: 0,
     });
 
     const document = render(<RecordingsView />);
@@ -229,7 +163,6 @@ describe('cancel recordings', () => {
     );
 
     expect(selectAllCheckbox).not.toBeChecked();
-    expect(fetchMock).toHaveBeenCalled();
   });
 
   test('should cancel selected recordings', async () => {
@@ -237,11 +170,10 @@ describe('cancel recordings', () => {
     // Set first recording to recording state.
     recordings[0].status = 'recording';
 
-    vi.mocked(useFetchRecordings).mockReturnValue({
-      recordings,
-      error: null,
-      fetch: fetchMock,
+    vi.mocked(useLoaderData).mockReturnValue({
+      entries: recordings,
       total: 150,
+      offset: 0,
     });
 
     const document = render(<RecordingsView />);
@@ -280,11 +212,10 @@ describe('delete recordings', () => {
     mockStatus('finished');
     const recordings = buildRecordings('finished', 5);
 
-    vi.mocked(useFetchRecordings).mockReturnValue({
-      recordings,
-      error: null,
-      fetch: fetchMock,
+    vi.mocked(useLoaderData).mockReturnValue({
+      entries: recordings,
       total: 150,
+      offset: 0,
     });
 
     const document = render(<RecordingsView />);
@@ -315,18 +246,16 @@ describe('delete recordings', () => {
     );
 
     expect(selectAllCheckbox).not.toBeChecked();
-    expect(fetchMock).toHaveBeenCalled();
   });
 
   test('should delete selected recordings', async () => {
     mockStatus('finished');
     const recordings = buildRecordings('finished', 5);
 
-    vi.mocked(useFetchRecordings).mockReturnValue({
-      recordings,
-      error: null,
-      fetch: fetchMock,
+    vi.mocked(useLoaderData).mockReturnValue({
+      entries: recordings,
       total: 150,
+      offset: 0,
     });
 
     const document = render(<RecordingsView />);
@@ -381,11 +310,10 @@ describe('change status', () => {
       mockStatus(currentStatus);
       const recordings = buildRecordings(currentStatus, 5);
 
-      vi.mocked(useFetchRecordings).mockReturnValue({
-        recordings,
-        error: null,
-        fetch: fetchMock,
+      vi.mocked(useLoaderData).mockReturnValue({
+        entries: recordings,
         total: 150,
+        offset: 0,
       });
 
       const document = render(<RecordingsView />);
