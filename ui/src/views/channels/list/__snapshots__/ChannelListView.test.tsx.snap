@@ -3,48 +3,18 @@
 exports[`render empty state 1`] = `
 <DocumentFragment>
   <div
-    class="_container_0e2490"
+    class="_emptyState_2228c6"
   >
-    <div
-      class="_channelList_0e2490"
+    <span
+      class="_title_2228c6"
     >
-      <div
-        class="_emptyState_2228c6"
-      >
-        <span
-          class="_title_2228c6"
-        >
-          no_channels
-        </span>
-        <span
-          class="_subtitle_2228c6"
-        >
-          no_channels_info
-        </span>
-      </div>
-    </div>
-  </div>
-</DocumentFragment>
-`;
-
-exports[`render error 1`] = `
-<DocumentFragment>
-  <div
-    class="_Error_2b6812"
-  >
-    some error
-  </div>
-</DocumentFragment>
-`;
-
-exports[`render nothing 1`] = `
-<DocumentFragment>
-  <div
-    class="_container_0e2490"
-  >
-    <div
-      class="_channelList_0e2490"
-    />
+      no_channels
+    </span>
+    <span
+      class="_subtitle_2228c6"
+    >
+      no_channels_info
+    </span>
   </div>
 </DocumentFragment>
 `;
@@ -286,13 +256,13 @@ exports[`render with multiple pages 1`] = `
         pagination_info
       </span>
       <button
-        class="_button_09f37a "
+        class="_button_09f37a"
         data-testid="pagination-next-page-btn"
       >
         &gt;
       </button>
       <button
-        class="_button_09f37a "
+        class="_button_09f37a"
         data-testid="pagination-last-page-btn"
       >
         &gt;&gt;
