@@ -1,4 +1,3 @@
-import { useLoading } from '@/contexts/LoadingContext';
 import { useState } from 'react';
 import { createToken, deleteToken } from '@/clients/api/api';
 import { useTranslation } from 'react-i18next';
@@ -36,11 +35,8 @@ export const useCreateToken = () => {
 
   const { t } = useTranslation();
 
-  const { setIsLoading } = useLoading();
-
   const _createToken = async (name: string) => {
     dismissNotification();
-    setIsLoading(true);
 
     return await createToken(name)
       .then((res) => {
@@ -49,7 +45,6 @@ export const useCreateToken = () => {
       .catch(() => {
         notifyError(t('unexpected'));
       })
-      .finally(() => setIsLoading(false));
   };
 
   return {

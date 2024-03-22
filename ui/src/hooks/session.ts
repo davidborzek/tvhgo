@@ -1,4 +1,3 @@
-import { useLoading } from '@/contexts/LoadingContext';
 import { ApiError, deleteSession } from '@/clients/api/api';
 import { useTranslation } from 'react-i18next';
 import { useNotification } from './notification';
@@ -11,11 +10,8 @@ export const useManageSessions = () => {
 
   const { t } = useTranslation();
 
-  const { setIsLoading } = useLoading();
-
   const _revokeSession = async (id: number) => {
     dismissNotification();
-    setIsLoading(true);
 
     return await deleteSession(id)
       .then(() => {
@@ -33,7 +29,6 @@ export const useManageSessions = () => {
           notifyError(t('unexpected'));
         }
       })
-      .finally(() => setIsLoading(false));
   };
 
   return {
