@@ -1,11 +1,11 @@
-import { UserResponse } from '@/clients/api/api.types';
+import { AuthInfo, UserResponse } from '@/clients/api/api.types';
 import { useAuth } from '@/contexts/AuthContext';
 import { Theme, useTheme } from '@/contexts/ThemeContext';
 import { useUpdateUser } from '@/hooks/user';
 import { cleanup, render } from '@testing-library/react';
-import { useNavigate } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import { afterEach, beforeEach, expect, test, vi } from 'vitest';
-import {Component as GeneralSettingsView} from './GeneralSettingsView';
+import { Component as GeneralSettingsView } from './GeneralSettingsView';
 import { userEvent } from '@testing-library/user-event';
 import i18n from 'i18next';
 import { TestIds } from '@/__test__/ids';
@@ -50,6 +50,14 @@ beforeEach(() => {
   });
 
   vi.mocked(useNavigate).mockReturnValue(navigateMock);
+
+  vi.mocked(useLoaderData).mockReturnValue([
+    {
+      forwardAuth: false,
+      userId: 1,
+      sessionId: 2,
+    },
+  ]);
 });
 
 test('should render', () => {
@@ -62,6 +70,19 @@ test('should render render when no user is present', () => {
     setUser: vi.fn(),
     user: null,
   });
+
+  const document = render(<GeneralSettingsView />);
+  expect(document.asFragment()).toMatchSnapshot();
+});
+
+test('should render render without logout button when authenticated by reverse proxy', () => {
+  vi.mocked(useLoaderData).mockReturnValue([
+    {
+      forwardAuth: true,
+      userId: 1,
+      sessionId: null,
+    },
+  ]);
 
   const document = render(<GeneralSettingsView />);
   expect(document.asFragment()).toMatchSnapshot();

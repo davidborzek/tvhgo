@@ -10,8 +10,35 @@ import (
 	"github.com/davidborzek/tvhgo/core"
 )
 
+type (
+	authResponse struct {
+		UserID      int64  `json:"userId"`
+		SessionID   *int64 `json:"sessionId,omitempty"`
+		ForwardAuth bool   `json:"forwardAuth"`
+	}
+)
+
+func (router *router) GetAuthInfo(w http.ResponseWriter, r *http.Request) {
+	ctx, ok := request.GetAuthContext(r.Context())
+	if !ok {
+		response.InternalErrorCommon(w)
+	}
+
+	out := authResponse{
+		UserID:      ctx.UserID,
+		SessionID:   ctx.SessionID,
+		ForwardAuth: ctx.ForwardAuth,
+	}
+
+	response.JSON(w, out, 200)
+}
+
 func (router *router) HandleAuthentication(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		if router.cfg.Auth.ReverseProxy.Enabled && router.handleForwardAuth(r, w, next) {
+			return
+		}
+
 		headerToken := extractTokenFromHeader(r)
 		if headerToken != "" {
 			router.handleTokenAuthorization(r, w, next, headerToken)

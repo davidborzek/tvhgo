@@ -1,5 +1,6 @@
 import axios from 'axios';
 import {
+  AuthInfo,
   Channel,
   CreateTokenResponse,
   EpgChannel,
@@ -93,6 +94,14 @@ export async function logout(): Promise<void> {
 
 export async function getUser(): Promise<UserResponse> {
   const response = await client.get<UserResponse>('/user');
+
+  response.headers['x-is-logout-enabled'] = 'true';
+
+  return response.data;
+}
+
+export async function getAuthInfo(): Promise<AuthInfo> {
+  const response = await client.get<AuthInfo>('/auth/info');
   return response.data;
 }
 

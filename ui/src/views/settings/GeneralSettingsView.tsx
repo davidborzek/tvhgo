@@ -13,9 +13,15 @@ import { useTheme, Theme } from '@/contexts/ThemeContext';
 import useFormikErrorFocus from '@/hooks/formik';
 import { useUpdateUser } from '@/hooks/user';
 import i18n from 'i18next';
-import { useNavigate } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import Form from '@/components/common/form/Form';
 import { TestIds } from '@/__test__/ids';
+import { getAuthInfo } from '@/clients/api/api';
+import { AuthInfo } from '@/clients/api/api.types';
+
+export async function loader() {
+  return Promise.all([getAuthInfo()]);
+}
 
 export const Component = () => {
   const { t } = useTranslation();
@@ -24,6 +30,8 @@ export const Component = () => {
 
   const { setTheme, theme } = useTheme();
   const { update } = useUpdateUser();
+
+  const [authInfo] = useLoaderData() as [AuthInfo];
 
   const themeOptions: Option[] = [
     { title: t('dark'), value: 'dark' },
@@ -152,18 +160,20 @@ export const Component = () => {
             fullWidth
             testID={TestIds.LANGUAGE_DROPDOWN}
           />
-          <div>
-            <Button
-              label={t('logout')}
-              style="red"
-              onClick={() => navigate('/logout')}
-              testID={TestIds.LOGOUT_BUTTON}
-            />
-          </div>
+          {!authInfo.forwardAuth ? (
+            <div>
+              <Button
+                label={t('logout')}
+                style="red"
+                onClick={() => navigate('/logout')}
+                testID={TestIds.LOGOUT_BUTTON}
+              />
+            </div>
+          ) : null}
         </div>
       </div>
     </>
   );
 };
 
-Component.displayName =  "GeneralSettingsView";
+Component.displayName = 'GeneralSettingsView';

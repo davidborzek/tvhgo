@@ -13,6 +13,12 @@ export type UserResponse = {
   updatedAt: number;
 };
 
+export type AuthInfo = {
+  userId: number;
+  sessionId: number | null;
+  forwardAuth: boolean;
+};
+
 export type ErrorResponse = {
   message: string;
 };
