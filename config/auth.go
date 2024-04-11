@@ -9,6 +9,8 @@ const (
 	defaultSessionTokenRotationInterval   = 30 * time.Minute
 	defaultSessionCleanupInterval         = 12 * time.Hour
 	defaultTOTPIssuer                     = "tvhgo"
+
+	defaultReverseProxyAuthUserHeader = "Remote-User"
 )
 
 type (
@@ -25,9 +27,16 @@ type (
 		Issuer string `yaml:"issuer" env:"ISSUER"`
 	}
 
+	ReverseProxyAuthConfig struct {
+		Enabled        bool     `yaml:"enabled"     env:"ENABLED"`
+		UserHeader     string   `yaml:"user_header" env:"USER_HEADER"`
+		AllowedProxies []string `yaml:"allowed_proxies" env:"ALLOWED_PROXIES"`
+	}
+
 	AuthConfig struct {
-		Session SessionConfig `yaml:"session" envPrefix:"SESSION_"`
-		TOTP    TOTPConfig    `yaml:"totp"    envPrefix:"TOTP_"`
+		Session      SessionConfig          `yaml:"session" envPrefix:"SESSION_"`
+		TOTP         TOTPConfig             `yaml:"totp"    envPrefix:"TOTP_"`
+		ReverseProxy ReverseProxyAuthConfig `yaml:"reverse_proxy" envPrefix:"REVERSE_PROXY_"`
 	}
 )
 
@@ -52,5 +61,11 @@ func (s *SessionConfig) SetDefaults() {
 func (c *TOTPConfig) SetDefaults() {
 	if c.Issuer == "" {
 		c.Issuer = defaultTOTPIssuer
+	}
+}
+
+func (c *ReverseProxyAuthConfig) SetDefaults() {
+	if c.UserHeader == "" {
+		c.UserHeader = defaultReverseProxyAuthUserHeader
 	}
 }

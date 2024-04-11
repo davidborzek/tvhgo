@@ -130,6 +130,7 @@ func (c *Config) loadDefaults() {
 	c.Tvheadend.SetDefaults()
 	c.Auth.Session.SetDefaults()
 	c.Auth.TOTP.SetDefaults()
+	c.Auth.ReverseProxy.SetDefaults()
 	c.Database.SetDefaults()
 	c.Metrics.SetDefaults()
 	c.Log.SetDefaults()
