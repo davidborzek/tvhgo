@@ -13,10 +13,32 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
+type (
+	authResponse struct {
+		UserID      int64  `json:"userId"`
+		SessionID   *int64 `json:"sessionId,omitempty"`
+		ForwardAuth bool   `json:"forwardAuth"`
+	}
+)
+
+func (router *router) GetAuthInfo(w http.ResponseWriter, r *http.Request) {
+	ctx, ok := request.GetAuthContext(r.Context())
+	if !ok {
+		response.InternalErrorCommon(w)
+	}
+
+	out := authResponse{
+		UserID:      ctx.UserID,
+		SessionID:   ctx.SessionID,
+		ForwardAuth: ctx.ForwardAuth,
+	}
+
+	response.JSON(w, out, 200)
+}
+
 func (router *router) HandleAuthentication(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		if router.cfg.Auth.ReverseProxy.Enabled {
-			router.handleReverseProxyAuthentication(r, w, next)
+		if router.cfg.Auth.ReverseProxy.Enabled && router.handleReverseProxyAuthentication(r, w, next) {
 			return
 		}
 
@@ -96,20 +118,18 @@ func (router *router) handleReverseProxyAuthentication(
 	r *http.Request,
 	w http.ResponseWriter,
 	next http.Handler,
-) {
+) bool {
 	if !isIPAllowed(r.RemoteAddr, router.cfg.Auth.ReverseProxy.AllowedProxies) {
 		log.Debug().
 			Str("remote_addr", r.RemoteAddr).
 			Interface("allowed_proxies", router.cfg.Auth.ReverseProxy.AllowedProxies).
 			Msg("[reverse proxy auth] remote address not allowed")
-		response.Unauthorized(w, core.ErrTokenInvalid)
-		return
+		return false
 	}
 
 	remoteUser := r.Header.Get(router.cfg.Auth.ReverseProxy.UserHeader)
 	if remoteUser == "" {
-		response.Unauthorized(w, core.ErrTokenInvalid)
-		return
+		return false
 	}
 
 	user, err := router.users.FindByUsername(r.Context(), remoteUser)
@@ -117,8 +137,7 @@ func (router *router) handleReverseProxyAuthentication(
 		log.Error().Err(err).Str("remote_user", remoteUser).
 			Msg("[reverse proxy auth] failed to find user")
 
-		response.InternalError(w, err)
-		return
+		return false
 	}
 
 	if user == nil {
@@ -126,8 +145,7 @@ func (router *router) handleReverseProxyAuthentication(
 			log.Debug().Str("remote_user", remoteUser).
 				Msg("[reverse proxy auth] remote user not found and registrations are disabled")
 
-			response.Unauthorized(w, core.ErrTokenInvalid)
-			return
+			return false
 		}
 
 		displayName := r.Header.Get(router.cfg.Auth.ReverseProxy.NameHeader)
@@ -155,18 +173,19 @@ func (router *router) handleReverseProxyAuthentication(
 			log.Error().Err(err).Str("remote_user", remoteUser).
 				Msg("[reverse proxy auth] failed to create user")
 
-			response.InternalError(w, err)
-			return
+			return false
 		}
 	}
 
 	ctx := &core.AuthContext{
-		UserID: user.ID,
+		UserID:      user.ID,
+		ForwardAuth: true,
 	}
 
 	next.ServeHTTP(w, r.WithContext(
 		request.WithAuthContext(r.Context(), ctx),
 	))
+	return true
 }
 
 // Internal implementation to obtain (bearer) token from Authorization header.

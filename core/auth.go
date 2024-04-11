@@ -34,6 +34,9 @@ type (
 
 		// SessionID is the session id for authorizations via session tokens.
 		SessionID *int64
+
+		// ForwardAuth is true if the request was forwarded from a reverse proxy.
+		ForwardAuth bool
 	}
 
 	// SessionManager defines operations to manage a session of a user.

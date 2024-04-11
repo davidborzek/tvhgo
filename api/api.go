@@ -87,6 +87,7 @@ func (s *router) Handler() http.Handler {
 	))
 
 	authenticated.Post("/logout", s.Logout)
+	authenticated.Get("/auth/info", s.GetAuthInfo)
 
 	authenticated.Get("/user", s.GetUser)
 	authenticated.Patch("/user", s.UpdateUser)

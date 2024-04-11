@@ -160,3 +160,146 @@ exports[`should render render when no user is present 1`] = `
   </div>
 </DocumentFragment>
 `;
+
+exports[`should render render without logout button when authenticated by reverse proxy 1`] = `
+<DocumentFragment>
+  <div
+    class="_row_65046f"
+  >
+    <form
+      class="_Form_27c918 _section_65046f"
+    >
+      <div
+        class="_inputContainer_ae92e9"
+        style="width: 100%;"
+      >
+        <label
+          class="_inputLabel_ae92e9"
+          for="username"
+        >
+          username
+        </label>
+        <div
+          class="_innerContainer_ae92e9"
+        >
+          <input
+            class="_input_ae92e9"
+            name="username"
+            placeholder="username"
+            value="someUsername"
+          />
+        </div>
+      </div>
+      <div
+        class="_inputContainer_ae92e9"
+        style="width: 100%;"
+      >
+        <label
+          class="_inputLabel_ae92e9"
+          for="email"
+        >
+          email
+        </label>
+        <div
+          class="_innerContainer_ae92e9"
+        >
+          <input
+            class="_input_ae92e9"
+            name="email"
+            placeholder="email"
+            value="some@email.com"
+          />
+        </div>
+      </div>
+      <div
+        class="_inputContainer_ae92e9"
+        style="width: 100%;"
+      >
+        <label
+          class="_inputLabel_ae92e9"
+          for="displayName"
+        >
+          display_name
+        </label>
+        <div
+          class="_innerContainer_ae92e9"
+        >
+          <input
+            class="_input_ae92e9"
+            name="displayName"
+            placeholder="display_name"
+            value="Some User"
+          />
+        </div>
+      </div>
+      <div>
+        <button
+          class="_button_a7f9df"
+          data-testid="save-user-btn"
+          type="submit"
+        >
+          save
+        </button>
+      </div>
+    </form>
+  </div>
+  <div
+    class="_row_65046f"
+  >
+    <div
+      class="_section_65046f"
+    >
+      <div
+        class="_inputContainer_979188"
+      >
+        <label
+          class="_inputLabel_979188"
+        >
+          appearance
+        </label>
+        <select
+          class="_dropdown_979188"
+          data-testid="theme-dropdown"
+          style="width: 100%;"
+        >
+          <option
+            value="dark"
+          >
+            dark
+          </option>
+          <option
+            value="light"
+          >
+            light
+          </option>
+        </select>
+      </div>
+      <div
+        class="_inputContainer_979188"
+      >
+        <label
+          class="_inputLabel_979188"
+        >
+          language
+        </label>
+        <select
+          class="_dropdown_979188"
+          data-testid="language-dropdown"
+          style="width: 100%;"
+        >
+          <option
+            value="en"
+          >
+            english
+          </option>
+          <option
+            value="de"
+          >
+            german
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+</DocumentFragment>
+`;
