@@ -97,7 +97,7 @@ func (router *router) handleReverseProxyAuthentication(
 	w http.ResponseWriter,
 	next http.Handler,
 ) {
-	if !isIpAllowed(r.RemoteAddr, router.cfg.Auth.ReverseProxy.AllowedProxies) {
+	if !isIPAllowed(r.RemoteAddr, router.cfg.Auth.ReverseProxy.AllowedProxies) {
 		log.Debug().
 			Str("remote_addr", r.RemoteAddr).
 			Interface("allowed_proxies", router.cfg.Auth.ReverseProxy.AllowedProxies).
@@ -114,13 +114,50 @@ func (router *router) handleReverseProxyAuthentication(
 
 	user, err := router.users.FindByUsername(r.Context(), remoteUser)
 	if err != nil {
+		log.Error().Err(err).Str("remote_user", remoteUser).
+			Msg("[reverse proxy auth] failed to find user")
+
 		response.InternalError(w, err)
 		return
 	}
 
 	if user == nil {
-		response.Unauthorized(w, core.ErrTokenInvalid)
-		return
+		if !router.cfg.Auth.ReverseProxy.AllowRegistration {
+			log.Debug().Str("remote_user", remoteUser).
+				Msg("[reverse proxy auth] remote user not found and registrations are disabled")
+
+			response.Unauthorized(w, core.ErrTokenInvalid)
+			return
+		}
+
+		displayName := r.Header.Get(router.cfg.Auth.ReverseProxy.NameHeader)
+		if displayName == "" {
+			displayName = remoteUser
+		}
+
+		email := r.Header.Get(router.cfg.Auth.ReverseProxy.EmailHeader)
+		if email == "" {
+			email = fmt.Sprintf("%s@tvhgo.local", remoteUser)
+		}
+
+		log.Debug().Str("remote_user", remoteUser).
+			Str("display_name", displayName).
+			Str("email", email).
+			Msg("[reverse proxy auth] creating new user")
+
+		user = &core.User{
+			Username:    remoteUser,
+			DisplayName: displayName,
+			Email:       email,
+		}
+
+		if err := router.users.Create(r.Context(), user); err != nil {
+			log.Error().Err(err).Str("remote_user", remoteUser).
+				Msg("[reverse proxy auth] failed to create user")
+
+			response.InternalError(w, err)
+			return
+		}
 	}
 
 	ctx := &core.AuthContext{
@@ -148,9 +185,9 @@ func extractTokenFromCookie(r *http.Request, cookieName string) string {
 	return token.Value
 }
 
-// isIpAllowed checks if the remote address is contained in the list of allowed networks.
+// isIPAllowed checks if the remote address is contained in the list of allowed networks.
 // The list of allowed networks can be either IP addresses or CIDR notation.
-func isIpAllowed(addr string, allowedNetworks []string) bool {
+func isIPAllowed(addr string, allowedNetworks []string) bool {
 	if addr == "" || len(allowedNetworks) == 0 {
 		return false
 	}
@@ -165,7 +202,9 @@ func isIpAllowed(addr string, allowedNetworks []string) bool {
 
 	ip, _, err := net.ParseCIDR(fmt.Sprintf("%s/32", addr))
 	if err != nil {
-		log.Debug().Err(err).Str("addr", addr).Msg("[reverse proxy auth] failed to parse remote addr")
+		log.Debug().Err(err).Str("addr", addr).
+			Msg("[reverse proxy auth] failed to parse remote addr")
+
 		return false
 	}
 
@@ -177,7 +216,8 @@ func isIpAllowed(addr string, allowedNetworks []string) bool {
 		if _, ipNet, err := net.ParseCIDR(allowed); err == nil && ipNet.Contains(ip) {
 			return true
 		} else if err != nil {
-			log.Debug().Err(err).Str("proxy", allowed).Msg("[reverse proxy auth] failed to parse allowed proxy")
+			log.Debug().Err(err).Str("proxy", allowed).
+				Msg("[reverse proxy auth] failed to parse allowed proxy")
 		}
 	}
 

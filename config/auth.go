@@ -10,7 +10,9 @@ const (
 	defaultSessionCleanupInterval         = 12 * time.Hour
 	defaultTOTPIssuer                     = "tvhgo"
 
-	defaultReverseProxyAuthUserHeader = "Remote-User"
+	defaultReverseProxyAuthUserHeader  = "Remote-User"
+	defaultReverseProxyAuthEmailHeader = "Remote-Email"
+	defaultReverseProxyAuthNameHeader  = "Remote-Name"
 )
 
 type (
@@ -28,9 +30,12 @@ type (
 	}
 
 	ReverseProxyAuthConfig struct {
-		Enabled        bool     `yaml:"enabled"     env:"ENABLED"`
-		UserHeader     string   `yaml:"user_header" env:"USER_HEADER"`
-		AllowedProxies []string `yaml:"allowed_proxies" env:"ALLOWED_PROXIES"`
+		Enabled           bool     `yaml:"enabled"     env:"ENABLED"`
+		UserHeader        string   `yaml:"user_header" env:"USER_HEADER"`
+		EmailHeader       string   `yaml:"email_header" env:"EMAIL_HEADER"`
+		NameHeader        string   `yaml:"name_header" env:"NAME_HEADER"`
+		AllowedProxies    []string `yaml:"allowed_proxies" env:"ALLOWED_PROXIES"`
+		AllowRegistration bool     `yaml:"allow_registration" env:"ALLOW_REGISTRATION"`
 	}
 
 	AuthConfig struct {
@@ -67,5 +72,13 @@ func (c *TOTPConfig) SetDefaults() {
 func (c *ReverseProxyAuthConfig) SetDefaults() {
 	if c.UserHeader == "" {
 		c.UserHeader = defaultReverseProxyAuthUserHeader
+	}
+
+	if c.EmailHeader == "" {
+		c.EmailHeader = defaultReverseProxyAuthEmailHeader
+	}
+
+	if c.NameHeader == "" {
+		c.NameHeader = defaultReverseProxyAuthNameHeader
 	}
 }

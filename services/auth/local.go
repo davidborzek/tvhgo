@@ -40,6 +40,10 @@ func (s *localPasswordAuthenticator) Login(
 		return nil, core.ErrInvalidUsernameOrPassword
 	}
 
+	if user.PasswordHash == "" {
+		return nil, core.ErrInvalidUsernameOrPassword
+	}
+
 	if err := ComparePassword(password, user.PasswordHash); err != nil {
 		return nil, core.ErrInvalidUsernameOrPassword
 	}
