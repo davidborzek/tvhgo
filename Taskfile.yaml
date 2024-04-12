@@ -48,4 +48,4 @@ tasks:
   swagger:
     cmds:
       - swag fmt
-      - swag init
+      - swag init -o api/docs
