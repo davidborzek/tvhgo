@@ -32,3 +32,10 @@ The following metrics will be exported:
 | tvhgo_tvheadend_input_tc_bit           | Total bit error count of an input.              |
 | tvhgo_tvheadend_input_ec_block         | Block error count of an input.                  |
 | tvhgo_tvheadend_input_tc_block         | Total block error count of an input.            |
+
+## Grafana dashboard
+
+A Grafana dashboard is available as [JSON](tvhgo-grafana.json).
+
+![Grafana dashboard](images/grafana-dashboard.png)
+
