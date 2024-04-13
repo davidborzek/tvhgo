@@ -1,6 +1,5 @@
 site_name: tvhgo
 site_description: tvhgo Documentation
-docs_dir: "pages"
 
 theme:
   name: "material"
@@ -32,6 +31,8 @@ theme:
     repo: fontawesome/brands/github
 
 extra:
+  version:
+    provider: mike
   social:
     - icon: fontawesome/brands/github
       link: https://github.com/davidborzek/tvhgo

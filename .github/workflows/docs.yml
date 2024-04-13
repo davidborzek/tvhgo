@@ -1,0 +1,44 @@
+name: docs
+
+on:
+  push:
+    tags:
+      - "v[0-9]+.[0-9]+.[0-9]+$"
+    branches:
+      - main
+    paths:
+      - .github/workflows/**
+      - mkdocs.yml
+      - docs/**
+
+concurrency:
+  group: ${{ github.workflow }}
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: 3.x
+
+      - name: install tools
+        run: pip install mkdocs-material mike
+
+      - name: Setup doc deploy
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+
+      - name: Deploy version
+        run: |
+          VERSION="$(sed 's:/:-:g' <<< "$GITHUB_REF_NAME")"
+          if [[ ${{github.ref}} =~ ^refs/tags/ ]]; then
+            EXTRA_ALIAS=latest
+          fi
+          mike deploy --push --update-aliases "$VERSION" $EXTRA_ALIAS
+          tr '[:upper:]' '[:lower:]' <<< "https://${{github.repository_owner}}.github.io/${{github.event.repository.name}}/$VERSION/" >> "$GITHUB_STEP_SUMMARY"

@@ -1,5 +1,5 @@
 <p align="center">
-<img src="docs/pages/images/tvhgo.png" alt="tvhgo" title="tvhgo" height="300px" />
+<img src="docs/images/tvhgo.png" alt="tvhgo" title="tvhgo" height="300px" />
 </p>
 
 <p align="center">
