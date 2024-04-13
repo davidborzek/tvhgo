@@ -16,7 +16,7 @@
         <link rel="prev" href="../installation/">
       
       
-        <link rel="next" href="../metrics/">
+        <link rel="next" href="../auth/">
       
       
       <link rel="icon" href="../assets/images/favicon.png">
@@ -432,6 +432,15 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#reverse-proxy-auth-config-authreverse_proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reverse proxy auth config (auth.reverse_proxy)
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -455,6 +464,26 @@
   
 </nav>
       
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../auth/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Auth
+  </span>
+  
+
+      </a>
     </li>
   
 
@@ -610,6 +639,15 @@
   <a href="#totp-config-authtotp" class="md-nav__link">
     <span class="md-ellipsis">
       TOTP config (auth.totp)
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reverse-proxy-auth-config-authreverse_proxy" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reverse proxy auth config (auth.reverse_proxy)
     </span>
   </a>
   
@@ -931,6 +969,62 @@
 </span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2" href="#__codelineno-8-2"></a><span class="w">  </span><span class="nt">totp</span><span class="p">:</span>
 </span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3" href="#__codelineno-8-3"></a><span class="w">    </span><span class="nt">issuer</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">foobar</span>
 </span></code></pre></div>
+<h4 id="reverse-proxy-auth-config-authreverse_proxy">Reverse proxy auth config (auth.reverse_proxy)</h4>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Required</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>enabled</td>
+<td>bool</td>
+<td>false</td>
+<td>false</td>
+<td>Enable reverse proxy authentication.</td>
+</tr>
+<tr>
+<td>user_header</td>
+<td>string</td>
+<td>false</td>
+<td>Remote-User</td>
+<td>The header containing the username.</td>
+</tr>
+<tr>
+<td>email_header</td>
+<td>string</td>
+<td>false</td>
+<td>Remote-Email</td>
+<td>The header containing the email.</td>
+</tr>
+<tr>
+<td>name_header</td>
+<td>string</td>
+<td>false</td>
+<td>Remote-Name</td>
+<td>The header containing the name.</td>
+</tr>
+<tr>
+<td>allowed_proxies</td>
+<td>[]string</td>
+<td>false</td>
+<td>[]</td>
+<td>List of allowed proxies. If not set, all requests will be blocked.</td>
+</tr>
+<tr>
+<td>allow_registration</td>
+<td>bool</td>
+<td>false</td>
+<td>false</td>
+<td>If this is enabled, not existing users will automatically be registered.</td>
+</tr>
+</tbody>
+</table>
 <h3 id="metrics-config-metrics">Metrics config (metrics)</h3>
 <table>
 <thead>
@@ -1043,13 +1137,13 @@
         
         
           
-          <a href="../metrics/" class="md-footer__link md-footer__link--next" aria-label="Next: Metrics">
+          <a href="../auth/" class="md-footer__link md-footer__link--next" aria-label="Next: Auth">
             <div class="md-footer__title">
               <span class="md-footer__direction">
                 Next
               </span>
               <div class="md-ellipsis">
-                Metrics
+                Auth
               </div>
             </div>
             <div class="md-footer__button md-icon">

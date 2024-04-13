@@ -6,6 +6,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://davidborzek.github.io/tvhgo/v0.2.0/auth/</loc>
+         <lastmod>2024-04-13</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://davidborzek.github.io/tvhgo/v0.2.0/configuration/</loc>
          <lastmod>2024-04-13</lastmod>
          <changefreq>daily</changefreq>
