@@ -1,5 +1,6 @@
 site_name: tvhgo
 site_description: tvhgo Documentation
+site_url: 'https://davidborzek.github.io/tvhgo/'
 
 theme:
   name: "material"
