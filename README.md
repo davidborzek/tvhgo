@@ -36,11 +36,11 @@ This is a list of available features.
 
 There are various methods available to install tvhgo. For detailed instructions you can follow these guides:
 
-- [Docker](https://github.com/davidborzek/tvhgo/wiki/Docker-Installation)
+- [Docker](https://davidborzek.github.io/tvhgo/latest/installation/)
 
 ### Configuration
 
-You can more information about the tvhgo configuration in [the wiki](https://github.com/davidborzek/tvhgo/wiki/Configuration).
+You can more information about the tvhgo configuration in [the wiki](https://davidborzek.github.io/tvhgo/latest/configuration/).
 
 ## Screenshots
 
