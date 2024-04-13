@@ -1,0 +1,175 @@
+tvhgo can be configured using environment variables or a config file.
+
+> Note: Environment Variables will be overridden by the config file.
+
+## Config via File
+
+The configuration file in in the YAML format and looks like this:
+
+```yaml
+server:
+  host: 127.0.0.1
+  port: 8080
+
+tvheadend:
+  scheme: http
+  host: <tvheadend_host>
+  port: 9981
+  username: <tvheadend_username>
+  password: <tvheadend_password>
+
+database:
+  path: ./tvhgo.db
+```
+
+tvhgo will search for a config files at the following paths with the following order:
+
+- `./config.yml`
+- `./config.yaml`
+- `/etc/tvhgo/config.yml`
+- `/etc/tvhgo/config.yaml`
+
+## Config via Environment Variable
+
+To configure tvhgo using environment variables, you can use the following syntax:
+
+```bash
+TVHGO_<SECTION_NAMES...>_<CONFIG_PROPERTY>=<VALUE>
+```
+
+For example, to configure the tvheadend password:
+
+```bash
+TVHGO_TVHEADEND_PASSWORD=<YOUR_PASSWORD>
+```
+
+## Options
+
+These configuration options are available.
+
+### Server config (server)
+
+| Parameter | Type   | Required | Default | Description                                                               |
+| --------- | ------ | -------- | ------- | ------------------------------------------------------------------------- |
+| host      | string | false    |         | Bind host of the http server.                                             |
+| port      | int    | false    | 8080    | Bind port of the http server. Ports below `1024` may require root rights. |
+
+**Example**
+
+```yaml
+server:
+  host: 127.0.0.1
+  port: 1234
+```
+
+### Log config (log)
+
+| Parameter | Type                                      | Required | Default | Description     |
+| --------- | ----------------------------------------- | -------- | ------- | --------------- |
+| level     | enum (debug, info, warning, error, fatal) | false    | info    | The log level.  |
+| format    | enum(console, json)                       | false    | console | The log format. |
+
+**Example**
+
+```yaml
+log:
+  level: debug
+  format: json
+```
+
+### Tvheadend config (tvheadend)
+
+| Parameter | Type   | Required | Default | Description                                                                                      |
+| --------- | ------ | -------- | ------- | ------------------------------------------------------------------------------------------------ |
+| scheme    | string | false    | http    | Scheme of the tvheadend server url.                                                              |
+| host      | string | **true** |         | Host (hostname or ip) of the tvheadend server.                                                   |
+| port      | int    | false    | 9981    | Port of the tvheadend server.                                                                    |
+| username  | string | false    |         | Username of the tvheadend server.                                                                |
+| password  | string | false    |         | Password of the tvheadend server. It is recommended to configure it via an environment variable. |
+
+**Example**
+
+```yaml
+tvheadend:
+  scheme: https
+  host: 10.0.0.2
+  port: 5555
+  username: my_user
+  password: supersecret
+```
+
+### Database config (database)
+
+| Parameter | Type   | Required | Default                                           | Description                |
+| --------- | ------ | -------- | ------------------------------------------------- | -------------------------- |
+| path      | string | false    | ./tvhgo.db (for the docker image: /data/tvhgo.db) | Path of the database file. |
+
+**Example**
+
+```yaml
+database:
+  path: /path/to/database.db
+```
+
+### Auth config (auth)
+
+#### Session config (auth.session)
+
+| Parameter                 | Type          | Required | Default       | Description                                                                                                           |
+| ------------------------- | ------------- | -------- | ------------- | --------------------------------------------------------------------------------------------------------------------- |
+| cookie_name               | string        | false    | tvhgo_session | The name of the session cookie.                                                                                       |
+| cookie_secure             | bool          | false    | false         | Sets the `secure` attribute of the session cookie.                                                                    |
+| maximum_inactive_lifetime | time.Duration | false    | 168h          | The maximum inactive lifetime of a session. This configures the maximum lifetime of the session after the last login. |
+| maximum_lifetime          | time.Duration | false    | 720h          | The maximum lifetime of a session.                                                                                    |
+| token_rotation_interval   | time.Duration | false    | 30m           | The rotation interval of the token.                                                                                   |
+| cleanup_interval          | time.Duration | false    | 12h           | The interval of the scheduler to cleanup expired sessions.                                                            |
+
+**Example**
+
+```yaml
+auth:
+  session:
+    cookie_name: foobar_session
+    cookie_secure: true
+    maximum_inactive_lifetime: 24h
+    maximum_lifetime: 168h
+    token_rotation_interval: 1h
+    cleanup_interval: 6h
+```
+
+#### TOTP config (auth.totp)
+
+| Parameter | Type   | Required | Default | Description      |
+| --------- | ------ | -------- | ------- | ---------------- |
+| issuer    | string | false    | tvhgo   | The totp issuer. |
+
+**Example**
+
+```yaml
+auth:
+  totp:
+    issuer: foobar
+```
+
+### Metrics config (metrics)
+
+| Parameter | Type   | Required | Default  | Description                                                                  |
+| --------- | ------ | -------- | -------- | ---------------------------------------------------------------------------- |
+| enabled   | bool   | false    | false    | This enables the metrics endpoint exposing metrics in the prometheus format. |
+| path      | string | false    | /metrics | The http path where the metrics are exposed.                                 |
+| host      | string | false    |          | Bind host of the metrics http server.                                        |
+| port      | int    | false    | 8081     | The http port of the metrics server.                                         |
+| token     | string | false    |          | Bearer authentication token of the http metrics endpoint.                    |
+
+> NOTE: The port cannot be the same port as the normal tvhgo http server.
+
+**Example**
+
+```yaml
+metrics:
+  enabled: true
+  path: /prometheus
+  host: 127.0.0.1
+  port: 2345
+  token: supersecret
+```
