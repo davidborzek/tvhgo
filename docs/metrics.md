@@ -1,6 +1,6 @@
 tvhgo can optionally export metrics of the tvheadend server in the Prometheus format.
 
-See [Metrics config](configuration/#metrics-config-metrics) to enable the metrics enpoint.
+See [Metrics config](configuration.md/#metrics-config-metrics) to enable the metrics enpoint.
 
 ## Exported metrics
 
