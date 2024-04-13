@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://davidborzek.github.io/tvhgo/v0.2.0/</loc>
+         <lastmod>2024-04-13</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://davidborzek.github.io/tvhgo/v0.2.0/configuration/</loc>
+         <lastmod>2024-04-13</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://davidborzek.github.io/tvhgo/v0.2.0/fail2ban/</loc>
+         <lastmod>2024-04-13</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://davidborzek.github.io/tvhgo/v0.2.0/installation/</loc>
+         <lastmod>2024-04-13</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://davidborzek.github.io/tvhgo/v0.2.0/metrics/</loc>
+         <lastmod>2024-04-13</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+</urlset>
