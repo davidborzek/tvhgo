@@ -151,6 +151,17 @@ auth:
     issuer: foobar
 ```
 
+#### Reverse proxy auth config (auth.reverse_proxy)
+
+| Parameter          | Type     | Required | Default      | Description                                                              |
+| ------------------ | -------- | -------- | ------------ | ------------------------------------------------------------------------ |
+| enabled            | bool     | false    | false        | Enable reverse proxy authentication.                                     |
+| user_header        | string   | false    | Remote-User  | The header containing the username.                                      |
+| email_header       | string   | false    | Remote-Email | The header containing the email.                                         |
+| name_header        | string   | false    | Remote-Name  | The header containing the name.                                          |
+| allowed_proxies    | []string | false    | []           | List of allowed proxies. If not set, all requests will be blocked.       |
+| allow_registration | bool     | false    | false        | If this is enabled, not existing users will automatically be registered. |
+
 ### Metrics config (metrics)
 
 | Parameter | Type   | Required | Default  | Description                                                                  |
