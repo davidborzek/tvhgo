@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/davidborzek/tvhgo/cmd"
+	"github.com/davidborzek/tvhgo/cmd/common"
 	"github.com/davidborzek/tvhgo/core"
 	"github.com/davidborzek/tvhgo/repository/user"
 	"github.com/davidborzek/tvhgo/services/clock"
@@ -18,7 +18,7 @@ var listCmd = &cli.Command{
 }
 
 func list(ctx *cli.Context) error {
-	_, db := cmd.Init()
+	_, db := common.Init()
 
 	userRepository := user.New(db, clock.NewClock())
 
@@ -32,9 +32,9 @@ func list(ctx *cli.Context) error {
 		return nil
 	}
 
-	cmd.PrintTable(
+	common.PrintTable(
 		[]string{"ID", "Username", "Email", "Name", "Created", "Updated"},
-		cmd.MapRows(users, func(user *core.User) []any {
+		common.MapRows(users, func(user *core.User) []any {
 			return []any{
 				user.ID,
 				user.Username,

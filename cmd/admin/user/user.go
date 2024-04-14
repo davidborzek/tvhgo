@@ -2,7 +2,7 @@ package user
 
 import (
 	"github.com/davidborzek/tvhgo/cmd/admin/user/token"
-	twofa "github.com/davidborzek/tvhgo/cmd/admin/user/twofa"
+	"github.com/davidborzek/tvhgo/cmd/admin/user/twofa"
 	"github.com/urfave/cli/v2"
 )
 

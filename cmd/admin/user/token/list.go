@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/davidborzek/tvhgo/cmd"
+	"github.com/davidborzek/tvhgo/cmd/common"
 	"github.com/davidborzek/tvhgo/core"
 	"github.com/davidborzek/tvhgo/repository/token"
 	"github.com/davidborzek/tvhgo/repository/user"
@@ -28,7 +28,7 @@ var listCmd = &cli.Command{
 }
 
 func list(ctx *cli.Context) error {
-	_, db := cmd.Init()
+	_, db := common.Init()
 	userRepository := user.New(db, clock.NewClock())
 
 	user, err := userRepository.FindByUsername(ctx.Context, ctx.String("username"))
@@ -51,9 +51,9 @@ func list(ctx *cli.Context) error {
 		return nil
 	}
 
-	cmd.PrintTable(
+	common.PrintTable(
 		[]string{"ID", "Name", "Created"},
-		cmd.MapRows(tokens, func(token *core.Token) []any {
+		common.MapRows(tokens, func(token *core.Token) []any {
 			return []any{
 				token.ID,
 				token.Name,

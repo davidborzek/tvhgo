@@ -4,7 +4,7 @@ import (
 	"errors"
 	"fmt"
 
-	"github.com/davidborzek/tvhgo/cmd"
+	"github.com/davidborzek/tvhgo/cmd/common"
 	"github.com/davidborzek/tvhgo/repository/user"
 	"github.com/davidborzek/tvhgo/services/clock"
 	"github.com/urfave/cli/v2"
@@ -25,7 +25,7 @@ var deleteCmd = &cli.Command{
 }
 
 func delete(ctx *cli.Context) error {
-	_, db := cmd.Init()
+	_, db := common.Init()
 	userRepository := user.New(db, clock.NewClock())
 
 	user, err := userRepository.FindByUsername(ctx.Context, ctx.String("username"))

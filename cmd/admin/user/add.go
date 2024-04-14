@@ -5,7 +5,7 @@ import (
 	"fmt"
 
 	"github.com/AlecAivazis/survey/v2"
-	"github.com/davidborzek/tvhgo/cmd"
+	"github.com/davidborzek/tvhgo/cmd/common"
 	"github.com/davidborzek/tvhgo/core"
 	"github.com/davidborzek/tvhgo/repository/user"
 	"github.com/davidborzek/tvhgo/services/auth"
@@ -106,7 +106,7 @@ func add(ctx *cli.Context) error {
 }
 
 func createUser(username, password, email, displayName string) error {
-	_, db := cmd.Init()
+	_, db := common.Init()
 	userRepository := user.New(db, clock.NewClock())
 
 	hash, err := auth.HashPassword(password)
