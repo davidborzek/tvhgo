@@ -15,7 +15,7 @@ on:
         type: string
 
 env:
-  NODE_VERSION: 18.12.1
+  NODE_VERSION: 20.12.2
 
 jobs:
   build-ui:
