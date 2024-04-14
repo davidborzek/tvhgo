@@ -3,7 +3,7 @@ package token
 import (
 	"fmt"
 
-	"github.com/davidborzek/tvhgo/cmd"
+	"github.com/davidborzek/tvhgo/cmd/common"
 	"github.com/davidborzek/tvhgo/repository/token"
 	"github.com/davidborzek/tvhgo/services/auth"
 	"github.com/urfave/cli/v2"
@@ -23,7 +23,7 @@ var revokeCmd = &cli.Command{
 }
 
 func revoke(ctx *cli.Context) error {
-	_, db := cmd.Init()
+	_, db := common.Init()
 	tokenRepository := token.New(db)
 	tokenService := auth.NewTokenService(tokenRepository)
 

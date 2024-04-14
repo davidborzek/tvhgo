@@ -49,3 +49,12 @@ tasks:
     cmds:
       - swag fmt
       - swag init -o docs/api
+
+  cli_docs:
+    cmds:
+      - go run docs/cli/docs.go
+
+  docs:
+    cmds:
+      - task: swagger
+      - task: cli_docs
