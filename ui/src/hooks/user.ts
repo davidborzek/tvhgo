@@ -30,7 +30,7 @@ export const useUpdateUser = () => {
         }
 
         notifyError(t('unexpected'));
-      })
+      });
   };
 
   return { update };
@@ -61,7 +61,7 @@ export const useUpdateUserPassword = () => {
         }
 
         notifyError(t('unexpected'));
-      })
+      });
   };
 
   return { updatePassword };

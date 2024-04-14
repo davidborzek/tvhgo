@@ -45,7 +45,10 @@ export const Component = () => {
   const { limit, nextPage, previousPage, getOffset, firstPage, lastPage } =
     usePagination(defaultLimit, searchParams, setSearchParams);
 
-  const [channel, {entries, total}] = useLoaderData() as [Channel, ListResponse<EpgEvent>]
+  const [channel, { entries, total }] = useLoaderData() as [
+    Channel,
+    ListResponse<EpgEvent>,
+  ];
 
   return (
     <div ref={ref} className={styles.channel}>

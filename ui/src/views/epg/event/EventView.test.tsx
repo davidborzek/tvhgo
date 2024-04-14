@@ -173,5 +173,5 @@ test('should navigate to recording', async () => {
   const document = render(<EventView />);
   await userEvent.click(document.getByText('modify_recording'));
 
-  expect(navigateMock).toHaveBeenCalledWith(`/recordings/${RECORDING_ID}`)
+  expect(navigateMock).toHaveBeenCalledWith(`/recordings/${RECORDING_ID}`);
 });

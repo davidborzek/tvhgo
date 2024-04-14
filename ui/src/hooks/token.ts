@@ -20,7 +20,7 @@ export const useManageTokens = () => {
       })
       .catch((error) => {
         notifyError(t('unexpected'));
-      })
+      });
   };
 
   return {
@@ -44,7 +44,7 @@ export const useCreateToken = () => {
       })
       .catch(() => {
         notifyError(t('unexpected'));
-      })
+      });
   };
 
   return {

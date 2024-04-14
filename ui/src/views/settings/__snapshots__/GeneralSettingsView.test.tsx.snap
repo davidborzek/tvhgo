@@ -8,6 +8,11 @@ exports[`should render 1`] = `
     <form
       class="_Form_27c918 _section_65046f"
     >
+      <h2
+        class="_headline_8da35a"
+      >
+        user
+      </h2>
       <div
         class="_inputContainer_ae92e9"
         style="width: 100%;"
@@ -88,6 +93,11 @@ exports[`should render 1`] = `
     <div
       class="_section_65046f"
     >
+      <h2
+        class="_headline_8da35a"
+      >
+        user_interface
+      </h2>
       <div
         class="_inputContainer_979188"
       >
@@ -169,6 +179,11 @@ exports[`should render render without logout button when authenticated by revers
     <form
       class="_Form_27c918 _section_65046f"
     >
+      <h2
+        class="_headline_8da35a"
+      >
+        user
+      </h2>
       <div
         class="_inputContainer_ae92e9"
         style="width: 100%;"
@@ -249,6 +264,11 @@ exports[`should render render without logout button when authenticated by revers
     <div
       class="_section_65046f"
     >
+      <h2
+        class="_headline_8da35a"
+      >
+        user_interface
+      </h2>
       <div
         class="_inputContainer_979188"
       >
