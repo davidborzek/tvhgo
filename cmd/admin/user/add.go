@@ -75,6 +75,7 @@ func add(ctx *cli.Context) error {
 		ctx.IsSet("display-name") {
 
 		return createUser(
+			ctx,
 			ctx.String("username"),
 			ctx.String("password"),
 			ctx.String("email"),
@@ -98,6 +99,7 @@ func add(ctx *cli.Context) error {
 	}
 
 	return createUser(
+		ctx,
 		answers.Username,
 		answers.Password,
 		answers.Email,
@@ -105,8 +107,8 @@ func add(ctx *cli.Context) error {
 	)
 }
 
-func createUser(username, password, email, displayName string) error {
-	_, db := common.Init()
+func createUser(ctx *cli.Context, username, password, email, displayName string) error {
+	_, db := common.Init(ctx)
 	userRepository := user.New(db, clock.NewClock())
 
 	hash, err := auth.HashPassword(password)

@@ -37,7 +37,7 @@ var Cmd = &cli.Command{
 func start(ctx *cli.Context) error {
 	config.InitDefaultLogger()
 
-	cfg, err := config.Load()
+	cfg, err := config.Load(ctx.String("config"))
 	if err != nil {
 		log.Fatal().Err(err).Msg("failed to load config")
 	}

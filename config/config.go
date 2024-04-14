@@ -75,10 +75,13 @@ func findConfig() (string, error) {
 
 // Load loads a config from a config file at a given path
 // and overrides from environment variables.
-func Load() (*Config, error) {
-	cfgPath, err := findConfig()
-	if err != nil {
-		return nil, err
+func Load(path string) (*Config, error) {
+	if path == "" {
+		var err error
+		path, err = findConfig()
+		if err != nil {
+			return nil, err
+		}
 	}
 
 	var cfg Config
@@ -86,7 +89,7 @@ func Load() (*Config, error) {
 		return nil, err
 	}
 
-	if err := loadFromFile(cfgPath, &cfg); err != nil {
+	if err := loadFromFile(path, &cfg); err != nil {
 		return nil, err
 	}
 

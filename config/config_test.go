@@ -12,7 +12,7 @@ import (
 func TestLoadRequiredConfigFromEnv(t *testing.T) {
 	defer os.Clearenv()
 	os.Setenv("TVHGO_TVHEADEND_HOST", "localhost")
-	cfg, err := config.Load()
+	cfg, err := config.Load("")
 
 	assert.Nil(t, err)
 	assert.Equal(t, "localhost", cfg.Tvheadend.Host)
@@ -46,7 +46,7 @@ func TestLoadRequiredConfigFromEnv(t *testing.T) {
 
 func TestLoadFailsForNoTvheadendHost(t *testing.T) {
 	defer os.Clearenv()
-	cfg, err := config.Load()
+	cfg, err := config.Load("")
 
 	assert.EqualError(t, err, "tvheadend host is not set")
 	assert.Nil(t, cfg)
@@ -58,7 +58,7 @@ func TestLoadFailsForWhenSamePortForServerAndMetricsIsSet(t *testing.T) {
 	os.Setenv("TVHGO_SERVER_PORT", "9999")
 	os.Setenv("TVHGO_METRICS_PORT", "9999")
 
-	cfg, err := config.Load()
+	cfg, err := config.Load("")
 
 	assert.EqualError(t, err, "metrics and server port cannot be the same")
 	assert.Nil(t, cfg)
@@ -94,7 +94,7 @@ func TestLoadConfigFromEnv(t *testing.T) {
 	os.Setenv("TVHGO_LOG_FORMAT", "json")
 	os.Setenv("TVHGO_LOG_LEVEL", "debug")
 
-	cfg, err := config.Load()
+	cfg, err := config.Load("")
 
 	assert.Nil(t, err)
 	assert.Equal(t, "localhost", cfg.Tvheadend.Host)
