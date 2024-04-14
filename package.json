@@ -1,0 +1,19 @@
+{
+  "name": "tvhgo",
+  "version": "1.0.0",
+  "description": "Modern and secure api and web interface for Tvheadend",
+  "scripts": {
+    "prepare": "husky && yarn --cwd ui install",
+    "pre-commit": "lint-staged"
+  },
+  "license": "MIT",
+  "devDependencies": {
+    "husky": "^9.0.11",
+    "lint-staged": "^15.2.2"
+  },
+  "lint-staged": {
+    "*.go": [
+      "gofmt -w"
+    ]
+  }
+}

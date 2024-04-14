@@ -10,7 +10,8 @@
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
     "format": "prettier --write src",
-    "lint": "eslint --fix src"
+    "lint": "eslint --fix src",
+    "pre-commit": "lint-staged"
   },
   "dependencies": {
     "axios": "^1.2.1",
@@ -49,6 +50,7 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "import-sort-style-eslint": "^6.0.0",
     "jsdom": "^24.0.0",
+    "lint-staged": "^15.2.2",
     "prettier": "^3.0.0",
     "prettier-plugin-import-sort": "^0.0.7",
     "sass": "^1.57.1",
@@ -56,5 +58,13 @@
     "vite": "^5.0.5",
     "vite-plugin-svgr": "^4.0.0",
     "vitest": "^1.0.1"
+  },
+  "lint-staged": {
+    "./src/**/*.{ts,tsx}": [
+      "eslint --fix"
+    ],
+    "./src/**/*.{ts,tsx,scss,css}": [
+      "prettier --write"
+    ]
   }
 }
