@@ -41,6 +41,9 @@ jobs:
         run: |
           echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
 
+      - name: Lint ui
+        run: yarn lint
+
       - name: Test ui
         run: yarn test
 
