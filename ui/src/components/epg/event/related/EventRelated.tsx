@@ -1,11 +1,11 @@
-import { useTranslation } from 'react-i18next';
-import { Link } from 'react-router-dom';
 import { EpgEvent } from '@/clients/api/api.types';
+import { Link } from 'react-router-dom';
 import Pair from '@/components/common/pairList/Pair/Pair';
 import PairKey from '@/components/common/pairList/PairKey/PairKey';
 import PairList from '@/components/common/pairList/PairList';
 import PairValue from '@/components/common/pairList/PairValue/PairValue';
 import styles from './EventRelated.module.scss';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   relatedEvents: EpgEvent[];
@@ -37,7 +37,7 @@ function EventRelated({ relatedEvents }: Props) {
     });
   };
 
-  if (relatedEvents.length == 0) {
+  if (relatedEvents.length === 0) {
     return <></>;
   }
 

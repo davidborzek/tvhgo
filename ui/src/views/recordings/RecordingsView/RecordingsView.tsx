@@ -1,5 +1,4 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
+import { ListResponse, Recording } from '@/clients/api/api.types';
 import {
   LoaderFunctionArgs,
   useLoaderData,
@@ -7,22 +6,22 @@ import {
   useRevalidator,
   useSearchParams,
 } from 'react-router-dom';
-
 import { RecordingStatus, getRecordings } from '@/clients/api/api';
-import Dropdown from '@/components/common/dropdown/Dropdown';
-import { useManageRecordings } from '@/hooks/recording';
+
 import Button from '@/components/common/button/Button';
-import { c } from '@/utils/classNames';
-import { ListResponse, Recording } from '@/clients/api/api.types';
 import Checkbox from '@/components/common/checkbox/Checkbox';
 import DeleteConfirmationModal from '@/components/common/deleteConfirmationModal/DeleteConfirmationModal';
-import { usePagination } from '@/hooks/pagination';
-import PaginationControls from '@/components/common/paginationControls/PaginationControls';
+import Dropdown from '@/components/common/dropdown/Dropdown';
 import EmptyState from '@/components/common/emptyState/EmptyState';
-
-import styles from './RecordingsView.module.scss';
+import PaginationControls from '@/components/common/paginationControls/PaginationControls';
 import RecordingListItem from '@/components/recordings/listItem/RecordingListItem';
 import { TestIds } from '@/__test__/ids';
+import { c } from '@/utils/classNames';
+import styles from './RecordingsView.module.scss';
+import { useManageRecordings } from '@/hooks/recording';
+import { usePagination } from '@/hooks/pagination';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 const defaultLimit = 50;
 
@@ -30,10 +29,11 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const query = new URL(request.url).searchParams;
 
   return getRecordings({
-    status: (query.get('status') as RecordingStatus) || 'upcoming',
-    sort_key: 'starts_at',
     limit: defaultLimit,
-    offset: parseInt(query.get('offset')!!) || 0,
+    offset: parseInt(query.get('offset')!) || 0,
+    // eslint-disable-next-line camelcase
+    sort_key: 'starts_at',
+    status: (query.get('status') as RecordingStatus) || 'upcoming',
   });
 }
 
@@ -86,7 +86,7 @@ export function Component() {
           setSelectedRecordings((prv) =>
             selected
               ? new Set([...prv, recording])
-              : new Set([...prv].filter((v) => v.id != recording.id))
+              : new Set([...prv].filter((v) => v.id !== recording.id))
           );
         }}
         selected={selectedRecordings.has(recording)}

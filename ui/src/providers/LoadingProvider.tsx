@@ -1,14 +1,8 @@
-import {
-  PropsWithChildren,
-  ReactElement,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
 import LoadingBar, { LoadingBarRef } from 'react-top-loading-bar';
+import { Outlet, useNavigation } from 'react-router-dom';
+import { ReactElement, useEffect, useRef, useState } from 'react';
 
 import { LoadingContext } from '@/contexts/LoadingContext';
-import { Outlet, useNavigation } from 'react-router-dom';
 
 export default function LoadingProvider(): ReactElement {
   const { state } = useNavigation();
@@ -16,15 +10,19 @@ export default function LoadingProvider(): ReactElement {
 
   const ref = useRef<LoadingBarRef>(null);
 
-  useEffect(() => {
-    isLoading ? ref.current?.continuousStart() : ref.current?.complete();
-  }, [isLoading]);
+  useEffect(
+    () =>
+      isLoading ? ref.current?.continuousStart() : ref.current?.complete(),
+    [isLoading]
+  );
 
-  useEffect(() => {
-    state === 'loading'
-      ? ref.current?.continuousStart()
-      : ref.current?.complete();
-  }, [state]);
+  useEffect(
+    () =>
+      state === 'loading'
+        ? ref.current?.continuousStart()
+        : ref.current?.complete(),
+    [state]
+  );
 
   return (
     <LoadingContext.Provider

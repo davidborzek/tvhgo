@@ -1,12 +1,13 @@
-import { useState } from 'react';
 import {
   ApiError,
   activateTwoFactorAuth,
   deactivateTwoFactorAuth,
   setupTwoFactorAuth,
 } from '@/clients/api/api';
-import { useTranslation } from 'react-i18next';
+
 import { useNotification } from './notification';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const useSetupTwoFactorAuth = () => {
   const { notifyError, notifySuccess, dismissNotification } =

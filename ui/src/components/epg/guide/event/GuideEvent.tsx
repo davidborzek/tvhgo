@@ -1,7 +1,7 @@
-import moment from 'moment';
-import { useTranslation } from 'react-i18next';
 import { c } from '@/utils/classNames';
+import moment from 'moment';
 import styles from './GuideEvent.module.scss';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   eventId: number;

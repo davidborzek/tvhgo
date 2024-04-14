@@ -1,7 +1,8 @@
 import { ApiError, deleteSession } from '@/clients/api/api';
-import { useTranslation } from 'react-i18next';
+
 import { useNotification } from './notification';
 import { useRevalidator } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export const useManageSessions = () => {
   const { notifyError, notifySuccess, dismissNotification } =

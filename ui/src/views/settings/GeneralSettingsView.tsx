@@ -1,24 +1,25 @@
-import { useTranslation } from 'react-i18next';
-import { useRef } from 'react';
 import * as Yup from 'yup';
-import { useFormik } from 'formik';
 
-import styles from './SettingsView.module.scss';
-import Button from '@/components/common/button/Button';
 import Dropdown, { Option } from '@/components/common/dropdown/Dropdown';
-import Input from '@/components/common/input/Input';
-import Error from '@/components/common/error/Error';
-import { useAuth } from '@/contexts/AuthContext';
-import { useTheme, Theme } from '@/contexts/ThemeContext';
-import useFormikErrorFocus from '@/hooks/formik';
-import { useUpdateUser } from '@/hooks/user';
-import i18n from 'i18next';
+import { Theme, useTheme } from '@/contexts/ThemeContext';
 import { useLoaderData, useNavigate } from 'react-router-dom';
+
+import { AuthInfo } from '@/clients/api/api.types';
+import Button from '@/components/common/button/Button';
+import Error from '@/components/common/error/Error';
 import Form from '@/components/common/form/Form';
+import Headline from '@/components/common/headline/Headline';
+import Input from '@/components/common/input/Input';
 import { TestIds } from '@/__test__/ids';
 import { getAuthInfo } from '@/clients/api/api';
-import { AuthInfo } from '@/clients/api/api.types';
-import Headline from '@/components/common/headline/Headline';
+import i18n from 'i18next';
+import styles from './SettingsView.module.scss';
+import { useAuth } from '@/contexts/AuthContext';
+import { useFormik } from 'formik';
+import useFormikErrorFocus from '@/hooks/formik';
+import { useRef } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useUpdateUser } from '@/hooks/user';
 
 export async function loader() {
   return Promise.all([getAuthInfo()]);
@@ -53,22 +54,22 @@ export const Component = () => {
   const displayNameRef = useRef<HTMLInputElement>(null);
 
   const userSettingsValidationSchema = Yup.object().shape({
-    username: Yup.string().required(t('input_required')),
-    email: Yup.string().required(t('input_required')),
     displayName: Yup.string().required(t('input_required')),
+    email: Yup.string().required(t('input_required')),
+    username: Yup.string().required(t('input_required')),
   });
 
   const userSettingsFormik = useFormik({
+    enableReinitialize: true,
     initialValues: {
-      username: user?.username || '',
-      email: user?.email || '',
       displayName: user?.displayName || '',
+      email: user?.email || '',
+      username: user?.username || '',
+    },
+    onSubmit: async ({ username, email, displayName }) => {
+      await update({ displayName, email, username });
     },
     validationSchema: userSettingsValidationSchema,
-    onSubmit: async ({ username, email, displayName }) => {
-      await update({ username, email, displayName });
-    },
-    enableReinitialize: true,
   });
 
   useFormikErrorFocus(

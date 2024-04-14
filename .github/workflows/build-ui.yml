@@ -15,7 +15,7 @@ on:
         type: string
 
 env:
-  NODE_VERSION: 18.12.1
+  NODE_VERSION: 20.12.2
 
 jobs:
   build-ui:
@@ -40,6 +40,9 @@ jobs:
         id: prep
         run: |
           echo "sha_short=$(git rev-parse --short HEAD)" >> $GITHUB_OUTPUT
+
+      - name: Lint ui
+        run: yarn lint
 
       - name: Test ui
         run: yarn test

@@ -1,11 +1,12 @@
-import { EpgEvent } from '@/clients/api/api.types';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { cleanup, render } from '@testing-library/react';
 import { useLoaderData, useNavigate, useSearchParams } from 'react-router-dom';
-import { afterEach, beforeEach, expect, test, vi, describe } from 'vitest';
+
 import { Component as ChannelListView } from './ChannelListView';
-import userEvent from '@testing-library/user-event';
+import { EpgEvent } from '@/clients/api/api.types';
 import { TestIds } from '@/__test__/ids';
 import { usePagination } from '@/hooks/pagination';
+import userEvent from '@testing-library/user-event';
 
 vi.mock('react-router-dom');
 vi.mock('@/hooks/pagination');

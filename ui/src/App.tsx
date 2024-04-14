@@ -1,27 +1,28 @@
-import { useEffect } from 'react';
+import 'react-toastify/dist/ReactToastify.css';
+
 import {
-  Route,
   Navigate,
   Outlet,
+  Route,
+  RouterProvider,
   createBrowserRouter,
   createRoutesFromElements,
-  RouterProvider,
   useRouteError,
 } from 'react-router-dom';
+
+import { ApiError } from './clients/api/api';
+import AuthProvider from '@/providers/AuthProvider';
+import ButtonLink from '@/components/common/button/ButtonLink';
+import EmptyState from '@/components/common/emptyState/EmptyState';
+import Error from './components/common/error/Error';
+import LoadingProvider from '@/providers/LoadingProvider';
+import { ThemeProvider } from '@/providers/ThemeProvider';
 import { ToastContainer } from 'react-toastify';
 import { useAuth } from '@/contexts/AuthContext';
+import { useEffect } from 'react';
 import useLogout from '@/hooks/logout';
-import AuthProvider from '@/providers/AuthProvider';
-import { ThemeProvider } from '@/providers/ThemeProvider';
 import { useTheme } from '@/contexts/ThemeContext';
-
-import 'react-toastify/dist/ReactToastify.css';
-import LoadingProvider from '@/providers/LoadingProvider';
-import EmptyState from '@/components/common/emptyState/EmptyState';
-import ButtonLink from '@/components/common/button/ButtonLink';
 import { useTranslation } from 'react-i18next';
-import Error from './components/common/error/Error';
-import { ApiError } from './clients/api/api';
 
 type AuthenticationCheckerProps = {
   redirect?: string;
@@ -50,7 +51,7 @@ function Logout() {
 
   useEffect(() => {
     logout();
-  }, []);
+  }, [logout]);
 
   return <Navigate to="/login" />;
 }
@@ -122,11 +123,11 @@ function App() {
                 shouldRevalidate={({ currentUrl, nextUrl }) => {
                   for (const [key, val] of currentUrl.searchParams) {
                     // We don't want to revalidate when only some query params changes.
-                    if (key === 'offset' || key == 'search') {
+                    if (key === 'offset' || key === 'search') {
                       continue;
                     }
 
-                    if (val != nextUrl.searchParams.get(key)) {
+                    if (val !== nextUrl.searchParams.get(key)) {
                       return true;
                     }
                   }

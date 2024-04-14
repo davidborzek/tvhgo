@@ -1,17 +1,10 @@
-import { EpgEvent } from '@/clients/api/api.types';
-import { useManageRecordingByEvent } from '@/hooks/recording';
-import { cleanup, render } from '@testing-library/react';
-import { PropsWithChildren } from 'react';
-import {
-  MemoryRouter,
-  Route,
-  Routes,
-  useLoaderData,
-  useNavigate,
-  useRevalidator,
-} from 'react-router-dom';
 import { afterEach, beforeEach, expect, test, vi } from 'vitest';
+import { cleanup, render } from '@testing-library/react';
+import { useLoaderData, useNavigate, useRevalidator } from 'react-router-dom';
+
+import { EpgEvent } from '@/clients/api/api.types';
 import { Component as EventView } from './EventView';
+import { useManageRecordingByEvent } from '@/hooks/recording';
 import userEvent from '@testing-library/user-event';
 
 vi.mock('@/hooks/epg');
@@ -101,6 +94,7 @@ test('should render without related events', () => {
   vi.mocked(useManageRecordingByEvent).mockReturnValue({
     pending: false,
     createRecording: async () => {},
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any);
 
   const document = render(<EventView />);
@@ -114,6 +108,7 @@ test('should render with recording', () => {
   vi.mocked(useManageRecordingByEvent).mockReturnValue({
     pending: false,
     createRecording: async () => {},
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any);
 
   const document = render(<EventView />);
@@ -127,6 +122,7 @@ test('should render with pending button', () => {
   vi.mocked(useManageRecordingByEvent).mockReturnValue({
     pending: true,
     createRecording: async () => {},
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any);
 
   const document = render(<EventView />);
@@ -140,6 +136,7 @@ test('should render with related events', () => {
   vi.mocked(useManageRecordingByEvent).mockReturnValue({
     pending: false,
     createRecording: async () => {},
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any);
 
   const document = render(<EventView />);
@@ -154,6 +151,7 @@ test('should create recording', async () => {
   vi.mocked(useManageRecordingByEvent).mockReturnValue({
     pending: false,
     createRecording: createRecordingMock,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any);
 
   const document = render(<EventView />);
@@ -168,6 +166,7 @@ test('should navigate to recording', async () => {
   vi.mocked(useManageRecordingByEvent).mockReturnValue({
     pending: false,
     createRecording: async () => {},
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } as any);
 
   const document = render(<EventView />);

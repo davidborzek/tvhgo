@@ -1,12 +1,12 @@
+import Button from '@/components/common/button/Button';
+import { Close } from '@/assets';
+import Headline from '@/components/common/headline/Headline';
+import { Session } from '@/clients/api/api.types';
+import { TestIds } from '@/__test__/ids';
 import UAParser from 'ua-parser-js';
 import styles from './SessionList.module.scss';
-import { useTranslation } from 'react-i18next';
-import { Close } from '@/assets';
 import { useLoading } from '@/contexts/LoadingContext';
-import { Session } from '@/clients/api/api.types';
-import Headline from '@/components/common/headline/Headline';
-import Button from '@/components/common/button/Button';
-import { TestIds } from '@/__test__/ids';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   sessions: Session[];

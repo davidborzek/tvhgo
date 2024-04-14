@@ -4,15 +4,14 @@ import {
   useNavigate,
   useRevalidator,
 } from 'react-router-dom';
+import { getEpgEvent, getRelatedEpgEvents } from '@/clients/api/api';
 
+import { EpgEvent } from '@/clients/api/api.types';
 import EventChannelInfo from '@/components/epg/event/channelInfo/EventChannelInfo';
 import EventInfo from '@/components/epg/event/info/EventInfo';
 import EventRelated from '@/components/epg/event/related/EventRelated';
-import { useManageRecordingByEvent } from '@/hooks/recording';
-
 import styles from './EventView.module.scss';
-import { getEpgEvent, getRelatedEpgEvents } from '@/clients/api/api';
-import { EpgEvent } from '@/clients/api/api.types';
+import { useManageRecordingByEvent } from '@/hooks/recording';
 
 export async function loader({ params }: LoaderFunctionArgs) {
   if (!params.id) {

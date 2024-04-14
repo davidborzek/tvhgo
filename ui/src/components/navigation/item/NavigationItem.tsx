@@ -1,9 +1,9 @@
-import { ReactElement } from 'react';
 import { NavLink, useMatch } from 'react-router-dom';
 
-import styles from './NavigationItem.module.scss';
-import { c } from '@/utils/classNames';
 import { INavigationItem } from '../types';
+import { ReactElement } from 'react';
+import { c } from '@/utils/classNames';
+import styles from './NavigationItem.module.scss';
 
 type Props = {
   to: string;
@@ -14,14 +14,14 @@ type Props = {
 };
 
 function NavigationItem({ to, icon, title, items, topLevel }: Props) {
-  const match = useMatch(to + '/' + '*');
+  const match = useMatch(`${to}/` + `*`);
 
   return (
     <div
       className={c(
         styles.container,
         topLevel ? styles.topLevel : '',
-        !!match ? styles.active : ''
+        match ? styles.active : ''
       )}
     >
       <NavLink

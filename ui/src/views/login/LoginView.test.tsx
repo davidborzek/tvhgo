@@ -1,7 +1,8 @@
+import { afterEach, describe, expect, test, vi } from 'vitest';
 import { cleanup, render } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import { afterEach, expect, vi, test, describe } from 'vitest';
+
 import { Component as LoginView } from './LoginView';
+import { MemoryRouter } from 'react-router-dom';
 import useLogin from '@/hooks/login';
 import userEvent from '@testing-library/user-event';
 

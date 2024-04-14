@@ -1,5 +1,3 @@
-import { useState } from 'react';
-import { useTranslation } from 'react-i18next';
 import {
   cancelRecording,
   cancelRecordings,
@@ -10,8 +8,11 @@ import {
   stopRecordings,
   updateRecording,
 } from '@/clients/api/api';
+
 import { UpdateRecording } from '@/clients/api/api.types';
 import { useNotification } from './notification';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const useManageRecordingByEvent = () => {
   const { notifyError, notifySuccess, dismissNotification } = useNotification(
@@ -42,7 +43,7 @@ export const useManageRecordingByEvent = () => {
     return await cancelRecording(id)
       .then(() => {
         notifySuccess(t('recording_canceled'));
-        success && success();
+        if (success) success();
       })
       .catch(() => {
         notifyError(t('unexpected'));
@@ -58,7 +59,7 @@ export const useManageRecordingByEvent = () => {
     return await stopRecording(id)
       .then(() => {
         notifySuccess(t('recording_stopped'));
-        success && success();
+        if (success) success();
       })
       .catch(() => {
         notifyError(t('unexpected'));
@@ -74,7 +75,7 @@ export const useManageRecordingByEvent = () => {
     return await removeRecording(id)
       .then(() => {
         notifySuccess(t('recording_removed'));
-        success && success();
+        if (success) success();
       })
       .catch(() => {
         notifyError(t('unexpected'));

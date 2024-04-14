@@ -1,11 +1,11 @@
-import { useTranslation } from 'react-i18next';
 import { EpgEvent } from '@/clients/api/api.types';
+import EventRecordButton from '../recordButton/EventRecordButton';
 import Pair from '@/components/common/pairList/Pair/Pair';
 import PairKey from '@/components/common/pairList/PairKey/PairKey';
 import PairList from '@/components/common/pairList/PairList';
 import PairValue from '@/components/common/pairList/PairValue/PairValue';
-import EventRecordButton from '../recordButton/EventRecordButton';
 import styles from './EventInfo.module.scss';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   event: EpgEvent;

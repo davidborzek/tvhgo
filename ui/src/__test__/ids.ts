@@ -10,7 +10,7 @@ export enum TestIds {
   LOGOUT_BUTTON = 'logout-button',
   SAVE_USER_BUTTON = 'save-user-btn',
   TWOFA_DISABLE_BUTTON = 'twofa-disable-button',
-  TWOFA_ENABLE_BUTTON = 'twofa-disable-button',
+  TWOFA_ENABLE_BUTTON = 'twofa-enable-button',
   SELECT_ALL_RECORDINGS_CHECKBOX = 'select-all-recordings-checkbox',
   SELECT_RECORDING_CHECKBOX = 'select-recording-checkbox',
   DELETE_CANCEL_RECORDINGS_BUTTON = 'delete-cancel-recordings-btn',

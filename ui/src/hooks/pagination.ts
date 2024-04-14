@@ -1,6 +1,6 @@
-import { useState } from 'react';
 import { SetURLSearchParams } from 'react-router-dom';
 import { URLSearchParams } from 'url';
+import { useState } from 'react';
 
 export const usePagination = (
   initialLimit: number = 50,

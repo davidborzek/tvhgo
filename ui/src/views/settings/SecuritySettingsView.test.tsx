@@ -1,7 +1,5 @@
 import { Session, Token, TwoFactorAuthSettings } from '@/clients/api/api.types';
-import { useManageSessions } from '@/hooks/session';
-import { useManageTokens } from '@/hooks/token';
-import { useUpdateUserPassword } from '@/hooks/user';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { cleanup, render } from '@testing-library/react';
 import {
   useLoaderData,
@@ -9,13 +7,14 @@ import {
   useNavigate,
   useRevalidator,
 } from 'react-router-dom';
-import { afterEach, beforeEach, expect, test, vi, describe } from 'vitest';
-import {
-  Component as SecuritySettingsView,
-  SecuritySettingsRefreshStates,
-} from './SecuritySettingsView';
-import { userEvent } from '@testing-library/user-event';
+
+import { SecuritySettingsRefreshStates } from './states';
+import { Component as SecuritySettingsView } from './SecuritySettingsView';
 import { TestIds } from '@/__test__/ids';
+import { useManageSessions } from '@/hooks/session';
+import { useManageTokens } from '@/hooks/token';
+import { useUpdateUserPassword } from '@/hooks/user';
+import { userEvent } from '@testing-library/user-event';
 
 vi.mock('react-router-dom');
 
@@ -26,36 +25,36 @@ vi.mock('@/hooks/user');
 
 const sessions: Session[] = [
   {
-    id: 1,
     clientIp: '10.0.0.1',
+    createdAt: 0,
+    id: 1,
+    lastUsedAt: 0,
     userAgent:
       'Mozilla/5.0 (X11; Linux x86_64; rv:120.0) Gecko/20100101 Firefox/120.0',
     userId: 1,
-    createdAt: 0,
-    lastUsedAt: 0,
   },
   {
-    id: 2,
     clientIp: '10.0.0.2',
+    createdAt: 0,
+    id: 2,
+    lastUsedAt: 0,
     userAgent:
       'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36',
     userId: 1,
-    createdAt: 0,
-    lastUsedAt: 0,
   },
 ];
 
 const tokens: Token[] = [
   {
+    createdAt: 0,
     id: 1,
     name: 'My Token 1',
-    createdAt: 0,
     updatedAt: 0,
   },
   {
+    createdAt: 0,
     id: 2,
     name: 'My Token 2',
-    createdAt: 0,
     updatedAt: 0,
   },
 ];
@@ -90,8 +89,8 @@ beforeEach(() => {
 
   vi.mocked(useNavigate).mockReturnValue(navigateMock);
   vi.mocked(useRevalidator).mockReturnValue({
-    state: 'idle',
     revalidate: revalidateMock,
+    state: 'idle',
   });
 
   vi.mocked(useUpdateUserPassword).mockReturnValue({
@@ -294,9 +293,9 @@ describe('twofa settings', () => {
 
     const document = render(<SecuritySettingsView />);
 
-    const disableButton = document.getByTestId(TestIds.TWOFA_DISABLE_BUTTON);
+    const enableButton = document.getByTestId(TestIds.TWOFA_ENABLE_BUTTON);
 
-    await userEvent.click(disableButton);
+    await userEvent.click(enableButton);
 
     expect(navigateMock).toHaveBeenCalledWith(
       '/settings/security/two-factor-auth/setup'

@@ -1,20 +1,18 @@
+import { Channel, EpgEvent, ListResponse } from '@/clients/api/api.types';
 import {
   LoaderFunctionArgs,
   useLoaderData,
   useNavigate,
-  useParams,
   useSearchParams,
 } from 'react-router-dom';
-import { useRef } from 'react';
+import { getChannel, getEpgEvents } from '@/clients/api/api';
 
 import EventChannelInfo from '@/components/epg/event/channelInfo/EventChannelInfo';
-import { usePagination } from '@/hooks/pagination';
-import PaginationControls from '@/components/common/paginationControls/PaginationControls';
-
-import styles from './ChannelView.module.scss';
 import GuideEvent from '@/components/epg/guide/event/GuideEvent';
-import { getChannel, getEpgEvents } from '@/clients/api/api';
-import { Channel, EpgEvent, ListResponse } from '@/clients/api/api.types';
+import PaginationControls from '@/components/common/paginationControls/PaginationControls';
+import styles from './ChannelView.module.scss';
+import { usePagination } from '@/hooks/pagination';
+import { useRef } from 'react';
 
 const defaultLimit = 50;
 
@@ -38,7 +36,6 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 
 export const Component = () => {
   const ref = useRef<HTMLDivElement>(null);
-  const { id } = useParams();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 

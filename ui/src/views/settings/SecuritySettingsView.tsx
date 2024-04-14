@@ -1,40 +1,35 @@
-import { useFormik } from 'formik';
-import { useEffect, useRef } from 'react';
-import { useTranslation } from 'react-i18next';
-import {
-  useNavigate,
-  useLocation,
-  Outlet,
-  useLoaderData,
-  useRevalidator,
-} from 'react-router-dom';
 import * as Yup from 'yup';
 
-import Button from '@/components/common/button/Button';
-import Headline from '@/components/common/headline/Headline';
-import Input from '@/components/common/input/Input';
-import useFormikErrorFocus from '@/hooks/formik';
-import { useManageSessions } from '@/hooks/session';
-import { useManageTokens } from '@/hooks/token';
-import { useUpdateUserPassword } from '@/hooks/user';
-import Form from '@/components/common/form/Form';
-
-import styles from './SettingsView.module.scss';
-import SessionList from '@/components/settings/sessionList/SessionList';
-import TokenList from '@/components/settings/tokenList/TokenList';
-import TwoFactorAuthSettingsOverview from '@/components/settings/twoFactorAuthSettings/TwoFactorAuthSettingsOverview';
+import {
+  Outlet,
+  useLoaderData,
+  useLocation,
+  useNavigate,
+  useRevalidator,
+} from 'react-router-dom';
+import { Session, Token, TwoFactorAuthSettings } from '@/clients/api/api.types';
 import {
   getSessions,
   getTokens,
   getTwoFactorAuthSettings,
 } from '@/clients/api/api';
-import { Token, TwoFactorAuthSettings } from '@/clients/api/api.types';
-import { Session } from '@/clients/api/api.types';
+import { useEffect, useRef } from 'react';
 
-export enum SecuritySettingsRefreshStates {
-  TWOFA = 'refresh_2fa',
-  TOKEN = 'refresh_token',
-}
+import Button from '@/components/common/button/Button';
+import Form from '@/components/common/form/Form';
+import Headline from '@/components/common/headline/Headline';
+import Input from '@/components/common/input/Input';
+import { SecuritySettingsRefreshStates } from './states';
+import SessionList from '@/components/settings/sessionList/SessionList';
+import TokenList from '@/components/settings/tokenList/TokenList';
+import TwoFactorAuthSettingsOverview from '@/components/settings/twoFactorAuthSettings/TwoFactorAuthSettingsOverview';
+import styles from './SettingsView.module.scss';
+import { useFormik } from 'formik';
+import useFormikErrorFocus from '@/hooks/formik';
+import { useManageSessions } from '@/hooks/session';
+import { useManageTokens } from '@/hooks/token';
+import { useTranslation } from 'react-i18next';
+import { useUpdateUserPassword } from '@/hooks/user';
 
 export async function loader() {
   return Promise.all([getTwoFactorAuthSettings(), getSessions(), getTokens()]);
@@ -42,7 +37,7 @@ export async function loader() {
 
 export const Component = () => {
   const { t } = useTranslation();
-  const revalidator = useRevalidator();
+  const { revalidate } = useRevalidator();
   const navigate = useNavigate();
   const { state } = useLocation();
   const { revokeSession } = useManageSessions();
@@ -75,16 +70,19 @@ export const Component = () => {
       password: '',
       passwordRepeat: '',
     },
-    validationSchema: passwordChangeValidationSchema,
     onSubmit: async ({ password, currentPassword }) => {
-      updatePassword({ password, currentPassword }).then((success) => {
+      updatePassword({ currentPassword, password }).then((success) => {
         // TODO: can this be done better
         currentPasswordRef.current?.blur();
         passwordRef.current?.blur();
         passwordRepeatRef.current?.blur();
-        success && passwordChangeFormik.resetForm();
+
+        if (success) {
+          passwordChangeFormik.resetForm();
+        }
       });
     },
+    validationSchema: passwordChangeValidationSchema,
   });
 
   useFormikErrorFocus(
@@ -97,13 +95,13 @@ export const Component = () => {
   useEffect(() => {
     switch (state) {
       case SecuritySettingsRefreshStates.TWOFA:
-        revalidator.revalidate();
+        revalidate();
         break;
       case SecuritySettingsRefreshStates.TOKEN:
-        revalidator.revalidate();
+        revalidate();
         break;
     }
-  }, [state]);
+  }, [state, revalidate]);
 
   return (
     <>
