@@ -2,6 +2,9 @@ site_name: tvhgo
 site_description: tvhgo Documentation
 site_url: 'https://davidborzek.github.io/tvhgo/'
 
+exclude_docs: |
+  docs.go
+
 theme:
   name: "material"
 
@@ -47,6 +50,7 @@ nav:
   - "Auth": "auth.md"
   - "Metrics": "metrics.md"
   - "Fail2Ban": "fail2ban.md"
+  - "REST API": "rapidoc.html"
 
 markdown_extensions:
   - pymdownx.highlight:
