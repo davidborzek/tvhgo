@@ -1,0 +1,2 @@
+yarn pre-commit
+yarn --cwd ui pre-commit
