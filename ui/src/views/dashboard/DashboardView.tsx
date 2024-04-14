@@ -1,19 +1,18 @@
-import { useTranslation } from 'react-i18next';
+import { GuideIcon, RecordingsIcon, SettingsIcon, TvIcon } from '@/assets';
 import {
   Outlet,
   ScrollRestoration,
   useLocation,
   useNavigation,
 } from 'react-router-dom';
-
-import { GuideIcon, RecordingsIcon, SettingsIcon, TvIcon } from '@/assets';
-import { INavigationItem } from '@/components/navigation/types';
-import { c } from '@/utils/classNames';
-
-import styles from './DashboardView.module.scss';
 import { useEffect, useState } from 'react';
+
 import Header from '@/components/header/Header';
+import { INavigationItem } from '@/components/navigation/types';
 import NavigationBar from '@/components/navigation/bar/NavigationBar';
+import { c } from '@/utils/classNames';
+import styles from './DashboardView.module.scss';
+import { useTranslation } from 'react-i18next';
 
 export function Component() {
   const { t } = useTranslation();

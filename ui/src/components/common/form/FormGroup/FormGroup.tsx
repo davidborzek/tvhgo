@@ -22,7 +22,7 @@ function FormGroup({
       <div
         className={c(
           styles.content,
-          direction == 'column' ? styles.column : styles.row
+          direction === 'column' ? styles.column : styles.row
         )}
         style={{
           maxWidth,

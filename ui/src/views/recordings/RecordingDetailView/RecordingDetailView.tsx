@@ -1,30 +1,29 @@
-import { useFormik } from 'formik';
-import { useEffect, useState } from 'react';
+import * as Yup from 'yup';
+
 import {
   LoaderFunctionArgs,
   useLoaderData,
   useNavigate,
-  useParams,
 } from 'react-router-dom';
-import * as Yup from 'yup';
-import { useTranslation } from 'react-i18next';
+import { getRecording, getRecordingUrl } from '@/clients/api/api';
 
-import Input from '@/components/common/input/Input';
-import { useManageRecordingByEvent } from '@/hooks/recording';
 import Button from '@/components/common/button/Button';
-import FormGroup from '@/components/common/form/FormGroup/FormGroup';
+import ButtonLink from '@/components/common/button/ButtonLink';
+import DeleteConfirmationModal from '@/components/common/deleteConfirmationModal/DeleteConfirmationModal';
 import EventChannelInfo from '@/components/epg/event/channelInfo/EventChannelInfo';
 import Form from '@/components/common/form/Form';
-import PairList from '@/components/common/pairList/PairList';
+import FormGroup from '@/components/common/form/FormGroup/FormGroup';
+import Input from '@/components/common/input/Input';
 import Pair from '@/components/common/pairList/Pair/Pair';
-import PairValue from '@/components/common/pairList/PairValue/PairValue';
 import PairKey from '@/components/common/pairList/PairKey/PairKey';
-import DeleteConfirmationModal from '@/components/common/deleteConfirmationModal/DeleteConfirmationModal';
-import { getRecording, getRecordingUrl } from '@/clients/api/api';
-import ButtonLink from '@/components/common/button/ButtonLink';
-
-import styles from './RecordingDetailView.module.scss';
+import PairList from '@/components/common/pairList/PairList';
+import PairValue from '@/components/common/pairList/PairValue/PairValue';
 import { Recording } from '@/clients/api/api.types';
+import styles from './RecordingDetailView.module.scss';
+import { useFormik } from 'formik';
+import { useManageRecordingByEvent } from '@/hooks/recording';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export async function loader({ params }: LoaderFunctionArgs) {
   const { id } = params;

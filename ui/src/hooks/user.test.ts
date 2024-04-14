@@ -1,9 +1,10 @@
-import { describe, vi, it, afterEach, expect, beforeEach, test } from 'vitest';
-import { renderHook } from '@testing-library/react';
-import { useUpdateUser } from './user';
 import { ApiError, updateUser } from '@/clients/api/api';
+import { afterEach, beforeEach, describe, expect, it, test, vi } from 'vitest';
+
+import { renderHook } from '@testing-library/react';
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotification } from './notification';
+import { useUpdateUser } from './user';
 
 const updateUserOpts = {
   email: 'someEmail',
@@ -21,7 +22,7 @@ const user = {
 };
 
 vi.mock('@/clients/api/api', async () => {
-  const actual = await vi.importActual<any>('@/clients/api/api');
+  const actual = await vi.importActual('@/clients/api/api');
   return {
     ...actual,
     updateUser: vi.fn(),

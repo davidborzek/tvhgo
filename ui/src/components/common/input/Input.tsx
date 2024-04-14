@@ -1,11 +1,10 @@
-import React from 'react';
-import { forwardRef } from 'react';
-import { c } from '@/utils/classNames';
+import React, { forwardRef } from 'react';
 
-import styles from './Input.module.scss';
-import { useTranslation } from 'react-i18next';
 import { Copy } from '@/assets';
+import { c } from '@/utils/classNames';
+import styles from './Input.module.scss';
 import { useNotification } from '@/hooks/notification';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   name?: string;

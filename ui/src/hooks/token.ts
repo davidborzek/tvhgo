@@ -1,8 +1,9 @@
-import { useState } from 'react';
 import { createToken, deleteToken } from '@/clients/api/api';
-import { useTranslation } from 'react-i18next';
+
 import { useNotification } from './notification';
 import { useRevalidator } from 'react-router-dom';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export const useManageTokens = () => {
   const { notifyError, notifySuccess, dismissNotification } =
@@ -18,7 +19,7 @@ export const useManageTokens = () => {
         notifySuccess(t('session_revoked'));
         revalidator.revalidate();
       })
-      .catch((error) => {
+      .catch(() => {
         notifyError(t('unexpected'));
       });
   };

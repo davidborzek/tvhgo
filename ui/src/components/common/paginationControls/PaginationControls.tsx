@@ -1,7 +1,7 @@
-import { useTranslation } from 'react-i18next';
 import PaginationControlButton from './PaginationControlButton';
-import styles from './PaginationControls.module.scss';
 import { TestIds } from '@/__test__/ids';
+import styles from './PaginationControls.module.scss';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   onNextPage: () => void;
@@ -31,7 +31,7 @@ const PaginationControls = (props: Props) => {
         disabled={props.limit > props.offset}
         onClick={() => {
           props.onFirstPage();
-          props.onPageChange && props.onPageChange();
+          if (props.onPageChange) props.onPageChange();
         }}
         label={'<<'}
         testID={TestIds.PAGINATION_FIRST_PAGE}
@@ -40,7 +40,7 @@ const PaginationControls = (props: Props) => {
         disabled={props.limit > props.offset}
         onClick={() => {
           props.onPreviousPage();
-          props.onPageChange && props.onPageChange();
+          if (props.onPageChange) props.onPageChange();
         }}
         label={'<'}
         testID={TestIds.PAGINATION_PREVIOUS_PAGE}
@@ -56,7 +56,7 @@ const PaginationControls = (props: Props) => {
         disabled={props.offset + props.limit > props.total}
         onClick={() => {
           props.onNextPage();
-          props.onPageChange && props.onPageChange();
+          if (props.onPageChange) props.onPageChange();
         }}
         label={'>'}
         testID={TestIds.PAGINATION_NEXT_PAGE}
@@ -65,7 +65,7 @@ const PaginationControls = (props: Props) => {
         disabled={props.offset + props.limit > props.total}
         onClick={() => {
           props.onLastPage();
-          props.onPageChange && props.onPageChange();
+          if (props.onPageChange) props.onPageChange();
         }}
         label={'>>'}
         testID={TestIds.PAGINATION_LAST_PAGE}

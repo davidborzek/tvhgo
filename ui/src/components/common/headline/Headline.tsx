@@ -1,5 +1,4 @@
 import { PropsWithChildren } from 'react';
-
 import styles from './Headline.module.scss';
 
 const Headline = (props: PropsWithChildren) => {

@@ -1,17 +1,18 @@
-import { useManageRecordings } from '@/hooks/recording';
-import { render, cleanup } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
+import { cleanup, render } from '@testing-library/react';
 import {
   useLoaderData,
   useNavigate,
   useRevalidator,
   useSearchParams,
 } from 'react-router-dom';
-import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
-import { Component as RecordingsView } from './RecordingsView';
-import { useLoading } from '@/contexts/LoadingContext';
+
 import { Recording } from '@/clients/api/api.types';
+import { Component as RecordingsView } from './RecordingsView';
 import { TestIds } from '@/__test__/ids';
+import { useLoading } from '@/contexts/LoadingContext';
+import { useManageRecordings } from '@/hooks/recording';
+import userEvent from '@testing-library/user-event';
 
 vi.mock('@/contexts/LoadingContext');
 vi.mock('@/hooks/recording');
@@ -44,8 +45,8 @@ beforeEach(() => {
   vi.mocked(removeRecordingsMock).mockResolvedValue(null);
 
   vi.mocked(useRevalidator).mockReturnValue({
-    state: 'idle',
     revalidate: vi.fn(),
+    state: 'idle',
   });
 });
 
@@ -54,21 +55,15 @@ afterEach(() => {
   cleanup();
 });
 
-test.each([
-  [null, 'upcoming'],
-  ['upcoming', 'upcoming'],
-  ['finished', 'finished'],
-  ['failed', 'failed'],
-  ['removed', 'removed'],
-])(
+test.each([[null], ['upcoming'], ['finished'], ['failed'], ['removed']])(
   'should render with no recordings: status=%s',
-  (status: string | null, expectedStatus: string) => {
+  (status: string | null) => {
     mockStatus(status);
 
     vi.mocked(useLoaderData).mockReturnValue({
       entries: [],
-      total: 0,
       offset: 0,
+      total: 0,
     });
 
     const document = render(<RecordingsView />);
@@ -90,8 +85,8 @@ test.each([
 
     vi.mocked(useLoaderData).mockReturnValue({
       entries: recordings,
-      total: 10,
       offset: 0,
+      total: 10,
     });
 
     const document = render(<RecordingsView />);
@@ -113,8 +108,8 @@ test.each([
 
     vi.mocked(useLoaderData).mockReturnValue({
       entries: recordings,
-      total: 150,
       offset: 0,
+      total: 150,
     });
 
     const document = render(<RecordingsView />);
@@ -130,8 +125,8 @@ describe('cancel recordings', () => {
 
     vi.mocked(useLoaderData).mockReturnValue({
       entries: recordings,
-      total: 150,
       offset: 0,
+      total: 150,
     });
 
     const document = render(<RecordingsView />);
@@ -172,8 +167,8 @@ describe('cancel recordings', () => {
 
     vi.mocked(useLoaderData).mockReturnValue({
       entries: recordings,
-      total: 150,
       offset: 0,
+      total: 150,
     });
 
     const document = render(<RecordingsView />);
@@ -214,8 +209,8 @@ describe('delete recordings', () => {
 
     vi.mocked(useLoaderData).mockReturnValue({
       entries: recordings,
-      total: 150,
       offset: 0,
+      total: 150,
     });
 
     const document = render(<RecordingsView />);
@@ -254,8 +249,8 @@ describe('delete recordings', () => {
 
     vi.mocked(useLoaderData).mockReturnValue({
       entries: recordings,
-      total: 150,
       offset: 0,
+      total: 150,
     });
 
     const document = render(<RecordingsView />);
@@ -312,8 +307,8 @@ describe('change status', () => {
 
       vi.mocked(useLoaderData).mockReturnValue({
         entries: recordings,
-        total: 150,
         offset: 0,
+        total: 150,
       });
 
       const document = render(<RecordingsView />);
@@ -344,14 +339,13 @@ describe('change status', () => {
 
 const mockStatus = (status: string | null) => {
   const params = new URLSearchParams();
-  status && params.set('status', status);
+  if (status) params.set('status', status);
   vi.mocked(useSearchParams).mockReturnValue([params, setQueryParamsMock]);
 };
 
 const buildRecordings = (status: string, count: number): Recording[] => {
   return [...Array(count).keys()].map(
     (i): Recording => ({
-      id: `${i + 1}`,
       channelId: 'someChannelId',
       channelName: 'Some Channel',
       createdAt: 0,
@@ -363,6 +357,7 @@ const buildRecordings = (status: string, count: number): Recording[] => {
       eventId: 1,
       extraText: 'Extra Text',
       filename: '',
+      id: `${i + 1}`,
       langTitle: {
         ger: 'Some Title',
       },

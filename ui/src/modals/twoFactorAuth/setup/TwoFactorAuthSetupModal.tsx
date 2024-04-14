@@ -1,18 +1,17 @@
-import { useFormik } from 'formik';
-import { useTranslation } from 'react-i18next';
 import * as Yup from 'yup';
-import QRCode from 'react-qr-code';
-import { useNavigate } from 'react-router-dom';
 
 import Button from '@/components/common/button/Button';
+import Form from '@/components/common/form/Form';
 import FormGroup from '@/components/common/form/FormGroup/FormGroup';
 import Input from '@/components/common/input/Input';
 import Modal from '@/components/common/modal/Modal';
-import { useSetupTwoFactorAuth } from '@/hooks/2fa';
-import Form from '@/components/common/form/Form';
-
+import QRCode from 'react-qr-code';
+import { SecuritySettingsRefreshStates } from '@/views/settings/states';
 import styles from './TwoFactorAuthSetupModal.module.scss';
-import { SecuritySettingsRefreshStates } from '@/views/settings/SecuritySettingsView';
+import { useFormik } from 'formik';
+import { useNavigate } from 'react-router-dom';
+import { useSetupTwoFactorAuth } from '@/hooks/2fa';
+import { useTranslation } from 'react-i18next';
 
 export const Component = () => {
   const { t } = useTranslation();

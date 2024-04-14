@@ -1,5 +1,4 @@
 import { PropsWithChildren, ReactElement, useEffect, useState } from 'react';
-
 import { Theme, ThemeContext } from '@/contexts/ThemeContext';
 
 const LOCAL_STORAGE_KEY = 'tvhgo_theme';
@@ -12,11 +11,6 @@ export function ThemeProvider({
   const [theme, setTheme] = useState<Theme>(Theme.DARK);
 
   useEffect(() => {
-    if (saved === null) {
-      localStorage.setItem(LOCAL_STORAGE_KEY, theme);
-      return;
-    }
-
     if (!Object.values(Theme).includes(saved as Theme)) {
       return;
     }

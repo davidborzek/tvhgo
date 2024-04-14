@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { ApiError, getUser, login } from '@/clients/api/api';
+
 import { useAuth } from '@/contexts/AuthContext';
-import { useTranslation } from 'react-i18next';
-import { getUser, login, ApiError } from '@/clients/api/api';
 import { useNotification } from './notification';
+import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 type LoginFunc = (username: string, password: string, code?: string) => void;
 
@@ -31,7 +32,7 @@ const useLogin = () => {
     login(username, password, code)
       .then(fetchUser)
       .catch((error) => {
-        if (error instanceof ApiError && error.code == 401) {
+        if (error instanceof ApiError && error.code === 401) {
           switch (error.message) {
             case 'two factor auth is required':
               setTwoFactorRequired(true);

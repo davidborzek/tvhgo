@@ -1,10 +1,10 @@
+import { ApiError, getUser } from '@/clients/api/api';
 import { PropsWithChildren, ReactElement, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
-import { getUser, ApiError } from '@/clients/api/api';
-import { UserResponse } from '@/clients/api/api.types';
 import { AuthContext } from '@/contexts/AuthContext';
+import { UserResponse } from '@/clients/api/api.types';
 import { useNotification } from '@/hooks/notification';
+import { useTranslation } from 'react-i18next';
 
 export default function AuthProvider({
   children,
@@ -29,7 +29,7 @@ export default function AuthProvider({
         }
       })
       .finally(() => setIsLoading(false));
-  }, []);
+  }, [t, notifyError]);
 
   if (isLoading) {
     return <></>;

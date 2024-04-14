@@ -1,5 +1,6 @@
-import { c } from '@/utils/classNames';
 import { ButtonStyle, getStyleClass } from './Button';
+
+import { c } from '@/utils/classNames';
 import styles from './Button.module.scss';
 
 type Props = {

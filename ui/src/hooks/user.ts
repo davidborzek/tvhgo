@@ -1,8 +1,9 @@
-import { UpdateUser, UpdateUserPassword } from '@/clients/api/api.types';
-import { useTranslation } from 'react-i18next';
 import { ApiError, updateUser, updateUserPassword } from '@/clients/api/api';
+import { UpdateUser, UpdateUserPassword } from '@/clients/api/api.types';
+
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotification } from './notification';
+import { useTranslation } from 'react-i18next';
 
 export const useUpdateUser = () => {
   const { notifyError, notifySuccess, dismissNotification } =

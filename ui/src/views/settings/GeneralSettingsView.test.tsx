@@ -1,14 +1,15 @@
-import { AuthInfo, UserResponse } from '@/clients/api/api.types';
-import { useAuth } from '@/contexts/AuthContext';
 import { Theme, useTheme } from '@/contexts/ThemeContext';
-import { useUpdateUser } from '@/hooks/user';
+import { afterEach, beforeEach, expect, test, vi } from 'vitest';
 import { cleanup, render } from '@testing-library/react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
-import { afterEach, beforeEach, expect, test, vi } from 'vitest';
+
 import { Component as GeneralSettingsView } from './GeneralSettingsView';
-import { userEvent } from '@testing-library/user-event';
-import i18n from 'i18next';
 import { TestIds } from '@/__test__/ids';
+import { UserResponse } from '@/clients/api/api.types';
+import i18n from 'i18next';
+import { useAuth } from '@/contexts/AuthContext';
+import { useUpdateUser } from '@/hooks/user';
+import { userEvent } from '@testing-library/user-event';
 
 vi.mock('@/contexts/AuthContext');
 vi.mock('@/contexts/ThemeContext');
@@ -17,12 +18,12 @@ vi.mock('react-router-dom');
 vi.mock('i18next');
 
 const user: UserResponse = {
-  id: 1,
-  username: 'someUsername',
+  createdAt: 0,
   displayName: 'Some User',
   email: 'some@email.com',
-  createdAt: 0,
+  id: 1,
   updatedAt: 0,
+  username: 'someUsername',
 };
 
 afterEach(() => {
@@ -41,8 +42,8 @@ beforeEach(() => {
   });
 
   vi.mocked(useTheme).mockReturnValue({
-    theme: Theme.DARK,
     setTheme: setThemeMock,
+    theme: Theme.DARK,
   });
 
   vi.mocked(useUpdateUser).mockReturnValue({
@@ -54,8 +55,8 @@ beforeEach(() => {
   vi.mocked(useLoaderData).mockReturnValue([
     {
       forwardAuth: false,
-      userId: 1,
       sessionId: 2,
+      userId: 1,
     },
   ]);
 });
@@ -79,8 +80,8 @@ test('should render render without logout button when authenticated by reverse p
   vi.mocked(useLoaderData).mockReturnValue([
     {
       forwardAuth: true,
-      userId: 1,
       sessionId: null,
+      userId: 1,
     },
   ]);
 
@@ -120,9 +121,9 @@ test('should update user', async () => {
   await userEvent.click(saveButton);
 
   expect(updateUserMock).toHaveBeenCalledWith({
-    username: newUsername,
-    email: newEmail,
     displayName: newDisplayName,
+    email: newEmail,
+    username: newUsername,
   });
 });
 

@@ -1,4 +1,5 @@
 import { expect, test } from 'vitest';
+
 import { c } from './classNames';
 
 test('should return correct class name', () => {

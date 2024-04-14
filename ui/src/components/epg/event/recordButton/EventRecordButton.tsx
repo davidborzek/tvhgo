@@ -1,7 +1,7 @@
-import { useTranslation } from 'react-i18next';
 import { RecIcon } from '@/assets';
 import { c } from '@/utils/classNames';
 import styles from './EventRecordButton.module.scss';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   dvrUuid?: string;

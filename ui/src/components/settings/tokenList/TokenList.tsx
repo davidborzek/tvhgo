@@ -1,12 +1,12 @@
-import { Close } from '@/assets';
-import { Token } from '@/clients/api/api.types';
-import { useLoading } from '@/contexts/LoadingContext';
-import styles from './TokenList.module.scss';
-import { useTranslation } from 'react-i18next';
-import { useNavigate } from 'react-router-dom';
-import Headline from '@/components/common/headline/Headline';
 import Button from '@/components/common/button/Button';
+import { Close } from '@/assets';
+import Headline from '@/components/common/headline/Headline';
 import { TestIds } from '@/__test__/ids';
+import { Token } from '@/clients/api/api.types';
+import styles from './TokenList.module.scss';
+import { useLoading } from '@/contexts/LoadingContext';
+import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   tokens: Token[];

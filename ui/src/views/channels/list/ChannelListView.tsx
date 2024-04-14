@@ -1,19 +1,18 @@
+import { EpgEvent, ListResponse } from '@/clients/api/api.types';
 import {
   LoaderFunctionArgs,
   useLoaderData,
   useNavigate,
   useSearchParams,
 } from 'react-router-dom';
-import { useTranslation } from 'react-i18next';
 
 import ChannelListItem from '@/components/channels/listItem/ChannelListItem';
-import { usePagination } from '@/hooks/pagination';
-import PaginationControls from '@/components/common/paginationControls/PaginationControls';
 import EmptyState from '@/components/common/emptyState/EmptyState';
-
-import styles from './ChannelListView.module.scss';
+import PaginationControls from '@/components/common/paginationControls/PaginationControls';
 import { getEpgEvents } from '@/clients/api/api';
-import { EpgEvent, ListResponse } from '@/clients/api/api.types';
+import styles from './ChannelListView.module.scss';
+import { usePagination } from '@/hooks/pagination';
+import { useTranslation } from 'react-i18next';
 
 const defaultLimit = 50;
 
@@ -24,7 +23,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
     nowPlaying: true,
     limit: defaultLimit,
     offset: parseInt(query.get('offset') || '0') || 0,
+    // eslint-disable-next-line camelcase
     sort_key: 'channelNumber',
+    // eslint-disable-next-line camelcase
     sort_dir: 'asc',
   });
 }

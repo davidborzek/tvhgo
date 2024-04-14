@@ -5,19 +5,18 @@ import {
   useSearchParams,
 } from 'react-router-dom';
 import { useEffect, useRef, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import moment from 'moment';
 
-import { EpgChannel } from '@/clients/api/api.types';
-import { c } from '@/utils/classNames';
 import EmptyState from '@/components/common/emptyState/EmptyState';
-
-import styles from './GuideView.module.scss';
+import { EpgChannel } from '@/clients/api/api.types';
 import GuideChannel from '@/components/epg/guide/channel/GuideChannel';
 import GuideControls from '@/components/epg/guide/controls/GuideControls';
 import GuideEventColumn from '@/components/epg/guide/eventColumn/GuideEventColumn';
 import GuideNavigation from '@/components/epg/guide/navigation/GuideNavigation';
+import { c } from '@/utils/classNames';
 import { getEpg } from '@/clients/api/api';
+import moment from 'moment';
+import styles from './GuideView.module.scss';
+import { useTranslation } from 'react-i18next';
 
 const parseStartDate = (start?: string | null) => {
   if (!start || start === 'today') {
@@ -69,6 +68,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
   return getEpg({
     startsAt: parseStartDate(day),
     endsAt: calculateEndDate(day),
+    // eslint-disable-next-line camelcase
     sort_key: 'channelNumber',
     limit: 100,
   });
@@ -203,7 +203,7 @@ export function Component() {
   };
 
   const renderNavigation = () => {
-    if (filteredEpg.length == 0) {
+    if (filteredEpg.length === 0) {
       return <></>;
     }
 
@@ -234,7 +234,7 @@ export function Component() {
 
       {!events ? (
         <></>
-      ) : events.length == 0 ? (
+      ) : events.length === 0 ? (
         <EmptyState title={t('no_epg')} />
       ) : (
         <div className={styles.segment}>{renderEventColumns()}</div>

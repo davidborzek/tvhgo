@@ -1,4 +1,5 @@
 import { LargeArrowLeftIcon, LargeArrowRightIcon } from '@/assets';
+
 import { c } from '@/utils/classNames';
 import styles from './GuideNavigation.module.scss';
 

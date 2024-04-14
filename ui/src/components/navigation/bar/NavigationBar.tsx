@@ -1,7 +1,6 @@
-import NavigationItem from '../item/NavigationItem';
-
-import styles from './NavigationBar.module.scss';
 import { INavigationItem } from '../types';
+import NavigationItem from '../item/NavigationItem';
+import styles from './NavigationBar.module.scss';
 
 type Props = {
   items: INavigationItem[];

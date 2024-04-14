@@ -1,8 +1,9 @@
-import moment from 'moment';
-import { useTranslation } from 'react-i18next';
 import Dropdown, { Option } from '@/components/common/dropdown/Dropdown';
+
 import Input from '@/components/common/input/Input';
+import moment from 'moment';
 import styles from './GuideControls.module.scss';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   onSearch: (q: string) => void;

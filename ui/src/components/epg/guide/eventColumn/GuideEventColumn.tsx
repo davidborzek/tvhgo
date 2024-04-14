@@ -1,6 +1,6 @@
 import { EpgEvent } from '@/clients/api/api.types';
-import styles from './GuideEventColumn.module.scss';
 import GuideEvent from '../event/GuideEvent';
+import styles from './GuideEventColumn.module.scss';
 
 type Props = {
   events: EpgEvent[];

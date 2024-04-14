@@ -1,9 +1,9 @@
-import { useTranslation } from 'react-i18next';
-import styles from './TwoFactorAuthSettingsOverview.module.scss';
-import { TwoFactorAuthSettings } from '@/clients/api/api.types';
 import Button from '@/components/common/button/Button';
 import Headline from '@/components/common/headline/Headline';
 import { TestIds } from '@/__test__/ids';
+import { TwoFactorAuthSettings } from '@/clients/api/api.types';
+import styles from './TwoFactorAuthSettingsOverview.module.scss';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   settings: TwoFactorAuthSettings | null;

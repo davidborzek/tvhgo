@@ -1,6 +1,5 @@
-import { useTranslation } from 'react-i18next';
-
 import styles from './LoginFooter.module.scss';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   commitHash: string;

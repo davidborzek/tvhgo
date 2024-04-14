@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {
   AuthInfo,
   Channel,
@@ -17,6 +16,8 @@ import {
   UpdateUserPassword,
   UserResponse,
 } from './api.types';
+
+import axios from 'axios';
 import qs from 'qs';
 
 type PaginationQuery = {

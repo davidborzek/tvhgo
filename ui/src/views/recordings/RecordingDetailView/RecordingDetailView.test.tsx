@@ -1,10 +1,11 @@
-import { render, cleanup } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
-import { Component as RecordingDetailView } from './RecordingDetailView';
+import { cleanup, render } from '@testing-library/react';
 import { useLoaderData, useNavigate } from 'react-router-dom';
-import { useManageRecordingByEvent } from '@/hooks/recording';
+
 import { Recording } from '@/clients/api/api.types';
+import { Component as RecordingDetailView } from './RecordingDetailView';
+import { useManageRecordingByEvent } from '@/hooks/recording';
+import userEvent from '@testing-library/user-event';
 
 vi.mock('@/hooks/recording');
 vi.mock('react-router-dom');
