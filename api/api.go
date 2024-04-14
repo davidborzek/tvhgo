@@ -3,9 +3,9 @@ package api
 import (
 	"net/http"
 
-	_ "github.com/davidborzek/tvhgo/api/docs"
 	"github.com/davidborzek/tvhgo/config"
 	"github.com/davidborzek/tvhgo/core"
+	_ "github.com/davidborzek/tvhgo/docs/api"
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
 	"github.com/go-chi/cors"
