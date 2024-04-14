@@ -1,3 +1,11 @@
+[![Build](https://github.com/davidborzek/tvhgo/actions/workflows/docker.yml/badge.svg)](https://github.com/davidborzek/tvhgo/actions/workflows/docker.yml)
+[![CI](https://github.com/davidborzek/tvhgo/actions/workflows/ci.yml/badge.svg)](https://github.com/davidborzek/tvhgo/actions/workflows/ci.yml)
+[![GitHub latest version](https://img.shields.io/github/v/release/davidborzek/tvhgo "Latest version")](https://github.com/davidborzek/tvhgo/releases)
+[![GitHub Release Date](https://img.shields.io/github/release-date/davidborzek/tvhgo "Latest release date")](https://github.com/davidborzek/tvhgo/releases)
+[![GitHub go.mod Go version](https://img.shields.io/github/go-mod/go-version/davidborzek/tvhgo "Go version")](#)
+[![Go Report Card](https://goreportcard.com/badge/github.com/davidborzek/tvhgo)](https://goreportcard.com/report/github.com/davidborzek/tvhgo)
+![GitHub License](https://img.shields.io/github/license/davidborzek/tvhgo)
+
 <p align="center">
 <img src="docs/images/tvhgo.png" alt="tvhgo" title="tvhgo" height="300px" />
 </p>
@@ -6,14 +14,8 @@
   <a href="#features">Features</a> | 
   <a href="#installation">Installation</a> |
   <a href="#screenshots">Screenshots</a>
+  <a href="https://davidborzek.github.io/tvhgo/">Documentation</a>
 </p>
-
-<span align="center">
-
-[![Build](https://github.com/davidborzek/tvhgo/actions/workflows/docker.yml/badge.svg)](https://github.com/davidborzek/tvhgo/actions/workflows/docker.yml)
-[![CI](https://github.com/davidborzek/tvhgo/actions/workflows/ci.yml/badge.svg)](https://github.com/davidborzek/tvhgo/actions/workflows/ci.yml)
-
-</span>
 
 <p align="center">
   tvhgo provides a modern and secure alternative for the Tvheadend web interface and the api.
