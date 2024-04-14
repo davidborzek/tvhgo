@@ -23,7 +23,7 @@ var revokeCmd = &cli.Command{
 }
 
 func revoke(ctx *cli.Context) error {
-	_, db := common.Init()
+	_, db := common.Init(ctx)
 	tokenRepository := token.New(db)
 	tokenService := auth.NewTokenService(tokenRepository)
 

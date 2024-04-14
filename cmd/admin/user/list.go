@@ -18,7 +18,7 @@ var listCmd = &cli.Command{
 }
 
 func list(ctx *cli.Context) error {
-	_, db := common.Init()
+	_, db := common.Init(ctx)
 
 	userRepository := user.New(db, clock.NewClock())
 

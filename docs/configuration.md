@@ -29,6 +29,17 @@ tvhgo will search for a config files at the following paths with the following o
 - `/etc/tvhgo/config.yml`
 - `/etc/tvhgo/config.yaml`
 
+Alternatively, you can specify the path to the config file using the `TVHGO_CONFIG` environment variable
+or the `--config` flag.
+
+```bash
+# Using the flag
+tvhgo --config /path/to/config.yml
+
+# Using the environment variable
+TVHGO_CONFIG=/path/to/config.yml tvhgo
+```
+
 ## Config via Environment Variable
 
 To configure tvhgo using environment variables, you can use the following syntax:

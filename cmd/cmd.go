@@ -13,5 +13,13 @@ var App = cli.App{
 		server.Cmd,
 		admin.Cmd,
 	},
+	Flags: []cli.Flag{
+		&cli.StringFlag{
+			Name:    "config",
+			Aliases: []string{"c"},
+			Usage:   "Path to the configuration file",
+			EnvVars: []string{"TVHGO_CONFIG"},
+		},
+	},
 	DefaultCommand: "server",
 }

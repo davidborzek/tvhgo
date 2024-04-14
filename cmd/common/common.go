@@ -9,6 +9,7 @@ import (
 
 	"github.com/davidborzek/tvhgo/config"
 	"github.com/davidborzek/tvhgo/db"
+	"github.com/urfave/cli/v2"
 )
 
 func PrintTable(headers []string, rows [][]any) {
@@ -46,8 +47,8 @@ func MapRows[T any](values []T, mapper func(t T) []any) [][]any {
 	return rows
 }
 
-func Init() (*config.Config, *sql.DB) {
-	cfg, err := config.Load()
+func Init(ctx *cli.Context) (*config.Config, *sql.DB) {
+	cfg, err := config.Load(ctx.String("config"))
 	if err != nil {
 		log.Println("failed to load config:", err)
 		os.Exit(1)

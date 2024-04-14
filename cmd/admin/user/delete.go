@@ -25,7 +25,7 @@ var deleteCmd = &cli.Command{
 }
 
 func delete(ctx *cli.Context) error {
-	_, db := common.Init()
+	_, db := common.Init(ctx)
 	userRepository := user.New(db, clock.NewClock())
 
 	user, err := userRepository.FindByUsername(ctx.Context, ctx.String("username"))
