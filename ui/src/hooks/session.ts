@@ -28,7 +28,7 @@ export const useManageSessions = () => {
         } else {
           notifyError(t('unexpected'));
         }
-      })
+      });
   };
 
   return {

@@ -18,6 +18,7 @@ import Form from '@/components/common/form/Form';
 import { TestIds } from '@/__test__/ids';
 import { getAuthInfo } from '@/clients/api/api';
 import { AuthInfo } from '@/clients/api/api.types';
+import Headline from '@/components/common/headline/Headline';
 
 export async function loader() {
   return Promise.all([getAuthInfo()]);
@@ -88,6 +89,7 @@ export const Component = () => {
           onSubmit={userSettingsFormik.handleSubmit}
           className={styles.section}
         >
+          <Headline>{t('user')}</Headline>
           <Input
             label={t('username')}
             placeholder={t('username')}
@@ -144,6 +146,7 @@ export const Component = () => {
       </div>
       <div className={styles.row}>
         <div className={styles.section}>
+          <Headline>{t('user_interface')}</Headline>
           <Dropdown
             label={t('appearance')}
             value={theme}

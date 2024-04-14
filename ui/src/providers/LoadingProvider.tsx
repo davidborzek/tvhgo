@@ -21,8 +21,6 @@ export default function LoadingProvider(): ReactElement {
   }, [isLoading]);
 
   useEffect(() => {
-    console.log(state);
-    
     state === 'loading'
       ? ref.current?.continuousStart()
       : ref.current?.complete();

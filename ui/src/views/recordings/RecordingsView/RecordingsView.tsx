@@ -40,7 +40,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export function Component() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const revalidator = useRevalidator()
+  const revalidator = useRevalidator();
   const [queryParams, setQueryParams] = useSearchParams();
   const [selectedRecordings, setSelectedRecordings] = useState<Set<Recording>>(
     new Set()
@@ -58,7 +58,7 @@ export function Component() {
   const getStatus = () =>
     (queryParams.get('status') as RecordingStatus) || 'upcoming';
 
-  const {entries, total} = useLoaderData() as ListResponse<Recording>;
+  const { entries, total } = useLoaderData() as ListResponse<Recording>;
 
   const getDeleteOrCancelButtonLabel = () => {
     return getStatus() === 'upcoming' ? t('cancel') : t('delete');
@@ -107,7 +107,7 @@ export function Component() {
       stopAndCancelRecordings(stopIds, cancelIds).then(() => {
         clearSelection();
         setConfirmationModalVisible(false);
-        revalidator.revalidate()
+        revalidator.revalidate();
       });
 
       return;
@@ -116,7 +116,7 @@ export function Component() {
     removeRecordings([...selectedRecordings].map((rec) => rec.id)).then(() => {
       clearSelection();
       setConfirmationModalVisible(false);
-       revalidator.revalidate()
+      revalidator.revalidate();
     });
   };
 
@@ -182,8 +182,7 @@ export function Component() {
             }
             className={styles.selectAll}
             checked={
-              entries.length > 0 &&
-              selectedRecordings.size === entries.length
+              entries.length > 0 && selectedRecordings.size === entries.length
             }
             indeterminate={selectedRecordings.size > 0}
             disabled={entries.length < 1}

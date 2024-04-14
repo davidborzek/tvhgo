@@ -4,8 +4,19 @@
   width: 100%;
 }
 
-.desktopNavBar {
+.navigation {
   display: none;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 12rem;
+  height: 100%;
+  z-index: 100;
+  margin-top: 3rem;
+
+  &.expanded {
+    display: block;
+  }
 }
 
 .main {
@@ -17,7 +28,7 @@
 }
 
 @media screen and (min-width: 700px) {
-  .desktopNavBar {
+  .navigation {
     display: block;
     position: fixed;
     left: 0;
@@ -27,13 +38,8 @@
     z-index: 100;
   }
 
-  .mobileNavBar {
-    display: none;
-  }
-
   .main {
     margin-left: 12rem;
-    margin-top: 0;
   }
 }
 

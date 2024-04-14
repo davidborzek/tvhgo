@@ -1,7 +1,13 @@
 import { useFormik } from 'formik';
 import { useEffect, useRef } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useNavigate, useLocation, Outlet, useLoaderData, useRevalidator } from 'react-router-dom';
+import {
+  useNavigate,
+  useLocation,
+  Outlet,
+  useLoaderData,
+  useRevalidator,
+} from 'react-router-dom';
 import * as Yup from 'yup';
 
 import Button from '@/components/common/button/Button';
@@ -43,7 +49,11 @@ export const Component = () => {
   const { revokeToken } = useManageTokens();
   const { updatePassword } = useUpdateUserPassword();
 
-  const [twoFactorAuthSettings, sessions, tokens] = useLoaderData() as [TwoFactorAuthSettings, Array<Session>, Array<Token>]
+  const [twoFactorAuthSettings, sessions, tokens] = useLoaderData() as [
+    TwoFactorAuthSettings,
+    Array<Session>,
+    Array<Token>,
+  ];
 
   const currentPasswordRef = useRef<HTMLInputElement>(null);
   const passwordRef = useRef<HTMLInputElement>(null);

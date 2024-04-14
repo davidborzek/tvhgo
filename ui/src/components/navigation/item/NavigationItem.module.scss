@@ -1,0 +1,64 @@
+.container {
+  position: relative;
+}
+
+.container.active.topLevel::before {
+  width: 0.2rem;
+  height: 100%;
+  background-color: var(--color-nav-accent);
+  position: absolute;
+  top: 0;
+  left: 0;
+  content: '';
+}
+
+.root {
+  padding: 0.8rem 1rem;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  svg {
+    flex-shrink: 0;
+    width: 1rem;
+    height: 1rem;
+    margin-right: 0.9rem;
+    fill: var(--color-text-primary);
+  }
+
+  &.topLevel.active {
+    background-color: var(--color-border-subtle);
+  }
+
+  &.active {
+    svg {
+      fill: var(--color-nav-accent);
+    }
+
+    span {
+      color: var(--color-nav-accent);
+    }
+  }
+
+  &:hover {
+    svg {
+      fill: var(--color-nav-accent);
+    }
+
+    span {
+      color: var(--color-nav-accent);
+    }
+  }
+}
+
+.subItems {
+  padding-left: 2rem;
+}
