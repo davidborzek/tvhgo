@@ -17,3 +17,9 @@ This is a list of available features.
 - Create and manage recordings
 - Two-Factor-Authentication
 - Multiple Languages (English/German)
+
+## Contributing
+
+Contributing and pull requests are very welcome.
+
+More information about contributing to this project can be found [here](https://github.com/davidborzek/tvhgo/blob/main/CONTRIBUTING.md).
