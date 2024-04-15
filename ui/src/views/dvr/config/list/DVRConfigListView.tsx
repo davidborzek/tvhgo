@@ -31,10 +31,16 @@ export function Component() {
         <Table>
           <TableHead>
             <TableHeadCell>{t('name')}</TableHeadCell>
-            <TableHeadCell>{t('path')}</TableHeadCell>
-            <TableHeadCell>{t('recording_minutes_before_start')}</TableHeadCell>
-            <TableHeadCell>{t('recording_minutes_after_end')}</TableHeadCell>
-            <TableHeadCell>{t('default')}</TableHeadCell>
+            <TableHeadCell className={styles.path}>{t('path')}</TableHeadCell>
+            <TableHeadCell className={styles.time}>
+              {t('recording_minutes_before_start')}
+            </TableHeadCell>
+            <TableHeadCell className={styles.time}>
+              {t('recording_minutes_after_end')}
+            </TableHeadCell>
+            <TableHeadCell className={styles.default}>
+              {t('default')}
+            </TableHeadCell>
             <TableHeadCell />
           </TableHead>
           <TableBody>
@@ -48,14 +54,16 @@ export function Component() {
                     {config.name || t('default_profile')}
                   </NavLink>
                 </TableCell>
-                <TableCell>{config.storage.path}</TableCell>
-                <TableCell>
+                <TableCell className={styles.path}>
+                  {config.storage.path}
+                </TableCell>
+                <TableCell className={styles.time}>
                   {t('minutes', { value: config.startPadding })}
                 </TableCell>
-                <TableCell>
+                <TableCell className={styles.time}>
                   {t('minutes', { value: config.endPadding })}
                 </TableCell>
-                <TableCell>
+                <TableCell className={styles.default}>
                   {config.original ? (
                     <Badge color="default">{t('yes')}</Badge>
                   ) : (
