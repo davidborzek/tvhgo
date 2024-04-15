@@ -1,6 +1,12 @@
 import Button from '@/components/common/button/Button';
 import { Close } from '@/assets';
 import Headline from '@/components/common/headline/Headline';
+import Table from '@/components/common/table/Table';
+import TableBody from '@/components/common/table/TableBody';
+import TableCell from '@/components/common/table/TableCell';
+import TableHead from '@/components/common/table/TableHead';
+import TableHeadCell from '@/components/common/table/TableHeadCell';
+import TableRow from '@/components/common/table/TableRow';
 import { TestIds } from '@/__test__/ids';
 import { Token } from '@/clients/api/api.types';
 import styles from './TokenList.module.scss';
@@ -34,21 +40,19 @@ const TokenList = (props: Props) => {
   const renderTable = () => {
     return (
       <div className={styles.tableContainer}>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>{t('created')}</th>
-              <th>{t('name')}</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
+        <Table className={styles.table}>
+          <TableHead>
+            <TableHeadCell>{t('created')}</TableHeadCell>
+            <TableHeadCell>{t('name')}</TableHeadCell>
+            <TableHeadCell></TableHeadCell>
+          </TableHead>
+          <TableBody>
             {props.tokens.map((token) => {
               return (
-                <tr key={token.id}>
-                  <td>{formatDate(token.createdAt)}</td>
-                  <td>{token.name}</td>
-                  <td>
+                <TableRow key={token.id}>
+                  <TableCell>{formatDate(token.createdAt)}</TableCell>
+                  <TableCell>{token.name}</TableCell>
+                  <TableCell>
                     <Button
                       icon={<Close className={styles.deleteButton} />}
                       style="red"
@@ -56,12 +60,12 @@ const TokenList = (props: Props) => {
                       disabled={isLoading}
                       testID={TestIds.REVOKE_TOKEN_BUTTON}
                     />
-                  </td>
-                </tr>
+                  </TableCell>
+                </TableRow>
               );
             })}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     );
   };

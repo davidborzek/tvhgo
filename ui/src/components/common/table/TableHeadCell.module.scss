@@ -7,3 +7,9 @@
   text-transform: uppercase;
   color: var(--color-text-subtle);
 }
+
+@media screen and (max-width: 640px) {
+  .tableHeadCell {
+    padding: 1rem;
+  }
+}

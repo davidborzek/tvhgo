@@ -4,3 +4,9 @@
   white-space: nowrap;
   font-size: 0.9rem;
 }
+
+@media screen and (max-width: 640px) {
+  .cell {
+    padding: 1rem;
+  }
+}
