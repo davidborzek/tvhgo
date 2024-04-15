@@ -6,7 +6,6 @@ import Pair from '@/components/common/pairList/Pair/Pair';
 import PairKey from '@/components/common/pairList/PairKey/PairKey';
 import PairList from '@/components/common/pairList/PairList';
 import PairValue from '@/components/common/pairList/PairValue/PairValue';
-import Tooltip from '@/components/common/tooltip/Tooltip';
 import { getDVRConfig } from '@/clients/api/api';
 import styles from './DVRConfigDetailView.module.scss';
 import { useTranslation } from 'react-i18next';
@@ -74,38 +73,22 @@ export function Component() {
           <Headline>{t('common')}</Headline>
           <PairList>
             <Pair>
-              <PairKey>
-                <Tooltip text={t('dvr_profile_enabled_info')}>
-                  {t('enabled')}
-                </Tooltip>
-              </PairKey>
+              <PairKey>{t('enabled')}</PairKey>
               <PairValue>{config.enabled ? t('yes') : t('no')}</PairValue>
             </Pair>
 
             <Pair>
-              <PairKey>
-                <Tooltip text={t('dvr_profile_priority_info')}>
-                  {t('priority')}
-                </Tooltip>
-              </PairKey>
+              <PairKey>{t('priority')}</PairKey>
               <PairValue>{renderPriority()}</PairValue>
             </Pair>
 
             <Pair>
-              <PairKey>
-                <Tooltip text={t('dvr_info_retention_info')}>
-                  {t('recording_info_retention')}
-                </Tooltip>
-              </PairKey>
+              <PairKey>{t('recording_info_retention')}</PairKey>
               <PairValue>{renderRecordingInfoRetentionPolicy()}</PairValue>
             </Pair>
 
             <Pair>
-              <PairKey>
-                <Tooltip text={t('dvr_file_retention_info')}>
-                  {t('recording_file_retention')}
-                </Tooltip>
-              </PairKey>
+              <PairKey>{t('recording_file_retention')}</PairKey>
               <PairValue>{renderRecordingFileRetentionPolicy()}</PairValue>
             </Pair>
 
@@ -125,27 +108,13 @@ export function Component() {
           <Headline>{t('recording_time')}</Headline>
           <PairList>
             <Pair>
-              <PairKey>
-                <Tooltip
-                  direction="left"
-                  text={t('recording_minutes_before_start_info')}
-                >
-                  {t('recording_minutes_before_start')}
-                </Tooltip>
-              </PairKey>
+              <PairKey>{t('recording_minutes_before_start')}</PairKey>
               <PairValue>
                 {t('minutes', { value: config.startPadding })}
               </PairValue>
             </Pair>
             <Pair>
-              <PairKey>
-                <Tooltip
-                  direction="left"
-                  text={t('recording_minutes_after_end_info')}
-                >
-                  {t('recording_minutes_after_end')}
-                </Tooltip>
-              </PairKey>
+              <PairKey>{t('recording_minutes_after_end')}</PairKey>
               <PairValue>
                 {t('minutes', { value: config.endPadding })}
               </PairValue>
