@@ -10,6 +10,7 @@ import TableCell from '@/components/common/table/TableCell';
 import TableHead from '@/components/common/table/TableHead';
 import TableHeadCell from '@/components/common/table/TableHeadCell';
 import TableRow from '@/components/common/table/TableRow';
+import Tooltip from '@/components/common/tooltip/Tooltip';
 import { getDVRConfigs } from '@/clients/api/api';
 import styles from './DVRConfigListView.module.scss';
 import { useDVRConfig } from '@/hooks/dvr';
@@ -71,15 +72,22 @@ export function Component() {
                   )}
                 </TableCell>
                 <TableCell className={styles.actions}>
-                  <Button
-                    disabled={config.original || isPending}
-                    loading={isPending}
-                    style="red"
-                    size="small"
-                    label={t('delete')}
-                    quiet
-                    onClick={() => deleteDVRConfig(config.id)}
-                  />
+                  <Tooltip
+                    className={styles.deleteTooltip}
+                    direction="left"
+                    text={t('dvr_delete_default_profile_info')}
+                    disabled={!config.original}
+                  >
+                    <Button
+                      disabled={config.original || isPending}
+                      loading={isPending}
+                      style="red"
+                      size="small"
+                      label={t('delete')}
+                      quiet
+                      onClick={() => deleteDVRConfig(config.id)}
+                    />
+                  </Tooltip>
                 </TableCell>
               </TableRow>
             ))}
