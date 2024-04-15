@@ -80,7 +80,7 @@ export function Component() {
         key={recording.id}
         recording={recording}
         onClick={() => {
-          navigate(`/recordings/${recording.id}`);
+          navigate(`/dvr/recordings/${recording.id}`);
         }}
         onSelection={(selected) => {
           setSelectedRecordings((prv) =>

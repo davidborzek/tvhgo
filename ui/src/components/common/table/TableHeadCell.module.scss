@@ -1,0 +1,15 @@
+.tableHeadCell {
+  font-weight: 600;
+  font-size: 0.9rem;
+  text-align: left;
+  padding: 0.5rem 1.5rem;
+  white-space: nowrap;
+  text-transform: uppercase;
+  color: var(--color-text-subtle);
+}
+
+@media screen and (max-width: 640px) {
+  .tableHeadCell {
+    padding: 1rem;
+  }
+}

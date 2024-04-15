@@ -81,7 +81,7 @@ exports[`should render 1`] = `
       </div>
       <div>
         <button
-          class="_button_a7f9df"
+          class="_button_a7f9df _medium_a7f9df"
           type="submit"
         >
           save
@@ -101,7 +101,7 @@ exports[`should render 1`] = `
         two_factor_auth
       </h2>
       <button
-        class="_button_a7f9df _red_a7f9df"
+        class="_button_a7f9df _medium_a7f9df _red_a7f9df"
         data-testid="twofa-disable-button"
       >
         disable
@@ -123,50 +123,66 @@ exports[`should render 1`] = `
         class="_tableContainer_542de3"
       >
         <table
-          class="_table_542de3"
+          class="_table_028c6a _table_542de3"
         >
-          <thead>
+          <thead
+            class="_tableHead_626d4c"
+          >
             <tr>
-              <th>
+              <th
+                class="_tableHeadCell_3eaf0b"
+              >
                 last_seen
               </th>
               <th
-                class="_created_542de3"
+                class="_tableHeadCell_3eaf0b _created_542de3"
               >
                 created
               </th>
               <th
-                class="_ip_542de3"
+                class="_tableHeadCell_3eaf0b _ip_542de3"
               >
                 ip_address
               </th>
-              <th>
+              <th
+                class="_tableHeadCell_3eaf0b"
+              >
                 browser_and_os
               </th>
-              <th />
+              <th
+                class="_tableHeadCell_3eaf0b"
+              />
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
-                date
-              </td>
+            <tr
+              class="_row_daffa4"
+            >
               <td
-                class="_created_542de3"
+                class="_cell_c52a45"
               >
                 date
               </td>
               <td
-                class="_ip_542de3"
+                class="_cell_c52a45 _created_542de3"
+              >
+                date
+              </td>
+              <td
+                class="_cell_c52a45 _ip_542de3"
               >
                 10.0.0.1
               </td>
-              <td>
+              <td
+                class="_cell_c52a45"
+              >
                 user_agent_full
               </td>
-              <td>
+              <td
+                class="_cell_c52a45"
+              >
                 <button
-                  class="_button_a7f9df _red_a7f9df"
+                  class="_button_a7f9df _medium_a7f9df _red_a7f9df"
                   data-testid="revoke-session-btn"
                 >
                   <svg
@@ -193,26 +209,34 @@ exports[`should render 1`] = `
                 </button>
               </td>
             </tr>
-            <tr>
-              <td>
-                date
-              </td>
+            <tr
+              class="_row_daffa4"
+            >
               <td
-                class="_created_542de3"
+                class="_cell_c52a45"
               >
                 date
               </td>
               <td
-                class="_ip_542de3"
+                class="_cell_c52a45 _created_542de3"
+              >
+                date
+              </td>
+              <td
+                class="_cell_c52a45 _ip_542de3"
               >
                 10.0.0.2
               </td>
-              <td>
+              <td
+                class="_cell_c52a45"
+              >
                 user_agent_full
               </td>
-              <td>
+              <td
+                class="_cell_c52a45"
+              >
                 <button
-                  class="_button_a7f9df _red_a7f9df"
+                  class="_button_a7f9df _medium_a7f9df _red_a7f9df"
                   data-testid="revoke-session-btn"
                 >
                   <svg
@@ -259,30 +283,46 @@ exports[`should render 1`] = `
         class="_tableContainer_6bec32"
       >
         <table
-          class="_table_6bec32"
+          class="_table_028c6a _table_6bec32"
         >
-          <thead>
+          <thead
+            class="_tableHead_626d4c"
+          >
             <tr>
-              <th>
+              <th
+                class="_tableHeadCell_3eaf0b"
+              >
                 created
               </th>
-              <th>
+              <th
+                class="_tableHeadCell_3eaf0b"
+              >
                 name
               </th>
-              <th />
+              <th
+                class="_tableHeadCell_3eaf0b"
+              />
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>
+            <tr
+              class="_row_daffa4"
+            >
+              <td
+                class="_cell_c52a45"
+              >
                 date
               </td>
-              <td>
+              <td
+                class="_cell_c52a45"
+              >
                 My Token 1
               </td>
-              <td>
+              <td
+                class="_cell_c52a45"
+              >
                 <button
-                  class="_button_a7f9df _red_a7f9df"
+                  class="_button_a7f9df _medium_a7f9df _red_a7f9df"
                   data-testid="revoke-token-btn"
                 >
                   <svg
@@ -309,16 +349,24 @@ exports[`should render 1`] = `
                 </button>
               </td>
             </tr>
-            <tr>
-              <td>
+            <tr
+              class="_row_daffa4"
+            >
+              <td
+                class="_cell_c52a45"
+              >
                 date
               </td>
-              <td>
+              <td
+                class="_cell_c52a45"
+              >
                 My Token 2
               </td>
-              <td>
+              <td
+                class="_cell_c52a45"
+              >
                 <button
-                  class="_button_a7f9df _red_a7f9df"
+                  class="_button_a7f9df _medium_a7f9df _red_a7f9df"
                   data-testid="revoke-token-btn"
                 >
                   <svg
@@ -350,7 +398,7 @@ exports[`should render 1`] = `
       </div>
       <div>
         <button
-          class="_button_a7f9df"
+          class="_button_a7f9df _medium_a7f9df"
         >
           new_token
         </button>

@@ -74,7 +74,7 @@ function NotFound() {
 
   return (
     <EmptyState title={t('page_not_found')} subtitle=" ">
-      <ButtonLink label={t('go_back')} href="/channels" />
+      <ButtonLink quiet label={t('go_back')} href="/channels" />
     </EmptyState>
   );
 }
@@ -139,18 +139,33 @@ function App() {
                 path="/guide/events/:id"
                 lazy={() => import('@/views/epg/event/EventView')}
               />
+
               <Route
-                path="/recordings"
+                path="/dvr"
+                element={<Navigate to={'/dvr/recordings'} replace />}
+              />
+              <Route
+                path="/dvr/recordings"
                 lazy={() =>
                   import('@/views/recordings/RecordingsView/RecordingsView')
                 }
               />
               <Route
-                path="/recordings/:id"
+                path="/dvr/recordings/:id"
                 lazy={() =>
                   import(
                     '@/views/recordings/RecordingDetailView/RecordingDetailView'
                   )
+                }
+              />
+              <Route
+                path="/dvr/config"
+                lazy={() => import('@/views/dvr/config/list/DVRConfigListView')}
+              />
+              <Route
+                path="/dvr/config/:id"
+                lazy={() =>
+                  import('@/views/dvr/config/detail/DVRConfigDetailView')
                 }
               />
 

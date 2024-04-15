@@ -2,6 +2,12 @@ import Button from '@/components/common/button/Button';
 import { Close } from '@/assets';
 import Headline from '@/components/common/headline/Headline';
 import { Session } from '@/clients/api/api.types';
+import Table from '@/components/common/table/Table';
+import TableBody from '@/components/common/table/TableBody';
+import TableCell from '@/components/common/table/TableCell';
+import TableHead from '@/components/common/table/TableHead';
+import TableHeadCell from '@/components/common/table/TableHeadCell';
+import TableRow from '@/components/common/table/TableRow';
 import { TestIds } from '@/__test__/ids';
 import UAParser from 'ua-parser-js';
 import styles from './SessionList.module.scss';
@@ -59,28 +65,33 @@ const SessionList = (props: Props) => {
   return (
     <div className={styles.SessionList}>
       <Headline>{t('sessions')}</Headline>
+
       <div className={styles.tableContainer}>
-        <table className={styles.table}>
-          <thead>
-            <tr>
-              <th>{t('last_seen')}</th>
-              <th className={styles.created}>{t('created')}</th>
-              <th className={styles.ip}>{t('ip_address')}</th>
-              <th>{t('browser_and_os')}</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
+        <Table className={styles.table}>
+          <TableHead>
+            <TableHeadCell>{t('last_seen')}</TableHeadCell>
+            <TableHeadCell className={styles.created}>
+              {t('created')}
+            </TableHeadCell>
+            <TableHeadCell className={styles.ip}>
+              {t('ip_address')}
+            </TableHeadCell>
+            <TableHeadCell>{t('browser_and_os')}</TableHeadCell>
+            <TableHeadCell />
+          </TableHead>
+          <TableBody>
             {props.sessions.map((session) => {
               return (
-                <tr key={session.id}>
-                  <td>{formatDate(session.lastUsedAt)}</td>
-                  <td className={styles.created}>
+                <TableRow key={session.id}>
+                  <TableCell>{formatDate(session.lastUsedAt)}</TableCell>
+                  <TableCell className={styles.created}>
                     {formatDate(session.createdAt)}
-                  </td>
-                  <td className={styles.ip}>{session.clientIp}</td>
-                  <td>{parseUserAgent(session.userAgent)}</td>
-                  <td>
+                  </TableCell>
+                  <TableCell className={styles.ip}>
+                    {session.clientIp}
+                  </TableCell>
+                  <TableCell>{parseUserAgent(session.userAgent)}</TableCell>
+                  <TableCell>
                     <Button
                       icon={<Close className={styles.sessionDeleteButton} />}
                       style="red"
@@ -88,12 +99,12 @@ const SessionList = (props: Props) => {
                       disabled={isLoading}
                       testID={TestIds.REVOKE_SESSION_BUTTON}
                     />
-                  </td>
-                </tr>
+                  </TableCell>
+                </TableRow>
               );
             })}
-          </tbody>
-        </table>
+          </TableBody>
+        </Table>
       </div>
     </div>
   );

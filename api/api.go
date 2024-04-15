@@ -26,6 +26,8 @@ type router struct {
 	tokens                core.TokenRepository
 	tokenService          core.TokenService
 	twoFactorService      core.TwoFactorAuthService
+	dvrConfigService      core.DVRConfigService
+	profileService        core.ProfileService
 }
 
 var corsOpts = cors.Options{
@@ -50,6 +52,8 @@ func New(
 	tokens core.TokenRepository,
 	tokenService core.TokenService,
 	twoFactorService core.TwoFactorAuthService,
+	dvrConfigService core.DVRConfigService,
+	profileService core.ProfileService,
 ) *router {
 	return &router{
 		cfg:                   cfg,
@@ -65,6 +69,8 @@ func New(
 		tokens:                tokens,
 		tokenService:          tokenService,
 		twoFactorService:      twoFactorService,
+		dvrConfigService:      dvrConfigService,
+		profileService:        profileService,
 	}
 }
 
@@ -133,6 +139,12 @@ func (s *router) Handler() http.Handler {
 	authenticated.Put("/recordings/{id}/cancel", s.CancelRecording)
 	authenticated.Put("/recordings/{id}/move/{dest}", s.MoveRecording)
 	authenticated.Get("/recordings/{id}/stream", s.StreamRecording)
+
+	authenticated.Get("/profiles/stream", s.GetStreamProfiles)
+
+	authenticated.Get("/dvr/config", s.GetDVRConfigList)
+	authenticated.Get("/dvr/config/{id}", s.GetDVRConfig)
+	authenticated.Delete("/dvr/config/{id}", s.DeleteDVRConfig)
 
 	return r
 }

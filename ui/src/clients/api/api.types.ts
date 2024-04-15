@@ -136,3 +136,94 @@ export type Token = {
 export type CreateTokenResponse = {
   token: string;
 };
+
+export interface DVRConfig {
+  id: string;
+  enabled: boolean;
+  name: string;
+  original: boolean;
+  streamProfileId: string;
+  priority: string;
+  deleteAfterPlayback: number;
+  recordingInfoRetention: DVRRetentionPolicy;
+  recordingFileRetention: DVRRetentionPolicy;
+  startPadding: number;
+  endPadding: number;
+  clone: boolean;
+  rerecordErrors: number;
+  tunerWarmUpTime: number;
+  storage: DVRConfigStorage;
+  subdirectories: DVRConfigSubdirectories;
+  file: DVRConfigFile;
+  epg: DvrConfigEPG;
+  artwork: DVRConfigArtwork;
+  hooks: DVRConfigHooks;
+}
+
+export type DVRConfigStorage = {
+  path: string;
+  maintainFreeSpace: number;
+  maintainUsedSpace: number;
+  directoryPermissions: string;
+  filePermissions: string;
+  charset: string;
+  pathnameFormat: string;
+  cacheScheme: string;
+};
+
+export type DVRConfigSubdirectories = {
+  daySubdir: boolean;
+  channelSubdir: boolean;
+  titleSubdir: boolean;
+  tvMoviesSubdirFormat: string;
+  tvShowsSubdirFormat: string;
+};
+
+export type DVRConfigFile = {
+  includeChannel: boolean;
+  includeDate: boolean;
+  includeTime: boolean;
+  includeEpisode: boolean;
+  includeSubtitle: boolean;
+  omitTitle: boolean;
+  cleanTitle: boolean;
+  allowWhitespace: boolean;
+  windowsCompatibleFilename: boolean;
+  tagFiles: boolean;
+};
+
+export type DvrConfigEPG = {
+  duplicateHandling: string;
+  epgUpdateWindow: number;
+  epgRunning: boolean;
+  skipCommercials: boolean;
+  autorec: DVRConfigAutorec;
+};
+
+export type DVRConfigAutorec = {
+  maxCount: number;
+  maxSchedules: number;
+};
+
+export type DVRConfigArtwork = {
+  fetch: boolean;
+  allowUnidentifiableBroadcasts: boolean;
+  commandLineOptions: string;
+};
+
+export type DVRConfigHooks = {
+  start: string;
+  stop: string;
+  remove: string;
+};
+
+export type DVRRetentionType =
+  | 'days'
+  | 'forever'
+  | 'on_file_removal'
+  | 'maintained_space';
+
+export type DVRRetentionPolicy = {
+  days: number;
+  type: DVRRetentionType;
+};

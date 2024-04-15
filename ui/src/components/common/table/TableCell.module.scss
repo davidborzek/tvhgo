@@ -1,0 +1,12 @@
+.cell {
+  text-align: left;
+  padding: 1rem 1.5rem;
+  white-space: nowrap;
+  font-size: 0.9rem;
+}
+
+@media screen and (max-width: 640px) {
+  .cell {
+    padding: 1rem;
+  }
+}

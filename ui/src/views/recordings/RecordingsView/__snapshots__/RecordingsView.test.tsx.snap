@@ -47,7 +47,7 @@ exports[`should render multiple pages: status=failed 1`] = `
               confirm_delete_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df"
+              class="_button_a7f9df _medium_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               delete
@@ -92,7 +92,7 @@ exports[`should render multiple pages: status=failed 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
@@ -348,7 +348,7 @@ exports[`should render multiple pages: status=finished 1`] = `
               confirm_delete_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df"
+              class="_button_a7f9df _medium_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               delete
@@ -393,7 +393,7 @@ exports[`should render multiple pages: status=finished 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
@@ -649,7 +649,7 @@ exports[`should render multiple pages: status=null 1`] = `
               confirm_cancel_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df"
+              class="_button_a7f9df _medium_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               cancel
@@ -694,7 +694,7 @@ exports[`should render multiple pages: status=null 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           cancel
@@ -950,7 +950,7 @@ exports[`should render multiple pages: status=removed 1`] = `
               confirm_delete_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df"
+              class="_button_a7f9df _medium_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               delete
@@ -995,7 +995,7 @@ exports[`should render multiple pages: status=removed 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
@@ -1251,7 +1251,7 @@ exports[`should render multiple pages: status=upcoming 1`] = `
               confirm_cancel_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df"
+              class="_button_a7f9df _medium_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               cancel
@@ -1296,7 +1296,7 @@ exports[`should render multiple pages: status=upcoming 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           cancel
@@ -1552,7 +1552,7 @@ exports[`should render single page: status=failed 1`] = `
               confirm_delete_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df"
+              class="_button_a7f9df _medium_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               delete
@@ -1597,7 +1597,7 @@ exports[`should render single page: status=failed 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
@@ -1855,7 +1855,7 @@ exports[`should render single page: status=finished 1`] = `
               confirm_delete_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df"
+              class="_button_a7f9df _medium_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               delete
@@ -1900,7 +1900,7 @@ exports[`should render single page: status=finished 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
@@ -2158,7 +2158,7 @@ exports[`should render single page: status=null 1`] = `
               confirm_cancel_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df"
+              class="_button_a7f9df _medium_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               cancel
@@ -2203,7 +2203,7 @@ exports[`should render single page: status=null 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           cancel
@@ -2461,7 +2461,7 @@ exports[`should render single page: status=removed 1`] = `
               confirm_delete_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df"
+              class="_button_a7f9df _medium_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               delete
@@ -2506,7 +2506,7 @@ exports[`should render single page: status=removed 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
@@ -2764,7 +2764,7 @@ exports[`should render single page: status=upcoming 1`] = `
               confirm_cancel_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df"
+              class="_button_a7f9df _medium_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               cancel
@@ -2809,7 +2809,7 @@ exports[`should render single page: status=upcoming 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           cancel
@@ -3067,7 +3067,7 @@ exports[`should render with no recordings: status=failed 1`] = `
               confirm_delete_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df"
+              class="_button_a7f9df _medium_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               delete
@@ -3112,7 +3112,7 @@ exports[`should render with no recordings: status=failed 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
@@ -3193,7 +3193,7 @@ exports[`should render with no recordings: status=finished 1`] = `
               confirm_delete_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df"
+              class="_button_a7f9df _medium_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               delete
@@ -3238,7 +3238,7 @@ exports[`should render with no recordings: status=finished 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
@@ -3319,7 +3319,7 @@ exports[`should render with no recordings: status=null 1`] = `
               confirm_cancel_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df"
+              class="_button_a7f9df _medium_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               cancel
@@ -3364,7 +3364,7 @@ exports[`should render with no recordings: status=null 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           cancel
@@ -3445,7 +3445,7 @@ exports[`should render with no recordings: status=removed 1`] = `
               confirm_delete_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df"
+              class="_button_a7f9df _medium_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               delete
@@ -3490,7 +3490,7 @@ exports[`should render with no recordings: status=removed 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
@@ -3571,7 +3571,7 @@ exports[`should render with no recordings: status=upcoming 1`] = `
               confirm_cancel_recordings
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df"
+              class="_button_a7f9df _medium_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               cancel
@@ -3616,7 +3616,7 @@ exports[`should render with no recordings: status=upcoming 1`] = `
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           cancel

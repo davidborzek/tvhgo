@@ -78,7 +78,7 @@ exports[`should render 1`] = `
       </div>
       <div>
         <button
-          class="_button_a7f9df"
+          class="_button_a7f9df _medium_a7f9df"
           data-testid="save-user-btn"
           type="submit"
         >
@@ -150,7 +150,7 @@ exports[`should render 1`] = `
       </div>
       <div>
         <button
-          class="_button_a7f9df _red_a7f9df"
+          class="_button_a7f9df _medium_a7f9df _red_a7f9df"
           data-testid="logout-button"
         >
           logout
@@ -249,7 +249,7 @@ exports[`should render render without logout button when authenticated by revers
       </div>
       <div>
         <button
-          class="_button_a7f9df"
+          class="_button_a7f9df _medium_a7f9df"
           data-testid="save-user-btn"
           type="submit"
         >

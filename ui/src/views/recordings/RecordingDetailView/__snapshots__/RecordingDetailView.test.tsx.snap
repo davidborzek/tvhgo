@@ -47,7 +47,7 @@ exports[`with status completed > should render recording 1`] = `
               confirm_delete_recording
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df"
+              class="_button_a7f9df _medium_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               delete
@@ -145,13 +145,13 @@ exports[`with status completed > should render recording 1`] = `
       class="_actions_8b9d52"
     >
       <button
-        class="_button_a7f9df _red_a7f9df"
+        class="_button_a7f9df _medium_a7f9df _red_a7f9df"
         type="button"
       >
         delete_recording
       </button>
       <a
-        class="_button_a7f9df"
+        class="_button_a7f9df _medium_a7f9df"
         download=""
         href="/api/recordings/someID/stream"
       >
@@ -209,7 +209,7 @@ exports[`with status recording > should render recording 1`] = `
               confirm_stop_recording
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df"
+              class="_button_a7f9df _medium_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               stop
@@ -307,7 +307,7 @@ exports[`with status recording > should render recording 1`] = `
       class="_actions_8b9d52"
     >
       <button
-        class="_button_a7f9df _red_a7f9df"
+        class="_button_a7f9df _medium_a7f9df _red_a7f9df"
         type="button"
       >
         stop_recording
@@ -377,7 +377,7 @@ exports[`with status recording > should render recording 1`] = `
         </span>
       </div>
       <button
-        class="_button_a7f9df"
+        class="_button_a7f9df _medium_a7f9df"
         type="submit"
       >
         save
@@ -434,7 +434,7 @@ exports[`with status scheduled > should render recording 1`] = `
               confirm_cancel_recording
             </h3>
             <button
-              class="_button_a7f9df _red_a7f9df"
+              class="_button_a7f9df _medium_a7f9df _red_a7f9df"
               data-testid="confirm-delete-btn"
             >
               cancel
@@ -532,7 +532,7 @@ exports[`with status scheduled > should render recording 1`] = `
       class="_actions_8b9d52"
     >
       <button
-        class="_button_a7f9df _red_a7f9df"
+        class="_button_a7f9df _medium_a7f9df _red_a7f9df"
         type="button"
       >
         cancel_recording
@@ -601,7 +601,7 @@ exports[`with status scheduled > should render recording 1`] = `
         </span>
       </div>
       <button
-        class="_button_a7f9df"
+        class="_button_a7f9df _medium_a7f9df"
         type="submit"
       >
         save

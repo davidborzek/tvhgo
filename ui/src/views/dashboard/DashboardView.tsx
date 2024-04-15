@@ -28,7 +28,15 @@ export function Component() {
   const navigationItems: INavigationItem[] = [
     { icon: <TvIcon />, title: t('channels'), to: '/channels' },
     { icon: <GuideIcon />, title: t('guide'), to: '/guide' },
-    { icon: <RecordingsIcon />, title: t('recordings'), to: '/recordings' },
+    {
+      icon: <RecordingsIcon />,
+      title: t('dvr'),
+      to: '/dvr',
+      items: [
+        { title: t('recordings'), to: '/dvr/recordings' },
+        { title: t('config'), to: '/dvr/config' },
+      ],
+    },
     {
       icon: <SettingsIcon />,
       title: t('settings'),

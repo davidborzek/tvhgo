@@ -43,7 +43,7 @@ export function Component() {
     }
 
     if (event.dvrUuid) {
-      navigate(`/recordings/${event.dvrUuid}`);
+      navigate(`/dvr/recordings/${event.dvrUuid}`);
       return;
     }
 

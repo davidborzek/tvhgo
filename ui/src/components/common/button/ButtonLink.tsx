@@ -6,7 +6,9 @@ import styles from './Button.module.scss';
 type Props = {
   label: string;
   download?: string | boolean;
+  size?: 'small' | 'medium' | 'large';
   href?: string;
+  quiet?: boolean;
   className?: string;
   style?: ButtonStyle;
 };
@@ -16,6 +18,8 @@ const ButtonLink = (props: Props) => {
     <a
       className={c(
         styles.button,
+        props.size ? styles[props.size] : styles.medium,
+        props.quiet ? styles.quiet : '',
         getStyleClass(props.style),
         props.className ? props.className : ''
       )}
