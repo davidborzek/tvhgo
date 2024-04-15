@@ -13,7 +13,9 @@
 }
 
 .root {
-  padding: 0.8rem 1rem;
+  padding: 0.8rem 0;
+  padding-left: 2rem;
+  padding-right: 1rem;
   color: var(--color-text-primary);
   text-decoration: none;
   box-sizing: border-box;
