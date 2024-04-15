@@ -9,7 +9,9 @@ type Props = {
   label?: string;
   icon?: ReactElement;
   type?: 'submit' | 'reset' | 'button';
+  size?: 'small' | 'medium' | 'large';
   disabled?: boolean;
+  quiet?: boolean;
   loading?: boolean;
   loadingLabel?: string | null;
   className?: string;
@@ -43,6 +45,8 @@ function Button(props: Props) {
       disabled={disabled}
       className={c(
         styles.button,
+        props.quiet ? styles.quiet : '',
+        props.size ? styles[props.size] : styles.medium,
         getStyleClass(props.style),
         disabled ? styles.disabled : '',
         props.className ? props.className : ''

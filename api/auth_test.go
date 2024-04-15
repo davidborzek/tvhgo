@@ -34,7 +34,7 @@ var _ = Describe("HandleAuthentication", func() {
 	})
 
 	It("returns status unauthorized", func() {
-		sut := api.New(&config.Config{}, nil, nil, nil, nil, nil, nil, nil, mockUserRepo, nil, nil, nil, nil)
+		sut := api.New(&config.Config{}, nil, nil, nil, nil, nil, nil, nil, mockUserRepo, nil, nil, nil, nil, nil, nil)
 
 		middleware := sut.HandleAuthentication(nil)
 
@@ -76,7 +76,7 @@ var _ = Describe("HandleAuthentication", func() {
 		DescribeTable("remote addr is not allowed",
 			func(remoteAddr string, allowedAddresses []string) {
 				cfg.Auth.ReverseProxy.AllowedProxies = allowedAddresses
-				sut := api.New(cfg, nil, nil, nil, nil, nil, nil, nil, mockUserRepo, nil, nil, nil, nil)
+				sut := api.New(cfg, nil, nil, nil, nil, nil, nil, nil, mockUserRepo, nil, nil, nil, nil, nil, nil)
 				m := sut.HandleAuthentication(nil)
 
 				req, err := http.NewRequest("GET", "/foobar", nil)
@@ -103,7 +103,7 @@ var _ = Describe("HandleAuthentication", func() {
 
 		DescribeTable("remote addr is allowed and user is found",
 			func(remoteAddr string) {
-				sut := api.New(cfg, nil, nil, nil, nil, nil, nil, nil, mockUserRepo, nil, nil, nil, nil)
+				sut := api.New(cfg, nil, nil, nil, nil, nil, nil, nil, mockUserRepo, nil, nil, nil, nil, nil, nil)
 
 				nextHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 					authCtx, ok := request.GetAuthContext(r.Context())
@@ -149,7 +149,7 @@ var _ = Describe("HandleAuthentication", func() {
 		When("remote addr is allowed", func() {
 			Context("and user header is empty", func() {
 				It("returns status unauthorized", func() {
-					sut := api.New(cfg, nil, nil, nil, nil, nil, nil, nil, mockUserRepo, nil, nil, nil, nil)
+					sut := api.New(cfg, nil, nil, nil, nil, nil, nil, nil, mockUserRepo, nil, nil, nil, nil, nil, nil)
 					m := sut.HandleAuthentication(nil)
 
 					req, err := http.NewRequest("GET", "/foobar", nil)
@@ -171,7 +171,7 @@ var _ = Describe("HandleAuthentication", func() {
 			Context("user is not found", func() {
 				Context("and registration is disabled", func() {
 					It("returns status unauthorized", func() {
-						sut := api.New(cfg, nil, nil, nil, nil, nil, nil, nil, mockUserRepo, nil, nil, nil, nil)
+						sut := api.New(cfg, nil, nil, nil, nil, nil, nil, nil, mockUserRepo, nil, nil, nil, nil, nil, nil)
 						m := sut.HandleAuthentication(nil)
 
 						req, err := http.NewRequest("GET", "/foobar", nil)
@@ -186,7 +186,7 @@ var _ = Describe("HandleAuthentication", func() {
 
 						mockUserRepo.EXPECT().
 							FindByUsername(req.Context(), username).
-							Return(nil, nil).
+							Return(nil, nil, nil).
 							Times(1)
 
 						m.ServeHTTP(rr, req)
@@ -199,7 +199,7 @@ var _ = Describe("HandleAuthentication", func() {
 				Context("and registration is enabled", func() {
 					It("creates a new user", func() {
 						cfg.Auth.ReverseProxy.AllowRegistration = true
-						sut := api.New(cfg, nil, nil, nil, nil, nil, nil, nil, mockUserRepo, nil, nil, nil, nil)
+						sut := api.New(cfg, nil, nil, nil, nil, nil, nil, nil, mockUserRepo, nil, nil, nil, nil, nil, nil)
 
 						nextHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 							authCtx, ok := request.GetAuthContext(r.Context())
@@ -229,7 +229,7 @@ var _ = Describe("HandleAuthentication", func() {
 
 						mockUserRepo.EXPECT().
 							FindByUsername(req.Context(), "foobar").
-							Return(nil, nil).
+							Return(nil, nil, nil).
 							Times(1)
 
 						mockUserRepo.EXPECT().
@@ -243,7 +243,7 @@ var _ = Describe("HandleAuthentication", func() {
 
 					It("fails to create a new user", func() {
 						cfg.Auth.ReverseProxy.AllowRegistration = true
-						sut := api.New(cfg, nil, nil, nil, nil, nil, nil, nil, mockUserRepo, nil, nil, nil, nil)
+						sut := api.New(cfg, nil, nil, nil, nil, nil, nil, nil, mockUserRepo, nil, nil, nil, nil, nil, nil)
 
 						middleware := sut.HandleAuthentication(nil)
 						req, err := http.NewRequest("GET", "/foobar", nil)
@@ -263,7 +263,7 @@ var _ = Describe("HandleAuthentication", func() {
 
 						mockUserRepo.EXPECT().
 							FindByUsername(req.Context(), "foobar").
-							Return(nil, nil).
+							Return(nil, nil, nil).
 							Times(1)
 
 						mockUserRepo.EXPECT().
@@ -280,7 +280,7 @@ var _ = Describe("HandleAuthentication", func() {
 			})
 
 			It("fails to find user", func() {
-				sut := api.New(cfg, nil, nil, nil, nil, nil, nil, nil, mockUserRepo, nil, nil, nil, nil)
+				sut := api.New(cfg, nil, nil, nil, nil, nil, nil, nil, mockUserRepo, nil, nil, nil, nil, nil, nil)
 				middleware := sut.HandleAuthentication(nil)
 
 				req, err := http.NewRequest("GET", "/foobar", nil)
@@ -309,7 +309,7 @@ var _ = Describe("HandleAuthentication", func() {
 	Describe("authorization header", func() {
 		When("token is valid", func() {
 			It("returns status ok", func() {
-				sut := api.New(&config.Config{}, nil, nil, nil, nil, nil, nil, nil, mockUserRepo, nil, nil, mockTokenService, nil)
+				sut := api.New(&config.Config{}, nil, nil, nil, nil, nil, nil, nil, mockUserRepo, nil, nil, mockTokenService, nil, nil, nil)
 
 				nextHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 					authCtx, ok := request.GetAuthContext(r.Context())
@@ -349,7 +349,7 @@ var _ = Describe("HandleAuthentication", func() {
 
 		When("token is invalid", func() {
 			It("returns status unauthorized", func() {
-				sut := api.New(&config.Config{}, nil, nil, nil, nil, nil, nil, nil, mockUserRepo, nil, nil, mockTokenService, nil)
+				sut := api.New(&config.Config{}, nil, nil, nil, nil, nil, nil, nil, mockUserRepo, nil, nil, mockTokenService, nil, nil, nil)
 				m := sut.HandleAuthentication(nil)
 
 				req, err := http.NewRequest("GET", "/foobar", nil)
@@ -377,7 +377,7 @@ var _ = Describe("HandleAuthentication", func() {
 
 		When("token service returns error", func() {
 			It("returns status internal server error", func() {
-				sut := api.New(&config.Config{}, nil, nil, nil, nil, nil, nil, nil, mockUserRepo, nil, nil, mockTokenService, nil)
+				sut := api.New(&config.Config{}, nil, nil, nil, nil, nil, nil, nil, mockUserRepo, nil, nil, mockTokenService, nil, nil, nil)
 				m := sut.HandleAuthentication(nil)
 
 				req, err := http.NewRequest("GET", "/foobar", nil)
@@ -424,7 +424,7 @@ var _ = Describe("HandleAuthentication", func() {
 			It("returns status ok", func() {
 				sessionID := int64(1234)
 
-				sut := api.New(cfg, nil, nil, nil, nil, nil, mockSessionManager, nil, mockUserRepo, nil, nil, mockTokenService, nil)
+				sut := api.New(cfg, nil, nil, nil, nil, nil, mockSessionManager, nil, mockUserRepo, nil, nil, mockTokenService, nil, nil, nil)
 
 				nextHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 					authCtx, ok := request.GetAuthContext(r.Context())
@@ -456,7 +456,7 @@ var _ = Describe("HandleAuthentication", func() {
 						UserID:      1,
 						SessionID:   &sessionID,
 						ForwardAuth: false,
-					}, nil, nil).
+					}, nil, nil, nil).
 					Times(1)
 
 				m.ServeHTTP(rr, req)
@@ -468,7 +468,7 @@ var _ = Describe("HandleAuthentication", func() {
 				sessionID := int64(1234)
 				rotatedToken := "rotatedToken"
 
-				sut := api.New(cfg, nil, nil, nil, nil, nil, mockSessionManager, nil, mockUserRepo, nil, nil, mockTokenService, nil)
+				sut := api.New(cfg, nil, nil, nil, nil, nil, mockSessionManager, nil, mockUserRepo, nil, nil, mockTokenService, nil, nil, nil)
 
 				nextHandler := http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 					authCtx, ok := request.GetAuthContext(r.Context())
@@ -512,7 +512,7 @@ var _ = Describe("HandleAuthentication", func() {
 
 		When("token is invalid", func() {
 			It("returns status unauthorized", func() {
-				sut := api.New(cfg, nil, nil, nil, nil, nil, mockSessionManager, nil, mockUserRepo, nil, nil, mockTokenService, nil)
+				sut := api.New(cfg, nil, nil, nil, nil, nil, mockSessionManager, nil, mockUserRepo, nil, nil, mockTokenService, nil, nil, nil)
 				m := sut.HandleAuthentication(nil)
 
 				req, err := http.NewRequest("GET", "/foobar", nil)
@@ -543,7 +543,7 @@ var _ = Describe("HandleAuthentication", func() {
 
 		When("session manager returns error", func() {
 			It("returns status internal server error", func() {
-				sut := api.New(cfg, nil, nil, nil, nil, nil, mockSessionManager, nil, mockUserRepo, nil, nil, mockTokenService, nil)
+				sut := api.New(cfg, nil, nil, nil, nil, nil, mockSessionManager, nil, mockUserRepo, nil, nil, mockTokenService, nil, nil, nil)
 				m := sut.HandleAuthentication(nil)
 
 				req, err := http.NewRequest("GET", "/foobar", nil)

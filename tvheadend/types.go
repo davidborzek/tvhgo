@@ -136,55 +136,6 @@ type (
 		UUID string `json:"uuid"`
 	}
 
-	DvrConfig struct {
-		UUID                                    string `json:"uuid"`
-		Enabled                                 bool   `json:"enabled"`
-		Name                                    string `json:"name"`
-		Profile                                 string `json:"profile"`
-		Pri                                     int    `json:"pri"`
-		RetentionDays                           int    `json:"retention-days"`
-		RemovalDays                             int64  `json:"removal-days"`
-		RemoveAfterPlayback                     int    `json:"remove-after-playback"`
-		PreExtraTime                            int    `json:"pre-extra-time"`
-		PostExtraTime                           int    `json:"post-extra-time"`
-		Clone                                   bool   `json:"clone"`
-		RerecordErrors                          int    `json:"rerecord-errors"`
-		ComplexScheduling                       bool   `json:"complex-scheduling"`
-		FetchArtwork                            bool   `json:"fetch-artwork"`
-		FetchArtworkKnownBroadcastsAllowUnknown bool   `json:"fetch-artwork-known-broadcasts-allow-unknown"`
-		Storage                                 string `json:"storage"`
-		StorageMfree                            int    `json:"storage-mfree"`
-		StorageMused                            int    `json:"storage-mused"`
-		DirectoryPermissions                    string `json:"directory-permissions"`
-		FilePermissions                         string `json:"file-permissions"`
-		Charset                                 string `json:"charset"`
-		Pathname                                string `json:"pathname"`
-		Cache                                   int    `json:"cache"`
-		DayDir                                  bool   `json:"day-dir"`
-		ChannelDir                              bool   `json:"channel-dir"`
-		TitleDir                                bool   `json:"title-dir"`
-		FormatTvmoviesSubdir                    string `json:"format-tvmovies-subdir"`
-		FormatTvshowsSubdir                     string `json:"format-tvshows-subdir"`
-		ChannelInTitle                          bool   `json:"channel-in-title"`
-		DateInTitle                             bool   `json:"date-in-title"`
-		TimeInTitle                             bool   `json:"time-in-title"`
-		EpisodeInTitle                          bool   `json:"episode-in-title"`
-		SubtitleInTitle                         bool   `json:"subtitle-in-title"`
-		OmitTitle                               bool   `json:"omit-title"`
-		CleanTitle                              bool   `json:"clean-title"`
-		WhitespaceInTitle                       bool   `json:"whitespace-in-title"`
-		WindowsCompatibleFilenames              bool   `json:"windows-compatible-filenames"`
-		TagFiles                                bool   `json:"tag-files"`
-		EpgUpdateWindow                         int    `json:"epg-update-window"`
-		EpgRunning                              bool   `json:"epg-running"`
-		AutorecMaxcount                         int    `json:"autorec-maxcount"`
-		AutorecMaxsched                         int    `json:"autorec-maxsched"`
-		SkipCommercials                         bool   `json:"skip-commercials"`
-		WarmTime                                int    `json:"warm-time"`
-	}
-
-	DvrConfigGrid GridResponse[DvrConfig]
-
 	EpgEventGridEntry struct {
 		EventID       int64  `json:"eventId"`
 		ChannelName   string `json:"channelName"`
@@ -302,5 +253,67 @@ type (
 		TcBit       int    `json:"tc_bit"`
 		EcBlock     int    `json:"ec_block"`
 		TcBlock     int    `json:"tc_block"`
+	}
+
+	DVRConfig struct {
+		UUID                                    string `json:"uuid"`
+		Enabled                                 bool   `json:"enabled"`
+		Name                                    string `json:"name"`
+		Profile                                 string `json:"profile"`
+		Pri                                     int    `json:"pri"`
+		RetentionDays                           int64  `json:"retention-days"`
+		RemovalDays                             int64  `json:"removal-days"`
+		RemoveAfterPlayback                     int64  `json:"remove-after-playback"`
+		PreExtraTime                            int    `json:"pre-extra-time"`
+		PostExtraTime                           int    `json:"post-extra-time"`
+		Clone                                   bool   `json:"clone"`
+		RerecordErrors                          int    `json:"rerecord-errors"`
+		ComplexScheduling                       bool   `json:"complex-scheduling"`
+		FetchArtwork                            bool   `json:"fetch-artwork"`
+		FetchArtworkKnownBroadcastsAllowUnknown bool   `json:"fetch-artwork-known-broadcasts-allow-unknown"`
+		FetchArtworkOptions                     string `json:"fetch-artwork-options"`
+		Storage                                 string `json:"storage"`
+		StorageMfree                            int    `json:"storage-mfree"`
+		StorageMused                            int    `json:"storage-mused"`
+		DirectoryPermissions                    string `json:"directory-permissions"`
+		FilePermissions                         string `json:"file-permissions"`
+		Charset                                 string `json:"charset"`
+		Pathname                                string `json:"pathname"`
+		Cache                                   int    `json:"cache"`
+		DayDir                                  bool   `json:"day-dir"`
+		ChannelDir                              bool   `json:"channel-dir"`
+		TitleDir                                bool   `json:"title-dir"`
+		FormatTvmoviesSubdir                    string `json:"format-tvmovies-subdir"`
+		FormatTvshowsSubdir                     string `json:"format-tvshows-subdir"`
+		ChannelInTitle                          bool   `json:"channel-in-title"`
+		DateInTitle                             bool   `json:"date-in-title"`
+		TimeInTitle                             bool   `json:"time-in-title"`
+		EpisodeInTitle                          bool   `json:"episode-in-title"`
+		SubtitleInTitle                         bool   `json:"subtitle-in-title"`
+		OmitTitle                               bool   `json:"omit-title"`
+		CleanTitle                              bool   `json:"clean-title"`
+		WhitespaceInTitle                       bool   `json:"whitespace-in-title"`
+		WindowsCompatibleFilenames              bool   `json:"windows-compatible-filenames"`
+		TagFiles                                bool   `json:"tag-files"`
+		EpgUpdateWindow                         int64  `json:"epg-update-window"`
+		EpgRunning                              bool   `json:"epg-running"`
+		AutorecMaxcount                         int    `json:"autorec-maxcount"`
+		AutorecMaxsched                         int    `json:"autorec-maxsched"`
+		Record                                  int    `json:"record"`
+		SkipCommercials                         bool   `json:"skip-commercials"`
+		Preproc                                 string `json:"preproc"`
+		Postproc                                string `json:"postproc"`
+		Postremove                              string `json:"postremove"`
+		WarmTime                                int    `json:"warm-time"`
+	}
+
+	StreamProfile struct {
+		Key string `json:"key"`
+		Val string `json:"val"`
+	}
+
+	KeyVal[K any, V any] struct {
+		Key K `json:"key"`
+		Val V `json:"val"`
 	}
 )

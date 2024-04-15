@@ -62,7 +62,7 @@ exports[`login > should render 1`] = `
           </div>
         </div>
         <button
-          class="_button_a7f9df"
+          class="_button_a7f9df _medium_a7f9df"
           type="submit"
         >
           login
@@ -157,7 +157,7 @@ exports[`login with totp > should render two factor auth 1`] = `
               </div>
             </div>
             <button
-              class="_button_a7f9df"
+              class="_button_a7f9df _medium_a7f9df"
               type="submit"
             >
               login

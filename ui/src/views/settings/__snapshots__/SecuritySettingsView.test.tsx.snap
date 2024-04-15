@@ -81,7 +81,7 @@ exports[`should render 1`] = `
       </div>
       <div>
         <button
-          class="_button_a7f9df"
+          class="_button_a7f9df _medium_a7f9df"
           type="submit"
         >
           save
@@ -101,7 +101,7 @@ exports[`should render 1`] = `
         two_factor_auth
       </h2>
       <button
-        class="_button_a7f9df _red_a7f9df"
+        class="_button_a7f9df _medium_a7f9df _red_a7f9df"
         data-testid="twofa-disable-button"
       >
         disable
@@ -166,7 +166,7 @@ exports[`should render 1`] = `
               </td>
               <td>
                 <button
-                  class="_button_a7f9df _red_a7f9df"
+                  class="_button_a7f9df _medium_a7f9df _red_a7f9df"
                   data-testid="revoke-session-btn"
                 >
                   <svg
@@ -212,7 +212,7 @@ exports[`should render 1`] = `
               </td>
               <td>
                 <button
-                  class="_button_a7f9df _red_a7f9df"
+                  class="_button_a7f9df _medium_a7f9df _red_a7f9df"
                   data-testid="revoke-session-btn"
                 >
                   <svg
@@ -282,7 +282,7 @@ exports[`should render 1`] = `
               </td>
               <td>
                 <button
-                  class="_button_a7f9df _red_a7f9df"
+                  class="_button_a7f9df _medium_a7f9df _red_a7f9df"
                   data-testid="revoke-token-btn"
                 >
                   <svg
@@ -318,7 +318,7 @@ exports[`should render 1`] = `
               </td>
               <td>
                 <button
-                  class="_button_a7f9df _red_a7f9df"
+                  class="_button_a7f9df _medium_a7f9df _red_a7f9df"
                   data-testid="revoke-token-btn"
                 >
                   <svg
@@ -350,7 +350,7 @@ exports[`should render 1`] = `
       </div>
       <div>
         <button
-          class="_button_a7f9df"
+          class="_button_a7f9df _medium_a7f9df"
         >
           new_token
         </button>

@@ -2,6 +2,7 @@ import {
   AuthInfo,
   Channel,
   CreateTokenResponse,
+  DVRConfig,
   EpgChannel,
   EpgEvent,
   ErrorResponse,
@@ -282,4 +283,13 @@ export async function deleteToken(id: number): Promise<void> {
 export async function createToken(name: string): Promise<CreateTokenResponse> {
   const response = await client.post<CreateTokenResponse>(`/tokens`, { name });
   return response.data;
+}
+
+export async function getDVRConfigs(): Promise<Array<DVRConfig>> {
+  const response = await client.get<Array<DVRConfig>>(`/dvr/config`);
+  return response.data;
+}
+
+export async function deleteDVRConfig(id: string): Promise<void> {
+  await client.delete(`/dvr/config/${id}`);
 }

@@ -136,3 +136,83 @@ export type Token = {
 export type CreateTokenResponse = {
   token: string;
 };
+
+export interface DVRConfig {
+  id: string;
+  enabled: boolean;
+  name: string;
+  original: boolean;
+  streamProfileId: string;
+  priority: string;
+  deleteAfterPlayback: number;
+  retentionDays: number;
+  removalDays: number;
+  startPadding: number;
+  endPadding: number;
+  clone: boolean;
+  rerecordErrors: number;
+  tunerWarmUpTime: number;
+  storage: DVRConfigStorage;
+  subdirectories: DVRConfigSubdirectories;
+  file: DVRConfigFile;
+  epg: DvrConfigEPG;
+  artwork: DVRConfigArtwork;
+  hooks: DVRConfigHooks;
+}
+
+export type DVRConfigStorage = {
+  path: string;
+  maintainFreeSpace: number;
+  maintainUsedSpace: number;
+  directoryPermissions: string;
+  filePermissions: string;
+  charset: string;
+  pathnameFormat: string;
+  cacheScheme: number;
+};
+
+export type DVRConfigSubdirectories = {
+  daySubdir: boolean;
+  channelSubdir: boolean;
+  titleSubdir: boolean;
+  tvMoviesSubdirFormat: string;
+  tvShowsSubdirFormat: string;
+};
+
+export type DVRConfigFile = {
+  channelInTitle: boolean;
+  dateInTitle: boolean;
+  timeInTitle: boolean;
+  episodeInTitle: boolean;
+  subtitleInTitle: boolean;
+  omitTitle: boolean;
+  cleanTitle: boolean;
+  whitespaceInTitle: boolean;
+  windowsCompatibleFilename: boolean;
+  tagFiles: boolean;
+};
+
+export type DvrConfigEPG = {
+  duplicateHandling: number;
+  epgUpdateWindow: number;
+  epgRunning: boolean;
+  skipCommercials: boolean;
+  autorec: DVRConfigAutorec;
+};
+
+export type DVRConfigAutorec = {
+  maxCount: number;
+  maxSchedules: number;
+};
+
+export type DVRConfigArtwork = {
+  fetch: boolean;
+  allowUnidentifiableBroadcasts: boolean;
+  commandLineOptions: string;
+};
+
+export type DVRConfigHooks = {
+  start: string;
+  stop: string;
+  remove: string;
+};

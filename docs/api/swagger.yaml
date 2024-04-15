@@ -105,6 +105,268 @@ definitions:
       eventId:
         type: integer
     type: object
+  core.DVRConfig:
+    properties:
+      artwork:
+        allOf:
+        - $ref: '#/definitions/core.DVRConfigArtworkSettings'
+        description: Artwork is the artwork settings for the DVR.
+      clone:
+        description: |-
+          Clone indicates whether the scheduled entry should be cloned and re-recorded
+          if the recording fails.
+        type: boolean
+      deleteAfterPlayback:
+        description: |-
+          DeleteAfterPlaybackTime defines the amount of time in seconds to keep the recording after playback.
+          If set to 0, the recording will be kept indefinitely.
+        type: integer
+      enabled:
+        description: Enabled indicates if the DVR is enabled.
+        type: boolean
+      endPadding:
+        description: |-
+          EndPadding optional padding in minutes to record
+          after the recording ends.
+        type: integer
+      epg:
+        allOf:
+        - $ref: '#/definitions/core.DVRConfigEPGSettings'
+        description: EPG is the EPG settings for the DVR.
+      file:
+        allOf:
+        - $ref: '#/definitions/core.DVRConfigFileSettings'
+        description: File is the file settings for the DVR.
+      hooks:
+        allOf:
+        - $ref: '#/definitions/core.DVRConfigHooks'
+        description: Hooks is the hooks settings for the DVR.
+      id:
+        description: ID is the unique identifier for the DVR configuration.
+        type: string
+      name:
+        description: Name is the name of the DVR configuration.
+        type: string
+      original:
+        description: Original indicates if the DVR configuration is the original.
+        type: boolean
+      priority:
+        allOf:
+        - $ref: '#/definitions/core.DVRConfigPriority'
+        description: Priority is the priority of the DVR configuration.
+      removalDays:
+        description: RemovalDays is the amount of days to keep the recording file.
+        type: integer
+      rerecordErrors:
+        description: RerecordErrors defines the amount of errors that can occur before
+          the recording is re-scheduled.
+        type: integer
+      retentionDays:
+        description: RetentionDays is the amount of days to keep the recording info.
+        type: integer
+      startPadding:
+        description: |-
+          StartPadding optional padding in minutes to record
+          before the recording starts.
+        type: integer
+      storage:
+        allOf:
+        - $ref: '#/definitions/core.DVRConfigStorageSettings'
+        description: Storage is the storage settings for the DVR.
+      streamProfileId:
+        description: StreamProfileID is the unique identifier of the stream profile
+          to use.
+        type: string
+      subdirectories:
+        allOf:
+        - $ref: '#/definitions/core.DVRConfigSubdirectorySettings'
+        description: Subdirectories is the subdirectory settings for the DVR.
+      tunerWarmUpTime:
+        description: TunerWarmUpTime is the time in seconds to wait for the tuner
+          to get ready for recording.
+        type: integer
+    type: object
+  core.DVRConfigArtworkSettings:
+    properties:
+      allowUnidentifiableBroadcasts:
+        description: AllowUnidentifiableBroadcasts indicates if artwork should be
+          fetched for broadcasts that cannot be identified.
+        type: boolean
+      commandLineOptions:
+        description: CommandLineOptions are additional command line options to use
+          when fetching artwork.
+        type: string
+      fetch:
+        description: |-
+          Fetch indicates if artwork should be fetched from installed providers.
+          `tmdb` and `tvdb` must be correctly configured in the Tvheadend configuration.
+        type: boolean
+    type: object
+  core.DVRConfigAutorecSettings:
+    properties:
+      maxCount:
+        description: MaxCount is the maximum number of autorec that can be matched.
+        type: integer
+      maxSchedules:
+        description: MaxSchedules is the maximum number of autorec that can be scheduled.
+        type: integer
+    type: object
+  core.DVRConfigEPGSettings:
+    properties:
+      autorec:
+        allOf:
+        - $ref: '#/definitions/core.DVRConfigAutorecSettings'
+        description: Autorec is the autorec settings for the DVR.
+      duplicateHandling:
+        description: DuplicateHandling defines the duplicate recording handling.
+        type: integer
+      epgRunning:
+        description: |-
+          EpgRunning indicates if EITp/f should be used to decide event start and stop.
+          Also known as "Accurate Recording".
+        type: boolean
+      epgUpdateWindow:
+        description: |-
+          EpgUpdateWindow is the maximum allowed difference between the event start time
+          when the epg event is changed.
+        type: integer
+      skipCommercials:
+        description: SkipCommercials indicates if commercials should be skipped.
+        type: boolean
+    type: object
+  core.DVRConfigFileSettings:
+    properties:
+      channelInTitle:
+        description: |-
+          IncludeChannel indicates if the channel should be included in the title.
+          This applies fot the filename and the title in tag stored in the file.
+        type: boolean
+      cleanTitle:
+        description: CleanTitle indicates if the title should be cleaned.
+        type: boolean
+      dateInTitle:
+        description: |-
+          IncludeDate indicates if the date should be included in the title.
+          This applies fot the filename and the title in tag stored in the file.
+        type: boolean
+      episodeInTitle:
+        description: IncludeEpisode indicates if the episode should be included in
+          the title when available.
+        type: boolean
+      omitTitle:
+        description: OmitTitle indicates if the title should be omitted.
+        type: boolean
+      subtitleInTitle:
+        description: IncludeSubtitle indicates if the subtitle should be included
+          in the title when available.
+        type: boolean
+      tagFiles:
+        description: TagFiles indicates if the files should be tagged with metadata.
+        type: boolean
+      timeInTitle:
+        description: |-
+          IncludeTime indicates if the time should be included in the title.
+          This applies fot the filename and the title in tag stored in the file.
+        type: boolean
+      whitespaceInTitle:
+        description: AllowWhitespace indicates if whitespace should be included in
+          the title.
+        type: boolean
+      windowsCompatibleFilename:
+        description: WindowsCompatibleFilename indicates if the filename should be
+          Windows compatible.
+        type: boolean
+    type: object
+  core.DVRConfigHooks:
+    properties:
+      remove:
+        description: Remove is the command to run when the DVR removes a recording.
+        type: string
+      start:
+        description: Start is the command to run when the DVR starts recording.
+        type: string
+      stop:
+        description: Stop is the command to run when the DVR stops recording.
+        type: string
+    type: object
+  core.DVRConfigPriority:
+    enum:
+    - important
+    - high
+    - normal
+    - low
+    - unimportant
+    - default
+    - unknown
+    type: string
+    x-enum-varnames:
+    - DVRConfigPriorityImportant
+    - DVRConfigPriorityHigh
+    - DVRConfigPriorityNormal
+    - DVRConfigPriorityLow
+    - DVRConfigPriorityUnimportant
+    - DVRConfigPriorityDefault
+    - DVRConfigPriorityUnknown
+  core.DVRConfigStorageSettings:
+    properties:
+      cacheScheme:
+        description: CacheScheme is the cache scheme to use/used to store recordings.
+        type: integer
+      charset:
+        description: Charset is the character set to use for the filenames.
+        type: string
+      directoryPermissions:
+        description: DirectoryPermissions is the permissions to create new directories
+          with.
+        type: string
+      filePermissions:
+        description: FilePermissions is the permissions to create new files with.
+        type: string
+      maintainFreeSpace:
+        description: MaintainFreeSpace is the amount of free space to maintain on
+          the storage path.
+        type: integer
+      maintainUsedSpace:
+        description: MaintainUsedSpace is the amount of used space to maintain on
+          the storage path.
+        type: integer
+      path:
+        description: Path is the path where the recording should be stored.
+        type: string
+      pathnameFormat:
+        description: |-
+          PathnameFormat is the format of the pathname.
+          See Tvheadend Help for more information.
+        type: string
+    type: object
+  core.DVRConfigSubdirectorySettings:
+    properties:
+      channelSubdir:
+        description: |-
+          ChannelSubdir indicates if a new directory should be created for each channel.
+          If this and `daySubdir` are both enabled, the channel directory will be created inside the day directory.
+        type: boolean
+      daySubdir:
+        description: |-
+          DaySubdir indicates if a new directory should be created for each day.
+          It will only be created when something is recorded. The format is ISO Standard (YYYY-MM-DD).
+        type: boolean
+      titleSubdir:
+        description: |-
+          TitleSubdir indicates if a new directory should be created for each title.
+          If this, `daySubdir` and `channelSubdir` are all enabled, the title directory will be created inside the channel directory.
+        type: boolean
+      tvMoviesSubdirFormat:
+        description: |-
+          TvMoviesSubdirFormat is the subdirectory format for tvmovies when using the $q specifier.
+          This can contain only alphanumeric characters (A-Za-z0-9).
+        type: string
+      tvShowsSubdirFormat:
+        description: |-
+          TvhshowsSubdirFormat is the subdirectory format for tvshows when using the $q specifier.
+          This can contain only alphanumeric characters (A-Za-z0-9).
+        type: string
+    type: object
   core.EpgChannel:
     properties:
       channelId:
@@ -262,6 +524,13 @@ definitions:
         type: string
       userId:
         type: integer
+    type: object
+  core.StreamProfile:
+    properties:
+      id:
+        type: string
+      name:
+        type: string
     type: object
   core.Token:
     properties:
@@ -446,6 +715,81 @@ paths:
       summary: Stream a channel by channel number
       tags:
       - channels
+  /dvr/config:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/core.DVRConfig'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Get list of dvr configs
+      tags:
+      - dvr
+  /dvr/config/{id}:
+    delete:
+      parameters:
+      - description: DVR config ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Deletes a dvr config by id
+      tags:
+      - dvr
+    get:
+      parameters:
+      - description: DVR Config ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/core.DVRConfig'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Get a dvr configs by id
+      tags:
+      - dvr
   /epg:
     get:
       parameters:
@@ -699,6 +1043,28 @@ paths:
       summary: Get channel picon
       tags:
       - picon
+  /profiles/stream:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/core.StreamProfile'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Get list of stream profiles
+      tags:
+      - profiles
   /recordings:
     delete:
       parameters:

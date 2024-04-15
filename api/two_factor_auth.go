@@ -83,7 +83,7 @@ func (s *router) SetupTwoFactorAuth(w http.ResponseWriter, r *http.Request) {
 //
 //	@Summary	Activates two factor auth for the current user
 //	@Tags		two-factor-auth
-//	@Param		body	body	twoFactorAuthActivateRequest true	"Body"
+//	@Param		body	body	twoFactorAuthActivateRequest	true	"Body"
 //	@Produce	json
 //	@Success	204
 //	@Failure	400	{object}	response.ErrorResponse
@@ -142,7 +142,7 @@ func (s *router) ActivateTwoFactorAuth(w http.ResponseWriter, r *http.Request) {
 //
 //	@Summary	Deactivates two factor auth for the current user
 //	@Tags		two-factor-auth
-//	@Param		body	body	twoFactorAuthDeactivateRequest true	"Body"
+//	@Param		body	body	twoFactorAuthDeactivateRequest	true	"Body"
 //	@Produce	json
 //	@Success	204
 //	@Failure	400	{object}	response.ErrorResponse

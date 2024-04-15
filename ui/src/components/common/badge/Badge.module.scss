@@ -1,0 +1,36 @@
+.badge {
+  border-radius: 8px;
+  padding: 0.2rem 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+
+  &.default {
+    background-color: rgba(142, 255, 255, 0.7);
+    color: rgb(39, 78, 78);
+  }
+
+  &.success {
+    background-color: rgba(142, 255, 142, 0.7);
+    color: rgb(39, 78, 39);
+  }
+
+  &.failure {
+    background-color: rgba(255, 142, 142, 0.7);
+    color: rgb(78, 39, 39);
+  }
+
+  &.warning {
+    background-color: rgba(255, 255, 142, 0.7);
+    color: rgb(78, 78, 39);
+  }
+
+  &.indigo {
+    background-color: rgba(142, 142, 255, 0.7);
+    color: rgb(39, 39, 78);
+  }
+
+  &.pink {
+    background-color: rgba(255, 142, 255, 0.7);
+    color: rgb(78, 39, 78);
+  }
+}

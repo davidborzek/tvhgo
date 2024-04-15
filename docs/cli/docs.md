@@ -6,11 +6,20 @@ tvhgo - Modern and secure api and web interface for Tvheadend
 
 tvhgo
 
+```
+[--config|-c]=[value]
+```
+
 **Usage**:
 
 ```
 tvhgo [GLOBAL OPTIONS] command [COMMAND OPTIONS] [ARGUMENTS...]
 ```
+
+# GLOBAL OPTIONS
+
+**--config, -c**="": Path to the configuration file
+
 
 # COMMANDS
 

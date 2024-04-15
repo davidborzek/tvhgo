@@ -33,7 +33,7 @@ var _ = Describe("Channels", func() {
 			Return(&core.AuthContext{}, nil).
 			AnyTimes()
 
-		sut = api.New(&config.Config{}, mockChannelService, nil, nil, nil, nil, nil, nil, nil, nil, nil, mockTokenService, nil).
+		sut = api.New(&config.Config{}, mockChannelService, nil, nil, nil, nil, nil, nil, nil, nil, nil, mockTokenService, nil, nil, nil).
 			Handler()
 
 	})
