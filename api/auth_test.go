@@ -186,7 +186,7 @@ var _ = Describe("HandleAuthentication", func() {
 
 						mockUserRepo.EXPECT().
 							FindByUsername(req.Context(), username).
-							Return(nil, nil, nil).
+							Return(nil, nil).
 							Times(1)
 
 						m.ServeHTTP(rr, req)
@@ -229,7 +229,7 @@ var _ = Describe("HandleAuthentication", func() {
 
 						mockUserRepo.EXPECT().
 							FindByUsername(req.Context(), "foobar").
-							Return(nil, nil, nil).
+							Return(nil, nil).
 							Times(1)
 
 						mockUserRepo.EXPECT().
@@ -263,7 +263,7 @@ var _ = Describe("HandleAuthentication", func() {
 
 						mockUserRepo.EXPECT().
 							FindByUsername(req.Context(), "foobar").
-							Return(nil, nil, nil).
+							Return(nil, nil).
 							Times(1)
 
 						mockUserRepo.EXPECT().
@@ -456,7 +456,7 @@ var _ = Describe("HandleAuthentication", func() {
 						UserID:      1,
 						SessionID:   &sessionID,
 						ForwardAuth: false,
-					}, nil, nil, nil).
+					}, nil, nil).
 					Times(1)
 
 				m.ServeHTTP(rr, req)
