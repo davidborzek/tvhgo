@@ -4,6 +4,7 @@ import {
   LoaderFunctionArgs,
   useLoaderData,
   useNavigate,
+  useRevalidator,
 } from 'react-router-dom';
 import { getRecording, getRecordingUrl } from '@/clients/api/api';
 
@@ -37,6 +38,7 @@ export async function loader({ params }: LoaderFunctionArgs) {
 export function Component() {
   const { t } = useTranslation();
   const navigate = useNavigate();
+  const { revalidate } = useRevalidator();
 
   const recording = useLoaderData() as Recording;
   const {
@@ -107,7 +109,7 @@ export function Component() {
     if (recording?.status === 'recording') {
       stopRecording(recording.id, () => {
         setConfirmationModalVisible(false);
-        fetch(recording.id);
+        revalidate();
       });
     } else if (recording?.status === 'scheduled') {
       cancelRecording(recording?.id, () => {
