@@ -116,23 +116,23 @@ type (
 	DVRConfigFileSettings struct {
 		// IncludeChannel indicates if the channel should be included in the title.
 		// This applies fot the filename and the title in tag stored in the file.
-		IncludeChannel bool `json:"channelInTitle"`
+		IncludeChannel bool `json:"includeChannel"`
 		// IncludeDate indicates if the date should be included in the title.
 		// This applies fot the filename and the title in tag stored in the file.
-		IncludeDate bool `json:"dateInTitle"`
+		IncludeDate bool `json:"includeDate"`
 		// IncludeTime indicates if the time should be included in the title.
 		// This applies fot the filename and the title in tag stored in the file.
-		IncludeTime bool `json:"timeInTitle"`
+		IncludeTime bool `json:"includeTime"`
 		// IncludeEpisode indicates if the episode should be included in the title when available.
-		IncludeEpisode bool `json:"episodeInTitle"`
+		IncludeEpisode bool `json:"includeEpisode"`
 		// IncludeSubtitle indicates if the subtitle should be included in the title when available.
-		IncludeSubtitle bool `json:"subtitleInTitle"`
+		IncludeSubtitle bool `json:"includeSubtitle"`
 		// OmitTitle indicates if the title should be omitted.
 		OmitTitle bool `json:"omitTitle"`
 		// CleanTitle indicates if the title should be cleaned.
 		CleanTitle bool `json:"cleanTitle"`
 		// AllowWhitespace indicates if whitespace should be included in the title.
-		AllowWhitespace bool `json:"whitespaceInTitle"`
+		AllowWhitespace bool `json:"allowWhitespace"`
 		// WindowsCompatibleFilename indicates if the filename should be Windows compatible.
 		WindowsCompatibleFilename bool `json:"windowsCompatibleFilename"`
 		// TagFiles indicates if the files should be tagged with metadata.

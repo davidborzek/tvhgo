@@ -160,7 +160,13 @@ function App() {
               />
               <Route
                 path="/dvr/config"
-                lazy={() => import('@/views/dvr/DVRConfigListView')}
+                lazy={() => import('@/views/dvr/config/list/DVRConfigListView')}
+              />
+              <Route
+                path="/dvr/config/:id"
+                lazy={() =>
+                  import('@/views/dvr/config/detail/DVRConfigDetailView')
+                }
               />
 
               <Route

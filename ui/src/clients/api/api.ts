@@ -290,6 +290,11 @@ export async function getDVRConfigs(): Promise<Array<DVRConfig>> {
   return response.data;
 }
 
+export async function getDVRConfig(id: string): Promise<DVRConfig> {
+  const response = await client.get<DVRConfig>(`/dvr/config/${id}`);
+  return response.data;
+}
+
 export async function deleteDVRConfig(id: string): Promise<void> {
   await client.delete(`/dvr/config/${id}`);
 }

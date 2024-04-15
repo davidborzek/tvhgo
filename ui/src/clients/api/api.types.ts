@@ -180,14 +180,14 @@ export type DVRConfigSubdirectories = {
 };
 
 export type DVRConfigFile = {
-  channelInTitle: boolean;
-  dateInTitle: boolean;
-  timeInTitle: boolean;
-  episodeInTitle: boolean;
-  subtitleInTitle: boolean;
+  includeChannel: boolean;
+  includeDate: boolean;
+  includeTime: boolean;
+  includeEpisode: boolean;
+  includeSubtitle: boolean;
   omitTitle: boolean;
   cleanTitle: boolean;
-  whitespaceInTitle: boolean;
+  allowWhitespace: boolean;
   windowsCompatibleFilename: boolean;
   tagFiles: boolean;
 };
