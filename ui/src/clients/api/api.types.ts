@@ -145,8 +145,8 @@ export interface DVRConfig {
   streamProfileId: string;
   priority: string;
   deleteAfterPlayback: number;
-  retentionDays: number;
-  removalDays: number;
+  recordingInfoRetention: DVRRetentionPolicy;
+  recordingFileRetention: DVRRetentionPolicy;
   startPadding: number;
   endPadding: number;
   clone: boolean;
@@ -215,4 +215,15 @@ export type DVRConfigHooks = {
   start: string;
   stop: string;
   remove: string;
+};
+
+export type DVRRetentionType =
+  | 'days'
+  | 'forever'
+  | 'on_file_removal'
+  | 'maintained_space';
+
+export type DVRRetentionPolicy = {
+  days: number;
+  type: DVRRetentionType;
 };

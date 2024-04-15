@@ -10,11 +10,6 @@ import { getDVRConfig } from '@/clients/api/api';
 import styles from './DVRConfigDetailView.module.scss';
 import { useTranslation } from 'react-i18next';
 
-// TODO: move to backend
-const RETENTION_FOREVER = 2147483647;
-const RETENTION_ON_FILE_REMOVAL = 2147483646;
-const RETENTION_MAINTAINED_SPACE = 2147483646;
-
 export function loader({ params }: LoaderFunctionArgs) {
   if (!params.id) {
     throw new Error('missing id parameter');
@@ -27,28 +22,28 @@ export function Component() {
   const { t } = useTranslation();
   const config = useLoaderData() as DVRConfig;
 
-  const renderRetentionDays = () => {
-    if (config.retentionDays === RETENTION_FOREVER) {
+  const renderRecordingInfoRetentionPolicy = () => {
+    if (config.recordingInfoRetention.type === 'forever') {
       return t('forever');
     }
 
-    if (config.retentionDays === RETENTION_ON_FILE_REMOVAL) {
+    if (config.recordingInfoRetention.type === 'on_file_removal') {
       return t('on_file_removal');
     }
 
-    return t('days', { count: config.retentionDays });
+    return t('days', { count: config.recordingInfoRetention.days });
   };
 
-  const renderRemovalDays = () => {
-    if (config.removalDays === RETENTION_FOREVER) {
+  const renderRecordingFileRetentionPolicy = () => {
+    if (config.recordingFileRetention.type === 'forever') {
       return t('forever');
     }
 
-    if (config.removalDays === RETENTION_MAINTAINED_SPACE) {
+    if (config.recordingFileRetention.type === 'maintained_space') {
       return t('maintained_space');
     }
 
-    return t('days', { count: config.removalDays });
+    return t('days', { count: config.recordingFileRetention.days });
   };
 
   const renderPriority = () => {
@@ -88,13 +83,13 @@ export function Component() {
             </Pair>
 
             <Pair>
-              <PairKey>{t('retention')}</PairKey>
-              <PairValue>{renderRetentionDays()}</PairValue>
+              <PairKey>{t('recording_info_retention')}</PairKey>
+              <PairValue>{renderRecordingInfoRetentionPolicy()}</PairValue>
             </Pair>
 
             <Pair>
-              <PairKey>{t('removal')}</PairKey>
-              <PairValue>{renderRemovalDays()}</PairValue>
+              <PairKey>{t('recording_file_retention')}</PairKey>
+              <PairValue>{renderRecordingFileRetentionPolicy()}</PairValue>
             </Pair>
 
             <Pair>

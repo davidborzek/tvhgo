@@ -11,6 +11,11 @@ var (
 	ErrDVRConfigNotFound = errors.New("dvr config not found")
 )
 
+const (
+	tvheadendRetentionForever = 2147483647
+	tvheadendRetentionOther   = 2147483646
+)
+
 type DVRConfigPriority string
 
 const (
@@ -21,6 +26,22 @@ const (
 	DVRConfigPriorityUnimportant DVRConfigPriority = "unimportant"
 	DVRConfigPriorityDefault     DVRConfigPriority = "default"
 	DVRConfigPriorityUnknown     DVRConfigPriority = "unknown"
+)
+
+type DVRConfigRetentionType string
+
+const (
+	DVRConfigRetentionTypeForever         DVRConfigRetentionType = "forever"
+	DVRConfigRetentionTypeDays            DVRConfigRetentionType = "days"
+	DVRConfigRetentionTypeMaintainedSpace DVRConfigRetentionType = "maintained_space"
+	DVRConfigRetentionTypeOnFileRemoval   DVRConfigRetentionType = "on_file_removal"
+)
+
+type DVRConfigRetentionTarget string
+
+const (
+	DVRConfigRetentionTargetInfo DVRConfigRetentionTarget = "info"
+	DVRConfigRetentionTargetFile DVRConfigRetentionTarget = "file"
 )
 
 type (
@@ -41,10 +62,10 @@ type (
 		// DeleteAfterPlaybackTime defines the amount of time in seconds to keep the recording after playback.
 		// If set to 0, the recording will be kept indefinitely.
 		DeleteAfterPlaybackTime int64 `json:"deleteAfterPlayback"`
-		// RetentionDays is the amount of days to keep the recording info.
-		RetentionDays int64 `json:"retentionDays"`
-		// RemovalDays is the amount of days to keep the recording file.
-		RemovalDays int64 `json:"removalDays"`
+		// RecordingInfoRetention is the retention policy for the recording info.
+		RecordingInfoRetention DVRConfigRetentionPolicy `json:"recordingInfoRetention"`
+		// RecordingFileRetention is the retention policy for the recording file.
+		RecordingFileRetention DVRConfigRetentionPolicy `json:"recordingFileRetention"`
 		// StartPadding optional padding in minutes to record
 		// before the recording starts.
 		StartPadding int `json:"startPadding"`
@@ -182,6 +203,13 @@ type (
 		// Remove is the command to run when the DVR removes a recording.
 		Remove string `json:"remove"`
 	}
+
+	DVRConfigRetentionPolicy struct {
+		// Type is the type of retention policy.
+		Type DVRConfigRetentionType `json:"type"`
+		// Days is the amount of days to keep the recording info.
+		Days int64 `json:"days"`
+	}
 )
 
 type (
@@ -210,6 +238,29 @@ func NewDVRConfigPriority(priority int) DVRConfigPriority {
 	return DVRConfigPriorityUnknown
 }
 
+func NewDVRConfigRetentionPolicy(retention int64, t DVRConfigRetentionTarget) DVRConfigRetentionPolicy {
+	policyType := DVRConfigRetentionTypeDays
+	days := int64(0)
+
+	switch retention {
+	case tvheadendRetentionForever:
+		policyType = DVRConfigRetentionTypeForever
+	case tvheadendRetentionOther:
+		if t == DVRConfigRetentionTargetFile {
+			policyType = DVRConfigRetentionTypeMaintainedSpace
+		} else {
+			policyType = DVRConfigRetentionTypeOnFileRemoval
+		}
+	default:
+		days = retention
+	}
+
+	return DVRConfigRetentionPolicy{
+		Type: policyType,
+		Days: days,
+	}
+}
+
 func NewDVRConfig(cfg tvheadend.DVRConfig) DVRConfig {
 	return DVRConfig{
 		ID:                      cfg.UUID,
@@ -219,8 +270,8 @@ func NewDVRConfig(cfg tvheadend.DVRConfig) DVRConfig {
 		StreamProfileID:         cfg.Profile,
 		Priority:                NewDVRConfigPriority(cfg.Pri),
 		DeleteAfterPlaybackTime: cfg.RemoveAfterPlayback,
-		RetentionDays:           cfg.RetentionDays,
-		RemovalDays:             cfg.RemovalDays,
+		RecordingInfoRetention:  NewDVRConfigRetentionPolicy(cfg.RetentionDays, DVRConfigRetentionTargetInfo),
+		RecordingFileRetention:  NewDVRConfigRetentionPolicy(cfg.RetentionDays, DVRConfigRetentionTargetFile),
 		StartPadding:            cfg.PreExtraTime,
 		EndPadding:              cfg.PostExtraTime,
 		Clone:                   cfg.Clone,
