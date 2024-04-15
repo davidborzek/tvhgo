@@ -168,7 +168,7 @@ export type DVRConfigStorage = {
   filePermissions: string;
   charset: string;
   pathnameFormat: string;
-  cacheScheme: number;
+  cacheScheme: string;
 };
 
 export type DVRConfigSubdirectories = {
@@ -193,7 +193,7 @@ export type DVRConfigFile = {
 };
 
 export type DvrConfigEPG = {
-  duplicateHandling: number;
+  duplicateHandling: string;
   epgUpdateWindow: number;
   epgRunning: boolean;
   skipCommercials: boolean;

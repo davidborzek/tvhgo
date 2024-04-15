@@ -44,6 +44,36 @@ const (
 	DVRConfigRetentionTargetFile DVRConfigRetentionTarget = "file"
 )
 
+type DVRConfigCacheScheme string
+
+const (
+	DVRConfigCacheSchemeUnknown          DVRConfigCacheScheme = "unknown"
+	DVRConfigCacheSchemeSystem           DVRConfigCacheScheme = "system"
+	DVRConfigCacheSchemeDoNotKeep        DVRConfigCacheScheme = "do_not_keep"
+	DVRConfigCacheSchemeSync             DVRConfigCacheScheme = "sync"
+	DVRConfigCacheSchemeSyncAndDoNotKeep DVRConfigCacheScheme = "sync_and_do_not_keep"
+)
+
+type DVRConfigDuplicateHandling string
+
+const (
+	DVRConfigDuplicateHandlingRecordAll                       DVRConfigDuplicateHandling = "record_all"
+	DVRConfigDuplicateHandlingRecordAllEpgUnique              DVRConfigDuplicateHandling = "all_epg_unique"
+	DVRConfigDuplicateHandlingRecordAllDifferentEpisode       DVRConfigDuplicateHandling = "all_different_episode"
+	DVRConfigDuplicateHandlingRecordAllDifferentSubtitle      DVRConfigDuplicateHandling = "all_different_subtitle"
+	DVRConfigDuplicateHandlingRecordAllDifferentDescription   DVRConfigDuplicateHandling = "all_different_description"
+	DVRConfigDuplicateHandlingRecordAllOncePerMonth           DVRConfigDuplicateHandling = "all_once_per_month"
+	DVRConfigDuplicateHandlingRecordAllOncePerWeek            DVRConfigDuplicateHandling = "all_once_per_week"
+	DVRConfigDuplicateHandlingRecordAllOncePerDay             DVRConfigDuplicateHandling = "all_once_per_day"
+	DVRConfigDuplicateHandlingRecordLocalDifferentEpisode     DVRConfigDuplicateHandling = "local_different_episode"
+	DVRConfigDuplicateHandlingRecordLocalDifferentTitle       DVRConfigDuplicateHandling = "local_different_title"
+	DVRConfigDuplicateHandlingRecordLocalDifferentSubtitle    DVRConfigDuplicateHandling = "local_different_subtitle"
+	DVRConfigDuplicateHandlingRecordLocalDifferentDescription DVRConfigDuplicateHandling = "local_different_description"
+	DVRConfigDuplicateHandlingRecordLocalOncePerMonth         DVRConfigDuplicateHandling = "local_once_per_month"
+	DVRConfigDuplicateHandlingRecordLocalOncePerWeek          DVRConfigDuplicateHandling = "local_once_per_week"
+	DVRConfigDuplicateHandlingRecordLocalOncePerDays          DVRConfigDuplicateHandling = "local_once_per_day"
+)
+
 type (
 	// DVRConfig defines the configuration for the DVR.
 	DVRConfig struct {
@@ -111,7 +141,7 @@ type (
 		// See Tvheadend Help for more information.
 		PathnameFormat string `json:"pathnameFormat"`
 		// CacheScheme is the cache scheme to use/used to store recordings.
-		CacheScheme int `json:"cacheScheme"`
+		CacheScheme DVRConfigCacheScheme `json:"cacheScheme"`
 	}
 
 	// DVRConfigSubdirectorySettings defines the subdirectory settings for the DVR.
@@ -163,7 +193,7 @@ type (
 	// DVRConfigEPGSettings defines the EPG settings for the DVR.
 	DVRConfigEPGSettings struct {
 		// DuplicateHandling defines the duplicate recording handling.
-		DuplicateHandling int `json:"duplicateHandling"`
+		DuplicateHandling DVRConfigDuplicateHandling `json:"duplicateHandling"`
 		// EpgUpdateWindow is the maximum allowed difference between the event start time
 		// when the epg event is changed.
 		EpgUpdateWindow int64 `json:"epgUpdateWindow"`
@@ -261,6 +291,60 @@ func NewDVRConfigRetentionPolicy(retention int64, t DVRConfigRetentionTarget) DV
 	}
 }
 
+func NewDVRConfigCacheScheme(cacheScheme int) DVRConfigCacheScheme {
+	switch cacheScheme {
+	case 0:
+		return DVRConfigCacheSchemeUnknown
+	case 1:
+		return DVRConfigCacheSchemeSystem
+	case 2:
+		return DVRConfigCacheSchemeDoNotKeep
+	case 3:
+		return DVRConfigCacheSchemeSync
+	case 4:
+		return DVRConfigCacheSchemeSyncAndDoNotKeep
+	}
+
+	return DVRConfigCacheSchemeUnknown
+}
+
+func NewDVRConfigDuplicateHandling(duplicateHandling int) DVRConfigDuplicateHandling {
+	switch duplicateHandling {
+	case 0:
+		return DVRConfigDuplicateHandlingRecordAll
+	case 1:
+		return DVRConfigDuplicateHandlingRecordAllDifferentEpisode
+	case 2:
+		return DVRConfigDuplicateHandlingRecordAllDifferentSubtitle
+	case 3:
+		return DVRConfigDuplicateHandlingRecordAllDifferentDescription
+	case 4:
+		return DVRConfigDuplicateHandlingRecordAllOncePerWeek
+	case 5:
+		return DVRConfigDuplicateHandlingRecordAllOncePerDay
+	case 6:
+		return DVRConfigDuplicateHandlingRecordLocalDifferentEpisode
+	case 7:
+		return DVRConfigDuplicateHandlingRecordLocalDifferentTitle
+	case 8:
+		return DVRConfigDuplicateHandlingRecordLocalDifferentSubtitle
+	case 9:
+		return DVRConfigDuplicateHandlingRecordLocalDifferentDescription
+	case 10:
+		return DVRConfigDuplicateHandlingRecordLocalOncePerWeek
+	case 11:
+		return DVRConfigDuplicateHandlingRecordLocalOncePerDays
+	case 12:
+		return DVRConfigDuplicateHandlingRecordAllOncePerMonth
+	case 13:
+		return DVRConfigDuplicateHandlingRecordLocalOncePerMonth
+	case 14:
+		return DVRConfigDuplicateHandlingRecordAllEpgUnique
+	}
+
+	return DVRConfigDuplicateHandlingRecordAll
+}
+
 func NewDVRConfig(cfg tvheadend.DVRConfig) DVRConfig {
 	return DVRConfig{
 		ID:                      cfg.UUID,
@@ -285,7 +369,7 @@ func NewDVRConfig(cfg tvheadend.DVRConfig) DVRConfig {
 			FilePermissions:      cfg.FilePermissions,
 			Charset:              cfg.Charset,
 			PathnameFormat:       cfg.Pathname,
-			CacheScheme:          cfg.Cache,
+			CacheScheme:          NewDVRConfigCacheScheme(cfg.Cache),
 		},
 		Subdirectories: DVRConfigSubdirectorySettings{
 			DaySubdir:            cfg.DayDir,
@@ -307,7 +391,7 @@ func NewDVRConfig(cfg tvheadend.DVRConfig) DVRConfig {
 			TagFiles:                  cfg.TagFiles,
 		},
 		EPG: DVRConfigEPGSettings{
-			DuplicateHandling: cfg.Record,
+			DuplicateHandling: NewDVRConfigDuplicateHandling(cfg.Record),
 			EpgUpdateWindow:   cfg.EpgUpdateWindow,
 			EpgRunning:        cfg.EpgRunning,
 			SkipCommercials:   cfg.SkipCommercials,
