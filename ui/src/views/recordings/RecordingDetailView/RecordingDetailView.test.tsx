@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { cleanup, render } from '@testing-library/react';
-import { useLoaderData, useNavigate } from 'react-router-dom';
+import { useLoaderData, useNavigate, useRevalidator } from 'react-router-dom';
 
 import { Recording } from '@/clients/api/api.types';
 import { Component as RecordingDetailView } from './RecordingDetailView';
@@ -30,6 +30,10 @@ beforeEach(() => {
   });
 
   vi.mocked(useNavigate).mockReturnValue(navigateMock);
+  vi.mocked(useRevalidator).mockReturnValue({
+    revalidate: vi.fn(),
+    state: 'idle',
+  });
 });
 
 afterEach(() => {
