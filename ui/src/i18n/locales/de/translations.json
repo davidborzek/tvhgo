@@ -194,5 +194,6 @@
   "weekday_5": "Freitag",
   "weekday_6": "Samstag",
   "windows_compatible_filename": "Windows kompatibler Dateiname",
-  "yes": "Ja"
+  "yes": "Ja",
+  "pathname_format": "Format des Dateinamens"
 }

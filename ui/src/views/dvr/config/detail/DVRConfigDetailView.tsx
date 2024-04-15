@@ -161,6 +161,11 @@ export function Component() {
               <PairKey>{t('charset')}</PairKey>
               <PairValue>{config.storage.charset}</PairValue>
             </Pair>
+
+            <Pair>
+              <PairKey>{t('pathname_format')}</PairKey>
+              <PairValue>{config.storage.pathnameFormat}</PairValue>
+            </Pair>
           </PairList>
         </div>
 

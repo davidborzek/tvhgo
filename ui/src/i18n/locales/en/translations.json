@@ -124,6 +124,7 @@
   "password_updated_successfully": "Password saved",
   "passwords_do_not_match": "Passwords do not match.",
   "path": "Path",
+  "pathname_format": "Pathname format",
   "priority": "Priority",
   "record": "Record",
   "recording_canceled": "Recording successfully canceled.",
