@@ -26,7 +26,20 @@ auth:
     token_rotation_interval: 30m
     cleanup_interval: 12h
 
+  totp:
+    issuer: tvhgo
+
+  reverse_proxy:
+    enabled: false
+    user_header: Remote-User
+    email_header: Remote-Email
+    name_header: Remote-Name
+    allowed_proxies: ["127.0.0.0/24", "127.0.0.1"]
+    allow_registration: false
+
 metrics:
   enabled: true
   path: /metrics
+  port: 8081
+  host: 127.0.0.1
   token: <metrics_token>

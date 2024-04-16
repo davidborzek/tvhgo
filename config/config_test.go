@@ -42,6 +42,13 @@ func TestLoadRequiredConfigFromEnv(t *testing.T) {
 
 	assert.Equal(t, "console", cfg.Log.Format)
 	assert.Equal(t, "info", cfg.Log.Level)
+
+	assert.False(t, cfg.Auth.ReverseProxy.Enabled)
+	assert.Equal(t, "Remote-User", cfg.Auth.ReverseProxy.UserHeader)
+	assert.Equal(t, "Remote-Email", cfg.Auth.ReverseProxy.EmailHeader)
+	assert.Equal(t, "Remote-Name", cfg.Auth.ReverseProxy.NameHeader)
+	assert.Empty(t, cfg.Auth.ReverseProxy.AllowedProxies)
+	assert.False(t, cfg.Auth.ReverseProxy.AllowRegistration)
 }
 
 func TestLoadFailsForNoTvheadendHost(t *testing.T) {
@@ -94,6 +101,13 @@ func TestLoadConfigFromEnv(t *testing.T) {
 	os.Setenv("TVHGO_LOG_FORMAT", "json")
 	os.Setenv("TVHGO_LOG_LEVEL", "debug")
 
+	os.Setenv("TVHGO_AUTH_REVERSE_PROXY_ENABLED", "true")
+	os.Setenv("TVHGO_AUTH_REVERSE_PROXY_USER_HEADER", "X-Remote-User")
+	os.Setenv("TVHGO_AUTH_REVERSE_PROXY_EMAIL_HEADER", "X-Remote-Email")
+	os.Setenv("TVHGO_AUTH_REVERSE_PROXY_NAME_HEADER", "X-Remote-Name")
+	os.Setenv("TVHGO_AUTH_REVERSE_PROXY_ALLOWED_PROXIES", "127.0.0.1/24,127.0.0.1")
+	os.Setenv("TVHGO_AUTH_REVERSE_PROXY_ALLOW_REGISTRATION", "true")
+
 	cfg, err := config.Load("")
 
 	assert.Nil(t, err)
@@ -124,4 +138,11 @@ func TestLoadConfigFromEnv(t *testing.T) {
 
 	assert.Equal(t, "json", cfg.Log.Format)
 	assert.Equal(t, "debug", cfg.Log.Level)
+
+	assert.True(t, cfg.Auth.ReverseProxy.Enabled)
+	assert.Equal(t, "X-Remote-User", cfg.Auth.ReverseProxy.UserHeader)
+	assert.Equal(t, "X-Remote-Email", cfg.Auth.ReverseProxy.EmailHeader)
+	assert.Equal(t, "X-Remote-Name", cfg.Auth.ReverseProxy.NameHeader)
+	assert.Contains(t, cfg.Auth.ReverseProxy.AllowedProxies, "127.0.0.1/24", "127.0.0.1")
+	assert.True(t, cfg.Auth.ReverseProxy.AllowRegistration)
 }
