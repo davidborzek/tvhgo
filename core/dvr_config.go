@@ -12,8 +12,8 @@ var (
 )
 
 const (
-	tvheadendRetentionForever = 2147483647
-	tvheadendRetentionOther   = 2147483646
+	TvheadendRetentionForever = 2147483647
+	TvheadendRetentionOther   = 2147483646
 )
 
 type DVRConfigPriority string
@@ -273,9 +273,9 @@ func NewDVRConfigRetentionPolicy(retention int64, t DVRConfigRetentionTarget) DV
 	days := int64(0)
 
 	switch retention {
-	case tvheadendRetentionForever:
+	case TvheadendRetentionForever:
 		policyType = DVRConfigRetentionTypeForever
-	case tvheadendRetentionOther:
+	case TvheadendRetentionOther:
 		if t == DVRConfigRetentionTargetFile {
 			policyType = DVRConfigRetentionTypeMaintainedSpace
 		} else {
@@ -355,7 +355,7 @@ func NewDVRConfig(cfg tvheadend.DVRConfig) DVRConfig {
 		Priority:                NewDVRConfigPriority(cfg.Pri),
 		DeleteAfterPlaybackTime: cfg.RemoveAfterPlayback,
 		RecordingInfoRetention:  NewDVRConfigRetentionPolicy(cfg.RetentionDays, DVRConfigRetentionTargetInfo),
-		RecordingFileRetention:  NewDVRConfigRetentionPolicy(cfg.RetentionDays, DVRConfigRetentionTargetFile),
+		RecordingFileRetention:  NewDVRConfigRetentionPolicy(cfg.RemovalDays, DVRConfigRetentionTargetFile),
 		StartPadding:            cfg.PreExtraTime,
 		EndPadding:              cfg.PostExtraTime,
 		Clone:                   cfg.Clone,
