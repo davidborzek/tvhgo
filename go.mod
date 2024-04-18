@@ -11,7 +11,7 @@ require (
 	github.com/golang-migrate/migrate/v4 v4.17.0
 	github.com/gorilla/schema v1.3.0
 	github.com/onsi/ginkgo/v2 v2.17.1
-	github.com/onsi/gomega v1.32.0
+	github.com/onsi/gomega v1.33.0
 	github.com/pquerna/otp v1.4.0
 	github.com/prometheus/client_golang v1.19.0
 	github.com/rs/zerolog v1.32.0
@@ -56,7 +56,7 @@ require (
 	github.com/swaggo/files/v2 v2.0.0 // indirect
 	github.com/xrash/smetrics v0.0.0-20201216005158-039620a65673 // indirect
 	go.uber.org/atomic v1.9.0 // indirect
-	golang.org/x/net v0.21.0 // indirect
+	golang.org/x/net v0.23.0 // indirect
 	golang.org/x/sys v0.19.0 // indirect
 	golang.org/x/term v0.19.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
