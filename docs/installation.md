@@ -4,7 +4,7 @@ This guide provides step-by-step instructions to install thvgo using docker.
 
 Before you start, make sure you have the following ready:
 
-* Docker
+- Docker
 
 ## Install tvhgo
 
@@ -19,6 +19,8 @@ $ docker run -d \
     --restart unless-stopped \
     ghcr.io/davidborzek/tvhgo:latest
 ```
+
+> Note: tvhgo runs as a non-root user inside the container. Make sure the mounted directory is writable by the user with UID 1000 (default).
 
 Replace `<TVHEADEND_HOST>` with the actual hostname or ip of your tvheadend server and adapt /path/to/store/data to a path of your choice to persist the data stored by thvgo.
 
