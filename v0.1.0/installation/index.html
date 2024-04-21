@@ -480,6 +480,9 @@
 </span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span>--restart<span class="w"> </span>unless-stopped<span class="w"> </span><span class="se">\</span>
 </span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span>ghcr.io/davidborzek/tvhgo:latest
 </span></code></pre></div>
+<blockquote>
+<p>Note: tvhgo runs as a non-root user inside the container. Make sure the mounted directory is writable by the user with UID 1000 (default).</p>
+</blockquote>
 <p>Replace <code>&lt;TVHEADEND_HOST&gt;</code> with the actual hostname or ip of your tvheadend server and adapt /path/to/store/data to a path of your choice to persist the data stored by thvgo.</p>
 <p>You can find more configuration options <a href="#configuration">here</a>.</p>
 <h2 id="create-a-user">Create a user</h2>
