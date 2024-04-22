@@ -1,6 +1,7 @@
 import LanguageDetector from 'i18next-browser-languagedetector';
 import de from './locales/de/translations.json';
 import en from './locales/en/translations.json';
+import es from './locales/es/translations.json';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import moment from 'moment/min/moment-with-locales';
@@ -23,13 +24,16 @@ i18n
   .init({
     fallbackLng,
     debug: !import.meta.env.PROD,
-    supportedLngs: ['de', 'en'],
+    supportedLngs: ['de', 'en', 'es'],
     resources: {
       de: {
         translation: de,
       },
       en: {
         translation: en,
+      },
+      es: {
+        translation: es,
       },
     },
 
