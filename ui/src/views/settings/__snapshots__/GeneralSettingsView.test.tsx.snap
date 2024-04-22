@@ -146,6 +146,11 @@ exports[`should render 1`] = `
           >
             german
           </option>
+          <option
+            value="es"
+          >
+            spanish
+          </option>
         </select>
       </div>
       <div
@@ -1026,6 +1031,11 @@ exports[`should render render without logout button when authenticated by revers
             value="de"
           >
             german
+          </option>
+          <option
+            value="es"
+          >
+            spanish
           </option>
         </select>
       </div>
