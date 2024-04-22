@@ -13,6 +13,7 @@ import Input from '@/components/common/input/Input';
 import { TestIds } from '@/__test__/ids';
 import { getAuthInfo } from '@/clients/api/api';
 import i18n from 'i18next';
+import moment from 'moment/min/moment-with-locales';
 import styles from './SettingsView.module.scss';
 import { useAuth } from '@/contexts/AuthContext';
 import { useFormik } from 'formik';
@@ -45,8 +46,29 @@ export const Component = () => {
     { title: t('german'), value: 'de' },
   ];
 
+  const timeFormatOptions: Option[] = [
+    {
+      title: t(`default`),
+      value: 'default',
+    },
+    ...moment.locales().map((locale) => ({
+      title: t(`locales.${locale}`),
+      value: locale,
+    })),
+  ];
+
   const handleChangeLanguage = (lang: string) => {
     i18n.changeLanguage(lang, () => window.location.reload());
+  };
+
+  const handleChangeTimeFormat = (locale: string) => {
+    if (locale === 'default') {
+      localStorage.removeItem('time_locale');
+    } else {
+      localStorage.setItem('time_locale', locale);
+    }
+
+    window.location.reload();
   };
 
   const usernameRef = useRef<HTMLInputElement>(null);
@@ -163,6 +185,14 @@ export const Component = () => {
             onChange={handleChangeLanguage}
             fullWidth
             testID={TestIds.LANGUAGE_DROPDOWN}
+          />
+          <Dropdown
+            label={t('time_format')}
+            value={localStorage.getItem('time_locale') || t('default')}
+            options={timeFormatOptions}
+            onChange={handleChangeTimeFormat}
+            fullWidth
+            testID={TestIds.TIME_FORMAT_DROPDOWN}
           />
           {!authInfo.forwardAuth ? (
             <div>

@@ -7,6 +7,7 @@ export enum TestIds {
   REVOKE_TOKEN_BUTTON = 'revoke-token-btn',
   THEME_DROPDOWN = 'theme-dropdown',
   LANGUAGE_DROPDOWN = 'language-dropdown',
+  TIME_FORMAT_DROPDOWN = 'time-format-dropdown',
   LOGOUT_BUTTON = 'logout-button',
   SAVE_USER_BUTTON = 'save-user-btn',
   TWOFA_DISABLE_BUTTON = 'twofa-disable-button',

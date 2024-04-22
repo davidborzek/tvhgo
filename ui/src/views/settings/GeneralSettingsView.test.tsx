@@ -155,3 +155,25 @@ test('should change language', async () => {
 
   expect(changeLanguageMock).toHaveBeenCalledWith('de', expect.anything());
 });
+
+test('should change time format to default', async () => {
+  vi.spyOn(Storage.prototype, 'removeItem');
+  Storage.prototype.removeItem = vi.fn();
+
+  const document = render(<GeneralSettingsView />);
+  const timeFormatDropdown = document.getByTestId(TestIds.TIME_FORMAT_DROPDOWN);
+  await userEvent.selectOptions(timeFormatDropdown, 'default');
+
+  expect(Storage.prototype.removeItem).toHaveBeenCalledWith('time_locale');
+});
+
+test('should change time format to language', async () => {
+  vi.spyOn(Storage.prototype, 'setItem');
+  Storage.prototype.setItem = vi.fn();
+
+  const document = render(<GeneralSettingsView />);
+  const timeFormatDropdown = document.getByTestId(TestIds.TIME_FORMAT_DROPDOWN);
+  await userEvent.selectOptions(timeFormatDropdown, 'ja');
+
+  expect(Storage.prototype.setItem).toHaveBeenCalledWith('time_locale', 'ja');
+});
