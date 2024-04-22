@@ -1,16 +1,20 @@
-import 'moment/dist/locale/de';
-
 import LanguageDetector from 'i18next-browser-languagedetector';
 import de from './locales/de/translations.json';
 import en from './locales/en/translations.json';
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import moment from 'moment';
+import moment from 'moment/min/moment-with-locales';
 
 const fallbackLng = 'en';
 
 i18n.on('languageChanged', (lng) => {
-  moment.locale(lng);
+  const timeLocale = localStorage.getItem('time_locale');
+
+  if (timeLocale) {
+    moment.locale(timeLocale);
+  } else {
+    moment.locale(lng);
+  }
 });
 
 i18n
