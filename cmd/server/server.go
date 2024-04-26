@@ -132,11 +132,13 @@ func start(ctx *cli.Context) error {
 		log.Fatal().Err(err).Msg("failed to create embedded ui router")
 	}
 
-	metricsServer := metrics.NewServer(
-		&cfg.Metrics,
-		metrics.NewTvheadendCollector(tvhClient),
-	)
-	metricsServer.Start()
+	if cfg.Metrics.Enabled {
+		metricsServer := metrics.NewServer(
+			&cfg.Metrics,
+			metrics.NewTvheadendCollector(tvhClient),
+		)
+		metricsServer.Start()
+	}
 
 	r := chi.NewRouter()
 
