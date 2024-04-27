@@ -79,6 +79,7 @@ func (s *router) Handler() http.Handler {
 	r.Use(middleware.Recoverer)
 	r.Use(middleware.NoCache)
 	r.Use(cors.Handler(corsOpts))
+	r.Use(s.Log)
 
 	r.Post("/login", s.Login)
 
