@@ -10,6 +10,7 @@ import LargeArrowRightIcon from './large_arrow_right.svg?react';
 import LogoutIcon from './logout.svg?react';
 import RecIcon from './rec.svg?react';
 import RecordingsIcon from './recordings.svg?react';
+import SearchIcon from './search.svg?react';
 import SettingsIcon from './settings.svg?react';
 import TvIcon from './tv.svg?react';
 import TvhgoHorizontalLogo from './tvhgo_horizontal.svg?react';
@@ -27,6 +28,7 @@ export {
   LogoutIcon,
   RecIcon,
   RecordingsIcon,
+  SearchIcon,
   SettingsIcon,
   TvhgoHorizontalLogo,
   TvIcon,

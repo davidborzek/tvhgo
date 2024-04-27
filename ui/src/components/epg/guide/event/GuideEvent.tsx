@@ -13,6 +13,7 @@ type Props = {
   showProgress?: boolean;
   dvrState?: string;
   showDate?: boolean;
+  channel?: string;
   onClick: (eventId: number) => void;
 };
 
@@ -26,6 +27,7 @@ function GuideEvent({
   showProgress,
   dvrState,
   showDate,
+  channel,
   onClick,
 }: Props) {
   const { t } = useTranslation();
@@ -71,6 +73,11 @@ function GuideEvent({
       <span title={extra} className={c(styles.subtitle, styles.attribute)}>
         {extra}
       </span>
+      {channel && (
+        <span title={channel} className={c(styles.channel, styles.attribute)}>
+          {channel}
+        </span>
+      )}
       <span title={time} className={c(styles.time, styles.attribute)}>
         {time}
       </span>

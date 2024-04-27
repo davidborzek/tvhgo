@@ -12,8 +12,21 @@
   background-color: var(--color-card-bg);
   border-bottom: 1px solid var(--color-border-subtle);
   box-sizing: border-box;
-  gap: 1rem;
   padding: 0 2rem;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-shrink: 0;
+}
+
+.right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-left: auto;
 }
 
 .logo {

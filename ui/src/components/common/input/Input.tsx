@@ -10,6 +10,7 @@ type Props = {
   name?: string;
   type?: React.HTMLInputTypeAttribute;
   label?: string | null;
+  icon?: React.ReactNode;
   placeholder?: string | null;
   value?: string | number;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
@@ -49,13 +50,15 @@ function Input(props: Props, ref: React.LegacyRef<HTMLInputElement>) {
       )}
 
       <div className={styles.innerContainer}>
+        {props.icon ? <div className={styles.icon}>{props.icon}</div> : <></>}
         <input
           type={props.type}
           className={c(
             styles.input,
             props.ellipsis ? styles.ellipsis : '',
             props.disabled ? styles.disabled : '',
-            props.error ? styles.error : ''
+            props.error ? styles.error : '',
+            props.icon ? styles.withIcon : ''
           )}
           name={props.name}
           placeholder={props.placeholder || undefined}
