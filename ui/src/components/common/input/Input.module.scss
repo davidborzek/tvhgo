@@ -6,6 +6,23 @@
 .innerContainer {
   display: flex;
   gap: 0.5rem;
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  left: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+
+  svg {
+    width: 1.5rem;
+    height: 1rem;
+    color: var(--color-text-primary);
+    stroke: var(--color-text-primary);
+  }
 }
 
 .copyButton {
@@ -64,5 +81,9 @@
   &:focus {
     outline: var(--color-accent) solid 2px;
     outline-offset: 2px;
+  }
+
+  &.withIcon {
+    padding-left: 2rem;
   }
 }

@@ -110,6 +110,10 @@ function App() {
             <Route errorElement={<ErrorBoundary />}>
               <Route path="/" element={<Navigate to={'/channels'} replace />} />
               <Route
+                path="/search"
+                lazy={() => import('@/views/search/SearchView')}
+              />
+              <Route
                 path="/channels"
                 lazy={() => import('@/views/channels/list/ChannelListView')}
               />

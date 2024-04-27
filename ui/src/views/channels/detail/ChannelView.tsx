@@ -12,7 +12,6 @@ import GuideEvent from '@/components/epg/guide/event/GuideEvent';
 import PaginationControls from '@/components/common/paginationControls/PaginationControls';
 import styles from './ChannelView.module.scss';
 import { usePagination } from '@/hooks/pagination';
-import { useRef } from 'react';
 
 const defaultLimit = 50;
 
@@ -35,7 +34,6 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 }
 
 export const Component = () => {
-  const ref = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -48,7 +46,7 @@ export const Component = () => {
   ];
 
   return (
-    <div ref={ref} className={styles.channel}>
+    <div className={styles.channel}>
       <div className={styles.header}>
         <EventChannelInfo
           channelName={channel.name}
