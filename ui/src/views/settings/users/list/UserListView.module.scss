@@ -1,0 +1,63 @@
+.users {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.link {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: bold;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.delete {
+  width: 0;
+}
+
+.created {
+  display: none;
+}
+
+.email {
+  display: none;
+}
+
+.twofa {
+  display: none;
+}
+
+.admin {
+  display: none;
+}
+
+@media screen and (min-width: 1536px) {
+  .created {
+    display: table-cell;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .twofa {
+    display: table-cell;
+  }
+
+  .admin {
+    display: table-cell;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .email {
+    display: table-cell;
+  }
+}

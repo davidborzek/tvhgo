@@ -10,6 +10,7 @@ exports[`with status completed > should render recording 1`] = `
     >
       <div
         class="_modal_12177b"
+        style="max-width: 25rem; width: 100%;"
       >
         <div
           class="_container_12177b"
@@ -172,6 +173,7 @@ exports[`with status recording > should render recording 1`] = `
     >
       <div
         class="_modal_12177b"
+        style="max-width: 25rem; width: 100%;"
       >
         <div
           class="_container_12177b"
@@ -397,6 +399,7 @@ exports[`with status scheduled > should render recording 1`] = `
     >
       <div
         class="_modal_12177b"
+        style="max-width: 25rem; width: 100%;"
       >
         <div
           class="_container_12177b"

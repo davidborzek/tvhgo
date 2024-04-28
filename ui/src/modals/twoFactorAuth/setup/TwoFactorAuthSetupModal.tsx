@@ -69,7 +69,7 @@ export const Component = () => {
       <Form onSubmit={enableFormik.handleSubmit}>
         <div className={styles.qrCode}>
           <QRCode value={twoFactorUrl || ''} />
-          <span>{twoFactorUrl}</span>
+          <span className={styles.url}>{twoFactorUrl}</span>
         </div>
         <FormGroup direction="column" info={t('two_factor_auth_info')}>
           <Input

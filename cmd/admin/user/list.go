@@ -27,14 +27,14 @@ func list(ctx *cli.Context) error {
 		return err
 	}
 
-	if len(users) == 0 {
+	if len(users.Entries) == 0 {
 		fmt.Printf("No users found.")
 		return nil
 	}
 
 	common.PrintTable(
 		[]string{"ID", "Username", "Email", "Name", "Created", "Updated"},
-		common.MapRows(users, func(user *core.User) []any {
+		common.MapRows(users.Entries, func(user *core.User) []any {
 			return []any{
 				user.ID,
 				user.Username,

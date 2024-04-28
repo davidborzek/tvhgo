@@ -86,6 +86,10 @@ function ErrorBoundary() {
   const getText = () => {
     if (error instanceof ApiError) {
       switch (error.code) {
+        case 401:
+          return t('unauthorized');
+        case 403:
+          return t('forbidden');
         case 404:
           return t('not_found');
       }
@@ -209,6 +213,23 @@ function App() {
                     }
                   />
                 </Route>
+                <Route
+                  path="users"
+                  lazy={() =>
+                    import('@/views/settings/users/list/UserListView')
+                  }
+                >
+                  <Route
+                    path="create"
+                    lazy={() => import('@/modals/user/create/UserCreateModal')}
+                  />
+                </Route>
+                <Route
+                  path="users/:id"
+                  lazy={() =>
+                    import('@/views/settings/users/detail/UserDetailView')
+                  }
+                />
               </Route>
               <Route path="*" element={<NotFound />} />
             </Route>

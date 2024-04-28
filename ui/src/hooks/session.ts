@@ -1,4 +1,4 @@
-import { ApiError, deleteSession } from '@/clients/api/api';
+import { ApiError, deleteSession, deleteUserSession } from '@/clients/api/api';
 
 import { useNotification } from './notification';
 import { useRevalidator } from 'react-router-dom';
@@ -32,7 +32,29 @@ export const useManageSessions = () => {
       });
   };
 
+  const _revokeUserSession = async (userId: number, sessionId: number) => {
+    dismissNotification();
+
+    return await deleteUserSession(userId, sessionId)
+      .then(() => {
+        notifySuccess(t('session_revoked'));
+        revalidator.revalidate();
+      })
+      .catch((error) => {
+        if (
+          error instanceof ApiError &&
+          error.code === 400 &&
+          error.message === 'current session cannot be revoked'
+        ) {
+          notifyError(t('current_session_cannot_be_revoked'));
+        } else {
+          notifyError(t('unexpected'));
+        }
+      });
+  };
+
   return {
     revokeSession: _revokeSession,
+    revokeUserSession: _revokeUserSession,
   };
 };

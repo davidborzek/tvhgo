@@ -11,10 +11,27 @@ type Props = {
   title: string;
   items?: INavigationItem[];
   topLevel?: boolean;
+  requiredRoles?: string[];
+  roles?: string[];
 };
 
-function NavigationItem({ to, icon, title, items, topLevel }: Props) {
+function NavigationItem({
+  to,
+  icon,
+  title,
+  items,
+  topLevel,
+  requiredRoles = [],
+  roles = [],
+}: Props) {
   const match = useMatch(`${to}/` + `*`);
+
+  if (
+    requiredRoles.length > 0 &&
+    !requiredRoles.some((role) => roles.includes(role))
+  ) {
+    return null;
+  }
 
   return (
     <div
@@ -40,8 +57,14 @@ function NavigationItem({ to, icon, title, items, topLevel }: Props) {
 
       {items && match && (
         <div className={styles.subItems}>
-          {items.map(({ icon, title, to }) => (
-            <NavigationItem icon={icon} title={title} to={to} />
+          {items.map(({ icon, title, to, requiredRoles }) => (
+            <NavigationItem
+              icon={icon}
+              title={title}
+              to={to}
+              requiredRoles={requiredRoles}
+              roles={roles}
+            />
           ))}
         </div>
       )}

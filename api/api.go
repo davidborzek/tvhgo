@@ -96,7 +96,7 @@ func (s *router) Handler() http.Handler {
 	authenticated.Post("/logout", s.Logout)
 	authenticated.Get("/auth/info", s.GetAuthInfo)
 
-	authenticated.Get("/user", s.GetUser)
+	authenticated.Get("/user", s.GetCurrentUser)
 	authenticated.Patch("/user", s.UpdateUser)
 	authenticated.Patch("/user/password", s.UpdateUserPassword)
 
@@ -105,7 +105,7 @@ func (s *router) Handler() http.Handler {
 	authenticated.Put("/two-factor-auth/activate", s.ActivateTwoFactorAuth)
 	authenticated.Put("/two-factor-auth/deactivate", s.DeactivateTwoFactorAuth)
 
-	authenticated.Get("/sessions", s.GetSessions)
+	authenticated.Get("/sessions", s.GetSessionsForCurrentUser)
 	authenticated.Delete("/sessions/{id}", s.DeleteSession)
 
 	authenticated.Get("/tokens", s.GetTokens)
@@ -146,6 +146,14 @@ func (s *router) Handler() http.Handler {
 	authenticated.Get("/dvr/config", s.GetDVRConfigList)
 	authenticated.Get("/dvr/config/{id}", s.GetDVRConfig)
 	authenticated.Delete("/dvr/config/{id}", s.DeleteDVRConfig)
+
+	admin := authenticated.With(s.IsAdmin)
+	admin.Get("/users", s.GetUsers)
+	admin.Post("/users", s.CreateUser)
+	admin.Delete("/users/{id}", s.DeleteUser)
+	admin.Get("/users/{id}", s.GetUser)
+	admin.Get("/users/{id}/sessions", s.GetSessions)
+	admin.Delete("/users/{userId}/sessions/{id}", s.DeleteUserSession)
 
 	return r
 }

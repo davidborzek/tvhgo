@@ -2,6 +2,7 @@ import {
   AuthInfo,
   Channel,
   CreateTokenResponse,
+  CreateUser,
   DVRConfig,
   EpgChannel,
   EpgEvent,
@@ -94,11 +95,8 @@ export async function logout(): Promise<void> {
   await client.post('/logout');
 }
 
-export async function getUser(): Promise<UserResponse> {
+export async function getCurrentUser(): Promise<UserResponse> {
   const response = await client.get<UserResponse>('/user');
-
-  response.headers['x-is-logout-enabled'] = 'true';
-
   return response.data;
 }
 
@@ -229,7 +227,7 @@ export function getRecordingUrl(id: string): string {
   return `/api/recordings/${id}/stream`;
 }
 
-export async function getSessions(): Promise<Array<Session>> {
+export async function getSessionsForCurrentUser(): Promise<Array<Session>> {
   const response = await client.get<Array<Session>>(`/sessions`);
   return response.data;
 }
@@ -297,4 +295,39 @@ export async function getDVRConfig(id: string): Promise<DVRConfig> {
 
 export async function deleteDVRConfig(id: string): Promise<void> {
   await client.delete(`/dvr/config/${id}`);
+}
+
+export async function getUsers(
+  q?: PaginationQuery
+): Promise<ListResponse<UserResponse>> {
+  const response = await client.get<ListResponse<UserResponse>>(`/users`, {
+    params: q,
+  });
+
+  return response.data;
+}
+
+export async function deleteUser(id: number): Promise<void> {
+  await client.delete(`/users/${id}`);
+}
+
+export async function createUser(opts: CreateUser): Promise<UserResponse> {
+  const response = await client.post<UserResponse>(`/users`, opts);
+  return response.data;
+}
+
+export async function getUser(id: number): Promise<UserResponse> {
+  const response = await client.get<UserResponse>(`/users/${id}`);
+  return response.data;
+}
+
+export async function getSessions(userId: number): Promise<Array<Session>> {
+  const response = await client.get<Array<Session>>(
+    `/users/${userId}/sessions`
+  );
+  return response.data;
+}
+
+export async function deleteUserSession(userId: number, sessionId: number) {
+  await client.delete(`/users/${userId}/sessions/${sessionId}`);
 }

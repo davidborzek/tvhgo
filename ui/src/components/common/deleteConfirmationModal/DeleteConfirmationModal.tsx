@@ -24,7 +24,7 @@ const DeleteConfirmationModal = ({
   const { t } = useTranslation();
 
   return (
-    <Modal onClose={onClose} visible={visible}>
+    <Modal onClose={onClose} visible={visible} maxWidth="25rem">
       <div className={styles.content}>
         {title ? <h3 className={styles.headline}>{title}</h3> : <></>}
         <Button

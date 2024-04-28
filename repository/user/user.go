@@ -35,7 +35,13 @@ func (s *sqlRepository) FindByEmail(ctx context.Context, email string) (*core.Us
 func (s *sqlRepository) Find(
 	ctx context.Context,
 	params core.UserQueryParams,
-) ([]*core.User, error) {
+) (*core.UserListResult, error) {
+	var count int64
+	err := s.db.QueryRowContext(ctx, queryCount).Scan(&count)
+	if err != nil {
+		return nil, err
+	}
+
 	args := []interface{}{}
 	query := queryBase
 	if params.Limit > 0 {
@@ -53,7 +59,16 @@ func (s *sqlRepository) Find(
 		return nil, err
 	}
 
-	return scanRows(rows)
+	users, err := scanRows(rows)
+	if err != nil {
+		return nil, err
+	}
+
+	return &core.UserListResult{
+		Entries: users,
+		Total:   count,
+		Offset:  params.Offset,
+	}, nil
 }
 
 func (s *sqlRepository) Create(ctx context.Context, user *core.User) error {
@@ -68,6 +83,7 @@ func (s *sqlRepository) Create(ctx context.Context, user *core.User) error {
 		user.PasswordHash,
 		user.Email,
 		user.DisplayName,
+		user.IsAdmin,
 		createdAt,
 		createdAt,
 	)
@@ -99,6 +115,7 @@ func (s *sqlRepository) Update(ctx context.Context, user *core.User) error {
 		user.PasswordHash,
 		user.Email,
 		user.DisplayName,
+		user.IsAdmin,
 		updatedAt,
 		user.ID,
 	)

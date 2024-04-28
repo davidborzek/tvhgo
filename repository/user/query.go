@@ -1,5 +1,10 @@
 package user
 
+// Count users query.
+const queryCount = `
+SELECT COUNT(*) FROM user
+`
+
 // Select user query base.
 const queryBase = `
 SELECT
@@ -8,9 +13,12 @@ user.username,
 user.password_hash,
 user.email,
 user.display_name,
+user.is_admin,
 user.created_at,
-user.updated_at
+user.updated_at,
+two_factor_settings.enabled
 FROM user
+LEFT JOIN two_factor_settings ON user.id = two_factor_settings.user_id
 `
 
 // Select user by id query.
@@ -38,10 +46,11 @@ username,
 password_hash,
 email,
 display_name,
+is_admin,
 created_at,
 updated_at
 ) VALUES (
-?, ?, ?, ?, ?, ?
+?, ?, ?, ?, ?, ?, ?
 )
 `
 
@@ -58,6 +67,7 @@ username = ?,
 password_hash = ?,
 email = ?,
 display_name = ?,
+is_admin = ?,
 updated_at = ?
 WHERE id = ?
 `

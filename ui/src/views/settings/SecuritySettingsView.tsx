@@ -9,7 +9,7 @@ import {
 } from 'react-router-dom';
 import { Session, Token, TwoFactorAuthSettings } from '@/clients/api/api.types';
 import {
-  getSessions,
+  getSessionsForCurrentUser,
   getTokens,
   getTwoFactorAuthSettings,
 } from '@/clients/api/api';
@@ -32,7 +32,11 @@ import { useTranslation } from 'react-i18next';
 import { useUpdateUserPassword } from '@/hooks/user';
 
 export async function loader() {
-  return Promise.all([getTwoFactorAuthSettings(), getSessions(), getTokens()]);
+  return Promise.all([
+    getTwoFactorAuthSettings(),
+    getSessionsForCurrentUser(),
+    getTokens(),
+  ]);
 }
 
 export const Component = () => {

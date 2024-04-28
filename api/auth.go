@@ -123,3 +123,26 @@ func extractTokenFromCookie(r *http.Request, cookieName string) string {
 
 	return token.Value
 }
+
+func (router *router) IsAdmin(next http.Handler) http.Handler {
+	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		ctx, ok := request.GetAuthContext(r.Context())
+		if !ok {
+			response.InternalErrorCommon(w)
+			return
+		}
+
+		user, err := router.users.FindById(r.Context(), ctx.UserID)
+		if err != nil {
+			response.InternalError(w, err)
+			return
+		}
+
+		if !user.IsAdmin {
+			response.Forbidden(w, core.ErrPermissionDenied)
+			return
+		}
+
+		next.ServeHTTP(w, r)
+	})
+}

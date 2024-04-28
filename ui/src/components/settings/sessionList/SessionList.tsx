@@ -62,10 +62,12 @@ const SessionList = (props: Props) => {
     return t('now');
   };
 
-  return (
-    <div className={styles.SessionList}>
-      <Headline>{t('sessions')}</Headline>
+  const renderTable = () => {
+    if (props.sessions.length === 0) {
+      return <div>{t('no_sessions')}</div>;
+    }
 
+    return (
       <div className={styles.tableContainer}>
         <Table className={styles.table}>
           <TableHead>
@@ -106,6 +108,13 @@ const SessionList = (props: Props) => {
           </TableBody>
         </Table>
       </div>
+    );
+  };
+
+  return (
+    <div className={styles.SessionList}>
+      <Headline>{t('sessions')}</Headline>
+      {renderTable()}
     </div>
   );
 };

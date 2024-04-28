@@ -11,6 +11,8 @@ export type UserResponse = {
   displayName: string;
   createdAt: number;
   updatedAt: number;
+  twoFactor: boolean;
+  isAdmin: boolean;
 };
 
 export type AuthInfo = {
@@ -102,6 +104,14 @@ export type UpdateUser = {
   displayName?: string;
   email?: string;
   username?: string;
+};
+
+export type CreateUser = {
+  displayName: string;
+  email: string;
+  username: string;
+  password: string;
+  isAdmin: boolean;
 };
 
 export type UpdateUserPassword = {

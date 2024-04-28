@@ -5,6 +5,17 @@ definitions:
       name:
         type: string
     type: object
+  api.createUser:
+    properties:
+      displayName:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      username:
+        type: string
+    type: object
   api.tokenResponse:
     properties:
       token:
@@ -154,15 +165,19 @@ definitions:
         allOf:
         - $ref: '#/definitions/core.DVRConfigPriority'
         description: Priority is the priority of the DVR configuration.
-      removalDays:
-        description: RemovalDays is the amount of days to keep the recording file.
-        type: integer
+      recordingFileRetention:
+        allOf:
+        - $ref: '#/definitions/core.DVRConfigRetentionPolicy'
+        description: RecordingFileRetention is the retention policy for the recording
+          file.
+      recordingInfoRetention:
+        allOf:
+        - $ref: '#/definitions/core.DVRConfigRetentionPolicy'
+        description: RecordingInfoRetention is the retention policy for the recording
+          info.
       rerecordErrors:
         description: RerecordErrors defines the amount of errors that can occur before
           the recording is re-scheduled.
-        type: integer
-      retentionDays:
-        description: RetentionDays is the amount of days to keep the recording info.
         type: integer
       startPadding:
         description: |-
@@ -211,6 +226,54 @@ definitions:
         description: MaxSchedules is the maximum number of autorec that can be scheduled.
         type: integer
     type: object
+  core.DVRConfigCacheScheme:
+    enum:
+    - unknown
+    - system
+    - do_not_keep
+    - sync
+    - sync_and_do_not_keep
+    type: string
+    x-enum-varnames:
+    - DVRConfigCacheSchemeUnknown
+    - DVRConfigCacheSchemeSystem
+    - DVRConfigCacheSchemeDoNotKeep
+    - DVRConfigCacheSchemeSync
+    - DVRConfigCacheSchemeSyncAndDoNotKeep
+  core.DVRConfigDuplicateHandling:
+    enum:
+    - record_all
+    - all_epg_unique
+    - all_different_episode
+    - all_different_subtitle
+    - all_different_description
+    - all_once_per_month
+    - all_once_per_week
+    - all_once_per_day
+    - local_different_episode
+    - local_different_title
+    - local_different_subtitle
+    - local_different_description
+    - local_once_per_month
+    - local_once_per_week
+    - local_once_per_day
+    type: string
+    x-enum-varnames:
+    - DVRConfigDuplicateHandlingRecordAll
+    - DVRConfigDuplicateHandlingRecordAllEpgUnique
+    - DVRConfigDuplicateHandlingRecordAllDifferentEpisode
+    - DVRConfigDuplicateHandlingRecordAllDifferentSubtitle
+    - DVRConfigDuplicateHandlingRecordAllDifferentDescription
+    - DVRConfigDuplicateHandlingRecordAllOncePerMonth
+    - DVRConfigDuplicateHandlingRecordAllOncePerWeek
+    - DVRConfigDuplicateHandlingRecordAllOncePerDay
+    - DVRConfigDuplicateHandlingRecordLocalDifferentEpisode
+    - DVRConfigDuplicateHandlingRecordLocalDifferentTitle
+    - DVRConfigDuplicateHandlingRecordLocalDifferentSubtitle
+    - DVRConfigDuplicateHandlingRecordLocalDifferentDescription
+    - DVRConfigDuplicateHandlingRecordLocalOncePerMonth
+    - DVRConfigDuplicateHandlingRecordLocalOncePerWeek
+    - DVRConfigDuplicateHandlingRecordLocalOncePerDays
   core.DVRConfigEPGSettings:
     properties:
       autorec:
@@ -218,8 +281,9 @@ definitions:
         - $ref: '#/definitions/core.DVRConfigAutorecSettings'
         description: Autorec is the autorec settings for the DVR.
       duplicateHandling:
+        allOf:
+        - $ref: '#/definitions/core.DVRConfigDuplicateHandling'
         description: DuplicateHandling defines the duplicate recording handling.
-        type: integer
       epgRunning:
         description: |-
           EpgRunning indicates if EITp/f should be used to decide event start and stop.
@@ -236,41 +300,41 @@ definitions:
     type: object
   core.DVRConfigFileSettings:
     properties:
-      channelInTitle:
-        description: |-
-          IncludeChannel indicates if the channel should be included in the title.
-          This applies fot the filename and the title in tag stored in the file.
+      allowWhitespace:
+        description: AllowWhitespace indicates if whitespace should be included in
+          the title.
         type: boolean
       cleanTitle:
         description: CleanTitle indicates if the title should be cleaned.
         type: boolean
-      dateInTitle:
+      includeChannel:
+        description: |-
+          IncludeChannel indicates if the channel should be included in the title.
+          This applies fot the filename and the title in tag stored in the file.
+        type: boolean
+      includeDate:
         description: |-
           IncludeDate indicates if the date should be included in the title.
           This applies fot the filename and the title in tag stored in the file.
         type: boolean
-      episodeInTitle:
+      includeEpisode:
         description: IncludeEpisode indicates if the episode should be included in
           the title when available.
         type: boolean
-      omitTitle:
-        description: OmitTitle indicates if the title should be omitted.
-        type: boolean
-      subtitleInTitle:
+      includeSubtitle:
         description: IncludeSubtitle indicates if the subtitle should be included
           in the title when available.
         type: boolean
-      tagFiles:
-        description: TagFiles indicates if the files should be tagged with metadata.
-        type: boolean
-      timeInTitle:
+      includeTime:
         description: |-
           IncludeTime indicates if the time should be included in the title.
           This applies fot the filename and the title in tag stored in the file.
         type: boolean
-      whitespaceInTitle:
-        description: AllowWhitespace indicates if whitespace should be included in
-          the title.
+      omitTitle:
+        description: OmitTitle indicates if the title should be omitted.
+        type: boolean
+      tagFiles:
+        description: TagFiles indicates if the files should be tagged with metadata.
         type: boolean
       windowsCompatibleFilename:
         description: WindowsCompatibleFilename indicates if the filename should be
@@ -307,11 +371,34 @@ definitions:
     - DVRConfigPriorityUnimportant
     - DVRConfigPriorityDefault
     - DVRConfigPriorityUnknown
+  core.DVRConfigRetentionPolicy:
+    properties:
+      days:
+        description: Days is the amount of days to keep the recording info.
+        type: integer
+      type:
+        allOf:
+        - $ref: '#/definitions/core.DVRConfigRetentionType'
+        description: Type is the type of retention policy.
+    type: object
+  core.DVRConfigRetentionType:
+    enum:
+    - forever
+    - days
+    - maintained_space
+    - on_file_removal
+    type: string
+    x-enum-varnames:
+    - DVRConfigRetentionTypeForever
+    - DVRConfigRetentionTypeDays
+    - DVRConfigRetentionTypeMaintainedSpace
+    - DVRConfigRetentionTypeOnFileRemoval
   core.DVRConfigStorageSettings:
     properties:
       cacheScheme:
+        allOf:
+        - $ref: '#/definitions/core.DVRConfigCacheScheme'
         description: CacheScheme is the cache scheme to use/used to store recordings.
-        type: integer
       charset:
         description: Charset is the character set to use for the filenames.
         type: string
@@ -595,10 +682,23 @@ definitions:
         type: string
       id:
         type: integer
+      twoFactor:
+        type: boolean
       updatedAt:
         type: integer
       username:
         type: string
+    type: object
+  core.UserListResult:
+    properties:
+      entries:
+        items:
+          $ref: '#/definitions/core.User'
+        type: array
+      offset:
+        type: integer
+      total:
+        type: integer
     type: object
   response.ErrorResponse:
     properties:
@@ -1832,4 +1932,184 @@ paths:
       summary: Updates the password of the current user
       tags:
       - user
+  /users:
+    get:
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/core.UserListResult'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Get a list of users
+      tags:
+      - user
+    post:
+      consumes:
+      - application/json
+      parameters:
+      - description: Body
+        in: body
+        name: body
+        required: true
+        schema:
+          $ref: '#/definitions/api.createUser'
+      produces:
+      - application/json
+      responses:
+        "201":
+          description: Created
+          schema:
+            $ref: '#/definitions/core.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Creates a new user
+      tags:
+      - user
+  /users/{id}:
+    delete:
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Deletes a user
+      tags:
+      - user
+    get:
+      parameters:
+      - description: User ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/core.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "404":
+          description: Not Found
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      summary: Get a user by ID
+      tags:
+      - user
+  /users/{id}/sessions:
+    get:
+      parameters:
+      - description: User id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/core.Session'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Get list of session for a user
+      tags:
+      - sessions
+  /users/{userId}/sessions/{id}:
+    delete:
+      parameters:
+      - description: Session id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: User id
+        in: path
+        name: userId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Revokes a session for a user
+      tags:
+      - sessions
 swagger: "2.0"

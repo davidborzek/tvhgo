@@ -1,4 +1,4 @@
-import { ApiError, getUser, login } from '@/clients/api/api';
+import { ApiError, getCurrentUser, login } from '@/clients/api/api';
 
 import { useAuth } from '@/contexts/AuthContext';
 import { useNotification } from './notification';
@@ -17,7 +17,7 @@ const useLogin = () => {
 
   const fetchUser = () => {
     setLoading(true);
-    getUser()
+    getCurrentUser()
       .then(setUser)
       .catch(() => {
         notifyError(t('unexpected'));
