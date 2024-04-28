@@ -10,6 +10,7 @@ exports[`should render multiple pages: status=failed 1`] = `
     >
       <div
         class="_modal_12177b"
+        style="max-width: 25rem; width: 100%;"
       >
         <div
           class="_container_12177b"
@@ -367,6 +368,7 @@ exports[`should render multiple pages: status=finished 1`] = `
     >
       <div
         class="_modal_12177b"
+        style="max-width: 25rem; width: 100%;"
       >
         <div
           class="_container_12177b"
@@ -724,6 +726,7 @@ exports[`should render multiple pages: status=null 1`] = `
     >
       <div
         class="_modal_12177b"
+        style="max-width: 25rem; width: 100%;"
       >
         <div
           class="_container_12177b"
@@ -1081,6 +1084,7 @@ exports[`should render multiple pages: status=removed 1`] = `
     >
       <div
         class="_modal_12177b"
+        style="max-width: 25rem; width: 100%;"
       >
         <div
           class="_container_12177b"
@@ -1438,6 +1442,7 @@ exports[`should render multiple pages: status=upcoming 1`] = `
     >
       <div
         class="_modal_12177b"
+        style="max-width: 25rem; width: 100%;"
       >
         <div
           class="_container_12177b"
@@ -1795,6 +1800,7 @@ exports[`should render single page: status=failed 1`] = `
     >
       <div
         class="_modal_12177b"
+        style="max-width: 25rem; width: 100%;"
       >
         <div
           class="_container_12177b"
@@ -2154,6 +2160,7 @@ exports[`should render single page: status=finished 1`] = `
     >
       <div
         class="_modal_12177b"
+        style="max-width: 25rem; width: 100%;"
       >
         <div
           class="_container_12177b"
@@ -2513,6 +2520,7 @@ exports[`should render single page: status=null 1`] = `
     >
       <div
         class="_modal_12177b"
+        style="max-width: 25rem; width: 100%;"
       >
         <div
           class="_container_12177b"
@@ -2872,6 +2880,7 @@ exports[`should render single page: status=removed 1`] = `
     >
       <div
         class="_modal_12177b"
+        style="max-width: 25rem; width: 100%;"
       >
         <div
           class="_container_12177b"
@@ -3231,6 +3240,7 @@ exports[`should render single page: status=upcoming 1`] = `
     >
       <div
         class="_modal_12177b"
+        style="max-width: 25rem; width: 100%;"
       >
         <div
           class="_container_12177b"
@@ -3590,6 +3600,7 @@ exports[`should render with no recordings: status=failed 1`] = `
     >
       <div
         class="_modal_12177b"
+        style="max-width: 25rem; width: 100%;"
       >
         <div
           class="_container_12177b"
@@ -3772,6 +3783,7 @@ exports[`should render with no recordings: status=finished 1`] = `
     >
       <div
         class="_modal_12177b"
+        style="max-width: 25rem; width: 100%;"
       >
         <div
           class="_container_12177b"
@@ -3954,6 +3966,7 @@ exports[`should render with no recordings: status=null 1`] = `
     >
       <div
         class="_modal_12177b"
+        style="max-width: 25rem; width: 100%;"
       >
         <div
           class="_container_12177b"
@@ -4136,6 +4149,7 @@ exports[`should render with no recordings: status=removed 1`] = `
     >
       <div
         class="_modal_12177b"
+        style="max-width: 25rem; width: 100%;"
       >
         <div
           class="_container_12177b"
@@ -4318,6 +4332,7 @@ exports[`should render with no recordings: status=upcoming 1`] = `
     >
       <div
         class="_modal_12177b"
+        style="max-width: 25rem; width: 100%;"
       >
         <div
           class="_container_12177b"
