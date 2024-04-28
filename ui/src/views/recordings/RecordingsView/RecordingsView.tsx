@@ -220,7 +220,7 @@ export function Component() {
                 setQueryParams((prev) => {
                   prev.set(
                     'sortDir',
-                    prev.get('sortDir') === 'asc' ? 'desc' : 'asc'
+                    prev.get('sortDir') === 'desc' ? 'asc' : 'desc'
                   );
                   return prev;
                 });
