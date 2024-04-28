@@ -11,6 +11,7 @@ export type UserResponse = {
   displayName: string;
   createdAt: number;
   updatedAt: number;
+  twoFactor: boolean;
 };
 
 export type AuthInfo = {

@@ -9,7 +9,11 @@ import (
 
 // Internal helper to scan a sql.Row into a user model.
 func scanRow(scanner repository.Scanner, dest *core.User) error {
-	return scanner.Scan(
+	var (
+		twoFactor sql.NullBool
+	)
+
+	err := scanner.Scan(
 		&dest.ID,
 		&dest.Username,
 		&dest.PasswordHash,
@@ -17,7 +21,18 @@ func scanRow(scanner repository.Scanner, dest *core.User) error {
 		&dest.DisplayName,
 		&dest.CreatedAt,
 		&dest.UpdatedAt,
+		&twoFactor,
 	)
+
+	if err != nil {
+		return err
+	}
+
+	if twoFactor.Valid {
+		dest.TwoFactor = twoFactor.Bool
+	}
+
+	return nil
 }
 
 // Internal helper to scan sql.Rows into an array of user models.

@@ -10,6 +10,7 @@ import {
 } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 
+import Badge from '@/components/common/badge/Badge';
 import Button from '@/components/common/button/Button';
 import DeleteConfirmationModal from '@/components/common/deleteConfirmationModal/DeleteConfirmationModal';
 import EmptyState from '@/components/common/emptyState/EmptyState';
@@ -75,6 +76,7 @@ export const Component = () => {
           <TableHeadCell>{t('username')}</TableHeadCell>
           <TableHeadCell>{t('name')}</TableHeadCell>
           <TableHeadCell>{t('email')}</TableHeadCell>
+          <TableHeadCell>{t('2fa')}</TableHeadCell>
           <TableHeadCell>{t('created')}</TableHeadCell>
           <TableHeadCell />
         </TableHead>
@@ -84,6 +86,13 @@ export const Component = () => {
               <TableCell>{user.username}</TableCell>
               <TableCell>{user.displayName}</TableCell>
               <TableCell>{user.email}</TableCell>
+              <TableCell>
+                {user.twoFactor ? (
+                  <Badge color="default">{t('yes')}</Badge>
+                ) : (
+                  <Badge color="failure">{t('no')}</Badge>
+                )}
+              </TableCell>
               <TableCell>{t('date', { date: user.createdAt })}</TableCell>
               <TableCell className={styles.delete}>
                 <Button

@@ -19,6 +19,7 @@ type (
 		PasswordHash string `json:"-"`
 		Email        string `json:"email"`
 		DisplayName  string `json:"displayName"`
+		TwoFactor    bool   `json:"twoFactor"`
 		CreatedAt    int64  `json:"createdAt"`
 		UpdatedAt    int64  `json:"updatedAt"`
 	}

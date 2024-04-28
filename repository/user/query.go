@@ -14,8 +14,10 @@ user.password_hash,
 user.email,
 user.display_name,
 user.created_at,
-user.updated_at
+user.updated_at,
+two_factor_settings.enabled
 FROM user
+LEFT JOIN two_factor_settings ON user.id = two_factor_settings.user_id
 `
 
 // Select user by id query.
