@@ -42,7 +42,10 @@ function RecordingListItem({
         </span>
         <div className={styles.secondary}>
           {renderRecIndicator()}
-          <span>{t('event_datetime', { event: recording })}</span>
+          <span>
+            {recording.channelName} |{' '}
+            {t('event_datetime', { event: recording })}
+          </span>
         </div>
       </div>
 

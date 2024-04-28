@@ -7,12 +7,14 @@ import {
   useSearchParams,
 } from 'react-router-dom';
 import { RecordingStatus, getRecordings } from '@/clients/api/api';
+import { useMemo, useState } from 'react';
 
 import Button from '@/components/common/button/Button';
 import Checkbox from '@/components/common/checkbox/Checkbox';
 import DeleteConfirmationModal from '@/components/common/deleteConfirmationModal/DeleteConfirmationModal';
 import Dropdown from '@/components/common/dropdown/Dropdown';
 import EmptyState from '@/components/common/emptyState/EmptyState';
+import { LargeArrowLeftIcon } from '@/assets';
 import PaginationControls from '@/components/common/paginationControls/PaginationControls';
 import RecordingListItem from '@/components/recordings/listItem/RecordingListItem';
 import { TestIds } from '@/__test__/ids';
@@ -20,7 +22,6 @@ import { c } from '@/utils/classNames';
 import styles from './RecordingsView.module.scss';
 import { useManageRecordings } from '@/hooks/recording';
 import { usePagination } from '@/hooks/pagination';
-import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const defaultLimit = 50;
@@ -32,7 +33,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
     limit: defaultLimit,
     offset: parseInt(query.get('offset')!) || 0,
     // eslint-disable-next-line camelcase
-    sort_key: 'starts_at',
+    sort_key: query.get('sortKey') || 'startsAt',
+    // eslint-disable-next-line camelcase
+    sort_dir: query.get('sortDir') || 'asc',
     status: (query.get('status') as RecordingStatus) || 'upcoming',
   });
 }
@@ -57,6 +60,16 @@ export function Component() {
 
   const getStatus = () =>
     (queryParams.get('status') as RecordingStatus) || 'upcoming';
+
+  const sortKey = useMemo(
+    () => queryParams.get('sortKey') || 'startsAt',
+    [queryParams]
+  );
+
+  const sortDir = useMemo(
+    () => queryParams.get('sortDir') || 'asc',
+    [queryParams]
+  );
 
   const { entries, total } = useLoaderData() as ListResponse<Recording>;
 
@@ -132,34 +145,90 @@ export function Component() {
       />
 
       <div className={styles.header}>
-        <Dropdown
-          value={getStatus()}
-          onChange={(value) => {
-            clearSelection();
-            setQueryParams({
-              status: value,
-            });
-          }}
-          testID={TestIds.RECORDINGS_STATUS_DROPDOWN}
-          options={[
-            {
-              title: t('upcoming'),
-              value: 'upcoming',
-            },
-            {
-              title: t('finished'),
-              value: 'finished',
-            },
-            {
-              title: t('failed'),
-              value: 'failed',
-            },
-            {
-              title: t('removed'),
-              value: 'removed',
-            },
-          ]}
-        />
+        <div className={styles.headerLeft}>
+          <Dropdown
+            value={getStatus()}
+            onChange={(value) => {
+              clearSelection();
+              setQueryParams({
+                status: value,
+              });
+            }}
+            testID={TestIds.RECORDINGS_STATUS_DROPDOWN}
+            options={[
+              {
+                title: t('upcoming'),
+                value: 'upcoming',
+              },
+              {
+                title: t('finished'),
+                value: 'finished',
+              },
+              {
+                title: t('failed'),
+                value: 'failed',
+              },
+              {
+                title: t('removed'),
+                value: 'removed',
+              },
+            ]}
+          />
+
+          <div className={styles.sort}>
+            <Dropdown
+              value={sortKey}
+              onChange={(value) => {
+                setQueryParams((prev) => {
+                  prev.set('sortKey', value);
+                  return prev;
+                });
+              }}
+              testID={TestIds.RECORDINGS_SORT_DROPDOWN}
+              options={[
+                {
+                  title: t('sort_by.start_date'),
+                  value: 'startsAt',
+                },
+                {
+                  title: t('sort_by.end_date'),
+                  value: 'endsAt',
+                },
+                {
+                  title: t('sort_by.title'),
+                  value: 'title',
+                },
+                {
+                  title: t('sort_by.channel'),
+                  value: 'channelName',
+                },
+              ]}
+            />
+
+            <Button
+              quiet
+              style="text"
+              icon={
+                <LargeArrowLeftIcon
+                  className={c(
+                    styles.sortDirIcon,
+                    sortDir === 'desc' ? styles.desc : ''
+                  )}
+                />
+              }
+              onClick={() => {
+                setQueryParams((prev) => {
+                  prev.set(
+                    'sortDir',
+                    prev.get('sortDir') === 'desc' ? 'asc' : 'desc'
+                  );
+                  return prev;
+                });
+              }}
+              testID={TestIds.RECORDINGS_SORT_DIR_BUTTON}
+            />
+          </div>
+        </div>
 
         <div className={styles.actions}>
           <Button
@@ -172,6 +241,7 @@ export function Component() {
               selectedRecordings.size > 0 ? styles.deleteButtonVisible : ''
             )}
             testID={TestIds.DELETE_CANCEL_RECORDINGS_BUTTON}
+            quiet
           />
 
           <Checkbox

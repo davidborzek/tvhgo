@@ -55,6 +55,83 @@ afterEach(() => {
   cleanup();
 });
 
+test.each([
+  ['startsAt', 'endsAt'],
+  ['startsAt', 'title'],
+  ['startsAt', 'channelName'],
+  ['endsAt', 'startsAt'],
+  ['endsAt', 'title'],
+  ['endsAt', 'channelName'],
+  ['title', 'startsAt'],
+  ['title', 'endsAt'],
+  ['title', 'channelName'],
+  ['channelName', 'startsAt'],
+  ['channelName', 'endsAt'],
+  ['channelName', 'title'],
+])("should change sort key from '%s' to '%s'", async (prevKey, newKey) => {
+  const params = new URLSearchParams();
+  params.set('sortKey', prevKey);
+
+  vi.mocked(useSearchParams).mockReturnValue([
+    new URLSearchParams(),
+    setQueryParamsMock,
+  ]);
+
+  mockStatus('upcoming');
+  const recordings = buildRecordings('upcoming', 5);
+
+  vi.mocked(useLoaderData).mockReturnValue({
+    entries: recordings,
+    offset: 0,
+    total: 150,
+  });
+
+  const document = render(<RecordingsView />);
+
+  const sortDropdown = document.getByTestId(TestIds.RECORDINGS_SORT_DROPDOWN);
+
+  await userEvent.selectOptions(sortDropdown, newKey);
+
+  // Hacky... but it works.
+  setQueryParamsMock.mock.calls[0][0](params);
+  expect(params.get('sortKey')).toBe(newKey);
+});
+
+test.each([
+  ['asc', 'desc'],
+  ['', 'desc'],
+  ['desc', 'asc'],
+])("should change sort dir from '%s' to '%s'", async (prevDir, newDir) => {
+  const params = new URLSearchParams();
+  params.set('sortDir', prevDir);
+
+  vi.mocked(useSearchParams).mockReturnValue([
+    new URLSearchParams(),
+    setQueryParamsMock,
+  ]);
+
+  mockStatus('upcoming');
+  const recordings = buildRecordings('upcoming', 5);
+
+  vi.mocked(useLoaderData).mockReturnValue({
+    entries: recordings,
+    offset: 0,
+    total: 150,
+  });
+
+  const document = render(<RecordingsView />);
+
+  const sortDirButton = document.getByTestId(
+    TestIds.RECORDINGS_SORT_DIR_BUTTON
+  );
+
+  await userEvent.click(sortDirButton);
+
+  // Hacky... but it works.
+  setQueryParamsMock.mock.calls[0][0](params);
+  expect(params.get('sortDir')).toBe(newDir);
+});
+
 test.each([[null], ['upcoming'], ['finished'], ['failed'], ['removed']])(
   'should render with no recordings: status=%s',
   (status: string | null) => {

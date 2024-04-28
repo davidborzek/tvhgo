@@ -294,6 +294,12 @@
   "sessions": "Anmeldungen",
   "settings": "Einstellungen",
   "skip_commercials": "Werbung überspringen",
+  "sort_by": {
+    "channel": "Nach Kanal",
+    "end_date": "Nach Enddatum",
+    "start_date": "Nach Startdatum",
+    "title": "Nach Titel"
+  },
   "spanish": "Spanisch",
   "start": "Start",
   "status": "Status",

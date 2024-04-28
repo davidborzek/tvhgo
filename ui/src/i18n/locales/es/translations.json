@@ -290,6 +290,12 @@
   "sessions": "Sesiones",
   "settings": "Ajustes",
   "skip_commercials": "Omitir anuncios",
+  "sort_by": {
+    "channel": "Por canal",
+    "end_date": "Por fecha de finalización",
+    "start_date": "Por fecha de inicio",
+    "title": "Por título"
+  },
   "spanish": "Español",
   "start": "Inicio",
   "status": "Estado",

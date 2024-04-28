@@ -299,6 +299,12 @@
   "settings": "Settings",
   "short_date": "{{ ts, moment(format: ll) }}",
   "skip_commercials": "Skip commercials",
+  "sort_by": {
+    "channel": "By channel",
+    "end_date": "By end date",
+    "start_date": "By start date",
+    "title": "By title"
+  },
   "spanish": "Spanish",
   "start": "Start",
   "status": "Status",

@@ -60,39 +60,95 @@ exports[`should render multiple pages: status=failed 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_headerLeft_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <div
+          class="_sort_58c8e0"
+        >
+          <div
+            class="_inputContainer_979188"
           >
-            finished
-          </option>
-          <option
-            value="failed"
+            <select
+              class="_dropdown_979188"
+              data-testid="recordings-sort-dropdown"
+            >
+              <option
+                value="startsAt"
+              >
+                sort_by.start_date
+              </option>
+              <option
+                value="endsAt"
+              >
+                sort_by.end_date
+              </option>
+              <option
+                value="title"
+              >
+                sort_by.title
+              </option>
+              <option
+                value="channelName"
+              >
+                sort_by.channel
+              </option>
+            </select>
+          </div>
+          <button
+            class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _text_a7f9df"
+            data-testid="recordings-sort-direction-btn"
           >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <svg
+              class="_sortDirIcon_58c8e0"
+              fill="none"
+              height="800px"
+              stroke="#000000"
+              stroke-width="3"
+              viewBox="0 0 64 64"
+              width="800px"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polyline
+                points="45.15 57.47 19.88 30.84 45.15 6.58"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
       <div
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
@@ -127,7 +183,7 @@ exports[`should render multiple pages: status=failed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -157,7 +213,7 @@ exports[`should render multiple pages: status=failed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -187,7 +243,7 @@ exports[`should render multiple pages: status=failed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -217,7 +273,7 @@ exports[`should render multiple pages: status=failed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -247,7 +303,7 @@ exports[`should render multiple pages: status=failed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -361,39 +417,95 @@ exports[`should render multiple pages: status=finished 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_headerLeft_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <div
+          class="_sort_58c8e0"
+        >
+          <div
+            class="_inputContainer_979188"
           >
-            finished
-          </option>
-          <option
-            value="failed"
+            <select
+              class="_dropdown_979188"
+              data-testid="recordings-sort-dropdown"
+            >
+              <option
+                value="startsAt"
+              >
+                sort_by.start_date
+              </option>
+              <option
+                value="endsAt"
+              >
+                sort_by.end_date
+              </option>
+              <option
+                value="title"
+              >
+                sort_by.title
+              </option>
+              <option
+                value="channelName"
+              >
+                sort_by.channel
+              </option>
+            </select>
+          </div>
+          <button
+            class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _text_a7f9df"
+            data-testid="recordings-sort-direction-btn"
           >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <svg
+              class="_sortDirIcon_58c8e0"
+              fill="none"
+              height="800px"
+              stroke="#000000"
+              stroke-width="3"
+              viewBox="0 0 64 64"
+              width="800px"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polyline
+                points="45.15 57.47 19.88 30.84 45.15 6.58"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
       <div
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
@@ -428,7 +540,7 @@ exports[`should render multiple pages: status=finished 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -458,7 +570,7 @@ exports[`should render multiple pages: status=finished 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -488,7 +600,7 @@ exports[`should render multiple pages: status=finished 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -518,7 +630,7 @@ exports[`should render multiple pages: status=finished 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -548,7 +660,7 @@ exports[`should render multiple pages: status=finished 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -662,39 +774,95 @@ exports[`should render multiple pages: status=null 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_headerLeft_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <div
+          class="_sort_58c8e0"
+        >
+          <div
+            class="_inputContainer_979188"
           >
-            finished
-          </option>
-          <option
-            value="failed"
+            <select
+              class="_dropdown_979188"
+              data-testid="recordings-sort-dropdown"
+            >
+              <option
+                value="startsAt"
+              >
+                sort_by.start_date
+              </option>
+              <option
+                value="endsAt"
+              >
+                sort_by.end_date
+              </option>
+              <option
+                value="title"
+              >
+                sort_by.title
+              </option>
+              <option
+                value="channelName"
+              >
+                sort_by.channel
+              </option>
+            </select>
+          </div>
+          <button
+            class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _text_a7f9df"
+            data-testid="recordings-sort-direction-btn"
           >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <svg
+              class="_sortDirIcon_58c8e0"
+              fill="none"
+              height="800px"
+              stroke="#000000"
+              stroke-width="3"
+              viewBox="0 0 64 64"
+              width="800px"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polyline
+                points="45.15 57.47 19.88 30.84 45.15 6.58"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
       <div
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           cancel
@@ -729,7 +897,7 @@ exports[`should render multiple pages: status=null 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -759,7 +927,7 @@ exports[`should render multiple pages: status=null 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -789,7 +957,7 @@ exports[`should render multiple pages: status=null 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -819,7 +987,7 @@ exports[`should render multiple pages: status=null 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -849,7 +1017,7 @@ exports[`should render multiple pages: status=null 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -963,39 +1131,95 @@ exports[`should render multiple pages: status=removed 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_headerLeft_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <div
+          class="_sort_58c8e0"
+        >
+          <div
+            class="_inputContainer_979188"
           >
-            finished
-          </option>
-          <option
-            value="failed"
+            <select
+              class="_dropdown_979188"
+              data-testid="recordings-sort-dropdown"
+            >
+              <option
+                value="startsAt"
+              >
+                sort_by.start_date
+              </option>
+              <option
+                value="endsAt"
+              >
+                sort_by.end_date
+              </option>
+              <option
+                value="title"
+              >
+                sort_by.title
+              </option>
+              <option
+                value="channelName"
+              >
+                sort_by.channel
+              </option>
+            </select>
+          </div>
+          <button
+            class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _text_a7f9df"
+            data-testid="recordings-sort-direction-btn"
           >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <svg
+              class="_sortDirIcon_58c8e0"
+              fill="none"
+              height="800px"
+              stroke="#000000"
+              stroke-width="3"
+              viewBox="0 0 64 64"
+              width="800px"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polyline
+                points="45.15 57.47 19.88 30.84 45.15 6.58"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
       <div
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
@@ -1030,7 +1254,7 @@ exports[`should render multiple pages: status=removed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1060,7 +1284,7 @@ exports[`should render multiple pages: status=removed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1090,7 +1314,7 @@ exports[`should render multiple pages: status=removed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1120,7 +1344,7 @@ exports[`should render multiple pages: status=removed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1150,7 +1374,7 @@ exports[`should render multiple pages: status=removed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1264,39 +1488,95 @@ exports[`should render multiple pages: status=upcoming 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_headerLeft_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <div
+          class="_sort_58c8e0"
+        >
+          <div
+            class="_inputContainer_979188"
           >
-            finished
-          </option>
-          <option
-            value="failed"
+            <select
+              class="_dropdown_979188"
+              data-testid="recordings-sort-dropdown"
+            >
+              <option
+                value="startsAt"
+              >
+                sort_by.start_date
+              </option>
+              <option
+                value="endsAt"
+              >
+                sort_by.end_date
+              </option>
+              <option
+                value="title"
+              >
+                sort_by.title
+              </option>
+              <option
+                value="channelName"
+              >
+                sort_by.channel
+              </option>
+            </select>
+          </div>
+          <button
+            class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _text_a7f9df"
+            data-testid="recordings-sort-direction-btn"
           >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <svg
+              class="_sortDirIcon_58c8e0"
+              fill="none"
+              height="800px"
+              stroke="#000000"
+              stroke-width="3"
+              viewBox="0 0 64 64"
+              width="800px"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polyline
+                points="45.15 57.47 19.88 30.84 45.15 6.58"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
       <div
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           cancel
@@ -1331,7 +1611,7 @@ exports[`should render multiple pages: status=upcoming 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1361,7 +1641,7 @@ exports[`should render multiple pages: status=upcoming 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1391,7 +1671,7 @@ exports[`should render multiple pages: status=upcoming 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1421,7 +1701,7 @@ exports[`should render multiple pages: status=upcoming 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1451,7 +1731,7 @@ exports[`should render multiple pages: status=upcoming 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1565,39 +1845,95 @@ exports[`should render single page: status=failed 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_headerLeft_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <div
+          class="_sort_58c8e0"
+        >
+          <div
+            class="_inputContainer_979188"
           >
-            finished
-          </option>
-          <option
-            value="failed"
+            <select
+              class="_dropdown_979188"
+              data-testid="recordings-sort-dropdown"
+            >
+              <option
+                value="startsAt"
+              >
+                sort_by.start_date
+              </option>
+              <option
+                value="endsAt"
+              >
+                sort_by.end_date
+              </option>
+              <option
+                value="title"
+              >
+                sort_by.title
+              </option>
+              <option
+                value="channelName"
+              >
+                sort_by.channel
+              </option>
+            </select>
+          </div>
+          <button
+            class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _text_a7f9df"
+            data-testid="recordings-sort-direction-btn"
           >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <svg
+              class="_sortDirIcon_58c8e0"
+              fill="none"
+              height="800px"
+              stroke="#000000"
+              stroke-width="3"
+              viewBox="0 0 64 64"
+              width="800px"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polyline
+                points="45.15 57.47 19.88 30.84 45.15 6.58"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
       <div
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
@@ -1632,7 +1968,7 @@ exports[`should render single page: status=failed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1662,7 +1998,7 @@ exports[`should render single page: status=failed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1692,7 +2028,7 @@ exports[`should render single page: status=failed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1722,7 +2058,7 @@ exports[`should render single page: status=failed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1752,7 +2088,7 @@ exports[`should render single page: status=failed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1868,39 +2204,95 @@ exports[`should render single page: status=finished 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_headerLeft_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <div
+          class="_sort_58c8e0"
+        >
+          <div
+            class="_inputContainer_979188"
           >
-            finished
-          </option>
-          <option
-            value="failed"
+            <select
+              class="_dropdown_979188"
+              data-testid="recordings-sort-dropdown"
+            >
+              <option
+                value="startsAt"
+              >
+                sort_by.start_date
+              </option>
+              <option
+                value="endsAt"
+              >
+                sort_by.end_date
+              </option>
+              <option
+                value="title"
+              >
+                sort_by.title
+              </option>
+              <option
+                value="channelName"
+              >
+                sort_by.channel
+              </option>
+            </select>
+          </div>
+          <button
+            class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _text_a7f9df"
+            data-testid="recordings-sort-direction-btn"
           >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <svg
+              class="_sortDirIcon_58c8e0"
+              fill="none"
+              height="800px"
+              stroke="#000000"
+              stroke-width="3"
+              viewBox="0 0 64 64"
+              width="800px"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polyline
+                points="45.15 57.47 19.88 30.84 45.15 6.58"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
       <div
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
@@ -1935,7 +2327,7 @@ exports[`should render single page: status=finished 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1965,7 +2357,7 @@ exports[`should render single page: status=finished 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1995,7 +2387,7 @@ exports[`should render single page: status=finished 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2025,7 +2417,7 @@ exports[`should render single page: status=finished 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2055,7 +2447,7 @@ exports[`should render single page: status=finished 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2171,39 +2563,95 @@ exports[`should render single page: status=null 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_headerLeft_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <div
+          class="_sort_58c8e0"
+        >
+          <div
+            class="_inputContainer_979188"
           >
-            finished
-          </option>
-          <option
-            value="failed"
+            <select
+              class="_dropdown_979188"
+              data-testid="recordings-sort-dropdown"
+            >
+              <option
+                value="startsAt"
+              >
+                sort_by.start_date
+              </option>
+              <option
+                value="endsAt"
+              >
+                sort_by.end_date
+              </option>
+              <option
+                value="title"
+              >
+                sort_by.title
+              </option>
+              <option
+                value="channelName"
+              >
+                sort_by.channel
+              </option>
+            </select>
+          </div>
+          <button
+            class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _text_a7f9df"
+            data-testid="recordings-sort-direction-btn"
           >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <svg
+              class="_sortDirIcon_58c8e0"
+              fill="none"
+              height="800px"
+              stroke="#000000"
+              stroke-width="3"
+              viewBox="0 0 64 64"
+              width="800px"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polyline
+                points="45.15 57.47 19.88 30.84 45.15 6.58"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
       <div
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           cancel
@@ -2238,7 +2686,7 @@ exports[`should render single page: status=null 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2268,7 +2716,7 @@ exports[`should render single page: status=null 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2298,7 +2746,7 @@ exports[`should render single page: status=null 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2328,7 +2776,7 @@ exports[`should render single page: status=null 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2358,7 +2806,7 @@ exports[`should render single page: status=null 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2474,39 +2922,95 @@ exports[`should render single page: status=removed 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_headerLeft_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <div
+          class="_sort_58c8e0"
+        >
+          <div
+            class="_inputContainer_979188"
           >
-            finished
-          </option>
-          <option
-            value="failed"
+            <select
+              class="_dropdown_979188"
+              data-testid="recordings-sort-dropdown"
+            >
+              <option
+                value="startsAt"
+              >
+                sort_by.start_date
+              </option>
+              <option
+                value="endsAt"
+              >
+                sort_by.end_date
+              </option>
+              <option
+                value="title"
+              >
+                sort_by.title
+              </option>
+              <option
+                value="channelName"
+              >
+                sort_by.channel
+              </option>
+            </select>
+          </div>
+          <button
+            class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _text_a7f9df"
+            data-testid="recordings-sort-direction-btn"
           >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <svg
+              class="_sortDirIcon_58c8e0"
+              fill="none"
+              height="800px"
+              stroke="#000000"
+              stroke-width="3"
+              viewBox="0 0 64 64"
+              width="800px"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polyline
+                points="45.15 57.47 19.88 30.84 45.15 6.58"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
       <div
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
@@ -2541,7 +3045,7 @@ exports[`should render single page: status=removed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2571,7 +3075,7 @@ exports[`should render single page: status=removed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2601,7 +3105,7 @@ exports[`should render single page: status=removed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2631,7 +3135,7 @@ exports[`should render single page: status=removed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2661,7 +3165,7 @@ exports[`should render single page: status=removed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2777,39 +3281,95 @@ exports[`should render single page: status=upcoming 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_headerLeft_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <div
+          class="_sort_58c8e0"
+        >
+          <div
+            class="_inputContainer_979188"
           >
-            finished
-          </option>
-          <option
-            value="failed"
+            <select
+              class="_dropdown_979188"
+              data-testid="recordings-sort-dropdown"
+            >
+              <option
+                value="startsAt"
+              >
+                sort_by.start_date
+              </option>
+              <option
+                value="endsAt"
+              >
+                sort_by.end_date
+              </option>
+              <option
+                value="title"
+              >
+                sort_by.title
+              </option>
+              <option
+                value="channelName"
+              >
+                sort_by.channel
+              </option>
+            </select>
+          </div>
+          <button
+            class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _text_a7f9df"
+            data-testid="recordings-sort-direction-btn"
           >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <svg
+              class="_sortDirIcon_58c8e0"
+              fill="none"
+              height="800px"
+              stroke="#000000"
+              stroke-width="3"
+              viewBox="0 0 64 64"
+              width="800px"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polyline
+                points="45.15 57.47 19.88 30.84 45.15 6.58"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
       <div
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           cancel
@@ -2844,7 +3404,7 @@ exports[`should render single page: status=upcoming 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2874,7 +3434,7 @@ exports[`should render single page: status=upcoming 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2904,7 +3464,7 @@ exports[`should render single page: status=upcoming 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2934,7 +3494,7 @@ exports[`should render single page: status=upcoming 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2964,7 +3524,7 @@ exports[`should render single page: status=upcoming 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -3080,39 +3640,95 @@ exports[`should render with no recordings: status=failed 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_headerLeft_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <div
+          class="_sort_58c8e0"
+        >
+          <div
+            class="_inputContainer_979188"
           >
-            finished
-          </option>
-          <option
-            value="failed"
+            <select
+              class="_dropdown_979188"
+              data-testid="recordings-sort-dropdown"
+            >
+              <option
+                value="startsAt"
+              >
+                sort_by.start_date
+              </option>
+              <option
+                value="endsAt"
+              >
+                sort_by.end_date
+              </option>
+              <option
+                value="title"
+              >
+                sort_by.title
+              </option>
+              <option
+                value="channelName"
+              >
+                sort_by.channel
+              </option>
+            </select>
+          </div>
+          <button
+            class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _text_a7f9df"
+            data-testid="recordings-sort-direction-btn"
           >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <svg
+              class="_sortDirIcon_58c8e0"
+              fill="none"
+              height="800px"
+              stroke="#000000"
+              stroke-width="3"
+              viewBox="0 0 64 64"
+              width="800px"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polyline
+                points="45.15 57.47 19.88 30.84 45.15 6.58"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
       <div
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
@@ -3206,39 +3822,95 @@ exports[`should render with no recordings: status=finished 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_headerLeft_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <div
+          class="_sort_58c8e0"
+        >
+          <div
+            class="_inputContainer_979188"
           >
-            finished
-          </option>
-          <option
-            value="failed"
+            <select
+              class="_dropdown_979188"
+              data-testid="recordings-sort-dropdown"
+            >
+              <option
+                value="startsAt"
+              >
+                sort_by.start_date
+              </option>
+              <option
+                value="endsAt"
+              >
+                sort_by.end_date
+              </option>
+              <option
+                value="title"
+              >
+                sort_by.title
+              </option>
+              <option
+                value="channelName"
+              >
+                sort_by.channel
+              </option>
+            </select>
+          </div>
+          <button
+            class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _text_a7f9df"
+            data-testid="recordings-sort-direction-btn"
           >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <svg
+              class="_sortDirIcon_58c8e0"
+              fill="none"
+              height="800px"
+              stroke="#000000"
+              stroke-width="3"
+              viewBox="0 0 64 64"
+              width="800px"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polyline
+                points="45.15 57.47 19.88 30.84 45.15 6.58"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
       <div
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
@@ -3332,39 +4004,95 @@ exports[`should render with no recordings: status=null 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_headerLeft_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <div
+          class="_sort_58c8e0"
+        >
+          <div
+            class="_inputContainer_979188"
           >
-            finished
-          </option>
-          <option
-            value="failed"
+            <select
+              class="_dropdown_979188"
+              data-testid="recordings-sort-dropdown"
+            >
+              <option
+                value="startsAt"
+              >
+                sort_by.start_date
+              </option>
+              <option
+                value="endsAt"
+              >
+                sort_by.end_date
+              </option>
+              <option
+                value="title"
+              >
+                sort_by.title
+              </option>
+              <option
+                value="channelName"
+              >
+                sort_by.channel
+              </option>
+            </select>
+          </div>
+          <button
+            class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _text_a7f9df"
+            data-testid="recordings-sort-direction-btn"
           >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <svg
+              class="_sortDirIcon_58c8e0"
+              fill="none"
+              height="800px"
+              stroke="#000000"
+              stroke-width="3"
+              viewBox="0 0 64 64"
+              width="800px"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polyline
+                points="45.15 57.47 19.88 30.84 45.15 6.58"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
       <div
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           cancel
@@ -3458,39 +4186,95 @@ exports[`should render with no recordings: status=removed 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_headerLeft_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <div
+          class="_sort_58c8e0"
+        >
+          <div
+            class="_inputContainer_979188"
           >
-            finished
-          </option>
-          <option
-            value="failed"
+            <select
+              class="_dropdown_979188"
+              data-testid="recordings-sort-dropdown"
+            >
+              <option
+                value="startsAt"
+              >
+                sort_by.start_date
+              </option>
+              <option
+                value="endsAt"
+              >
+                sort_by.end_date
+              </option>
+              <option
+                value="title"
+              >
+                sort_by.title
+              </option>
+              <option
+                value="channelName"
+              >
+                sort_by.channel
+              </option>
+            </select>
+          </div>
+          <button
+            class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _text_a7f9df"
+            data-testid="recordings-sort-direction-btn"
           >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <svg
+              class="_sortDirIcon_58c8e0"
+              fill="none"
+              height="800px"
+              stroke="#000000"
+              stroke-width="3"
+              viewBox="0 0 64 64"
+              width="800px"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polyline
+                points="45.15 57.47 19.88 30.84 45.15 6.58"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
       <div
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           delete
@@ -3584,39 +4368,95 @@ exports[`should render with no recordings: status=upcoming 1`] = `
       class="_header_58c8e0"
     >
       <div
-        class="_inputContainer_979188"
+        class="_headerLeft_58c8e0"
       >
-        <select
-          class="_dropdown_979188"
-          data-testid="recordings-status-dropdown"
+        <div
+          class="_inputContainer_979188"
         >
-          <option
-            value="upcoming"
+          <select
+            class="_dropdown_979188"
+            data-testid="recordings-status-dropdown"
           >
-            upcoming
-          </option>
-          <option
-            value="finished"
+            <option
+              value="upcoming"
+            >
+              upcoming
+            </option>
+            <option
+              value="finished"
+            >
+              finished
+            </option>
+            <option
+              value="failed"
+            >
+              failed
+            </option>
+            <option
+              value="removed"
+            >
+              removed
+            </option>
+          </select>
+        </div>
+        <div
+          class="_sort_58c8e0"
+        >
+          <div
+            class="_inputContainer_979188"
           >
-            finished
-          </option>
-          <option
-            value="failed"
+            <select
+              class="_dropdown_979188"
+              data-testid="recordings-sort-dropdown"
+            >
+              <option
+                value="startsAt"
+              >
+                sort_by.start_date
+              </option>
+              <option
+                value="endsAt"
+              >
+                sort_by.end_date
+              </option>
+              <option
+                value="title"
+              >
+                sort_by.title
+              </option>
+              <option
+                value="channelName"
+              >
+                sort_by.channel
+              </option>
+            </select>
+          </div>
+          <button
+            class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _text_a7f9df"
+            data-testid="recordings-sort-direction-btn"
           >
-            failed
-          </option>
-          <option
-            value="removed"
-          >
-            removed
-          </option>
-        </select>
+            <svg
+              class="_sortDirIcon_58c8e0"
+              fill="none"
+              height="800px"
+              stroke="#000000"
+              stroke-width="3"
+              viewBox="0 0 64 64"
+              width="800px"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <polyline
+                points="45.15 57.47 19.88 30.84 45.15 6.58"
+              />
+            </svg>
+          </button>
+        </div>
       </div>
       <div
         class="_actions_58c8e0"
       >
         <button
-          class="_button_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
+          class="_button_a7f9df _quiet_a7f9df _medium_a7f9df _red_a7f9df _deleteButton_58c8e0"
           data-testid="delete-cancel-recordings-btn"
         >
           cancel

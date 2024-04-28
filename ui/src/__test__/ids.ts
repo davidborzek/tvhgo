@@ -17,4 +17,6 @@ export enum TestIds {
   DELETE_CANCEL_RECORDINGS_BUTTON = 'delete-cancel-recordings-btn',
   CONFIRM_DELETE_BUTTON = 'confirm-delete-btn',
   RECORDINGS_STATUS_DROPDOWN = 'recordings-status-dropdown',
+  RECORDINGS_SORT_DROPDOWN = 'recordings-sort-dropdown',
+  RECORDINGS_SORT_DIR_BUTTON = 'recordings-sort-direction-btn',
 }
