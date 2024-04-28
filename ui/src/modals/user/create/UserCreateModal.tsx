@@ -4,7 +4,7 @@ import Button from '@/components/common/button/Button';
 import Form from '@/components/common/form/Form';
 import Input from '@/components/common/input/Input';
 import Modal from '@/components/common/modal/Modal';
-import { UserListRefreshStates } from '@/views/settings/users/states';
+import { UserListRefreshStates } from '@/views/settings/users/list/states';
 import styles from './UserCreateModal.module.scss';
 import { useCreateUser } from '@/hooks/user';
 import { useFormik } from 'formik';

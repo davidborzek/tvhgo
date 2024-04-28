@@ -1,6 +1,7 @@
 import { ListResponse, UserResponse } from '@/clients/api/api.types';
 import {
   LoaderFunctionArgs,
+  NavLink,
   Outlet,
   useLoaderData,
   useLocation,
@@ -85,7 +86,11 @@ export const Component = () => {
         <TableBody>
           {users.entries.map((user) => (
             <TableRow key={user.id}>
-              <TableCell>{user.username}</TableCell>
+              <TableCell>
+                <NavLink className={styles.link} to={`${user.id}`}>
+                  {user.username}
+                </NavLink>
+              </TableCell>
               <TableCell className={styles.name}>{user.displayName}</TableCell>
               <TableCell className={styles.email}>{user.email}</TableCell>
               <TableCell className={styles.twofa}>

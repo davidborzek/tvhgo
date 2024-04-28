@@ -1,4 +1,4 @@
-import { ApiError, getUser } from '@/clients/api/api';
+import { ApiError, getCurrentUser } from '@/clients/api/api';
 import { PropsWithChildren, ReactElement, useEffect, useState } from 'react';
 
 import { AuthContext } from '@/contexts/AuthContext';
@@ -17,7 +17,7 @@ export default function AuthProvider({
   const { notifyError } = useNotification('authError');
 
   useEffect(() => {
-    getUser()
+    getCurrentUser()
       .then((user) => {
         setUser(user);
       })

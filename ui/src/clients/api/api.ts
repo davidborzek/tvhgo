@@ -95,11 +95,8 @@ export async function logout(): Promise<void> {
   await client.post('/logout');
 }
 
-export async function getUser(): Promise<UserResponse> {
+export async function getCurrentUser(): Promise<UserResponse> {
   const response = await client.get<UserResponse>('/user');
-
-  response.headers['x-is-logout-enabled'] = 'true';
-
   return response.data;
 }
 
@@ -316,5 +313,10 @@ export async function deleteUser(id: number): Promise<void> {
 
 export async function createUser(opts: CreateUser): Promise<UserResponse> {
   const response = await client.post<UserResponse>(`/users`, opts);
+  return response.data;
+}
+
+export async function getUser(id: number): Promise<UserResponse> {
+  const response = await client.get<UserResponse>(`/users/${id}`);
   return response.data;
 }

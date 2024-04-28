@@ -1,4 +1,5 @@
 {
+  "2fa": "2FA",
   "airs": "Aires",
   "allow_unidentifiable_broadcasts": "Permitir emisiones no identificables",
   "allow_whitespace": "Permitir espacios en blanco",
@@ -53,6 +54,7 @@
   "dvr_profiles": "Perfiles DVR",
   "email": "Correo electrónico",
   "email_already_exists": "El correo electrónico ya existe.",
+  "email_invalid": "El correo electrónico no es válido.",
   "enable": "Activar",
   "enable_two_factor_auth": "Activar autenticación de dos factores",
   "enabled": "Activado",

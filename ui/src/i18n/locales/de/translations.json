@@ -1,4 +1,5 @@
 {
+  "2fa": "2FA",
   "airs": "Läuft",
   "allow_unidentifiable_broadcasts": "Unidentifizierbare Sendungen erlauben",
   "allow_whitespace": "Leerzeichen erlauben",
@@ -53,6 +54,7 @@
   "dvr_profiles": "DVR Profile",
   "email": "E-Mail",
   "email_already_exists": "Die gewählte E-Mail ist bereits registriert.",
+  "email_invalid": "E-Mail ist ungültig.",
   "enable": "Aktivieren",
   "enable_two_factor_auth": "Aktivieren der Zwei-Faktor-Authentifizierung",
   "enabled": "Aktiviert",

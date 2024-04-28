@@ -10,6 +10,16 @@
   align-items: center;
 }
 
+.link {
+  color: var(--color-accent);
+  text-decoration: none;
+  font-weight: bold;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
 .delete {
   width: 0;
 }

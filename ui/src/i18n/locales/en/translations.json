@@ -1,4 +1,5 @@
 {
+  "2fa": "2FA",
   "airs": "Airs",
   "allow_unidentifiable_broadcasts": "Allow unidentifiable broadcasts",
   "allow_whitespace": "Allow whitespace",
@@ -54,6 +55,7 @@
   "dvr_profiles": "DVR Profiles",
   "email": "Email",
   "email_already_exists": "Email already registered.",
+  "email_invalid": "Email is invalid.",
   "enable": "Enable",
   "enable_two_factor_auth": "Enable Two Factor Authentication",
   "enabled": "Enabled",
