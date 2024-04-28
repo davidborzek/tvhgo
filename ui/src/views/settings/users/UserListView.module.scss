@@ -13,3 +13,33 @@
 .delete {
   width: 0;
 }
+
+.created {
+  display: none;
+}
+
+.email {
+  display: none;
+}
+
+.twofa {
+  display: none;
+}
+
+@media screen and (min-width: 1536px) {
+  .created {
+    display: table-cell;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .twofa {
+    display: table-cell;
+  }
+}
+
+@media screen and (min-width: 640px) {
+  .email {
+    display: table-cell;
+  }
+}

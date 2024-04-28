@@ -74,26 +74,30 @@ export const Component = () => {
       <Table>
         <TableHead>
           <TableHeadCell>{t('username')}</TableHeadCell>
-          <TableHeadCell>{t('name')}</TableHeadCell>
-          <TableHeadCell>{t('email')}</TableHeadCell>
-          <TableHeadCell>{t('2fa')}</TableHeadCell>
-          <TableHeadCell>{t('created')}</TableHeadCell>
+          <TableHeadCell className={styles.name}>{t('name')}</TableHeadCell>
+          <TableHeadCell className={styles.email}>{t('email')}</TableHeadCell>
+          <TableHeadCell className={styles.twofa}>{t('2fa')}</TableHeadCell>
+          <TableHeadCell className={styles.created}>
+            {t('created')}
+          </TableHeadCell>
           <TableHeadCell />
         </TableHead>
         <TableBody>
           {users.entries.map((user) => (
             <TableRow key={user.id}>
               <TableCell>{user.username}</TableCell>
-              <TableCell>{user.displayName}</TableCell>
-              <TableCell>{user.email}</TableCell>
-              <TableCell>
+              <TableCell className={styles.name}>{user.displayName}</TableCell>
+              <TableCell className={styles.email}>{user.email}</TableCell>
+              <TableCell className={styles.twofa}>
                 {user.twoFactor ? (
                   <Badge color="default">{t('yes')}</Badge>
                 ) : (
                   <Badge color="failure">{t('no')}</Badge>
                 )}
               </TableCell>
-              <TableCell>{t('date', { date: user.createdAt })}</TableCell>
+              <TableCell className={styles.created}>
+                {t('date', { date: user.createdAt })}
+              </TableCell>
               <TableCell className={styles.delete}>
                 <Button
                   style="red"
