@@ -99,6 +99,7 @@ test.each([
 
 test.each([
   ['asc', 'desc'],
+  ['', 'desc'],
   ['desc', 'asc'],
 ])("should change sort dir from '%s' to '%s'", async (prevDir, newDir) => {
   const params = new URLSearchParams();
