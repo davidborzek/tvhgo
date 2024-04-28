@@ -227,7 +227,7 @@ export function getRecordingUrl(id: string): string {
   return `/api/recordings/${id}/stream`;
 }
 
-export async function getSessions(): Promise<Array<Session>> {
+export async function getSessionsForCurrentUser(): Promise<Array<Session>> {
   const response = await client.get<Array<Session>>(`/sessions`);
   return response.data;
 }
@@ -319,4 +319,15 @@ export async function createUser(opts: CreateUser): Promise<UserResponse> {
 export async function getUser(id: number): Promise<UserResponse> {
   const response = await client.get<UserResponse>(`/users/${id}`);
   return response.data;
+}
+
+export async function getSessions(userId: number): Promise<Array<Session>> {
+  const response = await client.get<Array<Session>>(
+    `/users/${userId}/sessions`
+  );
+  return response.data;
+}
+
+export async function deleteUserSession(userId: number, sessionId: number) {
+  await client.delete(`/users/${userId}/sessions/${sessionId}`);
 }

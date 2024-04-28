@@ -248,6 +248,7 @@
   "no_epg_info": "Comprueba la configuración de canales y epg de tu Tvheadend.",
   "no_recordings": "Sin grabaciones",
   "no_results_found": "No se encontraron resultados.",
+  "no_sessions": "No hay sesiones activas.",
   "no_users_found": "No se encontraron usuarios.",
   "normal": "Normal",
   "not_found": "No encontrado",

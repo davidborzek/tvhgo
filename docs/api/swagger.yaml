@@ -682,6 +682,8 @@ definitions:
         type: string
       id:
         type: integer
+      twoFactor:
+        type: boolean
       updatedAt:
         type: integer
       username:
@@ -2049,4 +2051,65 @@ paths:
       summary: Get a user by ID
       tags:
       - user
+  /users/{id}/sessions:
+    get:
+      parameters:
+      - description: User id
+        in: path
+        name: id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/core.Session'
+            type: array
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Get list of session for a user
+      tags:
+      - sessions
+  /users/{userId}/sessions/{id}:
+    delete:
+      parameters:
+      - description: Session id
+        in: path
+        name: id
+        required: true
+        type: integer
+      - description: User id
+        in: path
+        name: userId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "204":
+          description: No Content
+        "401":
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.ErrorResponse'
+      security:
+      - JWT: []
+      summary: Revokes a session for a user
+      tags:
+      - sessions
 swagger: "2.0"
