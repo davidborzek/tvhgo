@@ -100,6 +100,7 @@ beforeEach(() => {
 
   vi.mocked(useManageSessions).mockReturnValue({
     revokeSession: revokeSessionMock,
+    revokeUserSession: vi.fn(),
   });
 
   vi.mocked(useManageTokens).mockReturnValue({
