@@ -3,7 +3,7 @@ import React, { ReactElement } from 'react';
 import { c } from '@/utils/classNames';
 import styles from './Button.module.scss';
 
-export type ButtonStyle = 'red' | 'blue';
+export type ButtonStyle = 'red' | 'blue' | 'text';
 
 type Props = {
   label?: string;
@@ -24,6 +24,8 @@ export const getStyleClass = (style?: ButtonStyle) => {
   switch (style) {
     case 'red':
       return styles.red;
+    case 'text':
+      return styles.text;
   }
   return '';
 };
