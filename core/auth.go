@@ -19,6 +19,8 @@ var (
 	ErrTwoFactorAuthAlreadyEnabled  = errors.New("two factor auth is already enabled")
 	ErrTwoFactorAuthNotEnabled      = errors.New("two factor auth is not enabled")
 	ErrTwoFactorAuthSetupNotRunning = errors.New("two factor auth setup not running")
+
+	ErrPermissionDenied = errors.New("permission denied")
 )
 
 type (

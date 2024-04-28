@@ -9,3 +9,14 @@
   text-align: center;
   max-width: 30rem;
 }
+
+.isAdmin {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+
+  label {
+    font-weight: bold;
+    font-size: 0.9rem;
+  }
+}

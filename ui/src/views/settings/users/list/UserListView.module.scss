@@ -36,6 +36,10 @@
   display: none;
 }
 
+.admin {
+  display: none;
+}
+
 @media screen and (min-width: 1536px) {
   .created {
     display: table-cell;
@@ -44,6 +48,10 @@
 
 @media screen and (min-width: 1280px) {
   .twofa {
+    display: table-cell;
+  }
+
+  .admin {
     display: table-cell;
   }
 }

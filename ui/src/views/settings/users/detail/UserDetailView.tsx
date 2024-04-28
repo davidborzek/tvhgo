@@ -87,6 +87,16 @@ export const Component = () => {
             )}
           </PairValue>
         </Pair>
+        <Pair>
+          <PairKey>{t('admin')}</PairKey>
+          <PairValue>
+            {user.isAdmin ? (
+              <Badge color="default">{t('yes')}</Badge>
+            ) : (
+              <Badge color="failure">{t('no')}</Badge>
+            )}
+          </PairValue>
+        </Pair>
       </PairList>
 
       <SessionList

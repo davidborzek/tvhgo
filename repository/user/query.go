@@ -13,6 +13,7 @@ user.username,
 user.password_hash,
 user.email,
 user.display_name,
+user.is_admin,
 user.created_at,
 user.updated_at,
 two_factor_settings.enabled
@@ -45,10 +46,11 @@ username,
 password_hash,
 email,
 display_name,
+is_admin,
 created_at,
 updated_at
 ) VALUES (
-?, ?, ?, ?, ?, ?
+?, ?, ?, ?, ?, ?, ?
 )
 `
 
@@ -65,6 +67,7 @@ username = ?,
 password_hash = ?,
 email = ?,
 display_name = ?,
+is_admin = ?,
 updated_at = ?
 WHERE id = ?
 `

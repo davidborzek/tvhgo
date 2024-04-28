@@ -25,6 +25,7 @@ const user: UserResponse = {
   updatedAt: 0,
   username: 'someUsername',
   twoFactor: false,
+  isAdmin: false,
 };
 
 afterEach(() => {

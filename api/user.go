@@ -15,6 +15,7 @@ type createUser struct {
 	Password    string `json:"password"`
 	Email       string `json:"email"`
 	DisplayName string `json:"displayName"`
+	IsAdmin     bool   `json:"isAdmin"`
 }
 
 type userUpdate struct {
@@ -220,6 +221,7 @@ func (s *router) CreateUser(w http.ResponseWriter, r *http.Request) {
 		Email:        in.Email,
 		DisplayName:  in.DisplayName,
 		PasswordHash: hash,
+		IsAdmin:      in.IsAdmin,
 	}
 
 	err = s.users.Create(r.Context(), user)

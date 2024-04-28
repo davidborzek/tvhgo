@@ -64,6 +64,7 @@ func TestCreate(t *testing.T) {
 		PasswordHash: "somePasswordHash",
 		Email:        "test@example.com",
 		DisplayName:  "Test User",
+		IsAdmin:      true,
 	}
 	err := repository.Create(noCtx, user)
 	assert.Nil(t, err)
@@ -153,6 +154,7 @@ func testUpdate(created *core.User) func(t *testing.T) {
 				PasswordHash: "updatedPasswordHash",
 				DisplayName:  "Updated User",
 				Email:        "updated@example.com",
+				IsAdmin:      false,
 			},
 		)
 
@@ -165,6 +167,7 @@ func testUpdate(created *core.User) func(t *testing.T) {
 		assert.Equal(t, "updatedPasswordHash", user.PasswordHash)
 		assert.Equal(t, "Updated User", user.DisplayName)
 		assert.Equal(t, "updated@example.com", user.Email)
+		assert.False(t, user.IsAdmin)
 
 		assert.NotEqual(t, 0, user.UpdatedAt)
 	}

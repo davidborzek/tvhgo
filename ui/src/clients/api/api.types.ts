@@ -12,6 +12,7 @@ export type UserResponse = {
   createdAt: number;
   updatedAt: number;
   twoFactor: boolean;
+  isAdmin: boolean;
 };
 
 export type AuthInfo = {
@@ -110,6 +111,7 @@ export type CreateUser = {
   email: string;
   username: string;
   password: string;
+  isAdmin: boolean;
 };
 
 export type UpdateUserPassword = {

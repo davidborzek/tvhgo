@@ -86,6 +86,10 @@ function ErrorBoundary() {
   const getText = () => {
     if (error instanceof ApiError) {
       switch (error.code) {
+        case 401:
+          return t('unauthorized');
+        case 403:
+          return t('forbidden');
         case 404:
           return t('not_found');
       }

@@ -12,6 +12,7 @@ import { INavigationItem } from '@/components/navigation/types';
 import NavigationBar from '@/components/navigation/bar/NavigationBar';
 import { c } from '@/utils/classNames';
 import styles from './DashboardView.module.scss';
+import { useAuth } from '@/contexts/AuthContext';
 import { useTranslation } from 'react-i18next';
 
 export function Component() {
@@ -20,6 +21,8 @@ export function Component() {
   const { pathname } = useLocation();
 
   const [expanded, setExpanded] = useState(false);
+
+  const { user } = useAuth();
 
   useEffect(() => {
     setExpanded(false);
@@ -44,7 +47,7 @@ export function Component() {
       items: [
         { title: t('general'), to: '/settings/general' },
         { title: t('security'), to: '/settings/security' },
-        { title: t('users'), to: '/settings/users' },
+        { title: t('users'), to: '/settings/users', requiredRoles: ['admin'] },
       ],
     },
   ];
@@ -54,7 +57,10 @@ export function Component() {
       <ScrollRestoration />
       <Header onToggle={() => setExpanded(!expanded)} />
       <div className={c(styles.navigation, expanded ? styles.expanded : '')}>
-        <NavigationBar items={navigationItems} />
+        <NavigationBar
+          items={navigationItems}
+          roles={[...(user?.isAdmin ? ['admin'] : [])]}
+        />
       </div>
       <main
         className={c(

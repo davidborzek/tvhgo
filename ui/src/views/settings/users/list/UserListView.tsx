@@ -78,6 +78,7 @@ export const Component = () => {
           <TableHeadCell className={styles.name}>{t('name')}</TableHeadCell>
           <TableHeadCell className={styles.email}>{t('email')}</TableHeadCell>
           <TableHeadCell className={styles.twofa}>{t('2fa')}</TableHeadCell>
+          <TableHeadCell className={styles.admin}>{t('admin')}</TableHeadCell>
           <TableHeadCell className={styles.created}>
             {t('created')}
           </TableHeadCell>
@@ -95,6 +96,13 @@ export const Component = () => {
               <TableCell className={styles.email}>{user.email}</TableCell>
               <TableCell className={styles.twofa}>
                 {user.twoFactor ? (
+                  <Badge color="default">{t('yes')}</Badge>
+                ) : (
+                  <Badge color="failure">{t('no')}</Badge>
+                )}
+              </TableCell>
+              <TableCell className={styles.admin}>
+                {user.isAdmin ? (
                   <Badge color="default">{t('yes')}</Badge>
                 ) : (
                   <Badge color="failure">{t('no')}</Badge>

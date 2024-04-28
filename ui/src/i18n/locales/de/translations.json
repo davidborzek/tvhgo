@@ -1,5 +1,6 @@
 {
   "2fa": "2FA",
+  "admin": "Admin",
   "airs": "Läuft",
   "allow_unidentifiable_broadcasts": "Unidentifizierbare Sendungen erlauben",
   "allow_whitespace": "Leerzeichen erlauben",
@@ -69,6 +70,7 @@
   "file": "Datei",
   "file_permissions": "Berechtigungen für Dateien",
   "finished": "Abgeschlossen",
+  "forbidden": "Keine Berechtigung",
   "forever": "Ewig",
   "general": "Allgemein",
   "german": "Deutsch",
@@ -354,5 +356,6 @@
   "weekday_5": "Freitag",
   "weekday_6": "Samstag",
   "windows_compatible_filename": "Windows kompatibler Dateiname",
-  "yes": "Ja"
+  "yes": "Ja",
+  "unauthorized": "Nicht autorisiert"
 }

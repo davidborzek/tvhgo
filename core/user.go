@@ -20,6 +20,7 @@ type (
 		Email        string `json:"email"`
 		DisplayName  string `json:"displayName"`
 		TwoFactor    bool   `json:"twoFactor"`
+		IsAdmin      bool   `json:"isAdmin"`
 		CreatedAt    int64  `json:"createdAt"`
 		UpdatedAt    int64  `json:"updatedAt"`
 	}

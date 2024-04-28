@@ -10,6 +10,7 @@ type Props = {
   indeterminate?: boolean;
   className?: string;
   testId?: string;
+  name?: string;
 };
 
 const Checkbox = (props: Props) => {
@@ -49,6 +50,7 @@ const Checkbox = (props: Props) => {
         checked={props.checked}
         disabled={props.disabled}
         data-testid={props.testId}
+        name={props.name}
       />
     </div>
   );

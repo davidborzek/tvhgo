@@ -1,6 +1,7 @@
 import * as Yup from 'yup';
 
 import Button from '@/components/common/button/Button';
+import Checkbox from '@/components/common/checkbox/Checkbox';
 import Form from '@/components/common/form/Form';
 import Input from '@/components/common/input/Input';
 import Modal from '@/components/common/modal/Modal';
@@ -35,12 +36,15 @@ export const Component = () => {
       passwordRepeat: '',
       name: '',
       email: '',
+      isAdmin: false,
     },
     validationSchema,
-    onSubmit: ({ name, username, email, password }) => {
-      create({ displayName: name, username, email, password }).then(() => {
-        close(true);
-      });
+    onSubmit: ({ name, username, email, password, isAdmin }) => {
+      create({ displayName: name, username, email, password, isAdmin }).then(
+        () => {
+          close(true);
+        }
+      );
     },
   });
 
@@ -119,6 +123,16 @@ export const Component = () => {
             }
             fullWidth
           />
+          <div className={styles.isAdmin}>
+            <Checkbox
+              checked={formik.values.isAdmin}
+              onChange={() =>
+                formik.setFieldValue('isAdmin', !formik.values.isAdmin)
+              }
+              name="isAdmin"
+            />
+            <label htmlFor={'isAdmin'}>{t('admin')}</label>
+          </div>
           <Button disabled={false} label={t('create')} type="submit" />
         </Form>
       </div>

@@ -83,6 +83,7 @@ func (s *sqlRepository) Create(ctx context.Context, user *core.User) error {
 		user.PasswordHash,
 		user.Email,
 		user.DisplayName,
+		user.IsAdmin,
 		createdAt,
 		createdAt,
 	)
@@ -114,6 +115,7 @@ func (s *sqlRepository) Update(ctx context.Context, user *core.User) error {
 		user.PasswordHash,
 		user.Email,
 		user.DisplayName,
+		user.IsAdmin,
 		updatedAt,
 		user.ID,
 	)

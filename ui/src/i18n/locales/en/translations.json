@@ -1,5 +1,6 @@
 {
   "2fa": "2FA",
+  "admin": "Admin",
   "airs": "Airs",
   "allow_unidentifiable_broadcasts": "Allow unidentifiable broadcasts",
   "allow_whitespace": "Allow whitespace",
@@ -72,6 +73,7 @@
   "file": "File",
   "file_permissions": "File permissions",
   "finished": "Finished",
+  "forbidden": "Forbidden",
   "forever": "Forever",
   "general": "General",
   "german": "German",
@@ -336,6 +338,7 @@
   "two_factor_auth_successfully_disabled": "Two Factor Authentication successfully disabled.",
   "two_factor_auth_successfully_enabled": "Two Factor Authentication successfully activated.",
   "two_factor_code_required": "Verification code is required.",
+  "unauthorized": "Unauthorized",
   "unexpected": "Unexpected error. Please try again later.",
   "unimportant": "Unimportant",
   "unknown": "Unknown",

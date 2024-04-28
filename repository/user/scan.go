@@ -19,6 +19,7 @@ func scanRow(scanner repository.Scanner, dest *core.User) error {
 		&dest.PasswordHash,
 		&dest.Email,
 		&dest.DisplayName,
+		&dest.IsAdmin,
 		&dest.CreatedAt,
 		&dest.UpdatedAt,
 		&twoFactor,
