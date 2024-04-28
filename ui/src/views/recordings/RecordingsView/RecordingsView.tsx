@@ -241,6 +241,7 @@ export function Component() {
               selectedRecordings.size > 0 ? styles.deleteButtonVisible : ''
             )}
             testID={TestIds.DELETE_CANCEL_RECORDINGS_BUTTON}
+            quiet
           />
 
           <Checkbox
