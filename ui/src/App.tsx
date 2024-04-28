@@ -9,6 +9,7 @@ import {
   createRoutesFromElements,
   useRouteError,
 } from 'react-router-dom';
+import { useEffect, useMemo } from 'react';
 
 import { ApiError } from './clients/api/api';
 import AuthProvider from '@/providers/AuthProvider';
@@ -19,7 +20,6 @@ import LoadingProvider from '@/providers/LoadingProvider';
 import { ThemeProvider } from '@/providers/ThemeProvider';
 import { ToastContainer } from 'react-toastify';
 import { useAuth } from '@/contexts/AuthContext';
-import { useEffect } from 'react';
 import useLogout from '@/hooks/logout';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useTranslation } from 'react-i18next';
@@ -83,22 +83,26 @@ function ErrorBoundary() {
   const { t } = useTranslation();
   const error = useRouteError();
 
-  const getText = () => {
+  const [text, shouldLogout] = useMemo(() => {
     if (error instanceof ApiError) {
       switch (error.code) {
         case 401:
-          return t('unauthorized');
+          return ['', true];
         case 403:
-          return t('forbidden');
+          return [t('forbidden'), false];
         case 404:
-          return t('not_found');
+          return [t('not_found'), false];
       }
     }
 
-    return t('unexpected');
-  };
+    return [t('unexpected'), false];
+  }, [error]);
 
-  return <Error message={getText()} />;
+  if (shouldLogout) {
+    return <Navigate to="/logout" />;
+  }
+
+  return <Error message={text} />;
 }
 
 function App() {
