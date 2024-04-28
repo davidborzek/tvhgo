@@ -23,6 +23,8 @@ type (
 		UpdatedAt    int64  `json:"updatedAt"`
 	}
 
+	UserListResult ListResult[*User]
+
 	// UserQueryParams defines user query parameters.
 	UserQueryParams struct {
 		// (Optional) Limit the result.
@@ -40,7 +42,7 @@ type (
 		FindByUsername(ctx context.Context, user string) (*User, error)
 
 		// Find returns a list of users paginated by UserQueryParams.
-		Find(ctx context.Context, params UserQueryParams) ([]*User, error)
+		Find(ctx context.Context, params UserQueryParams) (*UserListResult, error)
 
 		// Create persists a new user.
 		Create(ctx context.Context, user *User) error

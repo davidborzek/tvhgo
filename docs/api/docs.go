@@ -1952,6 +1952,188 @@ const docTemplate = `{
                     }
                 }
             }
+        },
+        "/users": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get a list of users",
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/definitions/core.UserListResult"
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Creates a new user",
+                "parameters": [
+                    {
+                        "description": "Body",
+                        "name": "body",
+                        "in": "body",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/api.createUser"
+                        }
+                    }
+                ],
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "schema": {
+                            "$ref": "#/definitions/core.User"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/users/{id}": {
+            "get": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Get a user by ID",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "schema": {
+                            "$ref": "#/definitions/core.User"
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "produces": [
+                    "application/json"
+                ],
+                "tags": [
+                    "user"
+                ],
+                "summary": "Deletes a user",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "id",
+                        "in": "path",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "400": {
+                        "description": "Bad Request",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "Not Found",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal Server Error",
+                        "schema": {
+                            "$ref": "#/definitions/response.ErrorResponse"
+                        }
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -1959,6 +2141,23 @@ const docTemplate = `{
             "type": "object",
             "properties": {
                 "name": {
+                    "type": "string"
+                }
+            }
+        },
+        "api.createUser": {
+            "type": "object",
+            "properties": {
+                "displayName": {
+                    "type": "string"
+                },
+                "email": {
+                    "type": "string"
+                },
+                "password": {
+                    "type": "string"
+                },
+                "username": {
                     "type": "string"
                 }
             }
@@ -2178,16 +2377,24 @@ const docTemplate = `{
                         }
                     ]
                 },
-                "removalDays": {
-                    "description": "RemovalDays is the amount of days to keep the recording file.",
-                    "type": "integer"
+                "recordingFileRetention": {
+                    "description": "RecordingFileRetention is the retention policy for the recording file.",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/core.DVRConfigRetentionPolicy"
+                        }
+                    ]
+                },
+                "recordingInfoRetention": {
+                    "description": "RecordingInfoRetention is the retention policy for the recording info.",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/core.DVRConfigRetentionPolicy"
+                        }
+                    ]
                 },
                 "rerecordErrors": {
                     "description": "RerecordErrors defines the amount of errors that can occur before the recording is re-scheduled.",
-                    "type": "integer"
-                },
-                "retentionDays": {
-                    "description": "RetentionDays is the amount of days to keep the recording info.",
                     "type": "integer"
                 },
                 "startPadding": {
@@ -2250,6 +2457,60 @@ const docTemplate = `{
                 }
             }
         },
+        "core.DVRConfigCacheScheme": {
+            "type": "string",
+            "enum": [
+                "unknown",
+                "system",
+                "do_not_keep",
+                "sync",
+                "sync_and_do_not_keep"
+            ],
+            "x-enum-varnames": [
+                "DVRConfigCacheSchemeUnknown",
+                "DVRConfigCacheSchemeSystem",
+                "DVRConfigCacheSchemeDoNotKeep",
+                "DVRConfigCacheSchemeSync",
+                "DVRConfigCacheSchemeSyncAndDoNotKeep"
+            ]
+        },
+        "core.DVRConfigDuplicateHandling": {
+            "type": "string",
+            "enum": [
+                "record_all",
+                "all_epg_unique",
+                "all_different_episode",
+                "all_different_subtitle",
+                "all_different_description",
+                "all_once_per_month",
+                "all_once_per_week",
+                "all_once_per_day",
+                "local_different_episode",
+                "local_different_title",
+                "local_different_subtitle",
+                "local_different_description",
+                "local_once_per_month",
+                "local_once_per_week",
+                "local_once_per_day"
+            ],
+            "x-enum-varnames": [
+                "DVRConfigDuplicateHandlingRecordAll",
+                "DVRConfigDuplicateHandlingRecordAllEpgUnique",
+                "DVRConfigDuplicateHandlingRecordAllDifferentEpisode",
+                "DVRConfigDuplicateHandlingRecordAllDifferentSubtitle",
+                "DVRConfigDuplicateHandlingRecordAllDifferentDescription",
+                "DVRConfigDuplicateHandlingRecordAllOncePerMonth",
+                "DVRConfigDuplicateHandlingRecordAllOncePerWeek",
+                "DVRConfigDuplicateHandlingRecordAllOncePerDay",
+                "DVRConfigDuplicateHandlingRecordLocalDifferentEpisode",
+                "DVRConfigDuplicateHandlingRecordLocalDifferentTitle",
+                "DVRConfigDuplicateHandlingRecordLocalDifferentSubtitle",
+                "DVRConfigDuplicateHandlingRecordLocalDifferentDescription",
+                "DVRConfigDuplicateHandlingRecordLocalOncePerMonth",
+                "DVRConfigDuplicateHandlingRecordLocalOncePerWeek",
+                "DVRConfigDuplicateHandlingRecordLocalOncePerDays"
+            ]
+        },
         "core.DVRConfigEPGSettings": {
             "type": "object",
             "properties": {
@@ -2263,7 +2524,11 @@ const docTemplate = `{
                 },
                 "duplicateHandling": {
                     "description": "DuplicateHandling defines the duplicate recording handling.",
-                    "type": "integer"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/core.DVRConfigDuplicateHandling"
+                        }
+                    ]
                 },
                 "epgRunning": {
                     "description": "EpgRunning indicates if EITp/f should be used to decide event start and stop.\nAlso known as \"Accurate Recording\".",
@@ -2282,40 +2547,40 @@ const docTemplate = `{
         "core.DVRConfigFileSettings": {
             "type": "object",
             "properties": {
-                "channelInTitle": {
-                    "description": "IncludeChannel indicates if the channel should be included in the title.\nThis applies fot the filename and the title in tag stored in the file.",
+                "allowWhitespace": {
+                    "description": "AllowWhitespace indicates if whitespace should be included in the title.",
                     "type": "boolean"
                 },
                 "cleanTitle": {
                     "description": "CleanTitle indicates if the title should be cleaned.",
                     "type": "boolean"
                 },
-                "dateInTitle": {
+                "includeChannel": {
+                    "description": "IncludeChannel indicates if the channel should be included in the title.\nThis applies fot the filename and the title in tag stored in the file.",
+                    "type": "boolean"
+                },
+                "includeDate": {
                     "description": "IncludeDate indicates if the date should be included in the title.\nThis applies fot the filename and the title in tag stored in the file.",
                     "type": "boolean"
                 },
-                "episodeInTitle": {
+                "includeEpisode": {
                     "description": "IncludeEpisode indicates if the episode should be included in the title when available.",
+                    "type": "boolean"
+                },
+                "includeSubtitle": {
+                    "description": "IncludeSubtitle indicates if the subtitle should be included in the title when available.",
+                    "type": "boolean"
+                },
+                "includeTime": {
+                    "description": "IncludeTime indicates if the time should be included in the title.\nThis applies fot the filename and the title in tag stored in the file.",
                     "type": "boolean"
                 },
                 "omitTitle": {
                     "description": "OmitTitle indicates if the title should be omitted.",
                     "type": "boolean"
                 },
-                "subtitleInTitle": {
-                    "description": "IncludeSubtitle indicates if the subtitle should be included in the title when available.",
-                    "type": "boolean"
-                },
                 "tagFiles": {
                     "description": "TagFiles indicates if the files should be tagged with metadata.",
-                    "type": "boolean"
-                },
-                "timeInTitle": {
-                    "description": "IncludeTime indicates if the time should be included in the title.\nThis applies fot the filename and the title in tag stored in the file.",
-                    "type": "boolean"
-                },
-                "whitespaceInTitle": {
-                    "description": "AllowWhitespace indicates if whitespace should be included in the title.",
                     "type": "boolean"
                 },
                 "windowsCompatibleFilename": {
@@ -2362,12 +2627,48 @@ const docTemplate = `{
                 "DVRConfigPriorityUnknown"
             ]
         },
+        "core.DVRConfigRetentionPolicy": {
+            "type": "object",
+            "properties": {
+                "days": {
+                    "description": "Days is the amount of days to keep the recording info.",
+                    "type": "integer"
+                },
+                "type": {
+                    "description": "Type is the type of retention policy.",
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/core.DVRConfigRetentionType"
+                        }
+                    ]
+                }
+            }
+        },
+        "core.DVRConfigRetentionType": {
+            "type": "string",
+            "enum": [
+                "forever",
+                "days",
+                "maintained_space",
+                "on_file_removal"
+            ],
+            "x-enum-varnames": [
+                "DVRConfigRetentionTypeForever",
+                "DVRConfigRetentionTypeDays",
+                "DVRConfigRetentionTypeMaintainedSpace",
+                "DVRConfigRetentionTypeOnFileRemoval"
+            ]
+        },
         "core.DVRConfigStorageSettings": {
             "type": "object",
             "properties": {
                 "cacheScheme": {
                     "description": "CacheScheme is the cache scheme to use/used to store recordings.",
-                    "type": "integer"
+                    "allOf": [
+                        {
+                            "$ref": "#/definitions/core.DVRConfigCacheScheme"
+                        }
+                    ]
                 },
                 "charset": {
                     "description": "Charset is the character set to use for the filenames.",
@@ -2750,6 +3051,23 @@ const docTemplate = `{
                 },
                 "username": {
                     "type": "string"
+                }
+            }
+        },
+        "core.UserListResult": {
+            "type": "object",
+            "properties": {
+                "entries": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/core.User"
+                    }
+                },
+                "offset": {
+                    "type": "integer"
+                },
+                "total": {
+                    "type": "integer"
                 }
             }
         },

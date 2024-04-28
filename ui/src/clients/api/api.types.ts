@@ -104,6 +104,13 @@ export type UpdateUser = {
   username?: string;
 };
 
+export type CreateUser = {
+  displayName: string;
+  email: string;
+  username: string;
+  password: string;
+};
+
 export type UpdateUserPassword = {
   currentPassword?: string;
   password?: string;

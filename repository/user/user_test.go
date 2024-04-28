@@ -53,7 +53,9 @@ func TestFindReturnsEmptyArray(t *testing.T) {
 	users, err := repository.Find(noCtx, core.UserQueryParams{})
 
 	assert.Nil(t, err)
-	assert.Empty(t, users)
+	assert.Empty(t, users.Entries)
+	assert.Equal(t, int64(0), users.Total)
+	assert.Equal(t, int64(0), users.Offset)
 }
 
 func TestCreate(t *testing.T) {
@@ -70,7 +72,7 @@ func TestCreate(t *testing.T) {
 	t.Run("FindById", testFindById(user))
 	t.Run("FindByUsername", testFindByUsername(user))
 	t.Run("Find", testFind(user))
-	t.Run("FindOffset", testFindOffset(user))
+	t.Run("FindOffset", testFindOffset())
 	t.Run("CreateWithExistingUsername", testCreateWithExistingUsername(user))
 	t.Run("CreateWithExistingMail", testCreateWithExistingEmail(user))
 	t.Run("Update", testUpdate(user))
@@ -102,12 +104,14 @@ func testFind(created *core.User) func(t *testing.T) {
 		})
 
 		assert.Nil(t, err)
-		assert.Len(t, users, 1)
-		assert.Equal(t, created, users[0])
+		assert.Len(t, users.Entries, 1)
+		assert.Equal(t, created, users.Entries[0])
+		assert.Equal(t, int64(1), users.Total)
+		assert.Equal(t, int64(0), users.Offset)
 	}
 }
 
-func testFindOffset(created *core.User) func(t *testing.T) {
+func testFindOffset() func(t *testing.T) {
 	return func(t *testing.T) {
 		users, err := repository.Find(noCtx, core.UserQueryParams{
 			Limit:  1,
@@ -115,7 +119,9 @@ func testFindOffset(created *core.User) func(t *testing.T) {
 		})
 
 		assert.Nil(t, err)
-		assert.Empty(t, users)
+		assert.Empty(t, users.Entries)
+		assert.Equal(t, int64(1), users.Total)
+		assert.Equal(t, int64(1), users.Offset)
 	}
 }
 

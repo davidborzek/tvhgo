@@ -5,6 +5,7 @@
 //
 //	mockgen -destination=mock_gen.go github.com/davidborzek/tvhgo/core UserRepository,SessionRepository,Clock,TwoFactorAuthService,TwoFactorSettingsRepository,TokenRepository,TokenService,SessionManager,ChannelService
 //
+
 // Package mock_core is a generated GoMock package.
 package mock_core
 
@@ -69,10 +70,10 @@ func (mr *MockUserRepositoryMockRecorder) Delete(arg0, arg1 any) *gomock.Call {
 }
 
 // Find mocks base method.
-func (m *MockUserRepository) Find(arg0 context.Context, arg1 core.UserQueryParams) ([]*core.User, error) {
+func (m *MockUserRepository) Find(arg0 context.Context, arg1 core.UserQueryParams) (*core.UserListResult, error) {
 	m.ctrl.T.Helper()
 	ret := m.ctrl.Call(m, "Find", arg0, arg1)
-	ret0, _ := ret[0].([]*core.User)
+	ret0, _ := ret[0].(*core.UserListResult)
 	ret1, _ := ret[1].(error)
 	return ret0, ret1
 }

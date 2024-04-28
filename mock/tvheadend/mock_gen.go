@@ -5,6 +5,7 @@
 //
 //	mockgen -destination=mock_gen.go github.com/davidborzek/tvhgo/tvheadend Client
 //
+
 // Package mock_tvheadend is a generated GoMock package.
 package mock_tvheadend
 

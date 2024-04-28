@@ -2,6 +2,7 @@ import {
   AuthInfo,
   Channel,
   CreateTokenResponse,
+  CreateUser,
   DVRConfig,
   EpgChannel,
   EpgEvent,
@@ -297,4 +298,23 @@ export async function getDVRConfig(id: string): Promise<DVRConfig> {
 
 export async function deleteDVRConfig(id: string): Promise<void> {
   await client.delete(`/dvr/config/${id}`);
+}
+
+export async function getUsers(
+  q?: PaginationQuery
+): Promise<ListResponse<UserResponse>> {
+  const response = await client.get<ListResponse<UserResponse>>(`/users`, {
+    params: q,
+  });
+
+  return response.data;
+}
+
+export async function deleteUser(id: number): Promise<void> {
+  await client.delete(`/users/${id}`);
+}
+
+export async function createUser(opts: CreateUser): Promise<UserResponse> {
+  const response = await client.post<UserResponse>(`/users`, opts);
+  return response.data;
 }

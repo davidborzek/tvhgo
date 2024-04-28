@@ -96,9 +96,14 @@ func (s *router) Handler() http.Handler {
 	authenticated.Post("/logout", s.Logout)
 	authenticated.Get("/auth/info", s.GetAuthInfo)
 
-	authenticated.Get("/user", s.GetUser)
+	authenticated.Get("/user", s.GetCurrentUser)
 	authenticated.Patch("/user", s.UpdateUser)
 	authenticated.Patch("/user/password", s.UpdateUserPassword)
+
+	authenticated.Get("/users", s.GetUsers)
+	authenticated.Post("/users", s.CreateUser)
+	authenticated.Delete("/users/{id}", s.DeleteUser)
+	authenticated.Get("/users/{id}", s.GetUser)
 
 	authenticated.Get("/two-factor-auth", s.GetTwoFactorAuthSettings)
 	authenticated.Put("/two-factor-auth/setup", s.SetupTwoFactorAuth)

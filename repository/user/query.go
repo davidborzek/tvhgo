@@ -1,5 +1,10 @@
 package user
 
+// Count users query.
+const queryCount = `
+SELECT COUNT(*) FROM user
+`
+
 // Select user query base.
 const queryBase = `
 SELECT

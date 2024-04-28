@@ -42,8 +42,9 @@ export function Component() {
       title: t('settings'),
       to: '/settings',
       items: [
-        { title: t('General'), to: '/settings/general' },
-        { title: t('Security'), to: '/settings/security' },
+        { title: t('general'), to: '/settings/general' },
+        { title: t('security'), to: '/settings/security' },
+        { title: t('users'), to: '/settings/users' },
       ],
     },
   ];

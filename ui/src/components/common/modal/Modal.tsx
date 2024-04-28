@@ -7,6 +7,7 @@ type Props = {
   visible: boolean;
   onClose: () => void;
   disableBackdropClose?: boolean;
+  disableEscapeClose?: boolean;
   maxWidth?: string | number;
 };
 
@@ -15,7 +16,7 @@ export default function Modal({ onClose, ...props }: PropsWithChildren<Props>) {
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') onClose();
+      if (e.key === 'Escape' && !props.disableEscapeClose) onClose();
     };
 
     document.addEventListener('keydown', handleKeyDown);
@@ -37,7 +38,10 @@ export default function Modal({ onClose, ...props }: PropsWithChildren<Props>) {
         }
       }}
     >
-      <div className={styles.modal} style={{ maxWidth: props.maxWidth }}>
+      <div
+        className={styles.modal}
+        style={{ maxWidth: props.maxWidth, width: '100%' }}
+      >
         <div className={styles.container}>
           <ModalCloseButton onClick={onClose} />
           {props.children}
