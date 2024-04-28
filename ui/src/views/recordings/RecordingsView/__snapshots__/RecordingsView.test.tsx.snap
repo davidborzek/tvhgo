@@ -183,7 +183,7 @@ exports[`should render multiple pages: status=failed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -213,7 +213,7 @@ exports[`should render multiple pages: status=failed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -243,7 +243,7 @@ exports[`should render multiple pages: status=failed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -273,7 +273,7 @@ exports[`should render multiple pages: status=failed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -303,7 +303,7 @@ exports[`should render multiple pages: status=failed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -540,7 +540,7 @@ exports[`should render multiple pages: status=finished 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -570,7 +570,7 @@ exports[`should render multiple pages: status=finished 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -600,7 +600,7 @@ exports[`should render multiple pages: status=finished 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -630,7 +630,7 @@ exports[`should render multiple pages: status=finished 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -660,7 +660,7 @@ exports[`should render multiple pages: status=finished 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -897,7 +897,7 @@ exports[`should render multiple pages: status=null 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -927,7 +927,7 @@ exports[`should render multiple pages: status=null 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -957,7 +957,7 @@ exports[`should render multiple pages: status=null 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -987,7 +987,7 @@ exports[`should render multiple pages: status=null 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1017,7 +1017,7 @@ exports[`should render multiple pages: status=null 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1254,7 +1254,7 @@ exports[`should render multiple pages: status=removed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1284,7 +1284,7 @@ exports[`should render multiple pages: status=removed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1314,7 +1314,7 @@ exports[`should render multiple pages: status=removed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1344,7 +1344,7 @@ exports[`should render multiple pages: status=removed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1374,7 +1374,7 @@ exports[`should render multiple pages: status=removed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1611,7 +1611,7 @@ exports[`should render multiple pages: status=upcoming 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1641,7 +1641,7 @@ exports[`should render multiple pages: status=upcoming 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1671,7 +1671,7 @@ exports[`should render multiple pages: status=upcoming 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1701,7 +1701,7 @@ exports[`should render multiple pages: status=upcoming 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1731,7 +1731,7 @@ exports[`should render multiple pages: status=upcoming 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1968,7 +1968,7 @@ exports[`should render single page: status=failed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -1998,7 +1998,7 @@ exports[`should render single page: status=failed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2028,7 +2028,7 @@ exports[`should render single page: status=failed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2058,7 +2058,7 @@ exports[`should render single page: status=failed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2088,7 +2088,7 @@ exports[`should render single page: status=failed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2327,7 +2327,7 @@ exports[`should render single page: status=finished 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2357,7 +2357,7 @@ exports[`should render single page: status=finished 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2387,7 +2387,7 @@ exports[`should render single page: status=finished 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2417,7 +2417,7 @@ exports[`should render single page: status=finished 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2447,7 +2447,7 @@ exports[`should render single page: status=finished 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2686,7 +2686,7 @@ exports[`should render single page: status=null 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2716,7 +2716,7 @@ exports[`should render single page: status=null 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2746,7 +2746,7 @@ exports[`should render single page: status=null 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2776,7 +2776,7 @@ exports[`should render single page: status=null 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -2806,7 +2806,7 @@ exports[`should render single page: status=null 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -3045,7 +3045,7 @@ exports[`should render single page: status=removed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -3075,7 +3075,7 @@ exports[`should render single page: status=removed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -3105,7 +3105,7 @@ exports[`should render single page: status=removed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -3135,7 +3135,7 @@ exports[`should render single page: status=removed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -3165,7 +3165,7 @@ exports[`should render single page: status=removed 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -3404,7 +3404,7 @@ exports[`should render single page: status=upcoming 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -3434,7 +3434,7 @@ exports[`should render single page: status=upcoming 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -3464,7 +3464,7 @@ exports[`should render single page: status=upcoming 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -3494,7 +3494,7 @@ exports[`should render single page: status=upcoming 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
@@ -3524,7 +3524,7 @@ exports[`should render single page: status=upcoming 1`] = `
             class="_secondary_566f12"
           >
             <span>
-              Some Channel |  event_datetime
+              Some Channel | event_datetime
             </span>
           </div>
         </div>
