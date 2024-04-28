@@ -24,6 +24,7 @@ const user: UserResponse = {
   id: 1,
   updatedAt: 0,
   username: 'someUsername',
+  twoFactor: false,
 };
 
 afterEach(() => {

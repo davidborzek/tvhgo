@@ -19,6 +19,7 @@ const user = {
   displayName: 'someName',
   createdAt: 0,
   updatedAt: 0,
+  twoFactor: false,
 };
 
 vi.mock('@/clients/api/api', async () => {
