@@ -31,6 +31,7 @@
   "confirm_stop_recording": "Soll diese Aufnahme wirklich gestoppt werden?",
   "copied_to_clipboard": "In die Zwischenablage kopiert.",
   "create": "Erstellen",
+  "create_recording": "Aufnahme erstellen",
   "create_user": "Benutzer erstellen",
   "created": "Erstellt",
   "current_password": "Aktuelles Passwort",
@@ -272,6 +273,7 @@
   "path": "Pfad",
   "pathname_format": "Format des Dateinamens",
   "priority": "Priorität",
+  "profile": "Profil",
   "record": "Aufnehmen",
   "recording_canceled": "Aufnahme erfolgreich abgebrochen.",
   "recording_completed": "Aufnahme beendet",
@@ -333,6 +335,7 @@
   "two_factor_auth_successfully_disabled": "Zwei-Faktor-Authentifizierung erfolgreich deaktiviert.",
   "two_factor_auth_successfully_enabled": "Zwei-Faktor-Authentifizierung erfolgreich aktiviert.",
   "two_factor_code_required": "Verifizierungscode ist erforderlich.",
+  "unauthorized": "Nicht autorisiert",
   "unexpected": "Unerwarteter Fehler. Bitte erneut versuchen.",
   "unimportant": "Unwichtig",
   "unknown": "Unbekannt",
@@ -356,6 +359,5 @@
   "weekday_5": "Freitag",
   "weekday_6": "Samstag",
   "windows_compatible_filename": "Windows kompatibler Dateiname",
-  "yes": "Ja",
-  "unauthorized": "Nicht autorisiert"
+  "yes": "Ja"
 }
