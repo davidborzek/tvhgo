@@ -1,8 +1,8 @@
+import { DVRConfig, EpgEvent } from '@/clients/api/api.types';
 import { afterEach, beforeEach, expect, test, vi } from 'vitest';
 import { cleanup, render } from '@testing-library/react';
 import { useLoaderData, useNavigate, useRevalidator } from 'react-router-dom';
 
-import { EpgEvent } from '@/clients/api/api.types';
 import { Component as EventView } from './EventView';
 import { useManageRecordingByEvent } from '@/hooks/recording';
 import userEvent from '@testing-library/user-event';
@@ -72,6 +72,80 @@ const relatedEvents: EpgEvent[] = [
   },
 ];
 
+const buildDvrProfile = (id: string): DVRConfig => {
+  return {
+    id,
+    artwork: {
+      allowUnidentifiableBroadcasts: false,
+      commandLineOptions: '',
+      fetch: true,
+    },
+    clone: false,
+    deleteAfterPlayback: 0,
+    enabled: true,
+    endPadding: 2,
+    epg: {
+      autorec: {
+        maxCount: 0,
+        maxSchedules: 0,
+      },
+      duplicateHandling: 'foobar',
+      epgRunning: true,
+      epgUpdateWindow: 0,
+      skipCommercials: true,
+    },
+    file: {
+      allowWhitespace: true,
+      cleanTitle: true,
+      includeChannel: true,
+      includeDate: true,
+      includeEpisode: true,
+      includeSubtitle: true,
+      includeTime: true,
+      omitTitle: true,
+      tagFiles: true,
+      windowsCompatibleFilename: false,
+    },
+    hooks: {
+      remove: '',
+      start: '',
+      stop: '',
+    },
+    name: 'Some Profile',
+    original: false,
+    priority: 'high',
+    recordingFileRetention: {
+      days: 0,
+      type: 'forever',
+    },
+    recordingInfoRetention: {
+      days: 0,
+      type: 'forever',
+    },
+    rerecordErrors: 0,
+    startPadding: 0,
+    storage: {
+      cacheScheme: 'none',
+      charset: 'utf-8',
+      directoryPermissions: '0755',
+      filePermissions: '0644',
+      maintainFreeSpace: 0,
+      maintainUsedSpace: 0,
+      pathnameFormat: 'foo$q$bar',
+      path: '/foo/bar',
+    },
+    streamProfileId: 'someStreamProfileId',
+    subdirectories: {
+      channelSubdir: true,
+      daySubdir: true,
+      titleSubdir: true,
+      tvMoviesSubdirFormat: '',
+      tvShowsSubdirFormat: '',
+    },
+    tunerWarmUpTime: 0,
+  };
+};
+
 const navigateMock = vi.fn();
 const revalidateMock = vi.fn();
 
@@ -89,7 +163,11 @@ afterEach(() => {
 });
 
 test('should render without related events', () => {
-  vi.mocked(useLoaderData).mockReturnValue([buildEvent(), []]);
+  vi.mocked(useLoaderData).mockReturnValue([
+    buildEvent(),
+    [],
+    [buildDvrProfile('someProfileId')],
+  ]);
 
   vi.mocked(useManageRecordingByEvent).mockReturnValue({
     pending: false,
@@ -103,7 +181,11 @@ test('should render without related events', () => {
 });
 
 test('should render with recording', () => {
-  vi.mocked(useLoaderData).mockReturnValue([buildEvent(RECORDING_ID), []]);
+  vi.mocked(useLoaderData).mockReturnValue([
+    buildEvent(RECORDING_ID),
+    [],
+    [buildDvrProfile('someProfileId')],
+  ]);
 
   vi.mocked(useManageRecordingByEvent).mockReturnValue({
     pending: false,
@@ -117,7 +199,11 @@ test('should render with recording', () => {
 });
 
 test('should render with pending button', () => {
-  vi.mocked(useLoaderData).mockReturnValue([buildEvent(), []]);
+  vi.mocked(useLoaderData).mockReturnValue([
+    buildEvent(),
+    [],
+    [buildDvrProfile('someProfileId')],
+  ]);
 
   vi.mocked(useManageRecordingByEvent).mockReturnValue({
     pending: true,
@@ -131,7 +217,11 @@ test('should render with pending button', () => {
 });
 
 test('should render with related events', () => {
-  vi.mocked(useLoaderData).mockReturnValue([buildEvent(), relatedEvents]);
+  vi.mocked(useLoaderData).mockReturnValue([
+    buildEvent(),
+    relatedEvents,
+    [buildDvrProfile('someProfileId')],
+  ]);
 
   vi.mocked(useManageRecordingByEvent).mockReturnValue({
     pending: false,
@@ -145,7 +235,11 @@ test('should render with related events', () => {
 });
 
 test('should create recording', async () => {
-  vi.mocked(useLoaderData).mockReturnValue([buildEvent(), []]);
+  vi.mocked(useLoaderData).mockReturnValue([
+    buildEvent(),
+    [],
+    [buildDvrProfile('someProfileId')],
+  ]);
 
   const createRecordingMock = vi.fn();
   vi.mocked(useManageRecordingByEvent).mockReturnValue({
@@ -157,11 +251,35 @@ test('should create recording', async () => {
   const document = render(<EventView />);
 
   await userEvent.click(document.getByText('record'));
-  expect(createRecordingMock).toHaveBeenNthCalledWith(1, EVENT_ID);
+  expect(createRecordingMock).toHaveBeenNthCalledWith(1, EVENT_ID, undefined);
+});
+
+test('should open profile selection', async () => {
+  vi.mocked(useLoaderData).mockReturnValue([
+    buildEvent(),
+    [],
+    [buildDvrProfile('someProfileId'), buildDvrProfile('someProfileId')],
+  ]);
+
+  const createRecordingMock = vi.fn();
+  vi.mocked(useManageRecordingByEvent).mockReturnValue({
+    pending: false,
+    createRecording: createRecordingMock,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  } as any);
+
+  const document = render(<EventView />);
+
+  await userEvent.click(document.getByText('record'));
+  expect(document.asFragment()).toMatchSnapshot();
 });
 
 test('should navigate to recording', async () => {
-  vi.mocked(useLoaderData).mockReturnValue([buildEvent(RECORDING_ID), []]);
+  vi.mocked(useLoaderData).mockReturnValue([
+    buildEvent(RECORDING_ID),
+    [],
+    [buildDvrProfile('someProfileId')],
+  ]);
 
   vi.mocked(useManageRecordingByEvent).mockReturnValue({
     pending: false,

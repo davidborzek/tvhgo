@@ -3,7 +3,7 @@ import { PropsWithChildren, useEffect, useRef } from 'react';
 import ModalCloseButton from './ModalCloseButton';
 import styles from './Modal.module.scss';
 
-type Props = {
+export type ModalProps = {
   visible: boolean;
   onClose: () => void;
   disableBackdropClose?: boolean;
@@ -11,7 +11,10 @@ type Props = {
   maxWidth?: string | number;
 };
 
-export default function Modal({ onClose, ...props }: PropsWithChildren<Props>) {
+export default function Modal({
+  onClose,
+  ...props
+}: PropsWithChildren<ModalProps>) {
   const ref = useRef<HTMLDivElement>(null);
 
   useEffect(() => {

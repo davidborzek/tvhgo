@@ -22,10 +22,10 @@ export const useManageRecordingByEvent = () => {
   const { t } = useTranslation();
   const [pending, setPending] = useState(false);
 
-  const createRecording = async (eventId: number) => {
+  const createRecording = async (eventId: number, configId?: string) => {
     dismissNotification();
     setPending(true);
-    return await recordByEvent(eventId)
+    return await recordByEvent(eventId, configId)
       .then(() => {
         notifySuccess(t('recording_created'));
       })
