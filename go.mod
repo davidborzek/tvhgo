@@ -10,7 +10,7 @@ require (
 	github.com/go-chi/cors v1.2.1
 	github.com/golang-migrate/migrate/v4 v4.17.1
 	github.com/gorilla/schema v1.3.0
-	github.com/onsi/ginkgo/v2 v2.17.2
+	github.com/onsi/ginkgo/v2 v2.17.3
 	github.com/onsi/gomega v1.33.1
 	github.com/pquerna/otp v1.4.0
 	github.com/prometheus/client_golang v1.19.0
