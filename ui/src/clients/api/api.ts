@@ -1,6 +1,7 @@
 import {
   AuthInfo,
   Channel,
+  CreateRecordingOpts,
   CreateTokenResponse,
   CreateUser,
   DVRConfig,
@@ -56,6 +57,10 @@ export type RecordingStatus = 'upcoming' | 'finished' | 'failed' | 'removed';
 
 export type GetRecordingsQuery = PaginationSortQuery & {
   status?: RecordingStatus;
+};
+
+export type GetChannelsQuery = PaginationSortQuery & {
+  name?: string;
 };
 
 export class ApiError extends Error {
@@ -330,4 +335,19 @@ export async function getSessions(userId: number): Promise<Array<Session>> {
 
 export async function deleteUserSession(userId: number, sessionId: number) {
   await client.delete(`/users/${userId}/sessions/${sessionId}`);
+}
+
+export async function getChannels(
+  q?: GetChannelsQuery
+): Promise<Array<Channel>> {
+  const response = await client.get<Array<Channel>>(`/channels`, {
+    params: q,
+  });
+  return response.data;
+}
+
+export async function createRecording(
+  opts: CreateRecordingOpts
+): Promise<void> {
+  await client.post(`/recordings`, opts);
 }

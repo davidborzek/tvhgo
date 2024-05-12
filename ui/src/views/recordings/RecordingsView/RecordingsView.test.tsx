@@ -2,6 +2,7 @@ import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest';
 import { cleanup, render } from '@testing-library/react';
 import {
   useLoaderData,
+  useLocation,
   useNavigate,
   useRevalidator,
   useSearchParams,
@@ -47,6 +48,14 @@ beforeEach(() => {
   vi.mocked(useRevalidator).mockReturnValue({
     revalidate: vi.fn(),
     state: 'idle',
+  });
+
+  vi.mocked(useLocation).mockReturnValue({
+    hash: '',
+    key: '',
+    pathname: '',
+    search: '',
+    state: null,
   });
 });
 

@@ -11,10 +11,10 @@
 
 .dropdown {
   padding: 0.5rem;
-  border: none;
+  border: 1px solid var(--color-border-subtle);
   border-radius: 3px;
   color: var(--color-text-primary);
-  background-color: var(--color-card-bg);
+  background-color: var(--color-bg);
   option {
     color: black;
     background-color: white;
