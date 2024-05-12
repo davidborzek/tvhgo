@@ -1,13 +1,15 @@
 import { ListResponse, Recording } from '@/clients/api/api.types';
 import {
   LoaderFunctionArgs,
+  Outlet,
   useLoaderData,
+  useLocation,
   useNavigate,
   useRevalidator,
   useSearchParams,
 } from 'react-router-dom';
 import { RecordingStatus, getRecordings } from '@/clients/api/api';
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 
 import Button from '@/components/common/button/Button';
 import Checkbox from '@/components/common/checkbox/Checkbox';
@@ -23,6 +25,10 @@ import styles from './RecordingsView.module.scss';
 import { useManageRecordings } from '@/hooks/recording';
 import { usePagination } from '@/hooks/pagination';
 import { useTranslation } from 'react-i18next';
+
+export enum RecordingsViewRefreshStates {
+  CREATED = 'recording_created',
+}
 
 const defaultLimit = 50;
 
@@ -43,7 +49,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export function Component() {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const revalidator = useRevalidator();
+  const { state } = useLocation();
+  const { revalidate } = useRevalidator();
   const [queryParams, setQueryParams] = useSearchParams();
   const [selectedRecordings, setSelectedRecordings] = useState<Set<Recording>>(
     new Set()
@@ -72,6 +79,14 @@ export function Component() {
   );
 
   const { entries, total } = useLoaderData() as ListResponse<Recording>;
+
+  useEffect(() => {
+    switch (state) {
+      case RecordingsViewRefreshStates.CREATED:
+        revalidate();
+        break;
+    }
+  }, [state, revalidate]);
 
   const getDeleteOrCancelButtonLabel = () => {
     return getStatus() === 'upcoming' ? t('cancel') : t('delete');
@@ -120,7 +135,7 @@ export function Component() {
       stopAndCancelRecordings(stopIds, cancelIds).then(() => {
         clearSelection();
         setConfirmationModalVisible(false);
-        revalidator.revalidate();
+        revalidate();
       });
 
       return;
@@ -129,7 +144,7 @@ export function Component() {
     removeRecordings([...selectedRecordings].map((rec) => rec.id)).then(() => {
       clearSelection();
       setConfirmationModalVisible(false);
-      revalidator.revalidate();
+      revalidate();
     });
   };
 
@@ -228,6 +243,14 @@ export function Component() {
               testID={TestIds.RECORDINGS_SORT_DIR_BUTTON}
             />
           </div>
+
+          <Button
+            label={t('create_recording')}
+            style="blue"
+            className={c()}
+            quiet
+            onClick={() => navigate('/dvr/recordings/create')}
+          />
         </div>
 
         <div className={styles.actions}>
@@ -243,7 +266,6 @@ export function Component() {
             testID={TestIds.DELETE_CANCEL_RECORDINGS_BUTTON}
             quiet
           />
-
           <Checkbox
             onChange={(checked) =>
               checked
@@ -273,6 +295,7 @@ export function Component() {
         offset={getOffset()}
         total={total}
       />
+      <Outlet />
     </div>
   );
 }

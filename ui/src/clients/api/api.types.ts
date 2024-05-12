@@ -237,3 +237,15 @@ export type DVRRetentionPolicy = {
   days: number;
   type: DVRRetentionType;
 };
+
+export type CreateRecordingOpts = {
+  title: string;
+  extraText?: string;
+  startsAt: number;
+  endsAt: number;
+  channelId: string;
+  startPadding?: number;
+  endPadding?: number;
+  comment?: string;
+  configId?: string;
+};

@@ -1,6 +1,8 @@
+import { CreateRecordingOpts, UpdateRecording } from '@/clients/api/api.types';
 import {
   cancelRecording,
   cancelRecordings,
+  createRecording,
   recordByEvent,
   removeRecording,
   removeRecordings,
@@ -9,7 +11,6 @@ import {
   updateRecording,
 } from '@/clients/api/api';
 
-import { UpdateRecording } from '@/clients/api/api.types';
 import { useNotification } from './notification';
 import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -166,4 +167,34 @@ export const useManageRecordings = () => {
     removeRecordings: _removeRecordings,
     pending,
   };
+};
+
+export const useCreateRecording = (): [
+  (opts: CreateRecordingOpts) => Promise<void>,
+  boolean,
+] => {
+  const { notifyError, notifySuccess, dismissNotification } =
+    useNotification('createRecording');
+
+  const { t } = useTranslation();
+  const [pending, setPending] = useState(false);
+
+  const _createRecording = (opts: CreateRecordingOpts) => {
+    dismissNotification();
+    setPending(true);
+
+    return createRecording(opts)
+      .then(() => {
+        notifySuccess(t('recording_created_successfully'));
+      })
+      .catch((err) => {
+        notifyError(t('unexpected'));
+        throw err;
+      })
+      .finally(() => {
+        setPending(false);
+      });
+  };
+
+  return [_createRecording, pending];
 };

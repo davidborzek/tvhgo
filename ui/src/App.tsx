@@ -161,7 +161,14 @@ function App() {
                 lazy={() =>
                   import('@/views/recordings/RecordingsView/RecordingsView')
                 }
-              />
+              >
+                <Route
+                  path="create"
+                  lazy={() =>
+                    import('@/modals/recording/create/RecordingCreateModal')
+                  }
+                />
+              </Route>
               <Route
                 path="/dvr/recordings/:id"
                 lazy={() =>
