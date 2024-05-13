@@ -61,6 +61,7 @@ export const Component = () => {
     setupFormik.resetForm();
     navigate('/settings/security', {
       state: refresh ? SecuritySettingsRefreshStates.TWOFA : undefined,
+      preventScrollReset: true,
     });
   };
 

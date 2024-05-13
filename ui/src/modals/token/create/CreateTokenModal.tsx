@@ -38,6 +38,7 @@ export const Component = () => {
     formik.resetForm();
     navigate('/settings/security', {
       state,
+      preventScrollReset: true,
     });
   };
 

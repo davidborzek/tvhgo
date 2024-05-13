@@ -52,7 +52,7 @@ export const Component = () => {
     const state = refresh ? UserListRefreshStates.CREATED : undefined;
 
     formik.resetForm();
-    navigate('/settings/users', { state });
+    navigate('/settings/users', { state, preventScrollReset: true });
   };
 
   return (

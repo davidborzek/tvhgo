@@ -249,7 +249,11 @@ export function Component() {
             style="blue"
             className={c()}
             quiet
-            onClick={() => navigate('/dvr/recordings/create')}
+            onClick={() =>
+              navigate('/dvr/recordings/create', {
+                preventScrollReset: true,
+              })
+            }
           />
         </div>
 

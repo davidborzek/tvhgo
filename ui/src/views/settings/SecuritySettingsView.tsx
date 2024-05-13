@@ -172,9 +172,15 @@ export const Component = () => {
         <TwoFactorAuthSettingsOverview
           settings={twoFactorAuthSettings}
           onDisable={() =>
-            navigate('/settings/security/two-factor-auth/disable')
+            navigate('/settings/security/two-factor-auth/disable', {
+              preventScrollReset: true,
+            })
           }
-          onEnable={() => navigate('/settings/security/two-factor-auth/setup')}
+          onEnable={() =>
+            navigate('/settings/security/two-factor-auth/setup', {
+              preventScrollReset: true,
+            })
+          }
         />
       </div>
       <div className={styles.row}>

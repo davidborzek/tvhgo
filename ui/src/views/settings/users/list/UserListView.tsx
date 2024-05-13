@@ -148,7 +148,11 @@ export const Component = () => {
         <Button
           label={t('create')}
           quiet
-          onClick={() => navigate('/settings/users/create')}
+          onClick={() =>
+            navigate('/settings/users/create', {
+              preventScrollReset: true,
+            })
+          }
         />
       </div>
       {renderUsers()}

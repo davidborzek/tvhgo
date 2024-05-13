@@ -79,7 +79,11 @@ const TokenList = (props: Props) => {
       <div>
         <Button
           label={t('new_token')}
-          onClick={() => navigate('/settings/security/tokens/create')}
+          onClick={() =>
+            navigate('/settings/security/tokens/create', {
+              preventScrollReset: true,
+            })
+          }
         />
       </div>
     </div>
