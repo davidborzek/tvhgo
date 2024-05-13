@@ -35,7 +35,7 @@ export const Component = () => {
   const close = (refresh?: boolean) => {
     const state = refresh ? RecordingsViewRefreshStates.CREATED : undefined;
 
-    navigate('/dvr/recordings', { state });
+    navigate('/dvr/recordings', { state, preventScrollReset: true });
   };
 
   const [channels, dvrProfiles] = useLoaderData() as [

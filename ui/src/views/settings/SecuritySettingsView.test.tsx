@@ -281,7 +281,10 @@ describe('twofa settings', () => {
     await userEvent.click(disableButton);
 
     expect(navigateMock).toHaveBeenCalledWith(
-      '/settings/security/two-factor-auth/disable'
+      '/settings/security/two-factor-auth/disable',
+      {
+        preventScrollReset: true,
+      }
     );
   });
 
@@ -299,7 +302,10 @@ describe('twofa settings', () => {
     await userEvent.click(enableButton);
 
     expect(navigateMock).toHaveBeenCalledWith(
-      '/settings/security/two-factor-auth/setup'
+      '/settings/security/two-factor-auth/setup',
+      {
+        preventScrollReset: true,
+      }
     );
   });
 });
