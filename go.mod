@@ -14,7 +14,7 @@ require (
 	github.com/onsi/gomega v1.33.1
 	github.com/pquerna/otp v1.4.0
 	github.com/prometheus/client_golang v1.19.1
-	github.com/rs/zerolog v1.32.0
+	github.com/rs/zerolog v1.33.0
 	github.com/stretchr/testify v1.9.0
 	github.com/swaggo/http-swagger/v2 v2.0.2
 	github.com/swaggo/swag v1.16.3
