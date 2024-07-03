@@ -2,37 +2,37 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://davidborzek.github.io/tvhgo/main/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-07-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://davidborzek.github.io/tvhgo/main/auth/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-07-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://davidborzek.github.io/tvhgo/main/configuration/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-07-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://davidborzek.github.io/tvhgo/main/fail2ban/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-07-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://davidborzek.github.io/tvhgo/main/installation/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-07-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://davidborzek.github.io/tvhgo/main/metrics/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-07-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://davidborzek.github.io/tvhgo/main/cli/docs/</loc>
-         <lastmod>2024-06-18</lastmod>
+         <lastmod>2024-07-03</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
