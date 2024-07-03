@@ -98,6 +98,8 @@ log:
 | username  | string | false    |         | Username of the tvheadend server.                                                                |
 | password  | string | false    |         | Password of the tvheadend server. It is recommended to configure it via an environment variable. |
 
+> NOTE: Currently only plain text authentication is supported. Set the authentication type in tvheadent either to `Plain (insecure)` or `Both plain and digest`.
+
 **Example**
 
 ```yaml
