@@ -99,7 +99,10 @@ func (c *client) Exec(
 	}
 
 	req.Header.Add("Content-Type", "application/x-www-form-urlencoded")
-	req.SetBasicAuth(c.opts.Username, c.opts.Password)
+
+	if c.opts.Username != "" && c.opts.Password != "" {
+		req.SetBasicAuth(c.opts.Username, c.opts.Password)
+	}
 
 	res, err := c.http.Do(req)
 	if err != nil {

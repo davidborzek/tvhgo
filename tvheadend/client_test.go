@@ -81,3 +81,18 @@ func TestClientExecNoDest(t *testing.T) {
 	assert.Nil(t, err)
 	assert.NotNil(t, res)
 }
+
+func TestClientExecWithoutAuth(t *testing.T) {
+	srv := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		assert.Empty(t, r.Header.Get("Authorization"))
+		assert.Equal(t, "/some/path", r.URL.Path)
+	}))
+
+	client := tvheadend.New(tvheadend.ClientOpts{
+		URL: srv.URL,
+	})
+	res, err := client.Exec(context.TODO(), "/some/path", nil)
+
+	assert.Nil(t, err)
+	assert.NotNil(t, res)
+}
