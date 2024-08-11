@@ -1,0 +1,10 @@
+services:
+  postgres:
+    image: postgres:14
+    restart: always
+    environment:
+      POSTGRES_USER: tvhgo
+      POSTGRES_PASSWORD: supersecret
+      POSTGRES_DB: tvhgo
+    ports:
+      - "5432:5432"

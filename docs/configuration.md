@@ -113,15 +113,31 @@ tvheadend:
 
 ### Database config (database)
 
-| Parameter | Type   | Required | Default                                           | Description                |
-| --------- | ------ | -------- | ------------------------------------------------- | -------------------------- |
-| path      | string | false    | ./tvhgo.db (for the docker image: /data/tvhgo.db) | Path of the database file. |
+| Parameter | Type                                                                                                        | Required | Default                                           | Description                                       |
+| --------- | ----------------------------------------------------------------------------------------------------------- | -------- | ------------------------------------------------- | ------------------------------------------------- |
+| type      | enum(`sqlite3`, `postgres`)                                                                                 | false    | sqlite3                                           | Type of the database.                             |
+| path      | string                                                                                                      | false    | ./tvhgo.db (for the docker image: /data/tvhgo.db) | Path of the database file. (only for `sqlite3`)   |
+| host      | string                                                                                                      | false    | localhost                                         | Host of the database. (only for `postgres`)       |
+| port      | int                                                                                                         | false    | 5432                                              | Port of the database. (only for `postgres`)       |
+| user      | string                                                                                                      | false    | tvhgo                                             | The database user. (only for `postgres`)          |
+| database  | string                                                                                                      | false    | tvhgo                                             | The database name. (only for `postgres`)          |
+| ssl_mode  | see [PostgresSQL Docs](https://www.postgresql.org/docs/current/libpq-ssl.html#LIBPQ-SSL-SSLMODE-STATEMENTS) | false    | disable                                           | SSL mode of the connection. (only for `postgres`) |
 
-**Example**
+**Example: sqlite3**
 
 ```yaml
 database:
+  type: sqlite3
   path: /path/to/database.db
+```
+
+**Example: postgres**
+
+```yaml
+database:
+  type: postgres
+  host: 127.0.0.1
+  password: supersecret
 ```
 
 ### Auth config (auth)

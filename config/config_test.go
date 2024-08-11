@@ -25,6 +25,10 @@ func TestLoadRequiredConfigFromEnv(t *testing.T) {
 	assert.Equal(t, 8080, cfg.Server.Port)
 
 	assert.Equal(t, "./tvhgo.db", cfg.Database.Path)
+	assert.Equal(t, config.DatabaseTypeSqlite, cfg.Database.Type)
+	assert.Equal(t, "tvhgo", cfg.Database.User)
+	assert.Equal(t, "tvhgo", cfg.Database.Database)
+	assert.Equal(t, "localhost", cfg.Database.Host)
 
 	assert.Equal(t, "tvhgo", cfg.Auth.TOTP.Issuer)
 	assert.Equal(t, "tvhgo_session", cfg.Auth.Session.CookieName)
@@ -145,4 +149,48 @@ func TestLoadConfigFromEnv(t *testing.T) {
 	assert.Equal(t, "X-Remote-Name", cfg.Auth.ReverseProxy.NameHeader)
 	assert.Contains(t, cfg.Auth.ReverseProxy.AllowedProxies, "127.0.0.1/24", "127.0.0.1")
 	assert.True(t, cfg.Auth.ReverseProxy.AllowRegistration)
+}
+
+func TestLoadPostgresDatabaseConfigDefaults(t *testing.T) {
+	defer os.Clearenv()
+	// Set required env variables
+	os.Setenv("TVHGO_TVHEADEND_HOST", "localhost")
+
+	os.Setenv("TVHGO_DATABASE_TYPE", "postgres")
+	cfg, err := config.Load("")
+
+	assert.Nil(t, err)
+
+	assert.Equal(t, config.DatabaseTypePostgres, cfg.Database.Type)
+	assert.Equal(t, "tvhgo", cfg.Database.User)
+	assert.Equal(t, "tvhgo", cfg.Database.Database)
+	assert.Equal(t, "localhost", cfg.Database.Host)
+	assert.Equal(t, 5432, cfg.Database.Port)
+	assert.Empty(t, cfg.Database.Password)
+	assert.Equal(t, "disable", cfg.Database.SSLMode)
+}
+
+func TestLoadPostgresDatabaseConfig(t *testing.T) {
+	defer os.Clearenv()
+	// Set required env variables
+	os.Setenv("TVHGO_TVHEADEND_HOST", "localhost")
+
+	os.Setenv("TVHGO_DATABASE_TYPE", "postgres")
+	os.Setenv("TVHGO_DATABASE_USER", "myUser")
+	os.Setenv("TVHGO_DATABASE_DATABASE", "myDatabase")
+	os.Setenv("TVHGO_DATABASE_HOST", "myHost")
+	os.Setenv("TVHGO_DATABASE_PORT", "1234")
+	os.Setenv("TVHGO_DATABASE_PASSWORD", "myPassword")
+	os.Setenv("TVHGO_DATABASE_SSL_MODE", "require")
+	cfg, err := config.Load("")
+
+	assert.Nil(t, err)
+
+	assert.Equal(t, config.DatabaseTypePostgres, cfg.Database.Type)
+	assert.Equal(t, "myUser", cfg.Database.User)
+	assert.Equal(t, "myDatabase", cfg.Database.Database)
+	assert.Equal(t, "myHost", cfg.Database.Host)
+	assert.Equal(t, 1234, cfg.Database.Port)
+	assert.Equal(t, "myPassword", cfg.Database.Password)
+	assert.Equal(t, "require", cfg.Database.SSLMode)
 }

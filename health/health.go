@@ -1,21 +1,21 @@
 package health
 
 import (
-	"database/sql"
 	"net/http"
 	"time"
 
 	"github.com/alexliesenfeld/health"
+	"github.com/davidborzek/tvhgo/db"
 	"github.com/davidborzek/tvhgo/tvheadend"
 	"github.com/go-chi/chi/v5"
 )
 
 type healthRouter struct {
 	tvhc tvheadend.Client
-	db   *sql.DB
+	db   *db.DB
 }
 
-func New(tvhc tvheadend.Client, db *sql.DB) *healthRouter {
+func New(tvhc tvheadend.Client, db *db.DB) *healthRouter {
 	return &healthRouter{
 		tvhc: tvhc,
 		db:   db,

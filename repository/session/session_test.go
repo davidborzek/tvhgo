@@ -2,12 +2,12 @@ package session_test
 
 import (
 	"context"
-	"database/sql"
 	"os"
 	"testing"
 	"time"
 
 	"github.com/davidborzek/tvhgo/core"
+	database "github.com/davidborzek/tvhgo/db"
 	"github.com/davidborzek/tvhgo/db/testdb"
 	"github.com/davidborzek/tvhgo/repository/session"
 	"github.com/davidborzek/tvhgo/repository/user"
@@ -19,7 +19,7 @@ var noCtx = context.TODO()
 
 var repository core.SessionRepository
 
-var db *sql.DB
+var db *database.DB
 
 // Test data models
 var testUser = &core.User{

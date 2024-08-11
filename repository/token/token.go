@@ -5,19 +5,21 @@ import (
 	"database/sql"
 	"time"
 
+	"github.com/davidborzek/tvhgo/config"
 	"github.com/davidborzek/tvhgo/core"
+	"github.com/davidborzek/tvhgo/db"
 )
 
 type sqlRepository struct {
-	db *sql.DB
+	db *db.DB
 }
 
-func New(db *sql.DB) core.TokenRepository {
+func New(db *db.DB) core.TokenRepository {
 	return &sqlRepository{db: db}
 }
 
 func (s *sqlRepository) FindByToken(ctx context.Context, hashedToken string) (*core.Token, error) {
-	row := s.db.QueryRowContext(ctx, queryByToken, sql.Named("hashed_token", hashedToken))
+	row := s.db.QueryRowContext(ctx, queryByToken, hashedToken)
 
 	token := new(core.Token)
 	if err := scanRow(row, token); err != nil {
@@ -31,7 +33,7 @@ func (s *sqlRepository) FindByToken(ctx context.Context, hashedToken string) (*c
 }
 
 func (s *sqlRepository) FindByUser(ctx context.Context, userID int64) ([]*core.Token, error) {
-	rows, err := s.db.QueryContext(ctx, queryByUser, sql.Named("user_id", userID))
+	rows, err := s.db.QueryContext(ctx, queryByUser, userID)
 	if err != nil {
 		return nil, err
 	}
@@ -40,14 +42,22 @@ func (s *sqlRepository) FindByUser(ctx context.Context, userID int64) ([]*core.T
 }
 
 func (s *sqlRepository) Create(ctx context.Context, token *core.Token) error {
+	if s.db.Type == config.DatabaseTypePostgres {
+		return s.createPostgres(ctx, token)
+	}
+
+	return s.create(ctx, token)
+}
+
+func (s *sqlRepository) create(ctx context.Context, token *core.Token) error {
 	now := time.Now().Unix()
 
 	res, err := s.db.ExecContext(ctx, stmtInsert,
-		sql.Named("user_id", token.UserID),
-		sql.Named("name", token.Name),
-		sql.Named("hashed_token", token.HashedToken),
-		sql.Named("created_at", now),
-		sql.Named("updated_at", now),
+		token.UserID,
+		token.HashedToken,
+		token.Name,
+		now,
+		now,
 	)
 
 	if err != nil {
@@ -65,7 +75,27 @@ func (s *sqlRepository) Create(ctx context.Context, token *core.Token) error {
 	return nil
 }
 
+func (s *sqlRepository) createPostgres(ctx context.Context, token *core.Token) error {
+	now := time.Now().Unix()
+
+	err := s.db.QueryRowContext(ctx, stmtInsertPostgres,
+		token.UserID,
+		token.HashedToken,
+		token.Name,
+		now,
+		now,
+	).Scan(&token.ID)
+
+	if err != nil {
+		return err
+	}
+
+	token.UpdatedAt = now
+	token.CreatedAt = now
+	return nil
+}
+
 func (s *sqlRepository) Delete(ctx context.Context, token *core.Token) error {
-	_, err := s.db.ExecContext(ctx, stmtDelete, sql.Named("id", token.ID))
+	_, err := s.db.ExecContext(ctx, stmtDelete, token.ID)
 	return err
 }

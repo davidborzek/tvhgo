@@ -1,7 +1,6 @@
 package common
 
 import (
-	"database/sql"
 	"fmt"
 	"log"
 	"os"
@@ -47,14 +46,14 @@ func MapRows[T any](values []T, mapper func(t T) []any) [][]any {
 	return rows
 }
 
-func Init(ctx *cli.Context) (*config.Config, *sql.DB) {
+func Init(ctx *cli.Context) (*config.Config, *db.DB) {
 	cfg, err := config.Load(ctx.String("config"))
 	if err != nil {
 		log.Println("failed to load config:", err)
 		os.Exit(1)
 	}
 
-	dbConn, err := db.Connect(cfg.Database.Path)
+	dbConn, err := db.Connect(cfg.Database)
 	if err != nil {
 		log.Println("failed create db connection:", err)
 		os.Exit(1)

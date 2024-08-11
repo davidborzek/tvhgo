@@ -3,26 +3,34 @@ package db
 import (
 	"database/sql"
 
+	"github.com/davidborzek/tvhgo/config"
 	"github.com/davidborzek/tvhgo/db/migration"
 )
 
-// Connect connects to a database and migrates schema.
-func Connect(dsn string) (*sql.DB, error) {
-	// TODO: make connection work with other sql drivers.
+type DB struct {
+	*sql.DB
+	Type config.DatabaseType
+}
 
-	db, err := sql.Open("sqlite3", dsn)
+// Connect connects to a database and migrates schema.
+func Connect(cfg config.DatabaseConfig) (*DB, error) {
+	driver := string(cfg.Type)
+	dsn, err := cfg.DSN()
 	if err != nil {
 		return nil, err
 	}
 
-	// Enable foreign keys in sqlite3 (TODO: only do this for sqlite3 driver)
-	if _, err := db.Exec("PRAGMA foreign_keys = ON"); err != nil {
+	pool, err := sql.Open(driver, dsn)
+	if err != nil {
 		return nil, err
 	}
 
-	if err := migration.Migrate(db); err != nil {
+	if err := migration.Migrate(driver, pool); err != nil {
 		return nil, err
 	}
 
-	return db, nil
+	return &DB{
+		DB:   pool,
+		Type: cfg.Type,
+	}, nil
 }

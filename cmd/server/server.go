@@ -48,7 +48,7 @@ func start(ctx *cli.Context) error {
 
 	log.Info().Int("pid", os.Getpid()).Msg("tvhgo started")
 
-	dbConn, err := db.Connect(cfg.Database.Path)
+	dbConn, err := db.Connect(cfg.Database)
 	if err != nil {
 		log.Fatal().Err(err).Msg("failed to connect to database")
 	}
