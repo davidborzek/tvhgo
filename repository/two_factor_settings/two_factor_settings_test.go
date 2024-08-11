@@ -2,11 +2,11 @@ package twofactorsettings_test
 
 import (
 	"context"
-	"database/sql"
 	"os"
 	"testing"
 
 	"github.com/davidborzek/tvhgo/core"
+	database "github.com/davidborzek/tvhgo/db"
 	"github.com/davidborzek/tvhgo/db/testdb"
 	twofactorsettings "github.com/davidborzek/tvhgo/repository/two_factor_settings"
 	"github.com/davidborzek/tvhgo/repository/user"
@@ -25,7 +25,7 @@ var (
 	}
 )
 
-func initTestUser(db *sql.DB) error {
+func initTestUser(db *database.DB) error {
 	return user.New(db, clock.NewClock()).
 		Create(noCtx, testUser)
 }

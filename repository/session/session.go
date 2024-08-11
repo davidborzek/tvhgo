@@ -5,15 +5,17 @@ import (
 	"database/sql"
 	"fmt"
 
+	"github.com/davidborzek/tvhgo/config"
 	"github.com/davidborzek/tvhgo/core"
+	"github.com/davidborzek/tvhgo/db"
 )
 
 type sqlRepository struct {
-	db    *sql.DB
+	db    *db.DB
 	clock core.Clock
 }
 
-func New(db *sql.DB, clock core.Clock) core.SessionRepository {
+func New(db *db.DB, clock core.Clock) core.SessionRepository {
 	return &sqlRepository{
 		db:    db,
 		clock: clock,
@@ -44,6 +46,14 @@ func (s *sqlRepository) FindByUser(ctx context.Context, userID int64) ([]*core.S
 }
 
 func (s *sqlRepository) Create(ctx context.Context, session *core.Session) error {
+	if s.db.Type == config.DatabaseTypePostgres {
+		return s.createPostgres(ctx, session)
+	}
+
+	return s.create(ctx, session)
+}
+
+func (s *sqlRepository) create(ctx context.Context, session *core.Session) error {
 	now := s.clock.Now().Unix()
 
 	res, err := s.db.ExecContext(ctx, stmtInsert,
@@ -66,6 +76,29 @@ func (s *sqlRepository) Create(ctx context.Context, session *core.Session) error
 	}
 
 	session.ID = id
+	session.CreatedAt = now
+	session.LastUsedAt = now
+	session.RotatedAt = now
+	return nil
+}
+
+func (s *sqlRepository) createPostgres(ctx context.Context, session *core.Session) error {
+	now := s.clock.Now().Unix()
+
+	err := s.db.QueryRowContext(ctx, stmtInsertPostgres,
+		session.UserId,
+		session.HashedToken,
+		session.ClientIP,
+		session.UserAgent,
+		now,
+		now,
+		now,
+	).Scan(&session.ID)
+
+	if err != nil {
+		return fmt.Errorf("failed to exec session insert: %w", err)
+	}
+
 	session.CreatedAt = now
 	session.LastUsedAt = now
 	session.RotatedAt = now

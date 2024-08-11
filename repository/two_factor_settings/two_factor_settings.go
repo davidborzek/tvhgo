@@ -6,13 +6,14 @@ import (
 	"time"
 
 	"github.com/davidborzek/tvhgo/core"
+	"github.com/davidborzek/tvhgo/db"
 )
 
 type sqlRepository struct {
-	db *sql.DB
+	db *db.DB
 }
 
-func New(db *sql.DB) core.TwoFactorSettingsRepository {
+func New(db *db.DB) core.TwoFactorSettingsRepository {
 	return &sqlRepository{
 		db: db,
 	}

@@ -4,15 +4,17 @@ import (
 	"context"
 	"database/sql"
 
+	"github.com/davidborzek/tvhgo/config"
 	"github.com/davidborzek/tvhgo/core"
+	"github.com/davidborzek/tvhgo/db"
 )
 
 type sqlRepository struct {
-	db    *sql.DB
+	db    *db.DB
 	clock core.Clock
 }
 
-func New(db *sql.DB, clock core.Clock) core.UserRepository {
+func New(db *db.DB, clock core.Clock) core.UserRepository {
 	return &sqlRepository{
 		db:    db,
 		clock: clock,
@@ -76,6 +78,14 @@ func (s *sqlRepository) Create(ctx context.Context, user *core.User) error {
 		return err
 	}
 
+	if s.db.Type == config.DatabaseTypePostgres {
+		return s.createPostgres(ctx, user)
+	}
+
+	return s.create(ctx, user)
+}
+
+func (s *sqlRepository) create(ctx context.Context, user *core.User) error {
 	createdAt := s.clock.Now().Unix()
 
 	res, err := s.db.ExecContext(ctx, stmtInsert,
@@ -100,6 +110,30 @@ func (s *sqlRepository) Create(ctx context.Context, user *core.User) error {
 	user.ID = id
 	user.UpdatedAt = createdAt
 	user.CreatedAt = createdAt
+
+	return nil
+}
+
+func (s *sqlRepository) createPostgres(ctx context.Context, user *core.User) error {
+	createdAt := s.clock.Now().Unix()
+
+	err := s.db.QueryRowContext(ctx, stmtInsertPostgres,
+		user.Username,
+		user.PasswordHash,
+		user.Email,
+		user.DisplayName,
+		user.IsAdmin,
+		createdAt,
+		createdAt,
+	).Scan(&user.ID)
+
+	if err != nil {
+		return err
+	}
+
+	user.UpdatedAt = createdAt
+	user.CreatedAt = createdAt
+
 	return nil
 }
 
