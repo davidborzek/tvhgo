@@ -13,7 +13,7 @@ require (
 	github.com/golang-migrate/migrate/v4 v4.17.1
 	github.com/gorilla/schema v1.4.1
 	github.com/onsi/ginkgo/v2 v2.20.2
-	github.com/onsi/gomega v1.34.1
+	github.com/onsi/gomega v1.34.2
 	github.com/pquerna/otp v1.4.0
 	github.com/prometheus/client_golang v1.20.2
 	github.com/rs/zerolog v1.33.0
