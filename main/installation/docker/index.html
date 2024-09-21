@@ -10,28 +10,24 @@
       
       
       
-        <link rel="canonical" href="https://davidborzek.github.io/tvhgo/main/metrics/">
+        <link rel="canonical" href="https://davidborzek.github.io/tvhgo/main/installation/docker/">
       
       
-        <link rel="prev" href="../auth/">
       
       
-        <link rel="next" href="../fail2ban/">
-      
-      
-      <link rel="icon" href="../assets/images/favicon.png">
+      <link rel="icon" href="../../assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.36">
     
     
       
-        <title>Metrics - tvhgo</title>
+        <title>Docker - tvhgo</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.06209087.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.06209087.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -50,7 +46,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -76,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#exported-metrics" class="md-skip">
+        <a href="#prerequisites" class="md-skip">
           Skip to content
         </a>
       
@@ -96,7 +92,7 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="tvhgo" class="md-header__button md-logo" aria-label="tvhgo" data-md-component="logo">
+    <a href="../.." title="tvhgo" class="md-header__button md-logo" aria-label="tvhgo" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -116,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Metrics
+              Docker
             
           </span>
         </div>
@@ -229,7 +225,7 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="tvhgo" class="md-nav__button md-logo" aria-label="tvhgo" data-md-component="logo">
+    <a href="../.." title="tvhgo" class="md-nav__button md-logo" aria-label="tvhgo" data-md-component="logo">
       
   
   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
@@ -259,7 +255,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -279,7 +275,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../installation/" class="md-nav__link">
+      <a href="../" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -296,8 +292,6 @@
       
   
   
-    
-  
   
   
     
@@ -309,11 +303,11 @@
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
       
         
         
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
         
           
           <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
@@ -327,7 +321,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_3">
             <span class="md-nav__icon md-icon"></span>
             Configuration
@@ -341,7 +335,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../configuration/" class="md-nav__link">
+      <a href="../../configuration/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -362,7 +356,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../auth/" class="md-nav__link">
+      <a href="../../auth/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -380,28 +374,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Metrics
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../metrics/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -410,42 +386,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#exported-metrics" class="md-nav__link">
-    <span class="md-ellipsis">
-      Exported metrics
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#grafana-dashboard" class="md-nav__link">
-    <span class="md-ellipsis">
-      Grafana dashboard
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -458,7 +398,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../fail2ban/" class="md-nav__link">
+      <a href="../../fail2ban/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -526,7 +466,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../rapidoc.html" class="md-nav__link">
+      <a href="../../rapidoc.html" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -547,7 +487,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../cli/docs/" class="md-nav__link">
+      <a href="../../cli/docs/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -593,18 +533,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#exported-metrics" class="md-nav__link">
+  <a href="#prerequisites" class="md-nav__link">
     <span class="md-ellipsis">
-      Exported metrics
+      Prerequisites
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#grafana-dashboard" class="md-nav__link">
+  <a href="#install-tvhgo" class="md-nav__link">
     <span class="md-ellipsis">
-      Grafana dashboard
+      Install tvhgo
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#create-a-user" class="md-nav__link">
+    <span class="md-ellipsis">
+      Create a user
     </span>
   </a>
   
@@ -628,121 +577,34 @@
   
 
 
-  <h1>Metrics</h1>
+  <h1>Docker</h1>
 
-<p>tvhgo can optionally export metrics of the tvheadend server in the Prometheus format.</p>
-<p>See <a href="../configuration/#metrics-config-metrics">Metrics config</a> to enable the metrics enpoint.</p>
-<h2 id="exported-metrics">Exported metrics</h2>
-<p>The following metrics will be exported:</p>
-<table>
-<thead>
-<tr>
-<th>Name</th>
-<th>Description</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>tvhgo_tvheadend_total_connections</td>
-<td>Number of connected client devices.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_connection</td>
-<td>Connected client device.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_total_subscriptions</td>
-<td>Number of active subscriptions.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_subscription_errors</td>
-<td>Total errors of an active subscription.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_subscription_in</td>
-<td>Incoming bytes of an active subscription.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_subscription_out</td>
-<td>Outgoing bytes of an active subscription.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_subscription_total_in</td>
-<td>Total incoming bytes of an active subscription.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_subscription_total_out</td>
-<td>Total outgoing bytes of an active subscription.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_total_inputs</td>
-<td>Number of input devices.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_input_subscriptions</td>
-<td>Total subscriptions of an input.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_input_weight</td>
-<td>Weight of an input.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_input_signal</td>
-<td>Signal of an input.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_input_signal_scale</td>
-<td>Signal scale of an input.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_input_ber</td>
-<td>Bit error rate of an input.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_input_snr</td>
-<td>Signal-to-noise ratio of an input.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_input_snr_scale</td>
-<td>Signal-to-noise ratio scale of an input.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_input_unc</td>
-<td>Uncorrected blocks of an input.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_input_bps</td>
-<td>Bandwidth (bit/second) of an input.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_input_te</td>
-<td>Transport errors of an input.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_input_cc</td>
-<td>Continuity errors of an input.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_input_ec_bit</td>
-<td>Bit error count of an input.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_input_tc_bit</td>
-<td>Total bit error count of an input.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_input_ec_block</td>
-<td>Block error count of an input.</td>
-</tr>
-<tr>
-<td>tvhgo_tvheadend_input_tc_block</td>
-<td>Total block error count of an input.</td>
-</tr>
-</tbody>
-</table>
-<h2 id="grafana-dashboard">Grafana dashboard</h2>
-<p>A Grafana dashboard is available as <a href="../tvhgo-grafana.json">JSON</a>.</p>
-<p><img alt="Grafana dashboard" src="../images/grafana-dashboard.png" /></p>
+<p>This guide provides step-by-step instructions to install thvgo using docker.</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Before you start, make sure you have the following ready:</p>
+<ul>
+<li>Docker</li>
+</ul>
+<h2 id="install-tvhgo">Install tvhgo</h2>
+<p>You can use the following command to run tvhgo using docker.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>$<span class="w"> </span>docker<span class="w"> </span>run<span class="w"> </span>-d<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2" href="#__codelineno-0-2"></a><span class="w">    </span>--name<span class="w"> </span>tvhgo<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3" href="#__codelineno-0-3"></a><span class="w">    </span>-p<span class="w"> </span><span class="m">8080</span>:8080<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4" href="#__codelineno-0-4"></a><span class="w">    </span>-e<span class="w"> </span><span class="s1">&#39;TVHGO_TVHEADEND_HOST=&lt;TVHEADEND_HOST&gt;&#39;</span><span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5" href="#__codelineno-0-5"></a><span class="w">    </span>-v<span class="w"> </span>/path/to/store/data:/tvhgo<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6" href="#__codelineno-0-6"></a><span class="w">    </span>--restart<span class="w"> </span>unless-stopped<span class="w"> </span><span class="se">\</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7" href="#__codelineno-0-7"></a><span class="w">    </span>ghcr.io/davidborzek/tvhgo:latest
+</span></code></pre></div>
+<blockquote>
+<p>Note: tvhgo runs as a non-root user inside the container. Make sure the mounted directory is writable by the user with UID 1000 (default).</p>
+</blockquote>
+<p>Replace <code>&lt;TVHEADEND_HOST&gt;</code> with the actual hostname or ip of your tvheadend server and adapt /path/to/store/data to a path of your choice to persist the data stored by thvgo.</p>
+<p>You can find more configuration options <a href="../../configuration/">here</a>.</p>
+<h2 id="create-a-user">Create a user</h2>
+<p>To complete the setup you need to create a user.</p>
+<div class="language-bash highlight"><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>docker<span class="w"> </span><span class="nb">exec</span><span class="w"> </span>-it<span class="w"> </span>tvhgo<span class="w"> </span>tvhgo<span class="w"> </span>admin<span class="w"> </span>user<span class="w"> </span>add
+</span></code></pre></div>
+<p>Follow the interactive setup to create a new user.</p>
 
 
 
@@ -773,44 +635,6 @@
       
         <footer class="md-footer">
   
-    
-      
-      <nav class="md-footer__inner md-grid" aria-label="Footer" >
-        
-          
-          <a href="../auth/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Auth">
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
-            </div>
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Previous
-              </span>
-              <div class="md-ellipsis">
-                Auth
-              </div>
-            </div>
-          </a>
-        
-        
-          
-          <a href="../fail2ban/" class="md-footer__link md-footer__link--next" aria-label="Next: Fail2Ban">
-            <div class="md-footer__title">
-              <span class="md-footer__direction">
-                Next
-              </span>
-              <div class="md-ellipsis">
-                Fail2Ban
-              </div>
-            </div>
-            <div class="md-footer__button md-icon">
-              
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
-            </div>
-          </a>
-        
-      </nav>
     
   
   <div class="md-footer-meta md-typeset">
@@ -850,10 +674,10 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["navigation.top", "navigation.footer", "navigation.sections", "content.code.copy"], "search": "../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.top", "navigation.footer", "navigation.sections", "content.code.copy"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.56dfad97.min.js"></script>
+      <script src="../../assets/javascripts/bundle.56dfad97.min.js"></script>
       
     
   </body>
