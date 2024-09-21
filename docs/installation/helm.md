@@ -25,6 +25,12 @@ controllers:
         env:
           # see https://davidborzek.github.io/tvhgo/latest/configuration/ for further configuration options
           TVHGO_SERVER_HOST: <TVHEADEND_HOST> # replace with the actual hostname or ip of your tvheadend server
+          TVHGO_SERVER_HOST: "0.0.0.0"
+          TVHGO_SERVER_PORT: &port 8080
+          # metrics
+          TVHGO_METRICS_ENABLED: "true"
+          TVHGO_METRICS_PORT: &metricsPort 8081
+          TVHGO_METRICS_PATH: &metricsPath "/metrics"
         probes:
           liveness:
             enabled: true
@@ -126,7 +132,7 @@ You can find more configuration options [here](#configuration).
 To complete the setup you need to create a user.
 
 ```bash
-kubectl exec -it \ 
+kubectl exec -it \
     $(kubectl get pods -n default -l app.kubernetes.io/name=tvhgo -o jsonpath='{.items[0].metadata.name}') \
     tvhgo admin user add
 ```
