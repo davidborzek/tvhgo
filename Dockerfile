@@ -9,7 +9,7 @@ COPY . .
 RUN go mod download
 RUN go build -o tvhgo -tags prod main.go
 
-FROM alpine:3.20 AS prod
+FROM alpine:3.21 AS prod
 
 COPY --from=build /build/tvhgo /bin/tvhgo
 
