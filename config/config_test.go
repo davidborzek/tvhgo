@@ -85,6 +85,7 @@ func TestLoadConfigFromEnv(t *testing.T) {
 
 	os.Setenv("TVHGO_SERVER_HOST", "0.0.0.0")
 	os.Setenv("TVHGO_SERVER_PORT", "9999")
+	os.Setenv("TVHGO_SERVER_SWAGGER_UI_ENABLED", "true")
 
 	os.Setenv("TVHGO_DATABASE_PATH", "/tmp/tvhgo.db")
 
@@ -121,8 +122,10 @@ func TestLoadConfigFromEnv(t *testing.T) {
 	assert.Equal(t, "someTvheadendUsername", cfg.Tvheadend.Username)
 	assert.Equal(t, "password", cfg.Tvheadend.Password)
 
+	enableSwaggerUI := true
 	assert.Equal(t, "0.0.0.0", cfg.Server.Host)
 	assert.Equal(t, 9999, cfg.Server.Port)
+	assert.Equal(t, &enableSwaggerUI, cfg.Server.SwaggerUI.Enabled)
 
 	assert.Equal(t, "/tmp/tvhgo.db", cfg.Database.Path)
 
