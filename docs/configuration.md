@@ -56,14 +56,13 @@ TVHGO_TVHEADEND_PASSWORD=<YOUR_PASSWORD>
 
 ## Options
 
-These configuration options are available.
-
 ### Server config (server)
 
-| Parameter | Type   | Required | Default | Description                                                               |
-| --------- | ------ | -------- | ------- | ------------------------------------------------------------------------- |
-| host      | string | false    |         | Bind host of the http server.                                             |
-| port      | int    | false    | 8080    | Bind port of the http server. Ports below `1024` may require root rights. |
+| Parameter  | Type       | Required | Default | Description                                                               |
+| ---------- | ---------- | -------- | ------- | ------------------------------------------------------------------------- |
+| host       | string     | false    |         | Bind host of the http server.                                             |
+| port       | int        | false    | 8080    | Bind port of the http server. Ports below `1024` may require root rights. |
+| swagger_ui | Swagger UI | false    |         | Swagger UI config.                                                        |
 
 **Example**
 
@@ -71,6 +70,22 @@ These configuration options are available.
 server:
   host: 127.0.0.1
   port: 1234
+```
+
+#### Swagger UI config (swagger_ui)
+
+| Parameter | Type    | Required | Default | Description                      |
+| --------- | ------- | -------- | ------- | -------------------------------- |
+| enabled   | boolean | false    | true    | Enables the Swagger UI api docs. |
+
+If enabled, you can access Swagger UI by visiting `http(s)://your-server(:8080)/api/swagger`.
+
+**Example**
+
+```yaml
+server:
+  swagger_ui:
+    enabled: false
 ```
 
 ### Log config (log)

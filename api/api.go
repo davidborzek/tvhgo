@@ -85,13 +85,16 @@ func (s *router) Handler() http.Handler {
 
 	authenticated := r.With(s.HandleAuthentication)
 
-	authenticated.Get("/swagger", func(w http.ResponseWriter, r *http.Request) {
-		http.Redirect(w, r, "/api/swagger/index.html", http.StatusMovedPermanently)
-	})
+	enabledSwaggerUI := s.cfg.Server.SwaggerUI.Enabled
+	if enabledSwaggerUI != nil && *enabledSwaggerUI {
+		authenticated.Get("/swagger", func(w http.ResponseWriter, r *http.Request) {
+			http.Redirect(w, r, "/api/swagger/index.html", http.StatusMovedPermanently)
+		})
 
-	authenticated.Get("/swagger/*", httpSwagger.Handler(
-		httpSwagger.URL("/api/swagger/doc.json"),
-	))
+		authenticated.Get("/swagger/*", httpSwagger.Handler(
+			httpSwagger.URL("/api/swagger/doc.json"),
+		))
+	}
 
 	authenticated.Post("/logout", s.Logout)
 	authenticated.Get("/auth/info", s.GetAuthInfo)
