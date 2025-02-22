@@ -1,6 +1,6 @@
 module github.com/davidborzek/tvhgo
 
-go 1.23
+go 1.23.0
 
 toolchain go1.24.0
 
@@ -22,7 +22,7 @@ require (
 	github.com/swaggo/swag v1.16.4
 	github.com/urfave/cli/v2 v2.27.5
 	go.uber.org/mock v0.5.0
-	golang.org/x/crypto v0.33.0
+	golang.org/x/crypto v0.34.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 
