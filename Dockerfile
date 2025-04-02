@@ -1,4 +1,4 @@
-FROM golang:1.24.1-alpine3.20 AS build
+FROM golang:1.24.2-alpine3.20 AS build
 RUN apk add --no-cache build-base
 
 ENV CGO_ENABLED=1
