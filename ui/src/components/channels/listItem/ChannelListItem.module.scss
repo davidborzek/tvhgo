@@ -29,6 +29,7 @@
   flex-direction: column;
   margin: 0.5rem 0;
   overflow: hidden;
+  flex: 1;
 }
 
 .channelName {
@@ -44,4 +45,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+}
+
+.actions {
+  margin: 1rem;
+  flex-shrink: 0;
 }

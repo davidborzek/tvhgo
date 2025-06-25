@@ -369,5 +369,8 @@
   "weekday_5": "Viernes",
   "weekday_6": "Sábado",
   "windows_compatible_filename": "Nombre de archivo compatible con Windows",
-  "yes": "Sí"
+  "yes": "Sí",
+  "watch": "Ver",
+  "select_stream_profile": "Seleccionar perfil de transmisión",
+  "live_stream": "Transmisión en vivo"
 }

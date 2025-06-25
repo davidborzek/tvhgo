@@ -249,3 +249,8 @@ export type CreateRecordingOpts = {
   comment?: string;
   configId?: string;
 };
+
+export type StreamProfile = {
+  id: string;
+  name: string;
+};

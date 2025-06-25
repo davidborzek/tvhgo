@@ -7,6 +7,7 @@ import (
 
 	"github.com/davidborzek/tvhgo/core"
 	"github.com/davidborzek/tvhgo/tvheadend"
+	"github.com/rs/zerolog/log"
 )
 
 type service struct {
@@ -30,7 +31,15 @@ func (s *service) GetChannelStream(
 		q.Set("profile", profile)
 	}
 
-	res, err := s.tvh.Exec(ctx, fmt.Sprintf("/stream/channelnumber/%d", channelNumber), nil, q)
+	// Log the URL being called for debugging
+	url := fmt.Sprintf("/stream/channelnumber/%d", channelNumber)
+	log.Info().
+		Int64("channelNumber", channelNumber).
+		Str("profile", profile).
+		Str("url", url).
+		Msg("streaming channel from tvheadend")
+
+	res, err := s.tvh.Exec(ctx, url, nil, q)
 	if err != nil {
 		return nil, err
 	}

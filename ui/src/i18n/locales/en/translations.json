@@ -379,5 +379,8 @@
   "weekday_5": "Friday",
   "weekday_6": "Saturday",
   "windows_compatible_filename": "Windows compatible filename",
-  "yes": "Yes"
+  "yes": "Yes",
+  "watch": "Watch",
+  "select_stream_profile": "Select stream profile",
+  "live_stream": "Live Stream"
 }
