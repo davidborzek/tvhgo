@@ -125,9 +125,6 @@ func (s *router) Handler() http.Handler {
 	authenticated.Get("/channels/{id}", s.GetChannel)
 	authenticated.Get("/channels/{number}/stream", s.StreamChannel)
 
-	// Debug endpoint for testing streaming without authentication
-	r.Get("/debug/channels/{number}/stream", s.StreamChannel)
-
 	authenticated.Get("/picon/{id}", s.GetPicon)
 
 	authenticated.Get("/recordings", s.GetRecordings)

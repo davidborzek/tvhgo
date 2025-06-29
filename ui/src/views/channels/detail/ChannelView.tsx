@@ -14,6 +14,7 @@ import PaginationControls from '@/components/common/paginationControls/Paginatio
 import styles from './ChannelView.module.scss';
 import { usePagination } from '@/hooks/pagination';
 import { useState } from 'react';
+import moment from 'moment';
 
 const defaultLimit = 50;
 
@@ -59,6 +60,11 @@ export const Component = () => {
     setSelectedEvent(null);
   };
 
+  const isCurrentlyPlaying = (event: EpgEvent) => {
+    const now = moment().unix();
+    return now >= event.startsAt && now < event.endsAt;
+  };
+
   return (
     <div className={styles.channel}>
       <div className={styles.header}>
@@ -80,7 +86,7 @@ export const Component = () => {
             onClick={(id) => {
               navigate(`/guide/events/${id}`);
             }}
-            onWatch={() => handleWatch(event)}
+            onWatch={isCurrentlyPlaying(event) ? () => handleWatch(event) : undefined}
             dvrState={event.dvrState}
             showProgress
             showDate

@@ -29,7 +29,9 @@ function ChannelListItem({ event, onClick, onWatch }: Props) {
         />
       </div>
       <div className={styles.event}>
-        <span className={styles.channelName}>{event.channelName}</span>
+        <span className={styles.channelName}>
+          {event.channelNumber} - {event.channelName}
+        </span>
         <span className={styles.eventTitle}>{event.title}</span>
         <span className={styles.eventTitle}>{t('event_time', { event })}</span>
       </div>

@@ -3,7 +3,6 @@ package api
 import (
 	"context"
 	"errors"
-	"fmt"
 	"net/http"
 	"syscall"
 
@@ -19,7 +18,6 @@ import (
 //	@Tags		channels
 //	@Param		number	path	string	true	"Channel number"
 //	@Param		profile	query	string	false	"Streaming profile"
-//	@Param		debug	query	string	false	"Debug mode (bypasses auth for testing)"
 //	@Produce	video/*
 //	@Produce	json
 //	@Success	200
@@ -30,26 +28,10 @@ func (s *router) StreamChannel(w http.ResponseWriter, r *http.Request) {
 	number, err := request.NumericURLParam(r, "number")
 
 	profile := r.URL.Query().Get("profile")
-	debug := r.URL.Query().Get("debug")
 
 	if err != nil {
 		response.BadRequestf(w, "invalid value for parameter 'number'")
 		return
-	}
-
-	// Temporary debug bypass for testing
-	if debug == "true" {
-		log.Info().Int64("channel", number).
-			Str("profile", profile).
-			Msg("debug mode: bypassing authentication for streaming")
-
-		// Show the TVHeadend URL that would be called
-		tvhURL := fmt.Sprintf("/stream/channelnumber/%d", number)
-		if profile != "" {
-			tvhURL += "?profile=" + profile
-		}
-		log.Info().Str("tvheadend_url", tvhURL).
-			Msg("debug: TVHeadend URL being called")
 	}
 
 	res, err := s.streaming.GetChannelStream(context.Background(), number, profile)
