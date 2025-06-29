@@ -1,3 +1,4 @@
+import Button from '@/components/common/button/Button';
 import { c } from '@/utils/classNames';
 import moment from 'moment';
 import styles from './GuideEvent.module.scss';
@@ -15,6 +16,7 @@ type Props = {
   showDate?: boolean;
   channel?: string;
   onClick: (eventId: number) => void;
+  onWatch?: () => void;
 };
 
 function GuideEvent({
@@ -29,6 +31,7 @@ function GuideEvent({
   showDate,
   channel,
   onClick,
+  onWatch,
 }: Props) {
   const { t } = useTranslation();
 
@@ -37,6 +40,11 @@ function GuideEvent({
     : t('event_time', { event: { startsAt, endsAt } });
 
   const extra = subtitle || description;
+
+  const handleWatchClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    onWatch?.();
+  };
 
   const renderProgress = () => {
     const width = Math.floor(
@@ -67,20 +75,32 @@ function GuideEvent({
 
   return (
     <div className={styles.event} onClick={() => onClick(eventId)} tabIndex={0}>
-      <span title={title} className={c(styles.name, styles.attribute)}>
-        {title}
-      </span>
-      <span title={extra} className={c(styles.subtitle, styles.attribute)}>
-        {extra}
-      </span>
-      {channel && (
-        <span title={channel} className={c(styles.channel, styles.attribute)}>
-          {channel}
+      <div className={styles.content}>
+        <span title={title} className={c(styles.name, styles.attribute)}>
+          {title}
         </span>
+        <span title={extra} className={c(styles.subtitle, styles.attribute)}>
+          {extra}
+        </span>
+        {channel && (
+          <span title={channel} className={c(styles.channel, styles.attribute)}>
+            {channel}
+          </span>
+        )}
+        <span title={time} className={c(styles.time, styles.attribute)}>
+          {time}
+        </span>
+      </div>
+      {onWatch && (
+        <div className={styles.actions}>
+          <Button
+            onClick={handleWatchClick}
+            style="blue"
+            size="small"
+            label={t('watch')}
+          />
+        </div>
       )}
-      <span title={time} className={c(styles.time, styles.attribute)}>
-        {time}
-      </span>
       {showProgress && renderProgress()}
       {renderRecBadge()}
     </div>

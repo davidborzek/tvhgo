@@ -7,11 +7,13 @@ import {
 } from 'react-router-dom';
 
 import ChannelListItem from '@/components/channels/listItem/ChannelListItem';
+import ChannelViewer from '@/components/channels/viewer/ChannelViewer';
 import EmptyState from '@/components/common/emptyState/EmptyState';
 import PaginationControls from '@/components/common/paginationControls/PaginationControls';
 import { getEpgEvents } from '@/clients/api/api';
 import styles from './ChannelListView.module.scss';
 import { usePagination } from '@/hooks/pagination';
+import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 const defaultLimit = 50;
@@ -34,11 +36,23 @@ export function Component() {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [selectedEvent, setSelectedEvent] = useState<EpgEvent | null>(null);
+  const [isViewerOpen, setIsViewerOpen] = useState(false);
 
   const { limit, nextPage, previousPage, getOffset, firstPage, lastPage } =
     usePagination(defaultLimit, searchParams, setSearchParams);
 
   const { entries, total } = useLoaderData() as ListResponse<EpgEvent>;
+
+  const handleWatch = (event: EpgEvent) => {
+    setSelectedEvent(event);
+    setIsViewerOpen(true);
+  };
+
+  const handleCloseViewer = () => {
+    setIsViewerOpen(false);
+    setSelectedEvent(null);
+  };
 
   if (entries.length === 0) {
     return (
@@ -55,6 +69,7 @@ export function Component() {
           onClick={(id) => {
             navigate(`/channels/${id}`);
           }}
+          onWatch={handleWatch}
         />
       );
     });
@@ -72,6 +87,13 @@ export function Component() {
         offset={getOffset()}
         total={total}
       />
+      {selectedEvent && (
+        <ChannelViewer
+          event={selectedEvent}
+          isOpen={isViewerOpen}
+          onClose={handleCloseViewer}
+        />
+      )}
     </div>
   );
 }

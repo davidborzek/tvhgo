@@ -3,6 +3,7 @@ package epg
 import (
 	"context"
 	"errors"
+	"sort"
 
 	"github.com/davidborzek/tvhgo/core"
 	"github.com/davidborzek/tvhgo/tvheadend"
@@ -61,6 +62,17 @@ func (s *service) GetEvents(
 	}
 
 	result := core.BuildEpgEventsResult(grid, params.Offset)
+
+	// Sort by channel number if that's the requested sort key
+	if params.SortKey == "channelNumber" {
+		sort.SliceStable(result.Entries, func(i, j int) bool {
+			if params.SortDirection == "desc" {
+				return result.Entries[i].ChannelNumber > result.Entries[j].ChannelNumber
+			}
+			return result.Entries[i].ChannelNumber < result.Entries[j].ChannelNumber
+		})
+	}
+
 	return &result, nil
 }
 

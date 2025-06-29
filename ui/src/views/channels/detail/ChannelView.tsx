@@ -7,11 +7,14 @@ import {
 } from 'react-router-dom';
 import { getChannel, getEpgEvents } from '@/clients/api/api';
 
+import ChannelViewer from '@/components/channels/viewer/ChannelViewer';
 import EventChannelInfo from '@/components/epg/event/channelInfo/EventChannelInfo';
 import GuideEvent from '@/components/epg/guide/event/GuideEvent';
 import PaginationControls from '@/components/common/paginationControls/PaginationControls';
 import styles from './ChannelView.module.scss';
 import { usePagination } from '@/hooks/pagination';
+import { useState } from 'react';
+import moment from 'moment';
 
 const defaultLimit = 50;
 
@@ -36,6 +39,8 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
 export const Component = () => {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
+  const [selectedEvent, setSelectedEvent] = useState<EpgEvent | null>(null);
+  const [isViewerOpen, setIsViewerOpen] = useState(false);
 
   const { limit, nextPage, previousPage, getOffset, firstPage, lastPage } =
     usePagination(defaultLimit, searchParams, setSearchParams);
@@ -44,6 +49,21 @@ export const Component = () => {
     Channel,
     ListResponse<EpgEvent>,
   ];
+
+  const handleWatch = (event: EpgEvent) => {
+    setSelectedEvent(event);
+    setIsViewerOpen(true);
+  };
+
+  const handleCloseViewer = () => {
+    setIsViewerOpen(false);
+    setSelectedEvent(null);
+  };
+
+  const isCurrentlyPlaying = (event: EpgEvent) => {
+    const now = moment().unix();
+    return now >= event.startsAt && now < event.endsAt;
+  };
 
   return (
     <div className={styles.channel}>
@@ -56,6 +76,7 @@ export const Component = () => {
       <div className={styles.events}>
         {entries.map((event) => (
           <GuideEvent
+            key={event.id}
             eventId={event.id}
             title={event.title}
             subtitle={event.subtitle}
@@ -65,6 +86,7 @@ export const Component = () => {
             onClick={(id) => {
               navigate(`/guide/events/${id}`);
             }}
+            onWatch={isCurrentlyPlaying(event) ? () => handleWatch(event) : undefined}
             dvrState={event.dvrState}
             showProgress
             showDate
@@ -80,6 +102,13 @@ export const Component = () => {
         offset={getOffset()}
         total={total}
       />
+      {selectedEvent && (
+        <ChannelViewer
+          event={selectedEvent}
+          isOpen={isViewerOpen}
+          onClose={handleCloseViewer}
+        />
+      )}
     </div>
   );
 };

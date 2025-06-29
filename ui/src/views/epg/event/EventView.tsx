@@ -11,6 +11,7 @@ import {
   getRelatedEpgEvents,
 } from '@/clients/api/api';
 
+import ChannelViewer from '@/components/channels/viewer/ChannelViewer';
 import DVRProfileSelectModal from '@/modals/dvr/profile/DVRProfileSelectModal';
 import EventChannelInfo from '@/components/epg/event/channelInfo/EventChannelInfo';
 import EventInfo from '@/components/epg/event/info/EventInfo';
@@ -49,6 +50,7 @@ export function Component() {
   ];
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [isViewerOpen, setIsViewerOpen] = useState(false);
 
   const handleCreateRecording = async (profileId?: string) => {
     await createRecording(event.id, profileId);
@@ -73,6 +75,14 @@ export function Component() {
     handleCreateRecording();
   };
 
+  const handleWatch = () => {
+    setIsViewerOpen(true);
+  };
+
+  const handleCloseViewer = () => {
+    setIsViewerOpen(false);
+  };
+
   return (
     <div className={styles.Event}>
       <DVRProfileSelectModal
@@ -93,8 +103,17 @@ export function Component() {
         event={event}
         handleOnRecord={handleOnRecord}
         pending={pending}
+        onWatch={handleWatch}
       />
       <EventRelated relatedEvents={relatedEvents} />
+      
+      {isViewerOpen && (
+        <ChannelViewer
+          event={event}
+          isOpen={isViewerOpen}
+          onClose={handleCloseViewer}
+        />
+      )}
     </div>
   );
 }
