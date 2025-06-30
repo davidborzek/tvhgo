@@ -15,7 +15,10 @@
   "cancel_recording": "Cancelar grabación",
   "change_password": "Cambiar contraseña",
   "channel": "Canal",
-  "channel_required": "Canal requerido.",
+  "channel_disabled": "Deshabilitado",
+  "channel_enabled": "Habilitado",
+  "channel_number": "Canal {{number}}",
+  "channel_required": "El canal es requerido.",
   "channel_subdir": "Subdirectorio de canal",
   "channels": "Canales",
   "charset": "Conjunto de caracteres",
@@ -369,5 +372,8 @@
   "weekday_5": "Viernes",
   "weekday_6": "Sábado",
   "windows_compatible_filename": "Nombre de archivo compatible con Windows",
-  "yes": "Sí"
+  "yes": "Sí",
+  "watch": "Ver",
+  "select_stream_profile": "Seleccionar perfil de transmisión",
+  "live_stream": "Transmisión en vivo"
 }

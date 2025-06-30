@@ -15,6 +15,9 @@
   "cancel_recording": "Cancel recording",
   "change_password": "Change password",
   "channel": "Channel",
+  "channel_disabled": "Disabled",
+  "channel_enabled": "Enabled",
+  "channel_number": "Channel {{number}}",
   "channel_required": "Channel is required.",
   "channel_subdir": "Channel subdirectory",
   "channels": "Channels",
@@ -379,5 +382,8 @@
   "weekday_5": "Friday",
   "weekday_6": "Saturday",
   "windows_compatible_filename": "Windows compatible filename",
-  "yes": "Yes"
+  "yes": "Yes",
+  "watch": "Watch",
+  "select_stream_profile": "Select stream profile",
+  "live_stream": "Live Stream"
 }

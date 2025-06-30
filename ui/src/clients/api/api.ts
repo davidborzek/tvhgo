@@ -11,6 +11,7 @@ import {
   ListResponse,
   Recording,
   Session,
+  StreamProfile,
   Token,
   TwoFactorAuthSettings,
   TwoFactorAuthSetupResult,
@@ -350,4 +351,21 @@ export async function createRecording(
   opts: CreateRecordingOpts
 ): Promise<void> {
   await client.post(`/recordings`, opts);
+}
+
+export async function getStreamProfiles(): Promise<Array<StreamProfile>> {
+  const response = await client.get<Array<StreamProfile>>(`/profiles/stream`);
+  return response.data;
+}
+
+export function getChannelStreamUrl(
+  channelNumber: number,
+  profile?: string
+): string {
+  const params = new URLSearchParams();
+  if (profile) {
+    params.set('profile', profile);
+  }
+  const queryString = params.toString();
+  return `/api/channels/${channelNumber}/stream${queryString ? `?${queryString}` : ''}`;
 }
