@@ -197,11 +197,7 @@ func mapTimeRangeToTvheadendFilter(startsAt int64, endsAt int64) []tvheadend.Fil
 // BuildEpgEvent maps a epg grid event entry
 // from Tvheadend to a EpgEvent model.
 func BuildEpgEvent(src tvheadend.EpgEventGridEntry) EpgEvent {
-	channelNumber, err := strconv.ParseInt(src.ChannelNumber, 10, 64)
-	if err != nil {
-		// If parsing fails, use 0 as fallback
-		channelNumber = 0
-	}
+	channelNumber, _ := strconv.ParseInt(src.ChannelNumber, 10, 0)
 
 	return EpgEvent{
 		AudioDesc:     src.AudioDesc == 1,
