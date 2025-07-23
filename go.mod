@@ -13,7 +13,7 @@ require (
 	github.com/golang-migrate/migrate/v4 v4.18.3
 	github.com/gorilla/schema v1.4.1
 	github.com/onsi/ginkgo/v2 v2.23.4
-	github.com/onsi/gomega v1.37.0
+	github.com/onsi/gomega v1.38.0
 	github.com/pquerna/otp v1.5.0
 	github.com/prometheus/client_golang v1.22.0
 	github.com/rs/zerolog v1.34.0
@@ -70,6 +70,6 @@ require (
 	golang.org/x/term v0.33.0 // indirect
 	golang.org/x/text v0.27.0 // indirect
 	golang.org/x/tools v0.34.0 // indirect
-	google.golang.org/protobuf v1.36.5 // indirect
+	google.golang.org/protobuf v1.36.6 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
