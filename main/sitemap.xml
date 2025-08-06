@@ -2,38 +2,38 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://davidborzek.github.io/tvhgo/main/</loc>
-         <lastmod>2025-01-03</lastmod>
+         <lastmod>2025-08-06</lastmod>
     </url>
     <url>
          <loc>https://davidborzek.github.io/tvhgo/main/auth/</loc>
-         <lastmod>2025-01-03</lastmod>
+         <lastmod>2025-08-06</lastmod>
     </url>
     <url>
          <loc>https://davidborzek.github.io/tvhgo/main/configuration/</loc>
-         <lastmod>2025-01-03</lastmod>
+         <lastmod>2025-08-06</lastmod>
     </url>
     <url>
          <loc>https://davidborzek.github.io/tvhgo/main/fail2ban/</loc>
-         <lastmod>2025-01-03</lastmod>
+         <lastmod>2025-08-06</lastmod>
     </url>
     <url>
          <loc>https://davidborzek.github.io/tvhgo/main/installation/</loc>
-         <lastmod>2025-01-03</lastmod>
+         <lastmod>2025-08-06</lastmod>
     </url>
     <url>
          <loc>https://davidborzek.github.io/tvhgo/main/metrics/</loc>
-         <lastmod>2025-01-03</lastmod>
+         <lastmod>2025-08-06</lastmod>
     </url>
     <url>
          <loc>https://davidborzek.github.io/tvhgo/main/cli/docs/</loc>
-         <lastmod>2025-01-03</lastmod>
+         <lastmod>2025-08-06</lastmod>
     </url>
     <url>
          <loc>https://davidborzek.github.io/tvhgo/main/installation/docker/</loc>
-         <lastmod>2025-01-03</lastmod>
+         <lastmod>2025-08-06</lastmod>
     </url>
     <url>
          <loc>https://davidborzek.github.io/tvhgo/main/installation/helm/</loc>
-         <lastmod>2025-01-03</lastmod>
+         <lastmod>2025-08-06</lastmod>
     </url>
 </urlset>
