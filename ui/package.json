@@ -14,7 +14,7 @@
     "pre-commit": "lint-staged"
   },
   "dependencies": {
-    "axios": "^1.2.1",
+    "axios": "^1.13.5",
     "formik": "^2.2.9",
     "i18next": "^25.0.0",
     "i18next-browser-languagedetector": "^8.0.0",
