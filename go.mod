@@ -7,7 +7,7 @@ toolchain go1.26.2
 require (
 	github.com/AlecAivazis/survey/v2 v2.3.7
 	github.com/alexliesenfeld/health v0.8.1
-	github.com/caarlos0/env/v11 v11.4.0
+	github.com/caarlos0/env/v11 v11.4.1
 	github.com/go-chi/chi/v5 v5.2.5
 	github.com/go-chi/cors v1.2.2
 	github.com/golang-migrate/migrate/v4 v4.19.1
