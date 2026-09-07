@@ -45,6 +45,7 @@ export const Component = () => {
     { title: t('english'), value: 'en' },
     { title: t('german'), value: 'de' },
     { title: t('spanish'), value: 'es' },
+    { title: t('french'), value: 'fr' },
   ];
 
   const timeFormatOptions: Option[] = [
